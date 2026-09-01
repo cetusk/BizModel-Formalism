@@ -1,0 +1,88 @@
+/* tex4ht の出力に重ねる読みやすさのための調整 */
+:root{
+  --fg:#1a1a1a; --muted:#666; --line:#ddd; --accent:#0b5; --bg:#fff;
+  --rule:#333;
+}
+@media (prefers-color-scheme:dark){
+  :root{--fg:#e8e8e8; --muted:#999; --line:#333; --accent:#4c9; --bg:#151515; --rule:#bbb}
+}
+
+body{
+  max-width:46rem; margin:0 auto; padding:2rem 1.2rem 6rem;
+  background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+  line-height:1.85; font-size:16px;
+}
+
+/* 見出し */
+h1,h2,h3,h4{line-height:1.5; font-weight:600; margin:2.2rem 0 .8rem}
+h1{font-size:1.55rem}
+h2{font-size:1.25rem; padding-bottom:.3rem; border-bottom:1px solid var(--line)}
+h3{font-size:1.08rem}
+h4{font-size:1rem; color:var(--muted)}
+.chapterHead,.partHead{margin-top:1rem}
+.titlemark{display:block; font-size:.85rem; color:var(--muted); font-weight:400}
+
+/* 本文 */
+p{margin:0 0 1rem}
+p.indent{text-indent:1em}
+a{color:var(--accent)}
+
+/* 定理環境 */
+.theorem,.proposition,.definition,.remark,.example,.corollary{
+  margin:1.2rem 0; padding:.1rem 0 .1rem .9rem;
+  border-left:3px solid var(--line);
+}
+.proof{margin:1rem 0 1.4rem; color:var(--muted)}
+
+/* 表 */
+table{border-collapse:collapse; margin:1.2rem auto; font-size:.92rem}
+table.equation{border:0}
+td,th{padding:.4rem .7rem; vertical-align:top}
+.hline td,.cline td{border-top:1px solid var(--rule)}
+.lefthead,.righthead{white-space:nowrap}
+
+/* 図 */
+figure,.figure{margin:1.8rem 0; text-align:center}
+img,svg{max-width:100%; height:auto}
+.caption,figcaption{font-size:.88rem; color:var(--muted); margin-top:.5rem}
+
+/* 数式 */
+math{font-size:1em}
+.equation{margin:1.2rem 0}
+
+/* 目次 */
+.tableofcontents{font-size:.94rem; line-height:1.9}
+.tableofcontents a{text-decoration:none}
+.tableofcontents a:hover{text-decoration:underline}
+.chapterToc{margin-top:.7rem; font-weight:600}
+.sectionToc{margin-left:1.2rem}
+.subsectionToc{margin-left:2.4rem; color:var(--muted); font-size:.9em}
+
+/* ナビゲーション */
+.crosslinks{
+  margin:2rem 0; padding:.7rem 0; font-size:.9rem;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.crosslinks p{margin:0}
+
+/* 脚注・引用 */
+.footnotes{font-size:.9rem; color:var(--muted); margin-top:2.5rem}
+.thebibliography{font-size:.92rem}
+.bibitem{margin:.6rem 0}
+
+/* 建設中の告知 */
+.wip{
+  border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:3px; padding:.6rem .9rem; margin:0 0 1.8rem;
+  font-size:.84rem; line-height:1.7; color:var(--muted);
+}
+.wip strong{color:var(--fg)}
+.wip a{color:var(--accent)}
+
+/* 狭い画面 */
+@media (max-width:600px){
+  body{font-size:15px; padding:1.2rem .9rem 4rem}
+  table{font-size:.85rem}
+  td,th{padding:.3rem .4rem}
+}

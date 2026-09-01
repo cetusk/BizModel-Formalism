@@ -1,0 +1,646 @@
+\appendix
+\part{付録}
+
+\chapter{補遺：方法論に関する証明}
+\label{app:proofs}
+
+本文中で述べた方法論上の主張のうち、証明を与えるべきものをここに集約する。
+各節では、定式化の選択がなぜその形になるか、
+本文で扱わなかった含意、および証明の適用限界を併記する。
+
+含意として展開するのは、条件づけの強さと歪みの関係（注\ref{rem:collider-strength}）、
+失敗事例のみを集めても歪みが解消しないこと（注\ref{rem:collider-reverse}）、
+APC問題において曲率は識別されること（注\ref{rem:apc-identified}）、
+本稿の $\CCC$ の時系列にAPC問題が潜在すること（注\ref{rem:apc-in-this-work}）、
+期限制約下では目的関数が不連続になること（注\ref{rem:deadline-objective}）、
+および代替性が静的な制約に限られること（注\ref{rem:substitution-limit}、\ref{rem:substitution-boundary}）である。
+
+適用限界は注\ref{rem:collider-limit}と注\ref{rem:deadline-limit}に記す。
+
+\section{合流点条件づけによる相関の発生}
+
+\subsection{定式化の選択}
+
+第\ref{sec:survivorship}節で扱ったのは、
+観測される企業が生存に条件づけられているという問題である。
+これを形式化するには、生存が何の関数であるかを決めねばならない。
+
+本稿は $S = \Ind\{a\Phi + b\varepsilon > \theta\}$ という\textbf{線形加法の閾値}を採る。
+$\Phi$ は契約形態に由来する優位、$\varepsilon$ は外生的な衝撃である。
+この形を選ぶ理由は三つある。
+
+第一に、\textbf{加法性}が本質である。$\Phi$ の劣位を $\varepsilon$ の優位が補償できるという構造が、
+条件づけによる相関の源泉となる。乗法的な形 $S=\Ind\{\Phi\varepsilon>\theta\}$ でも
+同種の結果は出るが、補償の解釈が失われる。
+
+第二に、\textbf{閾値}であることが必要である。生存は連続量ではなく二値の事象であり、
+条件づけの対象が集合となる。$S$ を連続変数とすれば、これは条件づけではなく回帰の問題になる。
+
+第三に、$a,b>0$ という符号制約は\textbf{両者が生存に正に寄与する}ことを述べている。
+片方が負であれば結果は逆転する。第\ref{sec:survivorship}節で
+「歪みの向きは条件づけ対象によって反転する」と述べたのは、この符号に依存する。
+
+\begin{proposition}[合流点バイアス]
+\label{prop:collider}
+$\Phi$ と $\varepsilon$ を独立な確率変数とし、
+$a,b>0$ と閾値 $\theta$ に対して生存指示変数を
+$S = \Ind\{a\Phi + b\varepsilon > \theta\}$ で定める。
+このとき $S=1$ で条件づけると $\Phi$ と $\varepsilon$ は負に相関する。すなわち
+\[
+\operatorname{Cov}\bigl[\Phi,\varepsilon \mid S=1\bigr] < 0 .
+\]
+\end{proposition}
+
+\begin{proof}
+$\Phi$ の実現値 $x$ を固定する。$S=1$ の条件は
+$\varepsilon > (\theta - a x)/b$ と同値である。
+右辺は $x$ の減少関数であるから、
+条件付き分布 $\varepsilon \mid (\Phi=x, S=1)$ は $x$ について確率的に減少する。
+したがって
+\[
+\E[\varepsilon \mid \Phi=x,\ S=1]
+\]
+は $x$ の減少関数である。$\Phi$ と $\varepsilon$ の同時分布が
+非退化であればこの減少は厳密であり、共分散の定義
+\[
+\operatorname{Cov}[\Phi,\varepsilon\mid S=1]
+= \E\bigl[(\Phi-\E\Phi)\,(\E[\varepsilon\mid\Phi,S=1]-\E\varepsilon)\bigm| S=1\bigr]
+\]
+において括弧内の二因子が逆符号に動くから、共分散は負となる。
+\end{proof}
+
+\begin{corollary}[構造効果の過小推定]
+生存標本において $\Phi$ の劣位は $\varepsilon$ の優位により部分的に相殺される。
+したがって $\Phi$ が成果に与える効果の推定量はゼロ方向に偏る。
+\end{corollary}
+
+\subsection{本文で扱わなかった含意}
+
+\begin{remark}[条件づけの強さと歪みの大きさ]
+\label{rem:collider-strength}
+$\Prob(S=1)$ が小さいほど、条件付き相関の絶対値は大きくなる。
+閾値 $\theta$ を上げれば、生存には $\Phi$ と $\varepsilon$ の
+より極端な組み合わせが要求され、両者の補償関係が強まるためである。
+
+これは実務上の含意を持つ。
+\textbf{厳しい条件で標本を絞るほど、歪みは大きくなる}。
+第\ref{sec:frame}節で扱った上場企業（全体の 0.11\%）は、
+生存に加えて上場という二重の条件づけを受けており、
+歪みは単純な生存条件づけより大きい。
+\end{remark}
+
+\begin{remark}[逆向きの条件づけ]
+\label{rem:collider-reverse}
+$S=0$ すなわち\emph{退出した}企業のみを観測する場合も、同じ機構が働く。
+$\Prob(\varepsilon<(\theta-ax)/b)$ は $x$ の増加関数であるから、
+$S=0$ の下でも $\Phi$ と $\varepsilon$ は負に相関する。
+
+したがって\textbf{失敗事例だけを集めても歪みは解消しない}。
+成功と失敗の双方を含む標本、
+すなわち条件づけを行わない標本のみが不偏である。
+これは第\ref{part:results}部で族2の媒体別パネルが
+成長セグメントと縮小セグメントを同時に含んでいたことの重要性を説明する。
+\end{remark}
+
+\begin{remark}[証明の限界]
+\label{rem:collider-limit}
+命題\ref{prop:collider}は $\Phi$ と $\varepsilon$ の\textbf{無条件の独立性}を仮定する。
+両者が元から相関していれば、条件づけによる負の寄与と
+元の相関が混ざり、符号は定まらない。
+
+現実には契約形態と外生的衝撃は独立でない可能性がある。
+たとえば景気変動に強い $\Phi$ を選ぶ企業は、
+$\varepsilon$ の分散が小さい環境を選んでいることになる。
+この場合、本命題は適用できない。
+\end{remark}
+
+\begin{example}[数値による確認]
+$\Phi,\varepsilon\sim N(0,1)$ を独立とし、$S=\Ind\{\Phi+\varepsilon>0\}$ とする。
+このとき $\Phi+\varepsilon\sim N(0,2)$ であり、$\Prob(S=1)=1/2$。
+既知の結果として、$S=1$ の下で
+$\operatorname{Corr}[\Phi,\varepsilon\mid S=1] \approx -0.57$ となる。
+無条件では $0$ である相関が、生存で条件づけただけで大きく負に振れる。
+\end{example}
+
+\section{年齢・時点・コホートの識別不能性}
+
+\subsection{なぜ線形モデルで論じるか}
+
+第\ref{sec:apc}節の主張を線形代数の言葉で述べる。
+線形の設定を採るのは、\textbf{識別不能が線形性から生じるためではなく、
+線形の場合に最も明瞭に現れるため}である。
+
+非線形なモデルであれば $(\alpha,\pi,\gamma)$ が識別される場合もある。
+たとえば年齢効果が二次であり時点効果が線形であれば、両者は区別できる。
+しかしその識別は\textbf{関数形の仮定に完全に依存する}。
+仮定を変えれば結論が変わる以上、識別されたとは言い難い。
+
+線形の場合を示すのは、識別不能の\emph{核心}が
+$a=p-c$ という恒等式にあり、関数形の工夫では回避できないことを明らかにするためである。
+
+\begin{proposition}[APC の識別不能性]
+\label{prop:apc}
+観測値 $y$ を年齢 $a$、時点 $p$、コホート $c$ の線形和
+\[
+y = \mu + \alpha\,a + \pi\,p + \gamma\,c + \epsilon
+\]
+で説明するモデルを考える。恒等式
+\begin{equation}
+a = p - c \tag{\ref{eq:apc-main}}
+\end{equation}
+が成立するとき、$(\alpha,\pi,\gamma)$ は識別されない。
+\end{proposition}
+
+\begin{proof}
+任意の $\eta\in\R$ に対し、
+$(\alpha',\pi',\gamma') = (\alpha+\eta,\ \pi-\eta,\ \gamma+\eta)$ とおく。
+式\eqref{eq:apc-main}より
+\[
+\alpha' a + \pi' p + \gamma' c
+= \alpha a + \pi p + \gamma c + \eta(a - p + c)
+= \alpha a + \pi p + \gamma c .
+\]
+すなわち任意の $\eta$ について予測値が一致する。
+設計行列の列 $(a,p,c)$ は線形従属であり、階数が1だけ不足している。
+したがって最小二乗解は一意でない。
+\end{proof}
+
+\subsection{本文で扱わなかった含意}
+
+\begin{remark}[何が識別され、何がされないか]
+\label{rem:apc-identified}
+識別不能なのは三係数の\emph{水準}であって、すべてが不明なのではない。
+
+命題\ref{prop:apc}の変換 $(\alpha+\eta,\ \pi-\eta,\ \gamma+\eta)$ が
+不変に保つ量は識別される。たとえば $\alpha+\gamma$ や、
+係数の\textbf{二階差分}すなわち曲率は $\eta$ に依存しない。
+
+したがって「年齢とともに $\CCC$ が単調に上がるか」は識別されないが、
+「年齢効果に曲がりがあるか」は識別される。
+第\ref{sec:apc}節で三変数の分離を断念したことは、
+\textbf{曲率まで諦めることを意味しない}。本稿はこの方向を追求していない。
+\end{remark}
+
+\begin{remark}[識別のための制約]
+識別には外生的制約を一つ追加する必要がある。
+典型的には $\alpha=0$、$\pi=0$、$\gamma=0$ のいずれかを課すか、
+隣接する二つの係数を等しいと仮定する。
+いずれの制約も検証不能であり、結論は仮定に依存する。
+本稿では制約を課さず、識別不能である旨を明記する方針をとる（第\ref{sec:apc}節）。
+\end{remark}
+
+\begin{remark}[本稿における現れ方]
+\label{rem:apc-in-this-work}
+APC問題は本稿の複数箇所で潜在的に働いている。
+
+第\ref{part:industry}章で $\CCC$ の時系列を扱ったが、
+企業の年齢分布が時点によって変化していれば、
+観測された $\CCC$ の上昇は時点効果と年齢効果の混合である。
+第\ref{sec:ccc-decomposition}節のシフト・シェア分解は
+業種構成を分離したが、\textbf{年齢構成は分離していない}。
+
+創業間もない企業ほど $\CCC$ が短いなら、
+高齢企業の比率上昇が $\CCC$ の上昇を説明しうる。
+本稿はこれを検証していない。
+\end{remark}
+
+\section{期限制約下の分散選好}
+
+第\ref{sec:retiree}節の命題を証明する。
+
+\begin{proposition}[期限下では分散最小化が最適でない]
+\label{prop:deadline-variance}
+到達までの所要時間を $\Theta>0$、期限を $T_{\max}$ とし、
+成功を $\{\Theta \leq T_{\max}\}$ と定める。
+$\E[\Theta] > T_{\max}$ であるとき、
+$\E[\Theta]$ を一定に保つ分散の増加は成功確率を増加させうる。
+特に $\operatorname{Var}[\Theta]\to 0$ の極限で成功確率は $0$ に収束する。
+\end{proposition}
+
+\begin{proof}
+$\operatorname{Var}[\Theta]=0$ ならば $\Theta = \E[\Theta] > T_{\max}$ が確率1で成立し、
+$\Prob(\Theta\leq T_{\max})=0$ である。
+一方、平均を保ったまま分散を持たせ、
+たとえば確率 $q$ で $\Theta=T_1<T_{\max}$、確率 $1-q$ で $\Theta=T_2$ となる二点分布を
+$qT_1+(1-q)T_2=\E[\Theta]$ を満たすようにとれば、成功確率は $q>0$ となる。
+したがって分散の増加により成功確率が改善する。
+\end{proof}
+
+\begin{remark}[床制約との対比]
+この命題は第\ref{sec:bootstrap}節で導いた「少額多数で分散を下げよ」と矛盾しない。
+前者は床制約 $M\geq 0$ の下での結論であり、
+後者は期限制約 $\tau \leq E(0)/c$ の下での結論である。
+\textbf{制約の型が変われば最適な分散選好も変わる。}
+\end{remark}
+
+\begin{remark}[目的関数が成功確率であることの含意]
+\label{rem:deadline-objective}
+命題\ref{prop:deadline-variance}は目的関数を $\Prob(\Theta\leq T_{\max})$ とした。
+これは第\ref{sec:objective}章の $\E[\sum\beta^t\phi_t]$ とは異なる。
+
+両者が食い違うのは、\textbf{期限を超えた場合の損失が
+どれだけ超えたかに依存しない}ためである。
+$T_{\max}$ を1日超えても1年超えても結果は同じであり、
+目的関数は二値になる。この不連続性が分散選好を反転させる。
+
+第\ref{sec:objective}章の倒産時刻 $\tau$ も吸収状態であり同じ性質を持つ。
+すなわち\textbf{本稿の枠組みは、目的関数が滑らかでない領域を含んでいる}。
+命題\ref{prop:pathwise}の経路制約はその現れである。
+\end{remark}
+
+\begin{remark}[証明の限界]
+\label{rem:deadline-limit}
+本命題が示すのは分散増加が成功確率を改善\emph{しうる}ことであって、
+常に改善することではない。$\E[\Theta]<T_{\max}$ であれば逆に、
+分散の増加は成功確率を下げる。
+
+境界は $\E[\Theta]$ と $T_{\max}$ の大小である。
+実務的には\textbf{見込みが十分にあるなら安全策、
+足りないなら賭ける}という判断になるが、
+$\E[\Theta]$ を事前に知ることは通常できない。
+本稿はこの推定の問題を扱わない。
+\end{remark}
+
+\section{資本と信用の代替性}
+
+\begin{proposition}[代替関係]
+\label{prop:substitution}
+$A=\mathrm{Inv}=0$ のとき、制約 $M\geq 0$ は
+\begin{equation}
+E \;+\; \sum_i \max\{-\kappa_i,0\} \;\geq\; \sum_i \max\{\kappa_i,0\}
+\end{equation}
+と同値である。すなわち $E$ と負の $\kappa$ は制約式において完全代替である。
+\end{proposition}
+
+\begin{proof}
+命題\ref{prop:cash}の式\eqref{eq:cash}に $A=\mathrm{Inv}=0$ を代入し、
+$M\geq 0$ を整理すれば直ちに従う。
+左辺の二項は同一の係数 $1$ で入るから、
+一方の減少は他方の同額の増加で正確に補償される。
+\end{proof}
+
+\begin{corollary}[双方向の含意]
+$E\approx 0$ ならば $\kappa<0$ が要求される（第\ref{sec:bootstrap}節）。
+逆に $E>0$ が大きければ $\kappa>0$ を保有できる（第\ref{part:results}部、予測Fの結果）。
+\end{corollary}
+
+\subsection{「完全代替」の意味と限界}
+
+\begin{remark}[代替は制約式においてのみ成立する]
+\label{rem:substitution-limit}
+命題\ref{prop:substitution}は\textbf{式\eqref{eq:cash}という一本の不等式においてのみ}
+$E$ と $-\kappa$ が等価であることを述べる。
+両者が経済的に等価であることを意味しない。
+
+三つの点で異なる。
+
+第一に、\textbf{期限がある}。$\kappa<0$ は履行の義務を伴い、
+第\ref{sec:tau}節の $\tau_i$ が有限であれば期日に返済相当の履行が生じる。
+$E$ には期限がない。
+
+第二に、\textbf{調達可能性が異なる}。$E$ は資本市場から、
+$\kappa<0$ は取引相手から調達する。
+第\ref{sec:kappa-literature}節のとおり、
+両者は別の理論で説明され、別の条件で利用可能になる。
+
+第三に、\textbf{$\phi$ への請求権が異なる}。
+$E$ の提供者は残余請求権を持ち（定義\ref{def:kappa-K}）、
+$\kappa<0$ の提供者は持たない。
+\end{remark}
+
+\begin{remark}[代替の限界が現れる場面]
+\label{rem:substitution-boundary}
+第\ref{ch:solo}章の一人事業では $E\approx 0$ を前提としたため、
+代替の一方の端点しか扱っていない。
+
+第\ref{sec:retiree}節で $E>0$ を導入したとき、
+\textbf{制約の型が床から期限へ変わった}。
+これは $E$ と $\kappa<0$ の非対称の現れである。
+$E$ は生活費として消費されて減少するが、
+$\kappa<0$ は消費されず、履行によって解消される。
+
+したがって命題\ref{prop:substitution}は\emph{静的な}制約についての主張であり、
+時間を通じた挙動は異なる。
+\end{remark}
+
+\chapter{記号一覧}
+\label{app:notation}
+
+\subsection*{基本量と写像}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+記号 & 名称 & 定義または初出 \\
+\midrule
+$X(i,t,\omega)$ & キャッシュフロー & 式\eqref{eq:X} \\
+$\delta_i,\ \pi_i$ & 履行、決済 & 第\ref{sec:phi}章 \\
+$\dbar$ & 契約上の権利 & 第\ref{sec:breakage}節 \\
+$D_i,\ P_i$ & 累積履行、累積決済 & 第\ref{sec:phi}章 \\
+$\kappa_i$ & 信用ポジション & 式\eqref{eq:kappa} \\
+$\tau_i$ & 履行から決済までの平均的な遅れ & 第\ref{sec:tau}節 \\
+$\tau_{\mathrm{inv}}$ & 在庫の滞留時間 $\mathrm{Inv}/r$ & 式\eqref{eq:ccc-tau} \\
+$M(t)$ & 現金残高 & 式\eqref{eq:cash} \\
+$\Phi$ & ビジネスモデル & 式\eqref{eq:phi} \\
+$f$ & 生産関数。定義域は明示しない & 第\ref{sec:production}節 \\
+$C(\delta),\ c(\delta)$ & 総費用、限界費用 & 定義\ref{def:cost} \\
+$E$ & 自己資本。払込資本＋内部留保 & 式\eqref{eq:equity} \\
+$\kappa_K^{j}$ & 資本提供者との信用ポジション。主体依存 & 定義\ref{def:kappa-K} \\
+$V_j$ & 主体 $j$ の測度による残余請求権の価値 & 同上 \\
+$d,\ I$ & 売上高減価償却費率、設備投資 & 系\ref{cor:gstar} \\
+$\mathcal{D}$ & 履行の空間 & 第\ref{part:theory}部、基本集合 \\
+$\mathcal{F},\ \mathcal{F}_t$ & 事象の$\sigma$加法族とフィルトレーション & 同上 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection*{派生量と方法論の記号}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+記号 & 名称 & 定義または初出 \\
+\midrule
+$\mathcal{G}$ & 検証可能な共有情報 & 第\ref{sec:info}章 \\
+$H$ & 時間の上限（計画期間） & 同上、基本集合 \\
+$\tau$ & 倒産時刻 & 第\ref{sec:objective}章 \\
+$\beta_i$ & 主体 $i$ の割引因子 & 第\ref{sec:objective}章 \\
+$W,\ r,\ m$ & 運転資本、売上速度、粗利率 & 第\ref{sec:growth}章 \\
+$\CCC$ & キャッシュコンバージョンサイクル & 式\eqref{eq:ccc} \\
+$g^\star$ & 自己金融可能成長率 & 式\eqref{eq:gstar} \\
+$\phi_{\mathrm{prod}},\phi_{\mathrm{barg}},\phi_{\mathrm{cog}}$ & 余剰の三分解 & 式\eqref{eq:surplus} \\
+$\phi_{\mathrm{risk}}$ & 移転と集約の対価。$\phi_{\mathrm{prod}}$ と $\phi_{\mathrm{barg}}$ の未分離な和 & 注\ref{rem:phi-risk} \\
+$\nu,\ \lambda(\nu)$ & 取引頻度、減衰率 & 式\eqref{eq:decay} \\
+$\varepsilon$ & 外生的衝撃 & 第\ref{sec:survivorship}節 \\
+$S$ & 生存・開示の指示変数 & 第\ref{sec:survivorship}節 \\
+$a,p,c$ & 年齢、時点、コホート & 式\eqref{eq:apc-main} \\
+$\mathrm{Cap}$ & 容量上限 & 式\eqref{eq:solo-capacity} \\
+$T_{\rm dev},T_{\rm acq},T_{\rm credit},T_{\rm inst}$ & 立ち上げ費用の各項 & 式\eqref{eq:E-required-2} \\
+$\lambda_{\rm novel}$ & 未想定状態の到来率 & 第\ref{part:unmanned}章 \\
+$\hat\Omega$ & 設計時に想定した状態空間 & 第\ref{part:unmanned}章 \\
+$\mathrm{DSO},\mathrm{DIO},\mathrm{DPO}$ & 売上債権・棚卸・仕入債務の回転日数 & 第\ref{part:industry}章 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\chapter{既存理論との対応}
+\label{app:priorwork}
+
+本稿の構成要素のうち、既存の理論に対応があるものを明示する。
+本稿固有の寄与は下段に限られる。
+
+本稿は三層に分かれる。
+第一層は $\kappa_i$ の各項を説明する既存理論であり、土台として導入する。
+第二層はそれらを同一の枠組みに接続する部分であり、本稿の寄与にあたる。
+第三層は本稿固有の整理である。
+
+\subsection*{第一層：各項を説明する既存理論}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+項 & 理論 & 分野 \\
+\midrule
+$\kappa_C>0$ 企業間 & 取引信用の四類型 \cite{petersen1997,schwartz1974} & 企業金融 \\
+$\kappa_C<0$ 企業間 & reverse trade credit \cite{mateut2014,daripa2011} & 企業金融 \\
+$\kappa_C<0$ 対消費者 & 前払い契約と退蔵 \cite{dellavigna2006,einav2025,nber2026pnbl} & 消費者行動 \\
+$\kappa_L<0$ & bonding argument \cite{akerlof1986} & 労働経済学 \\
+公開実績の蓄積 & 労働市場シグナリング \cite{spence1973} & 情報の経済学 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+これらは互いを参照しない（注\ref{rem:disjoint-literatures}）。
+
+\subsection*{第二層：接続としての寄与}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+接続 & 内容 \\
+\midrule
+$\kappa_i$ による統合 & 四分野の対象が式\eqref{eq:cash}の同一の和に入る \\
+$\tau_i$ による水準の説明 & 命題\ref{prop:ccc-structure}、系\ref{cor:ccc-level} \\
+$\Phi$ の類型論 & 第\ref{part:catalog}部。契約形態の分類は既存理論が持たない \\
+$\phi$ の三分解 & 式\eqref{eq:surplus}。源泉別の耐久性 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection*{第三層：既存理論との個別の対応}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+本稿の内容 & 対応する既存理論 \\
+\midrule
+契約の可測性条件（第\ref{sec:info}章） & 契約理論、情報性原理 \cite{holmstrom1979} \\
+リスク・インセンティブ・トレードオフの実証的困難（第\ref{sec:predB-illposed}節） & \cite{prendergast1999,prendergast2002} \\
+$\phi_{\rm cog}$ の測定（第\ref{sec:phicog-measurable}節） & \cite{dellavigna2006,einav2025} \\
+$\Phi$ の切り替え費用と待機の価値（注\ref{rem:switching-cost}） & 不可逆投資とリアルオプション \cite{dixit1994} \\
+集約が相関を生む機構（注\ref{rem:rho-endogenous}） & 分散とシステミックリスク \cite{wagner2010,ibragimov2011} \\
+時間展望による目標の変化（第\ref{sec:r2-sst}節） & 社会情動的選択性理論 \cite{carstensen1999} \\
+成果連動の最適強度（例\ref{ex:bstar}） & 線形契約とマルチタスク \cite{holmstrom1991} \\
+式\eqref{eq:gstar} の $g^\star$ & 自己金融可能成長率 \cite{churchill2001} \\
+合流点条件づけ（命題\ref{prop:collider}） & Berkson のパラドックス \cite{berkson1946}、因果推論の枠組み \cite{pearl2009}、選択バイアスの因果図表現 \cite{hernan2004} \\
+式\eqref{eq:apc-main} の識別不能性 & Age--Period--Cohort 問題 \cite{mason1985} \\
+式\eqref{eq:pooling} & 分散のプーリング。保険数理の標準的結果 \\
+割引因子の異質性（命題\ref{prop:discount}） & 時間選好、双曲割引 \cite{laibson1997} \\
+自動化とリスク・不確実性の区別（第\ref{part:unmanned}章） & \cite{knight1921} \\
+組織が可測性を吸収すること（第\ref{sec:credit-formation}節） & 企業の境界 \cite{coase1937}、所有権理論 \cite{grossman1986} \\
+支払者と受益者の分離（族7） & 両面市場 \cite{rochet2003} \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{接続すべきだが接続していない理論}}\\
+$\bar\delta$ と $\delta$ の同時決定（第\ref{sec:independence-assumption}節） & メカニズムデザイン、自己選択と数量割引 \\
+契約の選別効果（同上） & 契約理論のうち逆選択を扱う部分 \\
+DSO と DPO の同時決定（同上） & 取引信用（trade credit）の理論 \\
+\midrule
+三重添字と三操作の対応（第\ref{sec:three-ops}節） & 本稿の整理 \\
+$\Phi$ による定義（第\ref{sec:phi}章） & 本稿の整理 \\
+余剰の三分解（式\eqref{eq:surplus}） & 本稿の整理 \\
+レイヤー構造（第\ref{sec:layers}章） & 本稿の整理 \\
+$\Phi$ の類型カタログ（第\ref{part:catalog}部） & 本稿の整理 \\
+検証障害の四分類（第\ref{sec:obstacle-taxonomy}節） & 本稿の整理 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\input{app_revisions.tex}
+
+\chapter{データ源}
+\label{app:data}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+対象 & 統計・資料 & 用いた箇所 \\
+\midrule
+族2 & 日本資金決済業協会「発行事業実態調査統計」第27回 \cite{jpsa2025} & 第\ref{part:results}部 \\
+族2 & 資金決済法、金融庁 前払式支払手段発行者登録簿 & 第\ref{part:results}部 \\
+族5 & 厚生労働省「職業紹介事業報告書の集計結果」令和6年度 \cite{mhlw2025} & 第\ref{part:results}部 \\
+族5 & 人材サービス総合サイト、適正認定事業者一覧 & 第\ref{sec:pilot}節 \\
+手数料 & 各プラットフォームの公開料金表 & 第\ref{sec:platform-fee}章 \\
+業界判定 & 財務省「法人企業統計調査 時系列データ」\cite{mof2025} & 第\ref{part:industry}章 \\
+起業年齢 & 中小企業白書2014、帝国データバンク新設法人動向調査 & 第\ref{sec:retiree}節 \\
+個人企業との比較 & 中小企業庁「中小企業実態基本調査」令和2--7年確報 & 第\ref{sec:individual-firms}節 \\
+支払期日規制 & 特定受託事業者に係る取引の適正化等に関する法律（2024年11月施行） & 第\ref{sec:not-tabulated}節 \\
+脆弱性 & CVE 公開件数、CISA KEV カタログ & 第\ref{part:unmanned}章 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{再現について。}
+第\ref{part:industry}章の算出に用いた処理は
+\texttt{parse.py}、\texttt{ccc.py}、\texttt{e1.py} として別添した。
+入力は法人企業統計の CSV（Shift-JIS、6項目 $\times$ 62業種 $\times$ 規模 $\times$ 年度）である。
+
+\begin{thebibliography}{99}
+
+\bibitem{akerlof1986}
+G.~A. Akerlof and J.~L. Yellen,
+\newblock Do deferred wages dominate involuntary unemployment as a worker discipline device?,
+\newblock NBER Working Paper No.~2025, 1986.
+
+\bibitem{berkson1946}
+J.~Berkson,
+\newblock Limitations of the application of fourfold table analysis to hospital data,
+\newblock \emph{Biometrics Bulletin}, 2(3):47--53, 1946.
+
+\bibitem{carstensen1999}
+L.~L. Carstensen, D.~M. Isaacowitz, and S.~T. Charles,
+\newblock Taking time seriously: A theory of socioemotional selectivity,
+\newblock \emph{American Psychologist}, 54(3):165--181, 1999.
+
+\bibitem{churchill2001}
+N.~C. Churchill and J.~W. Mullins,
+\newblock How fast can your company afford to grow?,
+\newblock \emph{Harvard Business Review}, 79(5):135--143, 2001.
+
+\bibitem{coase1937}
+R.~H. Coase,
+\newblock The nature of the firm,
+\newblock \emph{Economica}, 4(16):386--405, 1937.
+
+\bibitem{dellavigna2006}
+S.~DellaVigna and U.~Malmendier,
+\newblock Paying not to go to the gym,
+\newblock \emph{American Economic Review}, 96(3):694--719, 2006.
+
+\bibitem{daripa2011}
+A.~Daripa and J.~Nilsen,
+\newblock Ensuring sales: A theory of inter-firm credit,
+\newblock \emph{American Economic Journal: Microeconomics}, 3(1):245--279, 2011.
+
+\bibitem{dixit1994}
+A.~K. Dixit and R.~S. Pindyck,
+\newblock \emph{Investment under Uncertainty},
+\newblock Princeton University Press, 1994.
+
+\bibitem{einav2025}
+L.~Einav, B.~Klopack, and N.~Mahoney,
+\newblock Selling subscriptions,
+\newblock \emph{American Economic Review}, 115(5):1650--1671, 2025.
+
+\bibitem{grossman1986}
+S.~J. Grossman and O.~D. Hart,
+\newblock The costs and benefits of ownership: A theory of vertical and lateral integration,
+\newblock \emph{Journal of Political Economy}, 94(4):691--719, 1986.
+
+\bibitem{hernan2004}
+M.~A. Hern\'an, S.~Hern\'andez-D\'iaz, and J.~M. Robins,
+\newblock A structural approach to selection bias,
+\newblock \emph{Epidemiology}, 15(5):615--625, 2004.
+
+\bibitem{mateut2014}
+S.~Mateut,
+\newblock Reverse trade credit or default risk? Explaining the use of prepayments by firms,
+\newblock \emph{Journal of Corporate Finance}, 29:303--326, 2014.
+
+\bibitem{nber2026pnbl}
+Pay now, buy never: The economics of consumer prepayment schemes,
+\newblock NBER Working Paper No.~34918, 2026.
+
+\bibitem{petersen1997}
+M.~A. Petersen and R.~G. Rajan,
+\newblock Trade credit: Theories and evidence,
+\newblock \emph{Review of Financial Studies}, 10(3):661--691, 1997.
+
+\bibitem{schwartz1974}
+R.~A. Schwartz,
+\newblock An economic model of trade credit,
+\newblock \emph{Journal of Financial and Quantitative Analysis}, 9(4):643--657, 1974.
+
+\bibitem{spence1973}
+M.~Spence,
+\newblock Job market signaling,
+\newblock \emph{Quarterly Journal of Economics}, 87(3):355--374, 1973.
+
+\bibitem{holmstrom1979}
+B.~Holmstr\"om,
+\newblock Moral hazard and observability,
+\newblock \emph{Bell Journal of Economics}, 10(1):74--91, 1979.
+
+\bibitem{holmstrom1991}
+B.~Holmstr\"om and P.~Milgrom,
+\newblock Multitask principal-agent analyses: Incentive contracts, asset ownership, and job design,
+\newblock \emph{Journal of Law, Economics, and Organization}, 7:24--52, 1991.
+
+\bibitem{ibragimov2011}
+R.~Ibragimov, D.~Jaffee, and J.~Walden,
+\newblock Diversification disasters,
+\newblock \emph{Journal of Financial Economics}, 99(2):333--348, 2011.
+
+\bibitem{knight1921}
+F.~H. Knight,
+\newblock \emph{Risk, Uncertainty and Profit},
+\newblock Houghton Mifflin, Boston, 1921.
+
+\bibitem{laibson1997}
+D.~Laibson,
+\newblock Golden eggs and hyperbolic discounting,
+\newblock \emph{Quarterly Journal of Economics}, 112(2):443--477, 1997.
+
+\bibitem{mason1985}
+W.~M. Mason and S.~E. Fienberg (eds.),
+\newblock \emph{Cohort Analysis in Social Research: Beyond the Identification Problem},
+\newblock Springer, New York, 1985.
+
+\bibitem{pearl2009}
+J.~Pearl,
+\newblock \emph{Causality: Models, Reasoning, and Inference}, 2nd ed.,
+\newblock Cambridge University Press, 2009.
+
+\bibitem{prendergast1999}
+C.~Prendergast,
+\newblock The provision of incentives in firms,
+\newblock \emph{Journal of Economic Literature}, 37(1):7--63, 1999.
+
+\bibitem{prendergast2002}
+C.~Prendergast,
+\newblock The tenuous trade-off between risk and incentives,
+\newblock \emph{Journal of Political Economy}, 110(5):1071--1102, 2002.
+
+\bibitem{rochet2003}
+J.-C. Rochet and J.~Tirole,
+\newblock Platform competition in two-sided markets,
+\newblock \emph{Journal of the European Economic Association}, 1(4):990--1029, 2003.
+
+\bibitem{jpsa2025}
+一般社団法人日本資金決済業協会,
+\newblock 第27回 発行事業実態調査統計（令和6年度版）, 2025.
+
+\bibitem{mhlw2025}
+厚生労働省,
+\newblock 令和6年度 職業紹介事業報告書の集計結果, 2025.
+
+\bibitem{mof2025}
+財務省財務総合政策研究所,
+\newblock 法人企業統計調査 時系列データ,
+\newblock e-Stat 統計表ID 0003060791.
+
+\bibitem{wagner2010}
+W.~Wagner,
+\newblock Diversification at financial institutions and systemic crises,
+\newblock \emph{Journal of Financial Intermediation}, 19(3):373--386, 2010.
+
+\end{thebibliography}

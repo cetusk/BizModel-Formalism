@@ -1,0 +1,179 @@
+%============================================================
+\chapter{無人化}
+\label{part:unmanned}
+%============================================================
+
+\section{問い}
+
+第\ref{ch:solo}章は一人事業を扱った。本章はその極限、すなわち
+運営者が存在しない事業が成立するかを問う。
+立ち上げに人手が要ることは自明であるため、
+定常運転に限って無人化が可能かを検討し、次いで立ち上げ費用そのものを
+どこまで削減できるかを扱う。
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{本章で扱う理論量}}\\
+\midrule
+$\Omega,\ \hat\Omega$ & 第\ref{sec:info}章 & 状態空間と、設計時に想定した部分集合 \\
+$\lambda_{\rm novel}$ & 本章 & $\Omega\setminus\hat\Omega$ の到来率 \\
+$\mathcal{G}$ & 第\ref{sec:info}章 & 自動化はこれより強い条件を要求する \\
+$\kappa_C>0$ & 式\eqref{eq:kappa} & 無料期間として自ら発行する信用 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{無人の定式化}
+
+\subsection{自動化は可測性より強い条件である}
+
+第\ref{sec:info}章では、契約が実装可能である条件を $\mathcal{G}$ 可測性とした。
+自動化はこれより強い。
+
+\begin{definition}[自動化]
+応答を状態空間上の可測関数 $a:\Omega\to A$ として\emph{事前に}書き下すこと。
+\end{definition}
+
+命題\ref{prop:implementable}は $\pi$ が $\mathcal{G}$ 可測であることを要求した。
+自動化はこれに加えて、応答が\emph{事前に}書き下されていることを要求する。
+契約は事後に検証できれば足りるが、自動化はそうではない。
+アルゴリズムとは、事前に指定された可測関数にほかならない。
+すなわち
+\begin{equation}
+\text{実装可能}\;:\;\pi\ \text{が}\ \mathcal{G}\ \text{可測}
+\qquad\subsetneq\qquad
+\text{自動化可能}\;:\;a\ \text{が}\ \hat\Omega\ \text{上で事前指定済}
+\end{equation}
+という包含関係が成立する。
+
+問題は $\Omega$ が閉じていないことである。
+設計時に想定した状態空間を $\hat\Omega\subset\Omega$ とすると、
+$\omega\in\Omega\setminus\hat\Omega$ が到来したとき $a$ は定義されていない。
+法改正、脆弱性の発見、決済事業者の規約変更、想定外の使用がこれにあたる。
+
+\begin{proposition}[無人化は期間の関数である]
+未想定状態の到来率を $\lambda_{\rm novel}$ とすると、
+無人で運転できる期間はおよそ $1/\lambda_{\rm novel}$ である。
+有限期間の完全無人は成立するが、無期限には成立しない。
+\end{proposition}
+
+\subsection{必要なのは労働ではなく可用性}
+
+$\Omega\setminus\hat\Omega$ への応答は定常的な労働ではない。
+通常は何も行わず、到来したときにのみ動く。
+この構造は第\ref{part:catalog}部の族2-5（オプション・保証）と同型である。
+
+\begin{equation}
+\text{無人事業の運営者は }\Omega\text{ に対するショートオプションを保有する}
+\end{equation}
+
+平常時の履行 $\delta$ はゼロにできるが、\textbf{可用性はゼロにできない}。
+労働量は限りなく減らせるが、待機は残る。
+「無人」と呼ばれるものは、フローとしての労働が無人なのであって、
+オプションとしての可用性は有人である。
+
+これは第\ref{part:solo}章の容量制約とは別種の拘束である。
+式\eqref{eq:solo-capacity}は時間を消費するが、可用性は\emph{拘束}を消費する。
+一人事業の実務的負担がここにあるという説明が可能である。
+
+\begin{remark}[ナイトの区別との対応]
+$\hat\Omega$ 上の変動は測度が定義されているためリスクであり、
+自動化も保険（族5-4）も可能である。
+$\Omega\setminus\hat\Omega$ は不確実性であり、どちらもできない。
+\end{remark}
+
+\begin{remark}[無人化と利潤の関係]
+$\Phi$ と $f$ が完全に事前指定できるならば、それは完全に複製可能である。
+したがって競争により $\phi_{\rm prod}\to 0$ に向かう圧力が働く。
+完全無人に近づくほど利潤の源泉が薄くなる。
+
+利潤とは自動化できない残余への報酬である、という読み方が可能である。
+ネットワーク効果やブランドが例外を作るため断定はできないが、
+機構としては働いていると考えられる。
+\end{remark}
+
+\subsection{無料期間の位置づけ}
+
+無料試用期間は、$\delta$ を提供して $\pi=0$ とする状態、
+すなわち事業者が顧客に与信する $\kappa>0$ である。
+これが成立するのは\textbf{限界費用がゼロであるため与信コストがほぼゼロ}だからである。
+物理財の無料試用は在庫を失うが、ソフトウェアの無料期間はインフラ費のみで済む。
+
+\begin{equation}
+\text{無料トライアル} = \text{限界費用ゼロの事業のみが安価に発行できる信用}
+\end{equation}
+
+第\ref{sec:bootstrap}節で信用のブートストラップ問題の解を三つ挙げたが、
+これは第四の解である。すなわち\textbf{自ら与信して信用を代替する}。
+$T_{\rm credit}$ を $\kappa>0$ のコストで購入していることになる。
+
+\section{ブートストラップの分解}
+
+\subsection{各項と外部化先}
+
+式\eqref{eq:E-required-2}の各項について、誰が吸収しうるかを整理する。
+制度層への登録に要する期間を $T_{\rm inst}$ として追加する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXXl@{}}
+\toprule
+項 & 内容 & 外部化先 & 対価 \\
+\midrule
+$T_{\rm dev}$ & 履行系の構築 & 既製基盤、決済SDK、ホスティング & 利用料 \\
+$T_{\rm inst}$ & 制度層への登録 & 決済代行の加盟店審査、MoR & 手数料 \\
+$T_{\rm credit}$ & 信用の蓄積 & プラットフォームの返金保証、無料期間で自弁 & 手数料、$\kappa>0$ \\
+$T_{\rm acq}$ & 顧客の獲得 & ストア、マーケットプレイスの流通 & 販売手数料 \\
+$\hat\Omega$ の列挙 & 想定状態の設計 & \textbf{不可} & --- \\
+$\Phi$ の選択 & 契約形態の決定 & \textbf{不可} & --- \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{proposition}[削減不能な残余]
+外部化できないのは $\Phi$ の選択と $\hat\Omega$ の列挙の二つのみである。
+\end{proposition}
+
+外部化には一貫した代償がある。
+\textbf{$\phi_{\rm barg}$ を恒久的に手放すこと}である。
+一回限りの立ち上げ費用を、手数料という永続的な費用に変換している。
+
+\subsection{族ごとの主成分}
+
+第\ref{part:solo}章で生存した類型について、立ち上げ費用の主成分が異なる。
+
+\begin{center}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+類型 & $T_{\rm dev}$ & $T_{\rm credit}$ & $T_{\rm acq}$ & 主成分 \\
+\midrule
+1-1 デジタル商品の売切り & 高 & 低 & 低 & $T_{\rm dev}$ \\
+2-1 定額アクセス & 高 & 中 & 中 & 分散 \\
+6-4 機会課金 & 中 & 低 & 高 & $T_{\rm acq}$（両面市場） \\
+7-4 寄付・支援 & 低 & 高 & 中 & $T_{\rm credit}$ \\
+5-5 IPライセンス & 中 & 高 & 中 & $T_{\rm credit}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+1-1 と 7-4 の主成分が互いに補完的である点に注目すると、
+族間の遷移として立ち上げ費用を分割する設計が導かれる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+段階 & 内容 \\
+\midrule
+公開 & $T_{\rm credit}$ を積む。収益ゼロ。副産物として $T_{\rm dev}$ が進行する \\
+7-4 支援 & 積んだ信用のみで最初の $\pi$ が立つ。$T_{\rm dev}$ をほぼ要求しない \\
+1-1 売切り & $T_{\rm credit}$ が済んでいるため立ち上げが軽い。$\kappa\approx 0$ \\
+2-1 定額 & $\kappa<0$ となり、第\ref{sec:growth}章の意味で成長が現金を生む \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+第\ref{part:solo}章の漏れ出し項 $\theta$（式\eqref{eq:leakage}）が、
+ここでは公開から $T_{\rm dev}$ への寄与として逆向きに働く。
+\textbf{立ち上げ費用は一括で支払う必要がなく、族を渡り歩くことで分割できる。}
+

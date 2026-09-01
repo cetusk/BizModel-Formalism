@@ -1,0 +1,92 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live and tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-luatex texlive-latex-extra texlive-lang-japanese \
+            texlive-fonts-recommended texlive-plain-generic \
+            fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils
+          # make4ht は Debian パッケージに含まれないため CTAN 版を導入
+          git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
+          mkdir -p ~/texmf/scripts/lua/make4ht
+          cp -r /tmp/make4ht/*.lua /tmp/make4ht/domfilters /tmp/make4ht/filters \
+                /tmp/make4ht/extensions /tmp/make4ht/formats \
+                /tmp/make4ht/make4ht ~/texmf/scripts/lua/make4ht/
+          sudo ln -sf ~/texmf/scripts/lua/make4ht/make4ht /usr/local/bin/make4ht
+          sudo chmod +x ~/texmf/scripts/lua/make4ht/make4ht
+          mktexlsr ~/texmf || true
+
+      - name: Build PDF
+        working-directory: src
+        run: |
+          for i in 1 2 3; do
+            lualatex -interaction=nonstopmode -halt-on-error book.tex || \
+            lualatex -interaction=nonstopmode book.tex
+          done
+          pdfinfo book.pdf
+
+      - name: Check for LaTeX errors
+        working-directory: src
+        run: |
+          if grep -q "^!" book.log; then
+            echo "LaTeX errors found:"; grep -A3 "^!" book.log; exit 1
+          fi
+          for pat in "Reference.*undefined" "Citation.*undefined" "multiply defined"; do
+            n=$(grep -c "$pat" book.log || true)
+            echo "$pat: $n"
+            if [ "$n" -ne 0 ]; then grep "$pat" book.log | head -5; exit 1; fi
+          done
+
+      - name: Build HTML
+        working-directory: src
+        run: |
+          make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
+
+      - name: Assemble site
+        run: |
+          cp src/book.pdf docs/
+          cp .github/assets/index.html docs/index.html 2>/dev/null || true
+          cp .github/assets/style.css docs/book/custom.css 2>/dev/null || true
+          # 生成された各 HTML にカスタム CSS と告知の帯を差し込む
+          BANNER='<div class="wip"><strong>v0.8.0</strong> — 本稿は建設中です。理論の構成、命題、実証の結論はいずれも変更されうるものであり、これまでに12件の主張を撤回しています。<a href="../index.html">概要</a></div>'
+          for f in docs/book/*.html; do
+            sed -i "s|</head>|<link href='custom.css' rel='stylesheet' type='text/css' /></head>|" "$f"
+            sed -i "0,/<body>/s|<body>|<body>${BANNER}|" "$f"
+          done
+          touch docs/.nojekyll
+          ls -la docs/ docs/book/ | head -30
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,406 @@
+\chapter{外部化の対価：プラットフォーム手数料}
+\label{ch:platformfee}
+\label{sec:platform-fee}
+\section{予測の事前登録}
+
+前節の主張、すなわち外部化の対価が $\phi_{\rm barg}$ の譲渡であるという命題は
+直接検証できる。第\ref{part:method}部の規律に従い、調査前に予測を確定した。
+
+\begin{quote}
+\textbf{予測C}：プラットフォームの手数料率は、
+そのプラットフォームが吸収する項の数に単調増加する。
+\end{quote}
+
+対抗仮説を明示する。手数料率は吸収した機能ではなく市場支配力で決まっている、
+という説明である。すなわち $\phi_{\rm prod}$ か $\phi_{\rm barg}$ かという、
+第\ref{sec:surplus}章の分解そのものが争点になる。
+
+識別のため、次の二つを事前に指定した。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 同機能・異規模の比較。率が近ければ機能説、大きく異なれば支配力説
+\item 同一事業者内の率の差。機能説では説明できない差の有無
+\end{enumerate}
+
+本調査は第\ref{sec:obstacle-taxonomy}節の四分類において
+いずれの障害にも該当しない。料金表は公開されており、
+個社データの取得も守秘義務も関与しない。
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{本章で扱う理論量}}\\
+\midrule
+$\phi_{\rm prod}$ & 式\eqref{eq:surplus} & 機能の対価。20.0 ポイント \\
+$\phi_{\rm barg}$ & 式\eqref{eq:surplus} & 支配力レント。15.0 ポイント \\
+$T_{\rm inst},T_{\rm dev},T_{\rm acq}$ & 式\eqref{eq:E-required-2} & 外部化価格として測定 \\
+$\lambda_{\rm novel}$ & 第\ref{part:unmanned}章 & CVE 48{,}185 件/年、実効 245 件/年 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{結果：料率の梯子}
+
+取引額 \$50 における実効料率を算出した。
+決済処理費が別建ての場合は 2.9\%${}+{}$\$0.30 を加算している。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lrX@{}}
+\toprule
+プラットフォーム & 実効料率 & 吸収する項 \\
+\midrule
+Stripe（国内カード） & 3.6\% & 決済 \\
+Polar Starter & 5.0\% & 決済＋税務（MoR） \\
+Paddle / Lemon Squeezy & 6.0\% & 決済＋税務（MoR） \\
+Gumroad 直販 & 14.5\% & 決済＋税務＋配信・ホスティング \\
+App Store 小規模 & 15.0\% & 決済＋税務＋配信＋審査＋流通 \\
+App Store 標準 & 30.0\% & 同上 \\
+Gumroad Discover & 34.5\% & 上記＋集客 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1]
+  \draw[->] (0,0) -- (0,4.6) node[above,font=\small] {\%};
+  \foreach \y in {10,20,30} {
+    \draw[gray!35] (0,{\y/8}) -- (10.4,{\y/8});
+    \node[font=\scriptsize,anchor=east] at (-0.1,{\y/8}) {\y};}
+  \foreach \i/\lab/\v in {0/Stripe/3.6, 1/Polar/5.0, 2/Paddle/6.0,
+      3/{Gumroad 直販}/14.5, 4/{App Store 小規模}/15.0,
+      5/{App Store 標準}/30.0, 6/{Gumroad Discover}/34.5} {
+    \draw[fill=gray!35,draw=gray!70] ({\i*1.45+0.35},0) rectangle ({\i*1.45+1.15},{\v/8});
+    \node[font=\scriptsize] at ({\i*1.45+0.75},{\v/8+0.2}) {\v};
+    \node[font=\scriptsize,rotate=35,anchor=east] at ({\i*1.45+0.95},-0.15) {\lab};}
+\end{tikzpicture}
+\caption{取引額 \$50 における実効料率。吸収する項が増えるほど上昇する。}
+\label{fig:platform-ladder}
+\end{figure}
+
+\begin{remark}[この梯子は $C_{\mathrm{admin}}$ の価格表である]
+\label{rem:ladder-is-cadmin}
+定義\ref{def:cost}の $C_{\mathrm{admin}}$ のうち、
+外部委託にあたる部分の価格がここに現れている。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+差分 & 対応する $C_{\mathrm{admin}}$ の種別 & 価格 \\
+\midrule
+Stripe & 決済処理（運用） & 3.6\% \\
+$\to$ MoR & 税務対応（履行確保・設定） & $+1.4$〜$2.4$ ポイント \\
+$\to$ 販売基盤 & 配信・権利管理（運用） & $+8$〜$9$ ポイント \\
+$\to$ マーケットプレイス & 集客（$C_{\mathrm{admin}}$ ではなく $T_{\rm acq}$） & $+20$ ポイント \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+最後の項のみ性質が異なる。集客は契約の運用ではなく顧客の獲得であり、
+$C_{\mathrm{admin}}$ ではなく式\eqref{eq:E-required-2}の $T_{\rm acq}$ に属する。
+\textbf{$C_{\mathrm{admin}}$ の外部化価格は 11 ポイント程度、
+$T_{\rm acq}$ は単独で 20 ポイントである。}
+\end{remark}
+
+梯子は概ね単調である。Stripe は決済のみを吸収し、
+国内のカード・デビット・ウォレット・コンビニ決済が一律3.6\%である。
+Merchant of Record 型の Paddle と Lemon Squeezy は 5\%${}+{}$50¢ で、
+200以上の法域における売上税の徴収と納付を代行する。
+Stripe から MoR への上昇分は $T_{\rm inst}$ の価格として読める。
+個人が欧州へ販売する場合、各国でのVAT登録を行うか会計士に月額を支払うかの
+選択となるため、1.4〜2.4ポイントという価格は機能の対価として整合的である。
+
+\section{同一プラットフォーム内の自然実験}
+
+最も重要な観測である。Gumroad の30\%の Discover 手数料は、
+Gumroad のマーケットプレイス経由で顧客が到達した場合にのみ適用され、
+自らのリンクや外部経由の購入では標準の10\%である。
+設定により Discover を無効化することもできる。
+
+\textbf{同一プラットフォーム、同一の市場支配力、同一の他機能。
+差は $T_{\rm acq}$ を供給したか否かのみである。}
+
+\begin{equation}
+T_{\rm acq}\text{ の価格} = 20.0\ \text{ポイント}
+\label{eq:tacq-price}
+\end{equation}
+
+支配力説ではこの差を説明できない。同一企業が同一顧客に対し、
+集客を行ったか否かだけで料率を変えている。
+式\eqref{eq:tacq-price}は予測Cの最も強い証拠である。
+
+さらに、$T_{\rm acq}$ の単独価格20ポイントは、
+他の全項目の合計（3.6\%から14.5\%への約11ポイント）を上回る。
+\textbf{集客が最も高価な外部化項目である}という順位が得られる。
+族6-4 で $T_{\rm acq}$ を主成分と判定したことは、方向として支持された。
+
+\section{反例：規模による価格差別}
+
+同時に、機能説では説明できない例も得られた。
+
+App Store 小規模事業者プログラムは、年間収益が100万ドル未満の場合に
+手数料を30\%から15\%へ引き下げる。
+有料アプリ、アプリ内課金、サブスクリプションのすべてが対象である。
+
+\textbf{提供される機能は完全に同一であり、料率のみが二倍異なる。}
+15ポイントの差は機能の対価ではありえず、規模に基づく価格差別である。
+
+導入の経緯も示唆的である。本プログラムは、
+米司法省と欧州委員会による反トラスト訴訟および
+Epic Games との係争が重なった2020年に発表された。
+\textbf{制度層からの圧力が料率を動かした}と読める。
+
+\section{判定}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xl@{}}
+\toprule
+主張 & 判定 \\
+\midrule
+吸収する項が増えるほど料率が上がる & 支持（梯子が単調） \\
+料率の差は機能の対価である & 部分的に支持（式\eqref{eq:tacq-price}） \\
+料率は機能で完全に説明される & \textbf{棄却}（App Store の15ポイント差） \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+すなわちプラットフォーム手数料の水準は、式\eqref{eq:surplus}の分解でいえば
+\begin{equation}
+\phi_{\text{手数料}} = \underbrace{\phi_{\rm prod}}_{20.0\ \text{pt}} + \underbrace{\phi_{\rm barg}}_{15.0\ \text{pt}}
+\label{eq:fee-decomp}
+\end{equation}
+と書ける。前者は Gumroad の同一プラットフォーム内比較から、
+後者は App Store の規模別二段階から得られた値である。
+\textbf{単一の取引について三分解のうち二成分を数値的に分離できた、本稿で唯一の事例である。}
+
+\begin{remark}[式\eqref{eq:fee-decomp}は不完全である]
+\label{rem:fee-incomplete}
+上記の二社は、公表料金表により一律の料率で運用する仲介者である。
+料率が個別審査で決まる仲介者では、式\eqref{eq:fee-decomp}に第三項が加わる。
+
+決済代行の加盟店手数料は、取引形態、取扱高、商材、
+不正利用やチャージバックの発生状況によって変動し、
+国内向けクレジットカード決済では一般に3--6\%程度が目安とされる。
+この変動分は支配力レントではなく、
+第\ref{sec:three-ops}節の\emph{移転}と\emph{集約}の対価である。
+加盟店から見れば添字 $i$ を動かしてリスクを渡しており、
+仲介者は多数の加盟店を $\omega$ 方向に束ねている。
+
+したがって正しくは
+\begin{equation}
+\phi_{\text{手数料}} = \phi_{\rm prod} + \underbrace{\phi_{\rm risk}}_{\text{移転と集約の対価}} + \phi_{\rm barg}
+\label{eq:fee-decomp3}
+\end{equation}
+と書かれるべきである。ここで $\phi_{\rm risk}$ は新たな成分ではなく、
+注\ref{rem:phi-risk}のとおり $\phi_{\rm prod}$ と $\phi_{\rm barg}$ の未分離な和である。
+本節の二社では $\phi_{\rm risk}\approx 0$ であったため二項に縮約できたにすぎない。
+\end{remark}
+
+\subsection{リスク成分についての未検証の予測}
+\label{sec:pred-J}
+
+式\eqref{eq:fee-decomp3}の第二項について、
+命題\ref{prop:pooling}から予測が導かれる。
+
+式\eqref{eq:pooling}の極限は $\rho\sigma^2$ であり、$\rho>0$ である限りゼロにならない。
+すなわち仲介者は、業種内で独立なリスクは集約で消せるが、
+共通因子による相関部分は消せない。
+
+なお命題\ref{prop:pooling}は $\rho$ が $n$ に依存しないことを仮定する（注\ref{rem:rho-endogenous}）。
+仲介者が加盟店数を増やす過程で相関の高い業種を取り込むならば $\rho$ は上昇し、
+本予測の効果はここで述べるより強く現れる。
+\textbf{仮定を外しても予測の符号は変わらない。}
+
+\begin{quote}
+\textbf{予測J}：決済代行の業種別料率の差は、
+その業種のチャージバック率の平均 $\mu$ ではなく、
+\textbf{業種内の相関 $\rho$} に対応する。
+平均が高いだけの業種は転嫁で済むが、
+業種全体が同時に悪化する構造を持つ業種には追加のプレミアムが要る。
+\end{quote}
+
+これは「リスクが高いから料率が高い」という説明を二つに分ける。
+情報商材や旅行の料率が高い理由が、
+平均的な事故率によるのか業種全体の同時悪化によるのかで、
+$\Phi$ の設計上の含意が異なる。前者は価格に転嫁できるが、後者はできない。
+
+検証可能性は注\ref{rem:predJ-infeasible}のとおり制約される。
+
+\begin{remark}[予測Jが検証できない理由]
+\label{rem:predJ-infeasible}
+$\rho$ の推定には業種別チャージバック率の時系列が必要だが、
+これは仲介者と国際ブランドの内部データであり公開されない。
+$\mu$ すら公開されていない。
+
+さらに\textbf{$\rho$ が高い業種ほど加盟店審査で排除される}。
+観測される料率は $\rho$ の高い業種を除外した後の分布であり、
+第\ref{sec:survivorship}節の生存条件づけがここでも作用する。
+二重の障害であり、第\ref{sec:obstacle-taxonomy}節の分類では
+（iii）識別不能と（iv）アクセス制約の複合である。
+
+なお、相関が集約の限界を決めるという命題自体は新しくない。
+保険のソルベンシー規制と銀行の自己資本規制は、
+リスクカテゴリ間の相関を明示的に置いて資本要件を算定しており、
+式\eqref{eq:pooling}と同じ構造を実装している。
+本稿の寄与は、それを $\Phi$ の料率決定に適用する視点にとどまる。
+\end{remark}
+第\ref{sec:surplus}章の三分解でいえば、手数料は $\phi_{\rm prod}$（実際に代行している機能）と
+$\phi_{\rm barg}$（移転）の双方を含み、Gumroad の設計がそれを分離する手がかりを与えた。
+
+これは第\ref{sec:layers}章の耐久性の主張とも整合する。
+\textbf{支配力に由来する部分は制度層に削られる}。
+App Store の30\%から15\%への引き下げは規制圧力の産物であるのに対し、
+機能に由来する部分（Gumroad の集客20ポイント）は削られていない。
+
+\section{実務的含意}
+
+第\ref{part:solo}章の立ち上げ戦略に価格が入る。
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+外部化する項 & 追加コスト \\
+\midrule
+決済のみ & 3.6\% \\
+＋税務 & $+1.4$〜$2.4$ ポイント \\
+＋配信・ホスティング & $+8$〜$9$ ポイント \\
+＋集客 & $+20$ ポイント \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+式\eqref{eq:E-required-2}の各項に価格が入ったことになる。集客のみが桁違いに高く、
+$T_{\rm acq}$ 単独の20ポイントが他の全項目の合計（約11ポイント）を上回る。
+したがって\textbf{$T_{\rm acq}$ は自弁するほうが有利になる場合が多い}という指針が得られる。
+前節の族間遷移において「公開して信用を積む」段階を最初に置いたのは、
+$T_{\rm credit}$ と $T_{\rm acq}$ を自弁するための時間投資であった。
+20ポイントという価格に照らせば、その時間投資は正当化されやすい。
+
+\section{測定の限界}
+
+料率は日本と米国の主要プラットフォームに限っており、母集団を宣言していない。
+第\ref{sec:frame}節の規律からすれば、これは事例の比較であって推定ではない。
+ただし Gumroad の同一プラットフォーム内比較は母集団に依存しない識別であり、
+その部分のみは頑健である。
+
+また実効料率は取引単価に依存する。固定費部分（50¢、30¢）があるため、
+低単価ではMoR型の実効率が上昇する。本表は \$50 での値である。
+
+\section{制度層の作用形態}
+\label{sec:institution-mode}
+
+第\ref{sec:layers}章で、支配力に由来する $\phi_{\rm barg}$ は制度層に削られると述べた。
+本節はその作用形態を四例で確認する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+領域 & 制度層の作用 & 現状 \\
+\midrule
+不動産仲介 & 報酬額の法定上限（昭和45年告示、3\%＋6万円） & 存続。2024年に上限を引上げ \\
+有料職業紹介 & 上限制手数料（賃金の約11\%） & 存続するが利用は 0.18\% \\
+株式売買委託 & 取引所規則による固定手数料 & \textbf{1999年に完全撤廃} \\
+アプリ流通 & 反トラスト訴訟による圧力 & 料率を30\%から15\%へ引下げ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{料率に上限を課す形式は稀であり、かつ撤廃方向にある。}
+株式売買委託手数料は1994年に10億円超、1998年に5{,}000万円超、
+1999年10月に完全自由化された。
+米国は1975年、英国は1986年に同様の自由化を実施している。
+
+不動産仲介では上限が拘束的であることが確認できる。
+2024年7月の改正で800万円以下の物件の上限が18万円から30万円へ引き上げられたが、
+その背景として宅地建物取引業者が0店舗の自治体が247市区町村、
+全体の14\%に達し現状の手数料では事業の継続が困難であるとの認識が示されている。
+\textbf{上限が低すぎて供給が消えた}という事実は、上限の拘束性の直接的な証拠である。
+
+\begin{remark}[上限賦課から競争条件の操作へ]
+\label{rem:institution-shift}
+四例のうち、料率を直接規定するのは前二者のみである。
+株式売買委託では固定手数料の\emph{撤廃}が料率を自由化前の7分の1から
+10分の1へ低下させた。アプリ流通では訴訟圧力が自主的な引下げを促した。
+
+すなわち制度層の作用は、上限を課す形式と競争条件を操作する形式の 二つに分かれ、
+後者が近年の主流である。
+第\ref{sec:layers}章の記述はこの区別を含んでいないため、
+「上限を課す」を「制約を課す」と読むべきである。
+\end{remark}
+
+\section{調査可能性の判定}
+
+本章の他の論点について、第\ref{sec:obstacle-taxonomy}節の四分類を適用した結果を記録する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+候補 & 主要障害 & 判定 \\
+\midrule
+外部化の対価 & なし & 実施済（第\ref{sec:platform-fee}章） \\
+$\lambda_{\rm novel}$ の成分分解 & 接続の作業量 & 次点 \\
+族間の遷移経路 & フレーム不在、成功条件づけ & 弱い \\
+無人継続期間の直接測定 & 母集団フレームがない & 断念 \\
+無人化率そのもの & （i）＋（ii） & 断念 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{次点：\texorpdfstring{$\lambda_{\rm novel}$}{lambda} の成分分解}
+
+$\lambda_{\rm novel}$ は分解でき、成分が第\ref{sec:layers}章のレイヤーに対応する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+成分 & 由来 & データ源 & 層 \\
+\midrule
+$\lambda_{\rm sec}$ & 脆弱性の発見 & 脆弱性データベース & 物理層 \\
+$\lambda_{\rm dep}$ & 依存の破壊的変更 & パッケージレジストリの版履歴 & 物理層 \\
+$\lambda_{\rm inst}$ & 法改正、規約変更 & 官報、事業者の変更告知 & 制度層 \\
+$\lambda_{\rm dem}$ & 需要の変化 & 測定されていない & 認知層 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+四成分のうち三つに公開データが存在する。予測が立つ。
+
+\begin{quote}
+\textbf{予測D}：依存の少ない構成ほど $\lambda_{\rm dep}$ が小さく、無人運転可能期間が長い。
+\end{quote}
+
+これは設計判断に直結する。無人化を目指すならば、
+機能の豊富さより依存の少なさを優先すべきという指針になる。
+ただし $\lambda$ の測定から停止事象への接続は自ら構築する必要があり、
+そこに作業量が集中する。
+
+\subsection{断念する論点}
+
+無人継続期間の直接測定は母集団フレームを欠く。
+個人開発サービスの一覧は存在せず、停止したものを事後に収集すれば
+第\ref{sec:survivorship}節の生存条件づけがそのまま再現する。
+
+族間の遷移経路も同様である。遷移した事例は収集できるが、
+遷移しなかった事例と失敗した事例が観測できないため、経路の有効性については何も言えない。
+
+無人化率そのものは命題が不良設定である。
+$\delta$ の何割が自動化されているかを定義するには $\delta$ の単位が必要だが、
+それが存在しない。第\ref{sec:predB-illposed}節の予測Bと同型の欠陥である。
+
+\section{本章の限界}
+
+\begin{enumerate}[label=(\arabic*)]
+\item $\lambda_{\rm novel}$ を測定していない。
+無人運転可能期間の推定はこの値に依存するが、根拠を持たない。
+
+\item 可用性の消費量を定式化していない。
+「拘束を消費する」と述べたが、時間と異なり単位を与えていないため、
+容量制約のような不等式として書けていない。
+
+\item 第\ref{sec:platform-fee}章は母集団を宣言していない事例比較である。
+同一プラットフォーム内の識別を除き、推定として扱ってはならない。
+
+\item 無人化と利潤の逆相関は機構の指摘にとどまる。
+反例（ネットワーク効果、ブランド）の扱いを含めた検証を行っていない。
+\end{enumerate}

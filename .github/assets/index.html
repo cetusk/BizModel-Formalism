@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>キャッシュフロー構造としてのビジネスモデル</title>
+<style>
+:root{--fg:#1a1a1a;--muted:#666;--line:#ddd;--accent:#0b5;--bg:#fff}
+@media (prefers-color-scheme:dark){
+  :root{--fg:#e8e8e8;--muted:#999;--line:#333;--accent:#4c9;--bg:#151515}
+}
+*{box-sizing:border-box}
+body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+  font-family:"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+  line-height:1.8;font-size:16px}
+.wrap{max-width:44rem;margin:0 auto;padding:3rem 1.5rem 5rem}
+h1{font-size:1.6rem;line-height:1.5;margin:0 0 .3rem;font-weight:600}
+.sub{color:var(--muted);font-size:.95rem;margin:0 0 2.5rem}
+h2{font-size:1.05rem;margin:2.5rem 0 .8rem;padding-bottom:.3rem;
+  border-bottom:1px solid var(--line);font-weight:600}
+p{margin:0 0 1rem}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.5rem 0 0}
+.btn{display:inline-block;padding:.55rem 1.1rem;border:1px solid var(--line);
+  border-radius:4px;color:var(--fg);font-size:.9rem}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.5rem 0 1rem}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);
+  vertical-align:top}
+th{color:var(--muted);font-weight:500;white-space:nowrap}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.88em;
+  background:rgba(128,128,128,.13);padding:.1em .35em;border-radius:3px}
+.banner{border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:3px;padding:.9rem 1.1rem;margin:0 0 2.2rem;
+  font-size:.9rem;line-height:1.75;color:var(--muted)}
+.banner strong{color:var(--fg)}
+.note{color:var(--muted);font-size:.88rem;line-height:1.7}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>キャッシュフロー構造としてのビジネスモデル</h1>
+<p class="sub">定式化・類型論・調査設計</p>
+
+<div class="banner">
+<strong>v0.8.0</strong>（2026年9月1日）&nbsp;&mdash;&nbsp;<strong>本稿は建設中です。</strong>
+理論の構成、命題、実証の結論はいずれも変更されうるものであり、
+これまでに12件の主張を撤回しています。
+引用される場合は版を明記してください。
+</div>
+
+<p>ビジネスモデルを「履行スケジュールから決済スケジュールへの写像 &Phi;」として定式化し、
+そこから信用ポジション &kappa;、自己金融可能成長率 g*、余剰の三分解を導きます。
+理論の構成、27類型の生成、検証手続きの設計、そして公開統計による実証を扱います。</p>
+
+<div class="actions">
+  <a class="btn primary" href="book/book.html">HTML で読む</a>
+  <a class="btn" href="book.pdf">PDF (145ページ)</a>
+  <a class="btn" href="https://github.com/cetusk/BizModel-Formalism">ソース</a>
+</div>
+
+<h2>構成</h2>
+<table>
+<tr><th>第I部</th><td>理論 &mdash; 定義、命題、証明</td></tr>
+<tr><th>第II部</th><td>写像の空間と制約 &mdash; 27類型、制約下の部分空間、無人化という極限</td></tr>
+<tr><th>第III部</th><td>方法論 &mdash; 検証障害の分類、選択バイアス、事前登録</td></tr>
+<tr><th>第IV部</th><td>実証 &mdash; 理論量の測定対応、族2・族5、法人企業統計、プラットフォーム手数料</td></tr>
+<tr><th>第V部</th><td>総括 &mdash; 到達点と未解決問題</td></tr>
+<tr><th>付録</th><td>証明の補遺、記号一覧、既存理論との対応、データ源、改訂履歴</td></tr>
+</table>
+
+<h2>この文書が主張しないこと</h2>
+<p>本稿は<strong>予測理論ではありません</strong>。事前登録した16の予測のうち、
+支持されたのは6件、棄却が6件、検証不能が4件です。
+枠組みは記述の道具として機能しますが、
+記述された量が何を予測するかについて確立した結果を持ちません。</p>
+<p>また<strong>個々の構成要素の多くは既存理論に対応があります</strong>。
+取引信用、bonding argument、シグナリング、前払い契約の研究など、
+異なる分野の理論が同一の和の項として現れることを示す点に寄与があります。</p>
+
+<h2>撤回した主張</h2>
+<p class="note">検討の過程で12件の主張を撤回しました。
+本文には訂正後の内容のみを残し、経緯は付録Eに記録しています。
+建設中の理論であり、今後も作り替えが起こりえます。</p>
+
+<h2>再現</h2>
+<p class="note">実証に用いた処理は <code>src/analysis/</code> に置いてあります。
+入力は法人企業統計、中小企業実態基本調査、人材サービス総合サイトの公開データです。
+PDF と HTML は <code>src/</code> の LaTeX ソースから GitHub Actions で自動生成されます。</p>
+
+<h2>版</h2>
+<p class="note">版番号は付録Eの「版の履歴」に対応します。
+構成の変更、命題の追加や撤回、新たな実証があった場合に第二桁を上げ（v0.8.0 &rarr; v0.9.0）、
+誤記や体裁の修正は第三桁で扱います（v0.8.0 &rarr; v0.8.1）。</p>
+
+<footer>
+v0.8.0（2026年9月1日）&nbsp;/&nbsp;<a href="https://github.com/cetusk/BizModel-Formalism">cetusk/BizModel-Formalism</a>&nbsp;/&nbsp;
+本文 CC BY 4.0、コード MIT
+</footer>
+
+</div>
+</body>
+</html>

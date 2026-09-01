@@ -1,0 +1,134 @@
+% HTML 変換時（tex4ht）は標準クラスを用いる。ltjsbook は tex4ht で処理できない。
+\ifdefined\HCode
+  \documentclass[11pt]{book}
+  \usepackage{luatexja}
+  \usepackage{amssymb}   % HTML 変換時の \mathbb 用
+  \newenvironment{abstract}{\section*{概要}}{}  % book クラスに abstract はない
+\else
+  \documentclass[a4paper,11pt,openany]{ltjsbook}
+  \usepackage{luatexja-fontspec}
+  \usepackage{unicode-math}
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}
+  \setmathfont{Latin Modern Math}
+  \setmainjfont{Noto Serif CJK JP}
+  \setsansjfont{Noto Sans CJK JP}
+\fi
+
+\usepackage{amsmath,amsthm}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds}
+\usepackage[hidelinks]{hyperref}
+
+\ifdefined\HCode\else
+  \geometry{top=25mm,bottom=27mm,left=24mm,right=24mm}
+\fi
+
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[chapter]
+\newtheorem{remark}[definition]{注}
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{命題}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Ind}{\mathbf{1}}
+\newcommand{\CCC}{\mathrm{CCC}}
+\newcommand{\FCF}{\mathrm{FCF}}
+\newcommand{\dbar}{\bar{\delta}}
+\newtheorem{example}[definition]{例}
+\newtheorem{corollary}[definition]{系}
+
+\setlist{itemsep=2pt,parsep=0pt,topsep=4pt}
+
+\ifdefined\HCode\else
+% 白紙ページを挟まない
+\makeatletter
+\@openrightfalse
+\let\clearrightpage\clearpage
+\let\cleardoublepage\clearpage
+\makeatother
+\fi
+
+% 体裁の調整
+\clubpenalty=10000        % 段落の泣き別れを抑制
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\raggedbottom             % 版面下端の空白を許容し、無理な引き伸ばしを避ける
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.08}
+
+
+
+\title{キャッシュフロー構造としてのビジネスモデル\\[6pt]
+\large 定式化・類型論・調査設計}
+\author{}
+\date{v0.8.0\quad 2026年9月1日}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+\textbf{本稿は建設中である。} 理論の構成、命題、実証の結論はいずれも変更されうる。
+これまでに12件の主張を撤回しており、経緯は付録\ref{app:revisions}に記録した。
+版番号は同付録の「版の履歴」に対応する。
+
+\medskip
+本稿はビジネスモデルを「履行スケジュールから決済スケジュールへの写像 $\Phi$」として定式化し、
+そこから信用ポジション $\kappa$、自己金融可能成長率 $g^\star$、余剰の三分解を導く。
+第\ref{part:theory}部で理論を構成し、第\ref{part:catalog}部で $\Phi$ の自由度から七族二七類型を生成し、
+資本と人手の制約を課したときの部分空間とその極限を演繹する。第\ref{part:method}部は検証障害を分類し、
+選択バイアスの扱いと事前登録の手続きを定める。
+第\ref{part:results}部は族2・族5、法人企業統計、プラットフォーム手数料についての実証であり、
+その冒頭（第\ref{ch:instantiation}章）で理論量と実測値の対応を一覧する。
+16の予測を事前登録し、支持6件・棄却6件・検証不能4件という結果を、
+外れた部分を含めて記録する。
+この過程で当初の四分類に収まらない障害が二つ現れ、分類を六つに拡張した。
+実証が完結していないため、制約条件下の $\Phi$ の演繹（第\ref{ch:solo}章、第\ref{part:unmanned}章）も
+独立した応用部とせず実証部に置いた。
+証明は本文および付録\ref{app:proofs}に、記号は付録\ref{app:notation}に、
+既存理論との対応は付録\ref{app:priorwork}に置いた。
+\end{abstract}
+
+\tableofcontents
+
+\input{ch_theory.tex}
+
+%============================================================
+\part{写像の空間と制約}\label{part:catalog}
+%============================================================
+\input{ch_catalog.tex}
+\input{supplement3.tex}
+\input{supplement4.tex}
+
+%============================================================
+\part{方法論}\label{part:method}
+%============================================================
+\input{ch_method.tex}
+\input{ch_next.tex}
+\input{supplement2.tex}
+
+%============================================================
+\part{実証}\label{part:results}
+%============================================================
+\input{ch_instantiation.tex}
+\input{supplement.tex}
+\input{supplement5.tex}
+\input{supplement4b.tex}
+
+%============================================================
+\part{総括}\label{part:conclusion}
+%============================================================
+\input{ch_conclusion.tex}
+
+\input{appendix.tex}
+
+\end{document}

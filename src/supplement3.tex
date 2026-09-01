@@ -1,0 +1,726 @@
+%============================================================
+\chapter{制約下の実現可能領域：一人事業}
+\label{ch:solo}
+\label{part:solo}
+%============================================================
+
+\section{本章で課す前提}
+
+第\ref{ch:catalog}章は $\Phi$ の全空間を列挙した。
+本章はそこに制約を課し、部分空間を求める。すなわち、与えられた条件の下で
+どの $\Phi$ が実現可能かを、第\ref{part:theory}部の式から導く。
+
+対象は、一人で運営可能な規模のIT系サービスとする。前提は次のとおりである。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 運営者は一人。人間が調整を要する要素は極力持たない
+\item 外部資金調達を行わない（クラウドファンディングを含む）
+\item 資産は少なく、事業上の信用がない状態から開始する
+\end{enumerate}
+
+本章は実証ではなく演繹である。結論の妥当性は前提の妥当性に依存する。
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{本章で扱う理論量}}\\
+\midrule
+$E,\ A,\ \mathrm{Inv}$ & 式\eqref{eq:cash} & 前提により $0$ とおく \\
+$\kappa_i$ & 式\eqref{eq:kappa} & 符号が設計変数となる \\
+$\mathrm{Cap}$ & 式\eqref{eq:solo-capacity} & 一人分の時間。\textbf{未測定} \\
+$M(t)$ & 式\eqref{eq:cash} & 経路制約の対象。\textbf{未測定} \\
+$\tau$ & 第\ref{sec:objective}章 & 期限として $E(0)/c$ で上から抑えられる \\
+$T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格は第\ref{ch:platformfee}章で測定 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{前提の翻訳}
+
+\subsection{財務制約}
+
+前提(2)(3)から $E(0)\approx 0$、$A\approx 0$ とおく。
+ソフトウェアであれば $\mathrm{Inv}\approx 0$ である。
+これを式\eqref{eq:cash}に代入すると、
+
+\begin{equation}
+\sum_{i} \max\{-\kappa_i,0\} \;\geq\; \sum_{i} \max\{\kappa_i,0\}
+\label{eq:solo-finance}
+\end{equation}
+
+式\eqref{eq:solo-finance}は、\textbf{引き出した与信が与えた与信を常に上回っていなければならない}
+ことを述べている。命題\ref{prop:substitution}の代替関係が、$E=0$ の端点で現れた形である。
+なお $A\approx 0$ という仮定は、個人企業の設備投資の実データと整合する（注\ref{rem:individual-capex}）。自己資本という緩衝がないため、
+第\ref{sec:objective}章の経路制約により毎時点で成立する必要がある。
+
+\subsection{容量制約}
+
+前提(1)から、履行の総量に上限がつく。
+
+\begin{equation}
+\sum_{j} \delta_j(t) \;\leq\; \mathrm{Cap}, \qquad \mathrm{Cap} = \text{一人分の時間}
+\label{eq:solo-capacity}
+\end{equation}
+
+$\mathrm{Cap}$ は命題\ref{prop:capacity}で会員制の実行可能性を規定した量と同じものである。
+そこでは供給側の設備容量であったが、ここでは運営者の可処分時間になる。
+なお $\mathrm{Cap}$ の値は事業者ごとに異なり開示もされないため、本稿では測定していない。
+
+\subsection{拘束する制約の入れ替わり}
+
+第\ref{part:theory}部で企業を扱った際、拘束するのは財務制約
+$M(t,\omega)\geq 0$ であった。一人事業では、多くの $\Phi$ において
+\textbf{式\eqref{eq:solo-capacity}のほうが先に拘束する}。
+顧客が増えたとき、現金より先に時間が尽きる。
+
+したがって設計原理が二本立てになる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+制約 & 要求 & 意味 \\
+\midrule
+式\eqref{eq:solo-finance} & $\kappa_C < 0$ & 前受型を選べ \\
+式\eqref{eq:solo-capacity} & $\partial\delta/\partial(\text{顧客数})\approx 0$ & 複製可能な履行を選べ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+両者を同時に満たす領域が実現可能集合である（図\ref{fig:solo-quadrant}）。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1]
+  \node[font=\small] at (2.0,5.2) {履行が人手に依存};
+  \node[font=\small] at (7.0,5.2) {履行が複製可能};
+  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ 前受};
+  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ 後払};
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
+  \draw[fill=gray!25,draw=gray!80,very thick,rounded corners=3pt] (5.0,2.6) rectangle (9.0,4.7);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (5.0,0.2) rectangle (9.0,2.3);
+  \node[font=\small\bfseries] at (2.0,4.4) {頭打ち};
+  \node[font=\scriptsize,align=center] at (2.0,3.5) {前受コンサル\\受注制作の前金\\容量が先に尽きる};
+  \node[font=\small\bfseries] at (7.0,4.4) {実現可能領域};
+  \node[font=\scriptsize,align=center] at (7.0,3.5) {年払いSaaS\\デジタル商品の売切り\\掲載課金・スポンサー};
+  \node[font=\small\bfseries] at (2.0,2.0) {成立しない};
+  \node[font=\scriptsize,align=center] at (2.0,1.1) {成果報酬\\受託の後払い\\与信も容量も不足};
+  \node[font=\small\bfseries] at (7.0,2.0) {条件付き可};
+  \node[font=\scriptsize,align=center] at (7.0,1.1) {月末後払いSaaS\\広告・レベニューシェア\\$\kappa$ は小さいが正};
+\end{tikzpicture}
+\caption{一人・無資産・無信用を前提とした $\Phi$ の実現可能領域。}
+\label{fig:solo-quadrant}
+\end{figure}
+
+\section{クラウドの構造的意味}
+
+副産物として、次の対応が得られる。
+
+クラウド以前、サーバの調達には資本が必要であり $A$ が大きかった。
+クラウド以後は $A\approx 0$ となり、代わりに従量課金の請求が後払いであるため
+$\kappa_S<0$ が生じる。すなわちインフラ事業者からの与信である。
+
+\begin{equation}
+\text{クラウドの効果：} \quad A \;\longrightarrow\; \kappa_S<0
+\end{equation}
+
+要求が物理層から信用層へ移り、かつ要求量が桁で下がった。
+サーバ購入代金ではなく、一箇月分の利用料になったからである。
+一人でIT事業を開始できるようになったことは、これで説明される。
+
+\section{類型のふるい分け}
+
+第\ref{part:catalog}部の27類型を、式\eqref{eq:solo-finance}と\eqref{eq:solo-capacity}で篩にかける。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXXX@{}}
+\toprule
+族 & 生存 & 脱落 & 脱落理由 \\
+\midrule
+1 単発交換 & 1-1、1-2 & 1-3、1-4 & 与信できない \\
+2 継続アクセス & 2-1、2-2、2-3 & 2-4、2-5 & 規制／分散を吸収できない \\
+3 資産貸し & --- & 全て & $A$ が必要 \\
+4 補完財回収 & 4-2（条件付） & 4-1、4-3 & 初期 $\kappa>0$ を意図的に作る \\
+5 成果連動 & 5-5 & 5-1〜5-4 & 与信、または集約が必要 \\
+6 媒介 & 6-1、6-4 & 6-2、6-3 & 規制／在庫 \\
+7 支払者分離 & 7-4 & 7-1、7-2、7-3 & 規模、または与信 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+27類型のうち残るのは10前後である。
+
+\begin{remark}[制度層による剥奪]
+脱落理由のうち二つは制度層である。
+2-4（プリペイド）は資金決済法により未使用残高が基準額を超えると供託義務が生じ、
+6-2（エスクロー）は資金移動業の登録を要する。
+\textbf{制度層が小規模事業者から特定の $\Phi$ を奪っている}。
+第\ref{part:results}部では制度層が価格を規定して選択肢を消滅させる例（上限制手数料）を記録したが、
+本節は参入要件を通じて同じことが起きる経路である。
+\end{remark}
+
+\section{信用のブートストラップ問題}
+\label{sec:bootstrap}
+
+式\eqref{eq:solo-finance}は $\kappa_C<0$ を要求する。
+しかし前受を受け入れてもらうには信用が必要であり、前提(3)によりそれがない。
+構造的な矛盾である。
+
+解は三つに限られる。
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{金額を小さくする。} 前受の絶対額が相手にとって無視できる水準なら、
+信用は不要である。\textbf{少額多数が構造的に要求される}という帰結が出る。
+これは第\ref{sec:objective}章の経路制約とも整合する。大口一社への依存は、
+その一社の遅延で $\tau$ に到達する。
+
+\item \textbf{信用を借りる。} 決済プラットフォームがエスクローと返金保証を提供すれば、
+顧客は事業者ではなくプラットフォームを信用する。族6-2 を自ら行うことは
+規制で禁じられているが、他者が行ったものに乗ることはできる。
+手数料と入金サイトの分だけ $\kappa>0$ が発生する。
+
+\item \textbf{履行を先に完了する。} 完成品を売る。
+ただし開発期間中の $M(t)$ を何が支えるかという問題が残る。
+\end{enumerate}
+
+(c)から帰結が出る。開発期間 $T_{\rm dev}$、獲得期間 $T_{\rm acq}$、
+月間の生活費とインフラ費を $c$ として、
+
+\begin{equation}
+E_{\rm required} = c\,(T_{\rm dev} + T_{\rm acq})
+\label{eq:E-required}
+\end{equation}
+
+前提(3)の下ではこれを満たせないため、外部から $E$ を注入する経路が必要になる。
+給与所得がそれである。すなわち\textbf{兼業しながら開始することは、
+心構えではなく制約式からの要請である}。$\kappa$ の設計はこの谷を越えた後の話にすぎない。
+
+\subsection{生存した類型のキャッシュフロー}
+
+年払いSaaSを典型例とする。$\kappa_C<0$（年払い前受）と
+$\kappa_S<0$（クラウドの後払い）がともに負であるため $W<0$、
+したがって $\CCC<0$ となり、式\eqref{eq:gstar}の $g^\star$ は存在しない。
+成長が現金を生む。
+
+ただし財務的に無制約でも式\eqref{eq:solo-capacity}が残る。
+サポート負荷が顧客数に比例する設計では容量制約が先に破れる。
+一人事業の実務上の停止要因は資金ではなくここにある。
+
+設計指針をまとめる。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 前払いにする（$\kappa_C<0$）
+\item 少額多数にする（信用不要、かつ経路制約の分散低減）
+\item 履行が顧客数に比例しない形にする（容量制約）
+\item 制度層が禁じている $\Phi$ を避ける
+\item 谷を越えるまでの $E$ を外部から確保する
+\end{enumerate}
+
+(3)が最も難しく、(1)(2)を満たしても(3)で失敗する場合が多いと考えられる。
+
+\section{前提の緩和：資産を持つ層}
+\label{sec:retiree}
+
+前提(3)のうち資産の部分を緩め、$E(0)>0$ とする。
+退職により給与資産を保有する層を想定する。
+
+\subsection{社会情勢の確認}
+
+平均起業年齢は1979年の39.7歳から2012年に49.7歳へ上昇している。
+60歳以上の起業家の割合は、男性で1992年の19.3\%から2012年に35.0\%へ、
+女性で7.2\%から20.3\%へ増加した。
+帝国データバンクの2024年新設法人動向調査では、
+法人代表者の平均年齢が48.4歳と過去最高を記録している。
+前提として現実的である。
+
+\subsection{制約は緩まない。型が変わる}
+
+$E(0)>0$ の効果は、財務制約の緩和として片付けられない。
+決定的なのは\textbf{$E$ が流量か在庫か}である。
+
+\begin{align}
+\text{給与所得者：}\quad & E(t) = E(0) + (w-c)\,t \qquad (w>c \text{ なら増加}) \\
+\text{退職者：}\quad & E(t) = E(0) - c\,t \qquad\qquad\ \ (\text{単調減少})
+\end{align}
+
+給与所得者にとって $M\geq 0$ は\textbf{床}である。近づけば引けばよく、時間は味方となる。
+退職者にとっては\textbf{期限}になる。収益がなければ倒産時刻は
+
+\begin{equation}
+\tau \;\leq\; \frac{E(0)}{c}
+\label{eq:deadline}
+\end{equation}
+
+で確定的に上から抑えられ、$\Phi$ の選択と無関係に到来する。
+
+命題\ref{prop:deadline-variance}がこれを与える。
+
+\begin{proposition}[期限下での分散選好]
+式\eqref{eq:deadline}の期限制約の下では、分散を下げる戦略が最適とは限らない。
+安全な経路の期待所要時間が $E(0)/c$ を超える場合、その経路の成功確率はほぼゼロである。
+\end{proposition}
+
+第\ref{sec:bootstrap}節(a)で導いた「少額多数で分散を下げよ」は、
+床制約の下での結論であった。制約の型が変われば逆転しうる。
+
+\subsection{目的関数の分岐}
+
+より重要な分岐がある。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+R1 & 事業が生活を支える必要がある。式\eqref{eq:deadline}の期限制約が働く \\
+R2 & 年金と貯蓄で生活が別途成立している \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+R2 では事業が $c$ を賄う必要がない。
+
+この分岐は年齢層としても観測されている。厚生労働省の労働経済の分析によれば、
+55〜64歳層の就業理由として経済上の理由は長期的に低下し、
+生きがい・社会参加が上昇傾向にある。
+
+\subsection{目的関数の変化はパラメータで表現できる}
+\label{sec:r2-sst}
+
+観測される動機の変化を、目的関数の\emph{形}の変化として書くことも、
+\emph{パラメータ}の変化として書くこともできる。前者は強い主張である。
+
+社会情動的選択性理論（\cite{carstensen1999}）は後者を採る。
+同理論は、時間展望が縮むと目標が知識獲得から情動的意味へ移行するとし、
+この移行を引き起こすのが年齢そのものではなく
+\textbf{知覚された残り時間}であるとする。
+若年者に限られた時間展望を実験的に想像させると、
+高齢者とほぼ同一の選好パターンが現れることが報告されている。
+
+第\ref{sec:objective}章の定式化に翻訳すると、変化するのは $H$ と $\beta$ である。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+$H \to$ 小 & 総和の項数が減る。遠い将来の $\phi_t$ が目的関数に入らない \\
+$\beta \to$ 小 & 将来の重みが下がる。現在の状態の評価が相対的に上がる \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+両者の極限で、目的関数は将来の $\phi$ の累積ではなく
+現在の状態そのものの評価に近づく。
+同理論のいう「将来志向の目標より現在志向の情動的目標を優先する」がこれにあたる。
+
+\textbf{この定式化には目的関数の書き換えが不要である。}
+第\ref{sec:objective}章の枠組みがそのまま使える。
+
+\begin{remark}[目的関数の形を変える定式化を採らない理由]
+\label{rem:phi-demotion-retracted}
+R2 を $\max(\text{別の目的})$ s.t. $\phi\geq 0$、
+すなわち $\phi$ を目的関数から制約へ移す形で書くことも考えられる。
+本稿はこれを採らない。理由は二つある。
+
+第一に、根拠が不足する。観測されているのは動機調査の分布であり、
+それは目的関数の\emph{形式}については何も述べない。
+動機の分布から構造の変化を導くのは飛躍である。
+
+第二に、より重大な問題として、
+\textbf{$\max(\text{別の目的})$ s.t. $\phi\geq 0$ は内容を持たない}。
+「別の目的」を特定しない限り、この定式化はいかなる行動も説明でき、
+したがって何も予測しない。
+第\ref{sec:predB-illposed}節で可測性仮説について指摘したのと同型の欠陥である。
+
+$H$ と $\beta$ の変化として書けば、目的関数の形は保たれ、
+知覚された残り時間には測定尺度（Future Time Perspective）も存在する。
+\textbf{より弱い仮定で同じ観測を説明できる以上、そちらを採る。}
+\end{remark}
+
+\begin{remark}[同理論の現状]
+社会情動的選択性理論自体は論争下にある。
+限られた将来時間展望が必ずしも良好な情動的幸福に寄与せず、
+場合によってはより悪い幸福を予測するとの報告があり、
+尺度の構造そのものが再検討されている。
+本稿は同理論を採用するのではなく、
+\textbf{目的関数の形を変えずに説明する経路が存在する}ことを指摘するにとどめる。
+\end{remark}
+50代の起業家は収入の確保を挙げる者が多い一方、
+60代には社会とのつながりを求める者が多いとの指摘もある。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1,>=Stealth]
+  \draw[->] (0,0) -- (9.5,0) node[right,font=\small] {時間};
+  \draw[->] (0,0) -- (0,4.6) node[above,font=\small] {資産};
+  \draw[dashed,gray] (0,1.5) -- (8.6,1.5);
+  \node[font=\scriptsize,anchor=west] at (8.7,1.5) {下限};
+  \draw[very thick] (0,2.3) -- (8.6,4.0) node[right,font=\small,anchor=west,xshift=-2pt] {};
+  \node[font=\scriptsize] at (2.2,3.3) {給与所得者};
+  \draw[very thick,dash pattern=on 4pt off 2pt] (0,3.5) -- (6.0,0);
+  \node[font=\scriptsize] at (4.6,1.05) {R1};
+  \fill (6.0,0) circle (2.5pt);
+  \node[font=\scriptsize,anchor=north] at (6.0,-0.15) {$\tau=E(0)/c$};
+  \draw[very thick,dotted] (0,3.5) -- (3.4,1.5) -- (8.6,1.5);
+  \node[font=\scriptsize] at (7.6,1.8) {R2};
+\end{tikzpicture}
+\caption{資産軌跡の三類型。給与所得者では制約が床として、R1では期限として働く。R2 は生活費が事業外にあるため下限で止まる。}
+\label{fig:trajectory}
+\end{figure}
+
+\subsection{R2 では実現可能領域が反転する}
+
+図\ref{fig:solo-quadrant}の左上を「頭打ち」と評価したが、
+R2 においては頭打ちは欠点ではない。
+
+式\eqref{eq:solo-capacity}が拘束するのは、規模の拡大を要する場合のみである。
+$H$ が短く $\beta$ が小さければ、将来の $\phi$ の累積が目的関数に占める比重が下がり、
+顧客が数名で止まっても支障がない（第\ref{sec:r2-sst}節）。
+むしろ人手をかけた履行のほうが、現在の情動的な目標に直接寄与する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+無資産・無信用の一人事業 & 実現可能領域は右上（複製可能 $\times$ 前受） \\
+R2 の退職者 & 実現可能領域は左上（人手依存 $\times$ 前受） \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{同一の枠組みで最適な象限が逆転する。}
+「複製可能な履行を選べ」という指針は、$\phi$ を最大化する場合にのみ正しかった。
+
+\subsection{族3の復活とデータによる照合}
+
+ふるい分けで族3（資産の時間貸し）は $A$ が必要であるとして全て脱落させた。
+$E(0)>0$ を入れれば族3 は復活するはずである。
+
+中小企業白書2014による年齢別の起業分野では、60歳以上でサービス業39.1\%、
+不動産業・物品賃貸業12.2\%、学術研究・専門技術サービス業11.9\%が上位を占め、
+\textbf{不動産業・物品賃貸業は29歳以下では0.2\%にとどまる}。
+
+60倍の差である。$E(0)$ の有無が族3 の可否を決めるという演繹と、
+年齢別分布が一致している。事後的な照合であり因果を示すものではないが、
+ふるい分けを事前に明示していた分、確認としての価値はある。
+
+\subsection{年金の構造的役割}
+
+次の対応が成立する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+装置 & 作用 & 移動先 \\
+\midrule
+クラウド & 固定資産 $A$ を負の $\kappa_S$ に変換 & 物理層 $\to$ 信用層 \\
+年金 & 生活費 $c$ を事業の外へ切り出す & 目的関数 $\to$ 外生 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+いずれも一人事業の拘束制約を外す装置である。
+\textbf{年金は R2 という選択肢そのものを生成している}。
+制度層が $\Phi$ の実現可能集合を広げる例であり、
+前節の剥奪とは逆向きの作用である。
+
+\subsection{経路制約の再設定}
+
+第\ref{sec:objective}章の制約を $M(t)\geq 0$ と書いてきたが、この層には不適切である。
+
+\begin{equation}
+M(t,\omega) \;\geq\; M_{\rm floor}, \qquad M_{\rm floor} \gg 0
+\end{equation}
+
+$E(0)$ は労働により再取得できない。同額の損失であっても、
+効用の非対称性が現役世代とは異なる。実質的には、投入してよい額を
+事業予算 $B$ として先に切り出し、$E(0)-B$ には手をつけない設計となる。
+図\ref{fig:trajectory}のR2 が下限で止まるのは、この規律が働く場合である。
+
+なおこの層を対象とする起業支援や情報提供には、
+$B$ を超えて $E$ に手をつけさせる誘因が働く。
+$M_{\rm floor}$ を事前に確定しておくことは、モデル上の技巧ではなく実務的な防御である。
+
+\section{信用の形成}
+\label{sec:credit-formation}
+
+\subsection{個人に帰属する信用がゼロである理由}
+
+$E$ とは独立に、退職者が信用を持ち込めるかを検討する。
+結論として $S_{\rm ind}\approx 0$ となるが、これは経験則ではなく
+第\ref{sec:info}章の可測性条件の帰結である。
+
+信用とは、相手が $\kappa_C<0$ を受け入れる根拠、
+すなわち検証可能な履行履歴であり、$\mathcal{G}$ に載っている必要がある。
+ところが\textbf{組織内での個人の寄与は、定義上、組織の外から可測ではない}。
+これは偶然ではない。可測でないからこそ組織内部に
+プリンシパル=エージェント問題が存在するのであった。
+
+\begin{equation}
+\text{組織が履行主体として観測される}
+\;\Rightarrow\; \text{履行履歴は組織に帰属}
+\;\Rightarrow\; \text{個人の寄与は $\mathcal{G}$ の外}
+\end{equation}
+
+組織は外部からの可測性を吸収する装置であり、
+その恩恵を受けていた分、退職時に失うのは帰結として当然である。
+
+\begin{remark}[売却ではなく原始的帰属]
+在職中に信用が「継続的に売却されている」という表現は不正確である。
+売却は、いったん保有したものの譲渡を含意する。
+
+職務著作の著作者が初めから法人であるのと同様に、
+信用は\textbf{発生時点で組織に原始的に帰属する}。
+個人に発生してから移転するのではない。
+
+差は実務に及ぶ。売却であれば「売るのをやめる」選択肢があるが、
+原始的帰属であれば\textbf{帰属の条件そのものを変えるほかない}。
+在職中に個人名で公開することは、帰属先を変える操作である。
+\end{remark}
+
+\subsection{三つの量の分離}
+
+退職時に何が不連続になるかは、量を分ければ確定する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+量 & 内容 & 退職時 \\
+\midrule
+利用可能な信用 & 相手が実際に前受に応じる度合い & 下向きに不連続 \\
+保有する信用 $S_{\rm ind}$ & 個人名で $\mathcal{G}$ に載っているもの & 連続、ほぼゼロのまま \\
+変換原資 & 人的ネットワーク、技術知識 & 連続だが以後減衰 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+在職中、個人は組織の信用を\emph{借りて}使っている。保有しているのではない。
+したがって退職時に落ちるのは借用分の返却であり、保有分は元来ゼロであるから変化しない。
+\textbf{不連続に見えるが、失っているのは自分のものではなかった。}
+
+\begin{remark}[退職は測定行為である]
+在職中は借用分と保有分が束になっており分離できない。
+退職は、それまで $\mathcal{G}$ の外にあった分解を可視化する測定行為である。
+自分の信用がいくらであったかは、組織を外すまで誰にも分からない。
+事前に見積もれないのは情報不足ではなく、原理的に測定されていないためである。
+\end{remark}
+
+\subsection{二つの不連続と時間差}
+
+退職時に下がるものだけではない。
+在職中は競業避止義務と守秘義務が公開を制限しており、
+退職によりこの制約が外れる。すなわち\textbf{変換の自由度は上向きに不連続}となる。
+ただし競業避止義務には期間があり、多くの場合ただちには解けない。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1,>=Stealth]
+  \fill[gray!18] (4.0,0) rectangle (5.4,4.2);
+  \draw[->] (0,0) -- (9.6,0) node[right,font=\small] {時間};
+  \draw[dashed,gray] (4.0,0) -- (4.0,4.3);
+  \draw[dashed,gray] (5.4,0) -- (5.4,4.3);
+  \node[font=\scriptsize,anchor=south] at (4.0,4.35) {退職};
+  \node[font=\scriptsize,anchor=south] at (5.4,4.35) {競業避止の終了};
+  \draw[very thick] (0,3.6) -- (4.0,3.6);
+  \draw[very thick,dotted] (4.0,3.6) -- (4.0,0.8);
+  \draw[very thick] (4.0,0.8) -- (9.0,0.8);
+  \node[font=\scriptsize,anchor=south west] at (0.3,3.65) {利用可能な信用};
+  \draw[very thick,dash pattern=on 4pt off 2pt] (0,1.9) .. controls (2.0,2.3) and (3.0,2.9) .. (4.0,3.1)
+        .. controls (5.5,2.7) and (7.0,2.1) .. (9.0,1.6);
+  \node[font=\scriptsize,anchor=north] at (2.5,2.45) {変換原資};
+  \draw[very thick,dash pattern=on 1pt off 2pt] (0,0.25) -- (5.4,0.25);
+  \draw[very thick,dotted] (5.4,0.25) -- (5.4,3.0);
+  \draw[very thick,dash pattern=on 1pt off 2pt] (5.4,3.0) -- (9.0,3.0);
+  \node[font=\scriptsize,anchor=south west] at (6.1,3.05) {変換の自由度};
+  \node[font=\scriptsize,anchor=north] at (4.7,-0.15) {原資は減衰を始めるが変換できない};
+\end{tikzpicture}
+\caption{退職前後における三つの量の推移。二つの不連続は逆を向き、かつ時間差がある。}
+\label{fig:credit-jump}
+\end{figure}
+
+\begin{remark}[最大となるのは信用ではない]
+「信用資産が最大なのは退職直後である」という言い方は誤りである。
+信用はゼロであり、退職後もゼロのままである。
+
+最大となるのは\textbf{変換原資}、すなわち人脈と技術知識である。
+これは信用ではないが、公開という操作を通じて信用に変換できる材料である。
+したがって正しくは、最大となるのは信用ではなく変換可能性の原資であり、
+以後 $e^{-\lambda t}$ で減衰する。
+
+結論としての「早期に動くべき」は変わらないが、理由が異なる。
+保有資産が目減りするからではなく、
+\textbf{まだ資産でないものを資産にする材料が目減りするから}である。
+\end{remark}
+
+図\ref{fig:credit-jump}の網掛け部が構造的な問題である。
+競業避止義務の期間は原資が最も速く減衰する時期と重なり、
+その間は変換ができない。減衰率 $\lambda$ が高い分野ほど損失は大きい。
+
+この時間差への対処は、在職中に個人名で成果を出しておくこと以外にない。
+退職後の対処では間に合わない構造だからである。
+
+\subsection{資本と信用は代替財である}
+
+式\eqref{eq:solo-finance}を再掲する。
+$E\approx 0$ のとき $\sum\max\{-\kappa_i,0\}$ を稼ぐほかなく、
+\textbf{信用が唯一の調達手段}であった。$E>0$ ならその項がなくとも不等式は成立する。
+
+\begin{proposition}[代替関係]
+制約式\eqref{eq:solo-finance}において、$E$ と $\kappa<0$ は代替物である。
+\end{proposition}
+
+したがって\textbf{退職者の優位は資本であって信用ではない}。
+信用の次元では、若年の無資産起業者と同じくゼロから始まる。
+
+\begin{remark}[経験と信用の混同]
+シニア起業の一般的な説明では、経験・スキル・人脈が活かせる点が繰り返し挙げられる。
+しかし\textbf{経験と信用は別物である}。
+経験は生産関数 $f$ に効くが、$\kappa$ の符号を動かすのは信用である。
+経験があっても外部から検証できなければ前受は取れない。
+
+両者を混同すると、資本を信用の代わりに用いるという正しい戦略に気づかず、
+「経験があるのに仕事が来ない」という誤った問いに陥る。
+\end{remark}
+
+\subsection{符号を反転させて開始する}
+
+第\ref{sec:bootstrap}節の指針は $\kappa_C<0$ を要求したが、
+信用ゼロの前提では初期に実行できない。代わりに次の軌跡をとる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+初期 & $\kappa\geq 0$ で受ける（後払いを許容し、資本で凌ぐ） \\
+中間 & 各取引を $\mathcal{G}$ に載る形で公開・蓄積する \\
+後期 & $\kappa<0$ へ移行する（前受が取れるようになる） \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{資本の役割は、信用を積む期間を買うことである。}
+式\eqref{eq:E-required}を書き直すと、
+
+\begin{equation}
+E_{\rm required} = c\,(T_{\rm dev} + T_{\rm acq} + T_{\rm credit})
+\label{eq:E-required-2}
+\end{equation}
+
+$T_{\rm credit}$ の項が追加される。無資産の場合はこの項を賄えないため、
+第\ref{sec:bootstrap}節(b)のとおりプラットフォームから信用を借りるほかなかった。
+資本があれば借りずに積める。これが代替の具体的内容である。
+
+\section{受託と公開のトレードオフ}
+
+\subsection{対立は個人特有ではない。並列化不能性が特有である}
+
+資産を効率よく得るには受託業務が有利であり、
+信用を効率よく得るには成果の公開が必要である。この対立は組織も直面する。
+受託開発会社もコンサルティングファームも、守秘義務により公開実績を積みにくい。
+
+差は容量制約の形にある。
+
+\begin{align}
+\text{組織：}\quad & \sum\delta \leq \mathrm{Cap}, \quad \mathrm{Cap}\ \text{は人数に比例} \\
+\text{個人：}\quad & \delta_{\text{受託}} + \delta_{\text{公開}} \leq \mathrm{Cap}, \quad \mathrm{Cap}\ \text{固定}
+\end{align}
+
+組織は両者を並列に走らせ相互補助できる。
+族7-2（クロスサブシディ）を、外部の顧客間ではなく内部の活動間で行う形である。
+個人にはこの手段がない。\textbf{個人特有なのは対立そのものではなく、並列化できないことである。}
+
+\subsection{信用の二種}
+
+「受託は信用を生まない」は不正確である。信用には二種がある。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+ & 紹介型信用 & 公開型信用 \\
+\midrule
+載る場所 & $\mathcal{G}_{\rm local}$（顧客の私的情報） & $\mathcal{G}$（検証可能な公開情報） \\
+蓄積コスト & 受託と同時、追加ゼロ & 別途 $\mathrm{Cap}$ を消費 \\
+成長 & 線形、緩慢 & 非線形になりうる \\
+到達範囲 & ネットワーク内のみ & 未知の相手に届く \\
+$\kappa<0$ への効き方 & 強い & 弱いが広い \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+受託業務は紹介型信用を副産物として生む。追加コストはゼロであり、
+$\kappa<0$ への効き方はむしろ公開型より直接的である。
+
+\subsection{対立の有無は目指す象限で決まる}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+左上を目指す場合 & 顧客が数名でよく、紹介型信用で足りる。対立しない \\
+右上を目指す場合 & 未知の多数に届く必要があり、紹介型では原理的に不足。対立が効く \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+第\ref{sec:retiree}節の結論より、R2 の退職者にとって最適なのは左上であった。
+\textbf{この層に限れば、受託と公開の対立は生じない。}
+対立が構造的問題となるのは $\phi$ を最大化する必要がある層、すなわち右上を目指す層である。
+
+\subsection{部分変換と内点解}
+
+右上を目指す場合でも、代替は完全な一対一ではない。
+時間配分を $a$（受託）と $\mathrm{Cap}-a$（公開）として、
+
+\begin{equation}
+\text{公開型信用の蓄積} = \gamma\,(\mathrm{Cap}-a) + \theta\,a,
+\qquad 0<\theta<\gamma
+\label{eq:leakage}
+\end{equation}
+
+第二項が漏れ出しである。受託案件で解いた問題のうち
+\textbf{一般化できる部分は公開できる}。案件自体は書けなくとも、
+そこで直面した一般的な技術問題は書ける。しかも思考は既に済んでいるため、
+書く限界費用が低い。
+
+したがって式\eqref{eq:leakage}には内点解が存在し、
+\textbf{案件選択の基準が報酬額から $\theta$ に移る}。
+同単価であれば、一般化可能な問題を含む案件を選ぶ。
+守秘義務の壁は、案件そのものではなく抽象化の水準で越えられる。
+
+\section{雇用契約の読み直し}
+
+本章の議論から、雇用契約が次のように書ける。
+
+\begin{equation}
+\text{個人が $\delta$ を提供} \;\to\; \text{信用は組織に帰属}
+\;\to\; \text{個人は $\kappa_L$ の安定を受け取る}
+\end{equation}
+
+\textbf{雇用契約とは、信用の帰属を組織に置く代わりに $\kappa$ の安定を買う取引である。}
+毎月確実に入金される代わりに、蓄積される信用資産は自らのものにならない。
+
+これは第\ref{sec:objective}章の割引因子の議論と同型である。
+安定を選ぶ者は将来の請求権を割り引いて手放している。
+
+帰属の条件は交渉可能な変数である。
+在職中に個人名で出せるもの（公開登壇、公開リポジトリへの貢献、著述）を確保することは、
+報酬交渉と同じ次元の事項となる。多くの場合これは無償で認められる。
+
+\section{本章の限界}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{演繹であり実証ではない。}
+族3 の復活と年齢別分布の照合を除き、本章の結論は前提からの演繹である。
+前提が誤っていれば結論も誤る。
+
+\item \textbf{$S_{\rm ind}\approx 0$ は業界に依存する。}
+業界そのものが小さく参加者が互いを個人として把握している領域
+（学術分野、特定の技術コミュニティ、規模の小さい専門職）では、
+組織を経由せず個人の履行が観測される。
+この場合は在職中から借用分と保有分の分離が進んでおり、退職時の不連続が小さい。
+$S_{\rm ind}$ の大きさは個人の努力だけでなく\textbf{業界の可測性構造}に依存する。
+
+\item \textbf{R2 の目的関数を特定していない。}
+$H$ と $\beta$ の変化として書けることは示したが、
+それで十分かを検証していない。したがってR2 について「最適」を論じることは、
+厳密にはできていない。
+
+\item \textbf{変換原資の減衰率 $\lambda$ を測定していない。}
+図\ref{fig:credit-jump}の時間差が実務上どれだけ深刻かは $\lambda$ に依存するが、
+その値についての根拠を持たない。
+\end{enumerate}
