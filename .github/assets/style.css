@@ -168,19 +168,36 @@ math[display='block']{
      中身（mtable 等）は左詰めのまま残る。中身の幅に箱を合わせて
      auto マージンで中央寄せする。overflow 時は自身は伸ばさず横スクロール。 */
   display:block; width:fit-content; max-width:100%;
-  margin:1.1rem auto; overflow-x:auto; overflow-y:hidden;
+  margin:1.3rem auto; overflow-x:auto; overflow-y:hidden;
+  font-size:1.3em;  /* 数式のみの行は地の文より大きく見せる */
 }
 math mo[stretchy='true']{max-height:2.4em}
 math munderover,math munder,math mover{vertical-align:middle}
 .equation{margin:1.2rem 0}
 
-/* ---------- ページ送り（前へ／目次／次へ） ---------- */
-/* tex4ht の crosslinks（next/prev/prev-tail/tail/up の羅列）を
-   inject-sidebar.py が前へ・目次・次への3ボタンに作り替えたもの。 */
-.pagenav{
+/* ---------- ページ送り（部レベル／章レベルの二段構成） ---------- */
+/* tex4ht の crosslinks（next/prev/prev-tail/tail/up の羅列。部の境界で
+   next/prev が途切れる欠陥がある）を、inject-sidebar.py が
+   「前の部／次の部」（粗い粒度）と「前へ／目次／次へ」（章単位）の
+   二段に作り替えたもの。部の境界でも章単位の送りが機能するよう、
+   部の区切りページを飛ばして章から章へ直結させてある。 */
+.pagenav{margin:1.8rem 0; padding:.6rem 0 0; border-top:1px solid var(--line)}
+
+.pagenav-part-row{
+  display:flex; justify-content:space-between; gap:.6rem;
+  font-size:.8rem; margin-bottom:.6rem;
+}
+.pagenav-part-link{
+  color:var(--muted); text-decoration:none; max-width:48%;
+  padding:.15rem .2rem; transition:color .12s;
+}
+.pagenav-part-next{text-align:right; margin-left:auto}
+.pagenav-part-link:hover{color:var(--accent)}
+.pagenav-part-link.pagenav-disabled{opacity:.35}
+
+.pagenav-chapter-row{
   display:flex; align-items:stretch; gap:.6rem;
-  margin:1.8rem 0; padding:.6rem 0;
-  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  padding:.6rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
 }
 .pagenav-link{
   display:flex; align-items:center; gap:.4rem;
@@ -201,7 +218,9 @@ math munderover,math munder,math mover{vertical-align:middle}
 }
 .pagenav-toc:hover{color:var(--fg)}
 @media (max-width:520px){
-  .pagenav{flex-wrap:wrap}
+  .pagenav-part-row{font-size:.76rem}
+  .pagenav-part-link{max-width:44%}
+  .pagenav-chapter-row{flex-wrap:wrap}
   .pagenav-link{font-size:.86rem; padding:.5rem .7rem}
   .pagenav-toc{
     order:3; flex:1 1 100%; justify-content:center;
