@@ -29,6 +29,8 @@
 \ref{part:conclusion} & 総括 & 到達点と未解決問題 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{本稿の部構成。}
+\label{tab:part-structure}
 \end{center}
 
 第\ref{part:theory}部と第\ref{part:catalog}部は演繹的であり、
@@ -121,6 +123,8 @@ $X(i,t,\omega)$ は、状態 $\omega$ において時刻 $t$ に主体 $i$ と�
 キャッシュフロー計算書 & $t$ 方向の差分 & 現金の実際の移動 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{財務諸表は式\eqref{eq:X}の三重添字を潰した射影である。}
+\label{tab:statements-projection}
 \end{center}
 
 \begin{remark}[本稿の量はすべて水準である]
@@ -164,6 +168,8 @@ $i$ & 移転 (transfer) & 総額と分散 & ファクタリング、保険購入
 $\omega$ & 集約 (pooling) & 総額 & 保険引受、分散投資 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{リスク操作の三分類。操作する添字と不変量、代表例。}
+\label{tab:three-ops}
 \end{center}
 
 三つのうち、分散を実際に減少させるのは集約のみである。
@@ -279,6 +285,8 @@ $\kappa_i<0$ は $i$ が企業に与信している状態（受領済み・未�
 前渡金 & $S$ & $\kappa_S>0$ & 企業が仕入先に与信 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{式\eqref{eq:kappa}が統合する四つの勘定科目。}
+\label{tab:kappa-accounts}
 \end{center}
 
 四つの別勘定ではなく、符号と添字の異なる単一の量である。
@@ -303,11 +311,13 @@ $\kappa_K<0$ & 借入 & 企業金融の標準理論 \\
 $\kappa_K^{j}$ & 出資（残余請求権） & 主体依存。定義\ref{def:kappa-K} \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{$\kappa_i$ の各項を説明する既存理論。}
+\label{tab:kappa-literature}
 \end{center}
 
 \begin{remark}[四つの理論は互いを参照しない]
 \label{rem:disjoint-literatures}
-上表の理論は、それぞれ異なる分野で異なる問いに答えるために発展した。
+表\ref{tab:kappa-literature}の理論は、それぞれ異なる分野で異なる問いに答えるために発展した。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llX@{}}
@@ -320,6 +330,8 @@ bonding argument & 労働経済学 & なぜ非自発的失業が存在するか 
 前払い契約の研究 & 消費者行動 & なぜ消費者が先に払うか \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{$\kappa_i$ の各項を説明する理論の分野と中心的な問い。}
+\label{tab:disjoint-theories-questions}
 \end{center}
 
 問いが異なるため、これらは互いを引用しない。
@@ -356,6 +368,8 @@ $\tau_i>0$ & 決済が履行より遅い（企業が与信） & 売掛金、掛�
 $\tau_i<0$ & 決済が履行より早い（$i$ が与信） & 前受金、買掛金 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{決済の遅れ $\tau_i$ の符号と対応する状態。}
+\label{tab:tau-sign}
 \end{center}
 \end{definition}
 
@@ -508,6 +522,8 @@ $\kappa_K^{j}$ は主体 $j$ に依存するため、式\eqref{eq:cash}の恒等
 測度依存 & $\mathcal{F}_t$ 可測だが $\Prob_j$ に依存 & 残余請求権の価値 $V_j$ \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{観測できない量の三段階の主観性。}
+\label{tab:subjectivity-levels}
 \end{center}
 
 $v$ の主観性は情報の非対称であり、開示によって解消しうる。
@@ -597,6 +613,8 @@ $C_{\mathrm{admin}}$ は $\Phi$ の六自由度（第\ref{sec:dof}節）のす�
 外部委託 & 仲介 & 決済、配信、集客の代行 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{$C_{\mathrm{admin}}$ が生じる経路。}
+\label{tab:cadmin-routes}
 \end{center}
 
 \begin{remark}[前受にも費用がかかる]
@@ -651,6 +669,8 @@ $C_{\mathrm{sw}} \ll \Delta\phi$ & 本稿の仮定。$\Phi$ は自由に選べ�
 $C_{\mathrm{sw}} \sim \Delta\phi$ & 選択を遅らせることに価値がある \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{切り替え費用 $C_{\mathrm{sw}}$ の大小と $\Phi$ 選択の自由度。}
+\label{tab:switching-cost-cases}
 \end{center}
 
 第三の場合には\textbf{待機の価値}が生じる。
@@ -680,6 +700,8 @@ $\Phi$ & 決済 & $\kappa_C$（期央、顧客1名） \\
 月額後払 & 毎月末に5,000円 & $+2{,}500$ 円 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{同一の生産関数 $f$ に対する三通りの $\Phi$ と $\kappa_C$。}
+\label{tab:same-f-different-phi}
 \end{center}
 $f$ は同一であり、限界費用も同一である。異なるのは $\Phi$ のみだが、
 $\kappa$ の符号が反転し、必要な運転資本が変わる。
@@ -839,6 +861,8 @@ $\pi(\omega)\neq\pi(\omega')$ となるものが存在する。
 どちらも部分的 & 混合 & 固定＋歩合 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{観測可能なものと対応する契約形態。}
+\label{tab:observability-contracts}
 \end{center}
 
 これは契約理論の標準的な結果であり（\cite{holmstrom1979}）、本稿の寄与ではない。
@@ -1077,6 +1101,8 @@ $\CCC$（日） & $\CCC$（年） & $g^\star$ & 参考：$m/\CCC$ \\
 $-30$ & $-0.082$ & 存在しない & 存在しない \\
 \bottomrule
 \end{tabular}
+\captionof{table}{$\CCC$ の値ごとの $g^\star$ と $m/\CCC$（数値例）。}
+\label{tab:gstar-example}
 \end{center}
 
 $\CCC=120$ 日の事業は年率12\%を超える成長で必ず外部資金を要する。
@@ -1199,6 +1225,8 @@ $\phi_{\mathrm{barg}}$ & 写像 $\Phi$ & 取り分の移転。$\sum_i \phi_i = 0
 $\phi_{\mathrm{cog}}$ & $\dbar$ と $\delta$ の乖離、$\hat{U}$ と $U$ の乖離 & 学習・規制・UI改善で削られ、原則として回復しない \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{余剰 $\phi$ の三分解と、各成分の源泉・耐久性。}
+\label{tab:surplus-decomposition}
 \end{center}
 
 \begin{remark}[リスク引受の対価はどこに入るか]
@@ -1276,6 +1304,8 @@ $\lambda$ が年間取引回数に比例し、$\lambda = 0.02\nu$ とする。
 年契約（保険、会員権） & 1 & 0.02 & 34.7 年 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{取引頻度 $\nu$ と認知余剰の半減期（数値例）。}
+\label{tab:decay-halflife-example}
 \end{center}
 係数の値には根拠がなく、比の構造のみを示す例示である。
 日常的に購入される財では認知余剰がほとんど残らず、
@@ -1299,6 +1329,8 @@ $\lambda$ が年間取引回数に比例し、$\lambda = 0.02\nu$ とする。
 物理層 & $f$、限界費用、資産の重さ & 技術と物理法則。短期には所与 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{可変性の順に整理した五層構造。}
+\label{tab:five-layers}
 \end{center}
 
 この順序は、余剰の耐久性の順序と一致する。
@@ -1319,6 +1351,8 @@ $\lambda$ が年間取引回数に比例し、$\lambda = 0.02\nu$ とする。
 競争条件の操作 & $\phi_{\mathrm{barg}}$ を間接的に削る & 訴訟圧力、手数料自由化（注\ref{rem:institution-shift}） \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{制度層が制約を課す三つの作用形式。}
+\label{tab:institution-modes}
 \end{center}
 
 三者は削られ方が異なる。第一と第二は特定の $\Phi$ を選べなくするのに対し、

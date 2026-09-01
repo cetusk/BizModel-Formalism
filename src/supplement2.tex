@@ -37,6 +37,8 @@
 （iv）アクセス制約 & 存在するが取得できない & 経路の開拓、または法的・技術的に断念 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{検証障害の四分類。状態と正しい対処。}
+\label{tab:obstacle-taxonomy}
 \end{center}
 
 （i）と（ii）は、いくらデータを集めても解決しない点で共通する。
@@ -80,6 +82,8 @@ $\phi_{\mathrm{cog}}$ は推定できない。
 族2 の主要障害 & （iv）アクセス制約。個票と外生ショックを欠く \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{族2の主要障害の判定。}
+\label{tab:family2-obstacle}
 \end{center}
 
 \section{族5への割当}
@@ -103,6 +107,8 @@ $\phi_{\mathrm{cog}}$ は推定できない。
 返戻金の率・期間 & 事業者が任意形式でPDF添付 & 非構造化 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{人材サービス総合サイトの掲載変数と構造化の状況。}
+\label{tab:jinzai-variables}
 \end{center}
 
 さらに\textbf{詳細検索により、職種・手数料実績率・離職率を条件として指定でき、
@@ -185,6 +191,8 @@ B & 医療・介護・保育 & なし & 市場選択 \\
 C & その他分野 & --- & 市場選択 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{返戻金制度の決定要因による三群（A/B/C）の比較。}
+\label{tab:predB-groups}
 \end{center}
 
 B対C が本来の仮説検定にあたる。
@@ -212,6 +220,8 @@ A対B は当初の仮説とは別物だが、
 人材サービス総合サイト & 就職者数、離職者数、職種別手数料率 & 事業所 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{返戻金制度と手数料率、それぞれの資料と記録粒度。}
+\label{tab:record-granularity}
 \end{center}
 
 認定事業者一覧では、同一企業が医療・介護・保育の三分野で別レコードとして登録され、
@@ -241,6 +251,8 @@ A対B は当初の仮説とは別物だが、
 適正認定制度 & 分野別の細区分 & 看護職、リハビリテーション専門職 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{職種分類の三系統と、それぞれの区分方式。}
+\label{tab:occupation-classification-systems}
 \end{center}
 
 認定制度側は「看護職」が看護師・准看護師・保健師・助産師を含むと注記しているが、
@@ -318,6 +330,8 @@ $b^\star$ の式そのものは、必要な量が揃わないため検定でき�
 リスク回避度 & $r$ & 実験的手法を要する \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{$b^\star$ の検定に必要な量とその状態。}
+\label{tab:bstar-requirements}
 \end{center}
 
 $\sigma^2$ は集計すれば足りるものではない。
@@ -355,6 +369,8 @@ $\sigma^2$ は集計すれば足りるものではない。
 計 & 307 & 23.3\% & 22.2 & 6.1 & 6.7\% & $-0.095$ & --- \\
 \bottomrule
 \end{tabular}
+\captionof{table}{職種別の手数料実績率と離職率、予測Xの検定結果（307社）。}
+\label{tab:predX-result}
 \end{center}
 \begin{center}\footnotesize 慣行値の割合は手数料率が 20/25/30\% ちょうどである事業者の比率\end{center}
 
@@ -383,6 +399,8 @@ $\sigma^2$ は集計すれば足りるものではない。
 離職率（職種平均） & 2.3 -- 12.8\% & \textbf{5.49 倍} \\
 \bottomrule
 \end{tabular}
+\captionof{table}{手数料率と離職率、職種間のばらつきの比較。}
+\label{tab:fee-turnover-asymmetry}
 \end{center}
 
 \textbf{離職率が5.5倍異なるにもかかわらず、手数料率は1.16倍しか異ならない。}
@@ -410,6 +428,8 @@ $\sigma^2$ は集計すれば足りるものではない。
 （iv）アクセス制約 & 該当しない。データに到達している \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{予測Xの観測結果と検証障害の四分類との対応（いずれにも該当しない）。}
+\label{tab:predX-taxonomy-check}
 \end{center}
 
 説明変数が理論の想定する範囲で変動していない。
@@ -458,6 +478,8 @@ $\sigma^2$ は集計すれば足りるものではない。
 保育士 & $+0.331$ \\
 \bottomrule
 \end{tabular}
+\captionof{table}{職種別の規模（無期就職者数の対数）と離職率の相関。}
+\label{tab:scale-turnover-corr}
 \end{center}
 
 介護と保育で強い正の相関がある。大規模な事業者ほど離職率が高い。
@@ -498,7 +520,7 @@ $b^\star$ の式については命題が符号を一意に定めないこと、
 \subsection{取得の途中で判明した障害}
 
 事業所詳細ページは許可番号を含むURLで直接参照できる。
-しかし取得を繰り返したところ、次の挙動が観察された。
+しかし取得を繰り返したところ、表\ref{tab:permit-lookup-failure}の挙動が観察された。
 
 \begin{center}
 \begin{tabular}{@{}llc@{}}
@@ -511,6 +533,8 @@ $b^\star$ の式については命題が符号を一意に定めないこと、
 13-ユ-305803 & 13-ユ-302647 & 直前の結果 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{許可番号を直接指定した際の同定失敗の観察。}
+\label{tab:permit-lookup-failure}
 \end{center}
 
 新規の番号は正常に解決される一方、解決に失敗した番号については
@@ -554,6 +578,8 @@ $b^\star$ の式については命題が符号を一意に定めないこと、
 返戻金制度 & 有（サイト内PDF） & 有（外部規約ページ） \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{許可番号の照合に成功した2事業所の実績値。}
+\label{tab:verified-establishments}
 \end{center}
 
 \subsection{第二の経路：詳細検索}
@@ -616,6 +642,8 @@ $b^\star$ の式については命題が符号を一意に定めないこと、
 （vi）調整の不作動 & データは十分にあるが、説明変数が理論の想定する範囲で変動しない & 注\ref{rem:no-adjustment} \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{四分類に収まらない障害（v・vi）とその現れた箇所。}
+\label{tab:sixth-obstacle-summary}
 \end{center}
 
 両者は対処が異なる。
@@ -653,6 +681,8 @@ $b^\star$ の式については命題が符号を一意に定めないこと、
 中小企業実態基本調査 & 個人事業者用の調査票は存在するが、資産・負債の集計表は法人企業のみ & 調査されるが\emph{集計されない} \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{個人事業主の $\kappa$ に関わる二つの統計の状態。}
+\label{tab:individual-kappa-stats}
 \end{center}
 
 前者は（i）測定の不在だが、\textbf{かつては測定されていた}点で通常の事例と異なる。
@@ -736,6 +766,8 @@ $b$ を連続量として得ること、および $\sigma^2$ から
 再開の条件 & 個票データへの到達 & なし。（vi）は労力で解決しない \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{族2と族5、それぞれの到達点のまとめ。}
+\label{tab:family2-5-summary}
 \end{center}
 
 族2 については、当初の予測のうち水準に関する部分が支持された。

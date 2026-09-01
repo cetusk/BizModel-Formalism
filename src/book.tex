@@ -4,6 +4,9 @@
   \usepackage{luatexja}
   \usepackage{amssymb}   % HTML 変換時の \mathbb 用
   \newenvironment{abstract}{\section*{概要}}{}  % book クラスに abstract はない
+  \renewcommand{\contentsname}{目次}  % 英語版 book クラスの既定値を上書き（ltjsbook は元々日本語）
+  \renewcommand{\figurename}{図}      % 同上。HTML 版の図表キャプションが "Figure"/"Table" のままだった
+  \renewcommand{\tablename}{表}
 \else
   \documentclass[a4paper,11pt,openany]{ltjsbook}
   \usepackage{luatexja-fontspec}
@@ -18,6 +21,7 @@
 
 \usepackage{amsmath,amsthm}
 \usepackage{booktabs,longtable,array,tabularx}
+\usepackage{caption}  % \captionof{table}{...}: 表をフロート化せず現在地に採番・キャプション付けする
 \usepackage{geometry}
 \usepackage{enumitem}
 \usepackage{microtype}

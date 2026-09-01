@@ -22,4 +22,12 @@ docs/book.pdf
 docs/index.html
 docs/.nojekyll
 
+# make4ht を src/ から直接叩くと（-d 指定とは別に）カレントにも
+# 変換結果一式を残す。ローカル検証で src/ 直下に出た分の掃除用
+src/book.css
+src/book*.html
+
 __pycache__/
+
+# 検討・実装記録（ローカルのみで管理するメモ）
+docs/IMPL.md

@@ -34,6 +34,8 @@ $\tau$ & 第\ref{sec:objective}章 & 期限として $E(0)/c$ で上から抑え
 $T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格は第\ref{ch:platformfee}章で測定 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{本章で扱う理論量。制約下の一人事業に関わる記号と測定状況。}
+\label{tab:solo-quantities}
 \end{center}
 
 \section{前提の翻訳}
@@ -85,6 +87,8 @@ $M(t,\omega)\geq 0$ であった。一人事業では、多くの $\Phi$ にお�
 式\eqref{eq:solo-capacity} & $\partial\delta/\partial(\text{顧客数})\approx 0$ & 複製可能な履行を選べ \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{拘束する制約と設計原理の対応。財務制約と容量制約のいずれが先に拘束するか。}
+\label{tab:solo-constraint-design}
 \end{center}
 
 両者を同時に満たす領域が実現可能集合である（図\ref{fig:solo-quadrant}）。
@@ -130,6 +134,8 @@ $\kappa_S<0$ が生じる。すなわちインフラ事業者からの与信で�
 7 支払者分離 & 7-4 & 7-1、7-2、7-3 & 規模、または与信 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{27類型のふるい分け。一人・無資産・無信用の制約下で生存する類型。}
+\label{tab:solo-type-filter}
 \end{center}
 
 27類型のうち残るのは10前後である。
@@ -258,6 +264,8 @@ R1 & 事業が生活を支える必要がある。式\eqref{eq:deadline}の期�
 R2 & 年金と貯蓄で生活が別途成立している \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{目的関数の分岐。R1（生活費依存）とR2（年金・貯蓄で自立）の対比。}
+\label{tab:solo-r1-r2}
 \end{center}
 
 R2 では事業が $c$ を賄う必要がない。
@@ -288,6 +296,8 @@ $H \to$ 小 & 総和の項数が減る。遠い将来の $\phi_t$ が目的関�
 $\beta \to$ 小 & 将来の重みが下がる。現在の状態の評価が相対的に上がる \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{時間展望の縮小が目的関数に与える効果。$H$ と $\beta$ の変化の内容。}
+\label{tab:solo-h-beta}
 \end{center}
 
 両者の極限で、目的関数は将来の $\phi$ の累積ではなく
@@ -353,6 +363,8 @@ $H$ が短く $\beta$ が小さければ、将来の $\phi$ の累積が目的�
 R2 の退職者 & 実現可能領域は左上（人手依存 $\times$ 前受） \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{実現可能領域の比較。無資産・無信用の一人事業とR2の退職者。}
+\label{tab:solo-quadrant-comparison}
 \end{center}
 
 \textbf{同一の枠組みで最適な象限が逆転する。}
@@ -384,6 +396,8 @@ $E(0)>0$ を入れれば族3 は復活するはずである。
 年金 & 生活費 $c$ を事業の外へ切り出す & 目的関数 $\to$ 外生 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{制約を外す装置とその作用。クラウドと年金の対応。}
+\label{tab:solo-constraint-relief}
 \end{center}
 
 いずれも一人事業の拘束制約を外す装置である。
@@ -459,6 +473,8 @@ $E$ とは独立に、退職者が信用を持ち込めるかを検討する。
 変換原資 & 人的ネットワーク、技術知識 & 連続だが以後減衰 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{退職前後で不連続になる三つの量。}
+\label{tab:solo-credit-decomposition}
 \end{center}
 
 在職中、個人は組織の信用を\emph{借りて}使っている。保有しているのではない。
@@ -543,6 +559,8 @@ $E\approx 0$ のとき $\sum\max\{-\kappa_i,0\}$ を稼ぐほかなく、
 後期 & $\kappa<0$ へ移行する（前受が取れるようになる） \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{信用ゼロから前受へ移行する軌跡。初期・中間・後期の三段階。}
+\label{tab:solo-credit-trajectory}
 \end{center}
 
 \textbf{資本の役割は、信用を積む期間を買うことである。}
@@ -592,6 +610,8 @@ $T_{\rm credit}$ の項が追加される。無資産の場合はこの項を賄
 $\kappa<0$ への効き方 & 強い & 弱いが広い \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{信用の二種の比較。紹介型信用と公開型信用。}
+\label{tab:solo-credit-types}
 \end{center}
 
 受託業務は紹介型信用を副産物として生む。追加コストはゼロであり、
@@ -606,6 +626,8 @@ $\kappa<0$ への効き方はむしろ公開型より直接的である。
 右上を目指す場合 & 未知の多数に届く必要があり、紹介型では原理的に不足。対立が効く \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{対立の有無は目指す象限で決まる。左上と右上を目指す場合の比較。}
+\label{tab:solo-quadrant-tradeoff}
 \end{center}
 
 第\ref{sec:retiree}節の結論より、R2 の退職者にとって最適なのは左上であった。

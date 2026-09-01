@@ -1,6 +1,13 @@
 /* ==========================================================
    tex4ht の出力に重ねるスタイル
-   フォントは PDF 版と同じ Latin Modern を同梱して用いる。
+
+   フォントは二系統。
+   - 数式・記号（math 要素内）: PDF 版と同じ Latin Modern を同梱して用いる。
+   - 地の文（body）: M PLUS Rounded 1c。和文込みの丸ゴシックで、
+     Google 側が unicode-range ごとに数百のサブセットに分割配信するため
+     （Latin Modern は欧文のみ・4ファイルで済むため同梱しているが、
+     フルの和文丸ゴシックを同様に同梱するのは現実的でない）、
+     Google Fonts を経由する（<link> は inject-sidebar.py が挿入）。
    ========================================================== */
 
 @font-face{
@@ -36,7 +43,7 @@
 body{
   margin:0; padding:0;
   background:var(--bg); color:var(--fg);
-  font-family:'LM Roman',"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+  font-family:'M PLUS Rounded 1c',"Hiragino Maru Gothic ProN","Noto Sans CJK JP",sans-serif;
   line-height:1.85; font-size:16.5px;
   -webkit-text-size-adjust:100%;
   /* tex4ht の book.css が body{max-width:80ch} を課しており、
@@ -157,19 +164,50 @@ math{
   font-size:1.05em;
 }
 math[display='block']{
-  display:block; margin:1.1rem 0; max-width:100%;
-  overflow-x:auto; overflow-y:hidden;
+  /* display:block だけでは箱がコンテナ幅いっぱいに広がり、
+     中身（mtable 等）は左詰めのまま残る。中身の幅に箱を合わせて
+     auto マージンで中央寄せする。overflow 時は自身は伸ばさず横スクロール。 */
+  display:block; width:fit-content; max-width:100%;
+  margin:1.1rem auto; overflow-x:auto; overflow-y:hidden;
 }
 math mo[stretchy='true']{max-height:2.4em}
 math munderover,math munder,math mover{vertical-align:middle}
 .equation{margin:1.2rem 0}
 
-.crosslinks{
-  margin:2rem 0; padding:.7rem 0; font-size:.86rem;
+/* ---------- ページ送り（前へ／目次／次へ） ---------- */
+/* tex4ht の crosslinks（next/prev/prev-tail/tail/up の羅列）を
+   inject-sidebar.py が前へ・目次・次への3ボタンに作り替えたもの。 */
+.pagenav{
+  display:flex; align-items:stretch; gap:.6rem;
+  margin:1.8rem 0; padding:.6rem 0;
   border-top:1px solid var(--line); border-bottom:1px solid var(--line);
 }
-.crosslinks p{margin:0}
-.crosslinks a{margin-right:.8em}
+.pagenav-link{
+  display:flex; align-items:center; gap:.4rem;
+  padding:.55rem 1rem; border-radius:7px;
+  color:var(--fg); text-decoration:none; font-size:.92rem;
+  white-space:nowrap; transition:background .12s, border-color .12s;
+  border:1px solid transparent;
+}
+.pagenav-prev,.pagenav-next{
+  flex:1 1 0; border-color:var(--line); font-weight:500;
+}
+.pagenav-next{justify-content:flex-end}
+.pagenav-link:hover{background:rgba(128,128,128,.12)}
+.pagenav-disabled{color:var(--muted); opacity:.4; cursor:default; pointer-events:none}
+.pagenav-toc{
+  flex:0 0 auto; color:var(--muted); font-size:.85rem;
+  justify-content:center;
+}
+.pagenav-toc:hover{color:var(--fg)}
+@media (max-width:520px){
+  .pagenav{flex-wrap:wrap}
+  .pagenav-link{font-size:.86rem; padding:.5rem .7rem}
+  .pagenav-toc{
+    order:3; flex:1 1 100%; justify-content:center;
+    border-top:1px solid var(--line); margin-top:.4rem; padding-top:.6rem;
+  }
+}
 
 .tableofcontents{font-size:.92rem; line-height:1.9}
 .tableofcontents a{text-decoration:none}

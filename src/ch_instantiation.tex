@@ -29,6 +29,8 @@ $\Omega$ & 全領域 & \textbf{観測されていない}。第\ref{part:unmanned
 $\mathcal{F}_t$ & 全領域 & \textbf{観測されていない} \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{基本集合 $N$、$T$、$\mathcal{D}$、$\Omega$、$\mathcal{F}_t$ の各領域における実現状況。}
+\label{tab:basic-sets}
 \end{center}
 
 \begin{remark}[$\Omega$ が測れないことの帰結]
@@ -41,7 +43,7 @@ $\pi$ や $\delta$ の $\omega$ 依存性を直接検証することはできず
 
 \section{写像 \texorpdfstring{$\Phi$}{Phi} の観測範囲}
 
-第\ref{part:catalog}部で27類型を列挙したが、実データに接続できたのは以下に限られる。
+第\ref{part:catalog}部で27類型を列挙したが、実データに接続できたのは以下に限られる（表\ref{tab:phi-observed-types}）。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llX@{}}
@@ -55,6 +57,8 @@ $\pi$ や $\delta$ の $\omega$ 依存性を直接検証することはできず
 1-3 後払単発 & 法人企業統計の掛売 & $\kappa_C>0$ \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{27類型のうち実データに接続できた5類型と観測できた量。}
+\label{tab:phi-observed-types}
 \end{center}
 
 すなわち\textbf{27類型のうち5類型}である。
@@ -96,6 +100,8 @@ D(\text{R6}) &= 28{,}241{,}983 \qquad \text{（回収額。企業からの履行
 IC型 & 534,645 & 13,224,087 & 15 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{媒体別の $-\kappa_C$、$r$、$\CCC$。}
+\label{tab:media-ccc}
 \end{center}
 
 \subsection{法人企業統計における \texorpdfstring{$\kappa$}{kappa}}
@@ -126,6 +132,8 @@ IC型 & 534,645 & 13,224,087 & 15 \\
 水準の測定 & $m$、$d$、$I$、$\CCC$。$g^\star$ を算出 & 2016--2024年度 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{成長制約の実測における二段階の対象と期間。}
+\label{tab:gstar-measurement-stages}
 \end{center}
 
 長期側で $d$ と $I$ を用いないのは、
@@ -149,6 +157,8 @@ $m$ は営業利益率を用いる。
 2024 & 37.2 & 5.01\% & 49.2\% \\
 \bottomrule
 \end{tabular}
+\captionof{table}{企業部門全体の $\CCC$、$m$、$m/\CCC$ の推移（全産業）。}
+\label{tab:mccc-trend}
 \end{center}
 \begin{center}\footnotesize 全産業（除く金融保険業）、全規模。$d$ と $I$ を含まない\end{center}
 
@@ -224,6 +234,8 @@ I \approx \bigl(\text{有形}+\text{無形}-\text{土地}\bigr)_t
 1千万円未満 & 26 & 1.5\% & 2.9\% & 2.0\% & 34.7\% & \textbf{3.1\%} & 41.4 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{資本金階層別の $\CCC$、$m$、$d$、$I/r$、$g^\star$（2024年度、9年平均、SD）。}
+\label{tab:gstar-by-size}
 \end{center}
 \begin{center}\footnotesize 全産業（除く金融保険業）、$\CCC$ は日、SD は $g^\star$ の9年標準偏差\end{center}
 
@@ -279,9 +291,11 @@ $m$ が 1.5\% と低いことに加え、$d$ を上回る投資負担が寄与�
 飲食サービス業 & 5 & 1.2\% & 2.4\% & $-0.4\%$ & 266.9\% & \textbf{3334} \\
 \bottomrule
 \end{tabular}
+\captionof{table}{業種別の $\CCC$、$m$、$d$、$I/r$、9年平均 $g^\star$（SD付き）。}
+\label{tab:gstar-by-industry}
 \end{center}
 
-下二業種は注\ref{rem:gstar-divergence}の発散が生じている。
+表\ref{tab:gstar-by-industry}の下二業種は注\ref{rem:gstar-divergence}の発散が生じている。
 飲食サービス業の $\CCC$ は 5 日であり、分子が 1 ポイント動けば
 $g^\star$ は約 73 ポイント動く。標準偏差 3334 はこの増幅の帰結であり、
 \textbf{$g^\star$ が指標として機能していない}。
@@ -313,6 +327,8 @@ $m$ が低い理由までは述べていない。費用構造を分解する。
 1千万円未満 & \textbf{46.3\%} & \textbf{44.8\%} & 22.7\% & 1.5\% \\
 \bottomrule
 \end{tabular}
+\captionof{table}{資本金階層別の粗利率・販管費率・人件費率と $m$（2024年度）。}
+\label{tab:cost-structure-by-size}
 \end{center}
 \begin{center}\footnotesize 全産業（除く金融保険業）、2024年度\end{center}
 
@@ -344,6 +360,8 @@ $m$ が低い理由までは述べていない。費用構造を分解する。
 1千万円未満 & \textbf{8.04\%} & 14.6\% & \textbf{35.5\%} & 1.5\% \\
 \bottomrule
 \end{tabular}
+\captionof{table}{資本金階層別の役員報酬率・従業員給与率・役員比率と $m$。}
+\label{tab:officer-comp-by-size}
 \end{center}
 \begin{center}\footnotesize 役員比率は人件費に占める役員報酬の割合\end{center}
 
@@ -365,6 +383,8 @@ $m$ が低い理由までは述べていない。費用構造を分解する。
 1千万円未満 & 1.5\% & \textbf{9.5\%} \\
 \bottomrule
 \end{tabular}
+\captionof{table}{役員報酬を営業利益に戻した前後の $m$（規模別）。}
+\label{tab:officer-comp-adjusted}
 \end{center}
 最小規模層が最も高くなる。
 業種内比較でも同様であり、$m$ が小規模層で高い業種は9業種中1つであるのに対し、
@@ -415,6 +435,8 @@ $\CCC=26$ 日で除せば 146\% であり、
 個人企業 & 17.0 & 18.5 & 18.2 & 15.8 & 15.4 & 16.3 & \textbf{16.9} & 1.3 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{法人規模別・個人企業の営業利益率の推移（2019--2024年度）。}
+\label{tab:individual-vs-corp-margin}
 \end{center}
 \begin{center}\footnotesize 営業利益率（\%）、全産業、決算年度\end{center}
 
@@ -436,6 +458,8 @@ $\CCC=26$ 日で除せば 146\% であり、
 個人企業 & 16.9\% & \textbf{9.8\%} & 26.7\% \\
 \bottomrule
 \end{tabular}
+\captionof{table}{法人・個人企業の営業利益率と人件費率（6年平均）。}
+\label{tab:individual-vs-corp-laborcost}
 \end{center}
 \begin{center}\footnotesize 6年平均。人件費率は売上原価の労務費と販管費の人件費の和\end{center}
 
@@ -504,12 +528,14 @@ $\CCC=26$ 日で除せば 146\% であり、
 農業、林業 & 22 & $-4.0\%$ & 負 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{業種別の $\CCC$、$m$、$g^\star$（2024年度、上位・下位の例）。}
+\label{tab:gstar-industry-extremes}
 \end{center}
 
 分子 $m+d-I/r$ が負の業種では $g^\star<0$ となり、
 命題\ref{prop:fcf}より\textbf{成長率がゼロでもフリーキャッシュフローが負}になる。
 
-$\CCC$ が長いことと $g^\star$ が小さいことは一致しない。
+$\CCC$ が長いことと $g^\star$ が小さいことは一致しない（表\ref{tab:gstar-industry-extremes}）。
 リース業は $\CCC=210$ 日と最長だが $m=6.6\%$ が高いため、
 $m$ のみで比較すれば石油製品・石炭製品製造業（$\CCC=20$ 日、$m=0.6\%$）と同水準になる。
 \textbf{$\CCC$ 単独では成長制約を判定できない。}
@@ -620,9 +646,11 @@ III & 16,580 & 3,190 & 5.20 & $-2.22$ \\
 IV & 19,080 & 3,630 & 5.26 & $-2.16$ \\
 \bottomrule
 \end{tabular}
+\captionof{table}{施設カテゴリ別の無制限プラン・都度利用料金と損益分岐利用回数 $\delta^{*}$。}
+\label{tab:predk-breakeven}
 \end{center}
 
-\textbf{予測Kは棄却される。} 四カテゴリすべてで符号が負であり、
+\textbf{予測Kは棄却される。} 四カテゴリすべてで符号が負であり（表\ref{tab:predk-breakeven}）、
 平均的な会員にとって定額契約は合理的である。
 
 会費総額を延べ利用者数で除した実効単価も同じ方向を示す。
@@ -672,6 +700,8 @@ IC型 & 95.5\% & 0.0\% & 15 \\
 紙型 & 41.5\% & 30.1\% & 845 \\
 \bottomrule
 \end{tabular}
+\captionof{table}{媒体別の購入事由（自身で使用・贈答用）と $\CCC$。}
+\label{tab:media-purchase-reason}
 \end{center}
 
 贈答比率が高いほど $\nu$ が低く、$\CCC$ が長い。
@@ -695,6 +725,8 @@ $b$（成果連動係数） & 返戻金制度 & 有無は二値。率と期間�
 $\sigma^2$（結果のノイズ） & 職種別のベースライン離職率 & \textbf{未測定} \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{情報構造 $\mathcal{G}$ の実体と各記号の観測状態（族5）。}
+\label{tab:info-structure-observed}
 \end{center}
 
 $y$ の実測値は、確認できた2事業所で次のとおりである。
@@ -728,6 +760,8 @@ $\phi_{\rm risk}$（移転と集約の対価） & --- & この二社では $\app
 $\phi_{\rm cog}$ & --- & 本領域では測定していない \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{余剰の三分解の測定値と根拠（プラットフォーム手数料の事例）。}
+\label{tab:surplus-decomposition-measured}
 \end{center}
 
 これは\textbf{単一の取引について三分解のうち二成分を数値的に分離できた唯一の事例}である。
@@ -755,6 +789,8 @@ $T_{\rm acq}$ & マーケットプレイス集客 & $+20$ ポイント \\
 $T_{\rm credit}$ & 無料期間による自弁 & $\kappa>0$ のコスト \\
 \bottomrule
 \end{tabular}
+\captionof{table}{立ち上げ費用の各項と外部化の手段・価格。}
+\label{tab:launch-cost-externalization}
 \end{center}
 
 \textbf{$T_{\rm acq}$ が他の全項目の合計を上回る。}
@@ -775,11 +811,13 @@ $\lambda_{\rm novel}$ の上界 & 48,185 件/年（CVE 公開） & 第\ref{part:
 $\lambda_{\rm novel}$ の実効値 & 245 件/年（悪用確認）$=0.51\%$ & 同上 \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{選択と識別に関する量の測定値と出所。}
+\label{tab:selection-identification-measures}
 \end{center}
 
 \section{測定できなかった量の一覧}
 
-以下は本稿の枠組みが定義したが、実データに接続できなかった量である。
+以下は本稿の枠組みが定義したが、実データに接続できなかった量である（表\ref{tab:unmeasured-quantities}）。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llX@{}}
@@ -799,6 +837,8 @@ $\tau$ & 倒産時刻 & 生存条件づけにより標本外（命題\ref{prop:p
 & & \\
 \bottomrule
 \end{tabularx}
+\captionof{table}{本稿の枠組みが定義したが実データに接続できなかった量の一覧。}
+\label{tab:unmeasured-quantities}
 \end{center}
 
 $m$ は当初この一覧に含まれていたが、取得して第\ref{sec:gstar-measured}節で用いた。
