@@ -29,13 +29,20 @@ jobs:
             fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils
           # make4ht は Debian パッケージに含まれないため CTAN 版を導入
           git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
-          mkdir -p ~/texmf/scripts/lua/make4ht
-          cp -r /tmp/make4ht/*.lua /tmp/make4ht/domfilters /tmp/make4ht/filters \
-                /tmp/make4ht/extensions /tmp/make4ht/formats \
-                /tmp/make4ht/make4ht ~/texmf/scripts/lua/make4ht/
-          sudo ln -sf ~/texmf/scripts/lua/make4ht/make4ht /usr/local/bin/make4ht
-          sudo chmod +x ~/texmf/scripts/lua/make4ht/make4ht
-          mktexlsr ~/texmf || true
+          MK4HT_DIR="$HOME/texmf/scripts/lua/make4ht"
+          mkdir -p "$MK4HT_DIR"
+          cp /tmp/make4ht/*.lua "$MK4HT_DIR/"
+          cp /tmp/make4ht/make4ht "$MK4HT_DIR/"
+          cp -r /tmp/make4ht/domfilters /tmp/make4ht/filters \
+                /tmp/make4ht/extensions /tmp/make4ht/formats "$MK4HT_DIR/"
+          chmod +x "$MK4HT_DIR/make4ht"
+          sudo ln -sf "$MK4HT_DIR/make4ht" /usr/local/bin/make4ht
+          # texmf ツリーを再走査させる。引数なしで実行するのが要点
+          mktexlsr
+          # kpse が見つけられることを確認
+          kpsewhich make4ht-mathml-char-def.lua || \
+            (echo "make4ht modules not found in kpse path"; exit 1)
+          make4ht --version
 
       - name: Build PDF
         working-directory: src
