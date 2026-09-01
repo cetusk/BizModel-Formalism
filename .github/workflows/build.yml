@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives/*.deb
+          key: apt-texlive-v1
+
       - name: Install TeX Live and tools
         run: |
           sudo apt-get update
@@ -27,7 +33,10 @@ jobs:
             texlive-luatex texlive-latex-extra texlive-lang-japanese \
             texlive-fonts-recommended texlive-plain-generic \
             fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils
-          # make4ht は Debian パッケージに含まれないため CTAN 版を導入
+
+          # make4ht は Debian パッケージに含まれないため CTAN 版を導入する。
+          # ユーザーの texmf ツリーは mktexlsr が走査しないため、
+          # kpse の探索パスを環境変数で直接指定する。
           git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
           MK4HT_DIR="$HOME/texmf/scripts/lua/make4ht"
           mkdir -p "$MK4HT_DIR"
@@ -37,52 +46,61 @@ jobs:
                 /tmp/make4ht/extensions /tmp/make4ht/formats "$MK4HT_DIR/"
           chmod +x "$MK4HT_DIR/make4ht"
           sudo ln -sf "$MK4HT_DIR/make4ht" /usr/local/bin/make4ht
-          # texmf ツリーを再走査させる。引数なしで実行するのが要点
-          mktexlsr
-          # kpse が見つけられることを確認
-          kpsewhich make4ht-mathml-char-def.lua || \
-            (echo "make4ht modules not found in kpse path"; exit 1)
+
+          # 以降のステップに引き継ぐ
+          echo "LUAINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
+          echo "TEXMFHOME=$HOME/texmf" >> "$GITHUB_ENV"
+
+      - name: Verify toolchain
+        run: |
+          lualatex --version | head -1
+          dvisvgm --version
           make4ht --version
+          kpsewhich make4ht-mathml-char-def.lua
 
       - name: Build PDF
         working-directory: src
         run: |
           for i in 1 2 3; do
-            lualatex -interaction=nonstopmode -halt-on-error book.tex || \
-            lualatex -interaction=nonstopmode book.tex
+            lualatex -interaction=nonstopmode book.tex > /dev/null
           done
           pdfinfo book.pdf
 
       - name: Check for LaTeX errors
         working-directory: src
         run: |
+          fail=0
           if grep -q "^!" book.log; then
-            echo "LaTeX errors found:"; grep -A3 "^!" book.log; exit 1
+            echo "::error::LaTeX errors found"; grep -A3 "^!" book.log | head -40; fail=1
           fi
           for pat in "Reference.*undefined" "Citation.*undefined" "multiply defined"; do
             n=$(grep -c "$pat" book.log || true)
             echo "$pat: $n"
-            if [ "$n" -ne 0 ]; then grep "$pat" book.log | head -5; exit 1; fi
+            if [ "$n" -ne 0 ]; then grep "$pat" book.log | head -5; fail=1; fi
           done
+          exit $fail
 
       - name: Build HTML
         working-directory: src
         run: |
           make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
+          n=$(ls ../docs/book/*.html | wc -l)
+          echo "generated $n html files"
+          if [ "$n" -lt 10 ]; then echo "::error::too few HTML files"; exit 1; fi
 
       - name: Assemble site
         run: |
           cp src/book.pdf docs/
-          cp .github/assets/index.html docs/index.html 2>/dev/null || true
-          cp .github/assets/style.css docs/book/custom.css 2>/dev/null || true
-          # 生成された各 HTML にカスタム CSS と告知の帯を差し込む
+          cp .github/assets/index.html docs/index.html
+          cp .github/assets/style.css docs/book/custom.css
           BANNER='<div class="wip"><strong>v0.8.0</strong> — 本稿は建設中です。理論の構成、命題、実証の結論はいずれも変更されうるものであり、これまでに12件の主張を撤回しています。<a href="../index.html">概要</a></div>'
           for f in docs/book/*.html; do
             sed -i "s|</head>|<link href='custom.css' rel='stylesheet' type='text/css' /></head>|" "$f"
             sed -i "0,/<body>/s|<body>|<body>${BANNER}|" "$f"
           done
           touch docs/.nojekyll
-          ls -la docs/ docs/book/ | head -30
+          echo "html: $(ls docs/book/*.html | wc -l), svg: $(ls docs/book/*.svg | wc -l)"
+          ls -la docs/
 
       - uses: actions/upload-pages-artifact@v3
         with:
