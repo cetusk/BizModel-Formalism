@@ -32,10 +32,15 @@
   --rule:#333; --side:#fafafa; --sidew:19rem; --gutter:6px;
   --pad:clamp(1rem, 3.5vw, 4rem);
   --figw:34rem;
+  /* データ図の系列色。dataviz スキルの検証済みカテゴリカルパレット（8色中の
+     先頭4色）を、このサイトの実サーフェス色（#fff / #161616）に対して
+     validate_palette.js で再検証して採用（隣接ペアCVD・コントラストとも合格）。 */
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
 }
 @media (prefers-color-scheme:dark){
   :root{--fg:#e4e4e4; --muted:#9a9a9a; --line:#333; --accent:#4fc48c;
-        --bg:#161616; --rule:#bbb; --side:#1c1c1c}
+        --bg:#161616; --rule:#bbb; --side:#1c1c1c;
+        --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500}
 }
 
 *{box-sizing:border-box}
@@ -145,10 +150,17 @@ table.equation{border:0; margin:1.2rem 0; width:100%}
 td,th{padding:.4rem .7rem; vertical-align:top}
 .hline td,.cline td{border-top:1px solid var(--rule)}
 .lefthead,.righthead{white-space:nowrap}
+/* tex4ht は booktabs の罫線を表ごとに tr#TBL-N-M- {border-color:#000} という
+   ID セレクタで個別出力する（本文中だけで395件）。ID セレクタはクラスより
+   詳細度が高く、かつ色が #000 に固定されているためダークモードで背景に溶けて
+   見えなくなる。属性セレクタ＋!important で一括して打ち消す。 */
+table tr[id^="TBL-"]{border-color:var(--rule) !important}
 
 /* ---------- 図 ---------- */
 /* 図は固定サイズ。ウィンドウが狭いときのみ縮める。 */
 figure,.figure{margin:1.8rem 0; text-align:center}
+/* img.tikzfig は figures.js が無効な環境向けの <noscript> フォールバックとしてのみ残す
+   （通常は .htmlfig が JS で描画したインラインSVGに置き換わる）。 */
 img.tikzfig{
   display:block; margin:1.6rem auto;
   width:var(--figw); max-width:100%; height:auto;
@@ -157,6 +169,70 @@ img.tikzfig{
   img.tikzfig{filter:invert(1) hue-rotate(180deg)}
 }
 .caption,figcaption{font-size:.86rem; color:var(--muted); margin-top:.5rem}
+
+/* ---------- HTML図（figures.js が描画するインラインSVG） ---------- */
+.htmlfig{margin:1.8rem 0; text-align:center}
+.htmlfig svg{
+  display:block; width:100%; max-width:var(--figw); height:auto; margin:0 auto;
+  font-family:'LM Roman',"Hiragino Maru Gothic ProN",sans-serif;
+}
+.htmlfig .fig-axis line{stroke:var(--rule)}
+.htmlfig .fig-gridline{stroke:var(--line); stroke-width:1}
+.htmlfig text.fig-tick{fill:var(--muted); font-size:.66rem}
+.htmlfig .fig-label{fill:var(--fg); font-size:.78rem}
+.htmlfig .fig-muted{fill:var(--muted); font-size:.72rem}
+.htmlfig .fig-legend text{fill:var(--fg); font-size:.74rem}
+.htmlfig .fig-crosshair{stroke:var(--muted); stroke-width:1; stroke-dasharray:none}
+.htmlfig .fig-hit{fill:transparent; stroke:none; cursor:pointer}
+.htmlfig .fig-mark{transition:opacity .1s}
+.htmlfig .fig-mark.is-dim{opacity:.35}
+.htmlfig .fig-line{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round}
+.htmlfig .fig-dot{stroke:var(--bg); stroke-width:2}
+.htmlfig .fig-bar{stroke:none}
+.htmlfig .fig-baseline{stroke:var(--rule); stroke-width:1}
+.htmlfig .fig-boxfill{fill:var(--side)}
+.htmlfig .fig-box{fill:none; stroke:var(--line); stroke-width:1}
+.htmlfig .fig-arrow{stroke:var(--fg); stroke-width:1.4; fill:none}
+.htmlfig .fig-arrowhead{fill:var(--fg)}
+
+.fig-series-1{fill:var(--series-1); stroke:var(--series-1); background:var(--series-1)}
+.fig-series-2{fill:var(--series-2); stroke:var(--series-2); background:var(--series-2)}
+.fig-series-3{fill:var(--series-3); stroke:var(--series-3); background:var(--series-3)}
+.fig-series-4{fill:var(--series-4); stroke:var(--series-4); background:var(--series-4)}
+
+.chart-tooltip{
+  position:fixed; z-index:40; pointer-events:none;
+  background:var(--bg); border:1px solid var(--line); border-radius:6px;
+  padding:.5rem .7rem; font-size:.82rem; color:var(--fg);
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  opacity:0; transform:translateY(2px); transition:opacity .1s, transform .1s;
+  max-width:16rem;
+}
+.chart-tooltip.visible{opacity:1; transform:translateY(0)}
+.chart-tooltip .tt-title{font-weight:600; margin-bottom:.3rem; white-space:nowrap}
+.chart-tooltip .tt-row{display:flex; align-items:center; gap:.4rem; white-space:nowrap}
+.chart-tooltip .tt-row+.tt-row{margin-top:.15rem}
+.chart-tooltip .tt-key{width:.7rem; height:2px; flex:0 0 auto; border-radius:1px}
+.chart-tooltip .tt-name{color:var(--muted)}
+.chart-tooltip .tt-val{font-weight:600; margin-left:auto; padding-left:.6rem}
+
+.htmlfig .fig-table-toggle{
+  display:inline-block; margin:.7rem 0 0; font-size:.78rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:5px;
+  padding:.3rem .7rem; cursor:pointer; font-family:inherit;
+}
+.htmlfig .fig-table-toggle:hover{color:var(--fg); border-color:var(--muted)}
+.htmlfig table.fig-datatable{
+  margin:.8rem auto 0; font-size:.82rem; border-collapse:collapse; display:none;
+}
+.htmlfig table.fig-datatable.visible{display:table}
+.htmlfig table.fig-datatable th,.htmlfig table.fig-datatable td{
+  padding:.3rem .6rem; border-bottom:1px solid var(--line); text-align:right;
+}
+.htmlfig table.fig-datatable th:first-child,.htmlfig table.fig-datatable td:first-child{text-align:left}
+@media (max-width:520px){
+  .htmlfig .fig-tick text{font-size:.6rem}
+}
 
 /* ---------- 数式 ---------- */
 math{
@@ -168,8 +244,10 @@ math[display='block']{
      中身（mtable 等）は左詰めのまま残る。中身の幅に箱を合わせて
      auto マージンで中央寄せする。overflow 時は自身は伸ばさず横スクロール。 */
   display:block; width:fit-content; max-width:100%;
-  margin:1.3rem auto; overflow-x:auto; overflow-y:hidden;
-  font-size:1.3em;  /* 数式のみの行は地の文より大きく見せる */
+  margin:1.1rem auto; overflow-x:auto; overflow-y:hidden;
+  /* font-size を base(1.05em) から上げると、番号付き数式（table.equation
+     内で幅が eq-no 分だけ狭い）と番号なし数式とで見かけの余白バランスが
+     崩れて不均一に見えたため、拡大はせず base のままに戻した。 */
 }
 math mo[stretchy='true']{max-height:2.4em}
 math munderover,math munder,math mover{vertical-align:middle}

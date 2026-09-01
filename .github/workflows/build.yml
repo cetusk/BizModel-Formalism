@@ -111,6 +111,7 @@ jobs:
           cp .github/assets/index.html docs/index.html
           cp .github/assets/style.css  docs/book/custom.css
           cp .github/assets/toc.js     docs/book/toc.js
+          cp .github/assets/figures.js docs/book/figures.js
           cp -r .github/assets/fonts   docs/book/fonts
           python3 src/inject-sidebar.py docs/book "$VERSION"
           touch docs/.nojekyll

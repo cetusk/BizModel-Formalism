@@ -36,8 +36,11 @@
 % TikZ 内の日本語が脱落する。これを避けるための分岐である。
 \ifdefined\HCode
   \usepackage{graphicx}
+  % HTML版の図はTikZから独立管理し、figures.js がインラインSVGとして
+  % その場に描画する（.github/assets/figures.js、データ図はホバーで数値表示）。
+  % JS無効環境向けに、事前生成済みのTikZ-SVGを <noscript> でフォールバック表示する。
   \newcommand{\insertfig}[1]{%
-    \HCode{<img src="figures/#1.svg" alt="#1" class="tikzfig" />}}
+    \HCode{<div class="htmlfig" data-fig="#1"><noscript><img src="figures/#1.svg" alt="#1" class="tikzfig" /></noscript></div>}}
 \else
   \newcommand{\insertfig}[1]{\input{figures/#1.tex}}
 \fi

@@ -208,6 +208,7 @@ def main():
         "<link href='https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap' rel='stylesheet' />"
         "<link href='custom.css' rel='stylesheet' type='text/css' />"
         "<script defer src='toc.js'></script>"
+        "<script defer src='figures.js'></script>"
     )
 
     n = 0
