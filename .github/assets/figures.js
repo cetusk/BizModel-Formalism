@@ -654,7 +654,7 @@
       bottomCols: [
         function (cx, cy) {
           return mathLabel(cx, cy - 6, '<math><mtext>権利 </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>' +
-            '<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>', 220, 20);
+            '<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>', 220, 20, 'fig-muted');
         },
         'δ に張り付くため乖離しない'
       ],
