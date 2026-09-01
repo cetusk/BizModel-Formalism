@@ -22,15 +22,59 @@
     return el('svg', { viewBox: '0 0 ' + vbw + ' ' + vbh, role: 'img' });
   }
   // mathmlHTML は本ファイル内で手書きした固定文字列のみを渡す（外部/利用者データは含めない）
-  function mathLabel(cx, cy, mathmlHTML, w, h) {
+  // cls は text() の class 相当（fig-muted/fig-label）。指定時は対応するCSSと同じ色・サイズを直接指定する
+  // （foreignObject 内は SVG の class セレクタが効かないため fill/font-size を明示する必要がある）。
+  var CLS_STYLE = {
+    'fig-muted': 'color:var(--muted); font-size:.72rem;',
+    'fig-label': 'color:var(--fg); font-size:.78rem;',
+    'fig-tick': 'color:var(--muted); font-size:.66rem;'
+  };
+  function mathLabel(cx, cy, mathmlHTML, w, h, cls) {
     var fo = el('foreignObject', { x: cx - w / 2, y: cy - h / 2, width: w, height: h });
     fo.style.overflow = 'visible';
     var div = document.createElementNS(XHTMLNS, 'div');
     div.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;' +
-      "font-family:'LM Math','LM Roman',serif;";
+      'white-space:nowrap;' +
+      "font-family:'LM Math','LM Roman',serif;" + (cls && CLS_STYLE[cls] ? CLS_STYLE[cls] : '');
     div.innerHTML = mathmlHTML;
     fo.appendChild(div);
     return fo;
+  }
+
+  // ---------- 和文と数式記号（κ π δ ε Φ τ 等）が混在するラベル ----------
+  // 文字列を自動でギリシャ文字/数式記号部分（<mi>）と地の文（<mtext>）に分割し、
+  // 1個の <math> に混在させて描画する。MathML はネイティブに mtext を挟めるため
+  // 手組みの水平レイアウトが不要。地の文と数式記号が混じる図中ラベル全般に使う。
+  var MATH_CHAR_RE = /[κπδεΦτ]/;
+  function splitMathText(str) {
+    var parts = [], buf = '', bufIsMath = null;
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i], isMath = MATH_CHAR_RE.test(ch);
+      if (bufIsMath === null) bufIsMath = isMath;
+      if (isMath !== bufIsMath) { parts.push({ math: bufIsMath, s: buf }); buf = ''; bufIsMath = isMath; }
+      buf += ch;
+    }
+    if (buf) parts.push({ math: bufIsMath, s: buf });
+    return parts;
+  }
+  function escapeXml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  // 和文全角・数式記号とも概算 12 単位/字（凡例の幅見積もりと同じ基準）で幅を確保する。
+  function smartWidth(str) { return str.length * 16 + 10; }
+  function smartMathML(str) {
+    return '<math>' + splitMathText(str).map(function (p) {
+      return p.math ? '<mi>' + escapeXml(p.s) + '</mi>' : '<mtext>' + escapeXml(p.s) + '</mtext>';
+    }).join('') + '</math>';
+  }
+  // text() の代替。ギリシャ文字/数式記号を含む文字列だけ自動でMathML経由（Latin Modern）にする。
+  function smartText(cx, cy, str, cls, anchor, h) {
+    if (!MATH_CHAR_RE.test(str)) return text(cx, cy, str, cls, anchor);
+    var w = smartWidth(str);
+    var x = cx;
+    if (anchor === 'end') x = cx - w / 2;
+    else if (anchor === 'start') x = cx + w / 2;
+    return mathLabel(x, cy - 6, smartMathML(str), w, h || 20, cls);
   }
 
   // ---------- ツールチップ（全図共通の単一インスタンス） ----------
@@ -85,48 +129,6 @@
     function hide() { if (node) node.classList.remove('visible'); }
     return { show: show, hide: hide };
   })();
-
-  // ---------- 表トグル（アクセシビリティ: 全データ図に表ビューを添える） ----------
-  function addTableToggle(container, caption, headers, rows) {
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'fig-table-toggle';
-    btn.textContent = '表で見る';
-    var table = document.createElement('table');
-    table.className = 'fig-datatable';
-    var thead = document.createElement('thead');
-    var htr = document.createElement('tr');
-    headers.forEach(function (h) {
-      var th = document.createElement('th');
-      th.textContent = h;
-      htr.appendChild(th);
-    });
-    thead.appendChild(htr);
-    table.appendChild(thead);
-    var tbody = document.createElement('tbody');
-    rows.forEach(function (r) {
-      var tr = document.createElement('tr');
-      r.forEach(function (v) {
-        var td = document.createElement('td');
-        td.textContent = v;
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-    if (caption) {
-      var cap = document.createElement('caption');
-      cap.style.cssText = 'caption-side:top;text-align:left;font-size:.78rem;color:var(--muted);padding-bottom:.3rem';
-      cap.textContent = caption;
-      table.insertBefore(cap, thead);
-    }
-    btn.addEventListener('click', function () {
-      var open = table.classList.toggle('visible');
-      btn.textContent = open ? '表を閉じる' : '表で見る';
-    });
-    container.appendChild(btn);
-    container.appendChild(table);
-  }
 
   // ---------- スケール ----------
   function linearScale(domain, range) {
@@ -198,6 +200,9 @@
           hit.addEventListener('blur', function () { Tooltip.hide(); });
         })(cat, ser, v);
         svg.appendChild(bar);
+        if (opts.valueLabel) {
+          svg.appendChild(text(bx + barW / 2, by - 6, opts.valueLabel(v), 'fig-tick'));
+        }
         svg.appendChild(hit);
       });
       svg.appendChild(text(cx, H - m.bottom + 16, cat.label, 'fig-tick'));
@@ -208,7 +213,6 @@
       svg.appendChild(text(m.left - 30, m.top - 8, opts.yAxisLabel, 'fig-muted', 'middle'));
     }
     container.appendChild(svg);
-    if (opts.table) addTableToggle(container, opts.table.caption, opts.table.headers, opts.table.rows);
   }
 
   // 凡例。和文混じりのラベル幅は文字数からの粗い見積もり（1文字12単位、
@@ -231,7 +235,7 @@
   // ---------- 折れ線グラフ（複数系列、線形/対数） ----------
   function lineChart(container, opts) {
     var W = 640, H = 340;
-    var m = { top: 20, right: 20, bottom: 34, left: opts.leftMargin || 46 };
+    var m = { top: 20, right: opts.xAxisLabel ? 34 : 20, bottom: 34, left: opts.leftMargin || 46 };
     var svg = svgRoot(W, H);
     var plotW = W - m.left - m.right;
     var xs = opts.xValues;
@@ -329,8 +333,13 @@
     svg.appendChild(hit);
 
     if (opts.series.length > 1) svg.appendChild(legend(opts.series, W, m));
+    if (opts.yAxisLabel) {
+      svg.appendChild(text(m.left - 30, m.top - 8, opts.yAxisLabel, 'fig-muted', 'middle'));
+    }
+    if (opts.xAxisLabel) {
+      svg.appendChild(text(W - m.right + 4, H - m.bottom - 8, opts.xAxisLabel, 'fig-muted', 'start'));
+    }
     container.appendChild(svg);
-    if (opts.table) addTableToggle(container, opts.table.caption, opts.table.headers, opts.table.rows);
   }
 
   // ================================================================
@@ -354,12 +363,7 @@
         { key: 'dpo', label: 'DPO（仕入債務）', colorClass: 'fig-series-2' }
       ],
       yMax: 80, yTicks: [0, 20, 40, 60, 80], yFmt: function (v) { return v; },
-      yAxisLabel: '日', fmt: function (v) { return v + ' 日'; },
-      table: {
-        caption: '資本金階層別のDSOとDPO（全産業、2024年度、単位: 日）',
-        headers: ['資本金階層', 'DSO', 'DPO'],
-        rows: cats.map(function (c) { return [c.label, data[c.key].dso, data[c.key].dpo]; })
-      }
+      yAxisLabel: '日', fmt: function (v) { return v + ' 日'; }
     });
   }
 
@@ -375,11 +379,7 @@
       series: [{ key: 'v', label: '実効料率', colorClass: 'fig-series-1' }],
       yMax: 40, yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
       yAxisLabel: '%', fmt: function (v) { return v + ' %'; },
-      table: {
-        caption: '取引額$50における実効料率（プラットフォーム別）',
-        headers: ['プラットフォーム', '実効料率'],
-        rows: cats.map(function (c) { return [c.label.replace('\n', ' '), data[c.key].v + '%']; })
-      }
+      valueLabel: function (v) { return v + '%'; }
     });
   }
 
@@ -389,16 +389,11 @@
   function figGstarTrend(container) {
     lineChart(container, {
       xValues: GSTAR_YEARS, xTickEvery: 4,
-      xFmt: function (y) { return y; },
+      xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '%',
       series: [{ key: 'g', label: 'm/CCC', colorClass: 'fig-series-1', values: GSTAR_VALUES }],
       yDomain: [20, 60], yTicks: [20, 30, 40, 50, 60], yFmt: function (v) { return v; },
-      refLine: 41.1, refLineLabel: '25年平均 41.1%',
-      fmt: function (v) { return v.toFixed(1) + ' %'; },
-      table: {
-        caption: 'm/CCCの推移（全産業、営業利益率ベース、2000〜2024年度）',
-        headers: ['年度', 'm/CCC'],
-        rows: GSTAR_YEARS.map(function (y, i) { return [y, GSTAR_VALUES[i].toFixed(1) + '%']; })
-      }
+      refLine: 41.1, refLineLabel: '平均 41.1',
+      fmt: function (v) { return v.toFixed(1) + ' %'; }
     });
   }
 
@@ -409,18 +404,13 @@
   function figLagCorr(container) {
     lineChart(container, {
       xValues: LAG_YEARS, xTickEvery: 4,
-      xFmt: function (y) { return y; },
+      xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '日',
       series: [
         { key: 'ccc', label: 'CCC', colorClass: 'fig-series-1', values: LAG_CCC },
-        { key: 'net', label: '正味与信ポジション', colorClass: 'fig-series-2', values: LAG_NET }
+        { key: 'net', label: 'DSO－DPO（正味与信ポジション）', colorClass: 'fig-series-2', values: LAG_NET }
       ],
       yDomain: [0, 40], yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
-      fmt: function (v) { return v.toFixed(1) + ' 日'; },
-      table: {
-        caption: '全産業のCCCと正味与信ポジションの推移（2000〜2024年度、単位: 日）',
-        headers: ['年度', 'CCC', '正味与信ポジション'],
-        rows: LAG_YEARS.map(function (y, i) { return [y, LAG_CCC[i].toFixed(1), LAG_NET[i].toFixed(1)]; })
-      }
+      fmt: function (v) { return v.toFixed(1) + ' 日'; }
     });
   }
 
@@ -434,6 +424,7 @@
     lineChart(container, {
       xValues: years, xTickEvery: 1,
       xFmt: function (y) { return labels[years.indexOf(y)]; },
+      xAxisLabel: '年度', yAxisLabel: '滞留日数',
       log: true, leftMargin: 52,
       series: [
         { key: 'mag', label: '磁気型', colorClass: 'fig-series-1', values: magnetic },
@@ -442,15 +433,7 @@
         { key: 'ic', label: 'IC型', colorClass: 'fig-series-4', values: ic }
       ],
       yDomain: [10, 2000], yTicks: [10, 100, 1000], yFmt: function (v) { return v.toLocaleString(); },
-      fmt: function (v) { return v.toLocaleString() + ' 日'; },
-      table: {
-        caption: '媒体別の滞留日数の推移（R2〜R6年度、族2、単位: 日）',
-        headers: ['媒体', 'R2', 'R3', 'R4', 'R5', 'R6'],
-        rows: [
-          ['磁気型'].concat(magnetic), ['紙型'].concat(paper),
-          ['サーバ型'].concat(server), ['IC型'].concat(ic)
-        ]
-      }
+      fmt: function (v) { return v.toLocaleString() + ' 日'; }
     });
   }
 
@@ -477,66 +460,105 @@
     return g;
   }
   function centered(t) { t.setAttribute('text-anchor', 'middle'); return t; }
+  // 矢じり単体（角度 ang [rad] の方向を指す）を (x,y) の位置に描く
+  function arrowheadAt(x, y, ang) {
+    var ah = 7;
+    var p1x = x - ah * Math.cos(ang - Math.PI / 7), p1y = y - ah * Math.sin(ang - Math.PI / 7);
+    var p2x = x - ah * Math.cos(ang + Math.PI / 7), p2y = y - ah * Math.sin(ang + Math.PI / 7);
+    return el('polygon', { class: 'fig-arrowhead', points: x + ',' + y + ' ' + p1x + ',' + p1y + ' ' + p2x + ',' + p2y });
+  }
 
   function figCollider(container) {
-    var W = 500, H = 240;
+    // 元図（collider.tex）: Φ を左上、ε を左下、S を右に置き、両方から S へ矢印。
+    // Φ と ε の間には「条件づけで生じる見かけの相関」を示す湾曲した双方向矢印を引く。
+    var W = 560, H = 300;
     var svg = svgRoot(W, H);
-    svg.appendChild(box(30, 100, 110, 44, ''));
-    svg.appendChild(mathLabel(85, 122, '<math><mi>Φ</mi></math>', 40, 24));
-    svg.appendChild(box(360, 100, 110, 44, ''));
-    svg.appendChild(mathLabel(415, 122, '<math><mi>ε</mi></math>', 40, 24));
-    svg.appendChild(box(195, 100, 110, 44, ''));
-    svg.appendChild(mathLabel(250, 116, '<math><mi>S</mi><mo>=</mo><mn>1</mn></math>', 70, 24));
-    svg.appendChild(arrow(140, 122, 190, 122));
-    svg.appendChild(arrow(360, 122, 310, 122));
-    svg.appendChild(centered(text(85, 90, '契約形態に由来する優位', 'fig-muted')));
-    svg.appendChild(centered(text(415, 90, '外生的な衝撃', 'fig-muted')));
-    svg.appendChild(centered(text(250, 168, '生存（合流点）', 'fig-muted')));
+    var phiBox = { x: 30, y: 40, w: 190, h: 56 };
+    var epsBox = { x: 30, y: 204, w: 190, h: 56 };
+    var sBox = { x: 340, y: 122, w: 190, h: 56 };
+    [phiBox, epsBox, sBox].forEach(function (b, i) {
+      svg.appendChild(el('rect', {
+        x: b.x, y: b.y, width: b.w, height: b.h, rx: 6,
+        class: i === 2 ? 'fig-box' : 'fig-box fig-boxfill', fill: i === 2 ? 'var(--side)' : null
+      }));
+    });
+    svg.appendChild(mathLabel(phiBox.x + phiBox.w / 2, phiBox.y + 20,
+      '<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>', 180, 20));
+    svg.appendChild(text(phiBox.x + phiBox.w / 2, phiBox.y + 44, '調べたい構造', 'fig-muted'));
+    svg.appendChild(mathLabel(epsBox.x + epsBox.w / 2, epsBox.y + 20,
+      '<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>', 180, 20));
+    svg.appendChild(text(epsBox.x + epsBox.w / 2, epsBox.y + 44, '外生的な変動', 'fig-muted'));
+    svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 20,
+      '<math><mi>S</mi><mtext>：生存・開示</mtext></math>', 180, 20));
+    svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 44,
+      '<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>', 180, 18));
+    svg.appendChild(arrow(phiBox.x + phiBox.w, phiBox.y + phiBox.h / 2, sBox.x, sBox.y + sBox.h / 2 - 10));
+    svg.appendChild(arrow(epsBox.x + epsBox.w, epsBox.y + epsBox.h / 2, sBox.x, sBox.y + sBox.h / 2 + 10));
+    // Φ⇔ε の湾曲した双方向矢印（見かけの相関）
+    var cx1 = phiBox.x + phiBox.w + 60, cx2 = epsBox.x + epsBox.w + 60;
+    var py = phiBox.y + phiBox.h, ey = epsBox.y;
+    var sx = phiBox.x + phiBox.w - 10, ex = epsBox.x + epsBox.w - 10;
+    var c1x = cx1, c1y = py + 30, c2x = cx2, c2y = ey - 30;
+    var curve = 'M' + sx + ',' + py + ' C' + c1x + ',' + c1y + ' ' + c2x + ',' + c2y + ' ' + ex + ',' + ey;
+    svg.appendChild(el('path', { d: curve, class: 'fig-arrow', 'stroke-dasharray': '4,3' }));
+    svg.appendChild(arrowheadAt(sx, py, Math.atan2(py - c1y, sx - c1x))); // Φ側の矢じり
+    svg.appendChild(arrowheadAt(ex, ey, Math.atan2(ey - c2y, ex - c2x))); // ε側の矢じり
+    svg.appendChild(text((c1x + c2x) / 2 + 26, (py + ey) / 2, '条件づけで生じる', 'fig-muted'));
+    svg.appendChild(text((c1x + c2x) / 2 + 26, (py + ey) / 2 + 16, '見かけの相関', 'fig-muted'));
     container.appendChild(svg);
   }
 
   function figCreditFormation(container) {
-    var W = 560, H = 300, m = { left: 40, right: 20, top: 20, bottom: 34 };
+    var W = 560, H = 300, m = { left: 40, right: 20, top: 44, bottom: 34 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, xm = (x0 + x1) / 2;
     var y0 = H - m.bottom, y1 = m.top;
+    var xm = x0 + (x1 - x0) * 0.42;   // 退職
+    var x2 = x0 + (x1 - x0) * 0.56;   // 競業避止の終了
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
-    // 在職中の破線区切りと競業避止の網掛け
+    svg.appendChild(text(x1 - 4, y0 + 16, '時間', 'fig-muted', 'end'));
+    // 退職〜競業避止の終了の網掛けと縦の目印
+    svg.appendChild(el('rect', { x: xm, y: y1, width: x2 - xm, height: y0 - y1, fill: 'var(--line)', opacity: .35 }));
     svg.appendChild(el('line', { x1: xm, x2: xm, y1: y1, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
-    svg.appendChild(el('rect', { x: xm, y: y1, width: (x1 - xm) * 0.35, height: y0 - y1, fill: 'var(--line)', opacity: .35 }));
-    // 利用可能な信用: 在職中は高い水準→退職で急落しゼロ
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + (y0 - 130) + ' L' + xm + ',' + (y0 - 140) + ' L' + xm + ',' + (y0 - 8) + ' L' + x1 + ',' + (y0 - 8) }));
-    // 保有する信用: ずっとほぼゼロ
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: 'M' + x0 + ',' + (y0 - 6) + ' L' + x1 + ',' + (y0 - 6) } ));
-    // 変換原資: 退職前後で最大化し、以後指数的に減衰
-    var d3 = 'M' + x0 + ',' + (y0 - 60);
-    var steps = 20, decayStart = xm;
-    d3 += ' L' + xm + ',' + (y0 - 170);
-    for (var i = 0; i <= steps; i++) {
-      var xx = xm + (x1 - xm) * i / steps;
-      var yy = y0 - 170 * Math.exp(-2.2 * i / steps);
-      d3 += ' L' + xx.toFixed(1) + ',' + yy.toFixed(1);
-    }
-    svg.appendChild(el('path', { class: 'fig-line fig-series-3', d: d3 }));
+    svg.appendChild(el('line', { x1: x2, x2: x2, y1: y1, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
+    svg.appendChild(text(xm, y1 + 14, '退職', 'fig-tick'));
+    svg.appendChild(text(x2, y1 + 14, '競業避止の終了', 'fig-tick'));
+    // 利用可能な信用: 在職中は高い水準→退職で急落しゼロ近くへ
+    svg.appendChild(el('path', {
+      class: 'fig-line fig-series-1',
+      d: 'M' + x0 + ',' + (y0 - 120) + ' L' + xm + ',' + (y0 - 130) + ' L' + xm + ',' + (y0 - 10) + ' L' + x1 + ',' + (y0 - 10)
+    }));
+    // 変換原資: 退職前後で緩やかに山なりになり、その後も高い水準を保ったまま緩降下する
+    var d2 = 'M' + x0 + ',' + (y0 - 70);
+    d2 += ' C' + (x0 + (xm - x0) * 0.5) + ',' + (y0 - 95) + ' ' + (xm - 20) + ',' + (y0 - 140) + ' ' + xm + ',' + (y0 - 150);
+    d2 += ' C' + (xm + (x1 - xm) * 0.35) + ',' + (y0 - 125) + ' ' + (xm + (x1 - xm) * 0.7) + ',' + (y0 - 95) + ' ' + x1 + ',' + (y0 - 60);
+    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: d2 }));
+    // 変換の自由度: 競業避止の終了までは低いまま、そこで一段上がる（在職中の守秘義務が解ける）
+    svg.appendChild(el('path', {
+      class: 'fig-line fig-series-3',
+      d: 'M' + x0 + ',' + (y0 - 20) + ' L' + x2 + ',' + (y0 - 20) + ' L' + x2 + ',' + (y0 - 190) + ' L' + x1 + ',' + (y0 - 190)
+    }));
     svg.appendChild(legend([
       { label: '利用可能な信用', colorClass: 'fig-series-1' },
-      { label: '保有する信用', colorClass: 'fig-series-2' },
-      { label: '変換原資', colorClass: 'fig-series-3' }
+      { label: '変換原資', colorClass: 'fig-series-2' },
+      { label: '変換の自由度', colorClass: 'fig-series-3' }
     ], W, { left: m.left, right: m.right }));
-    svg.appendChild(text(xm, y0 + 16, '退職', 'fig-tick'));
+    svg.appendChild(text((xm + x2) / 2, y0 + 16, '原資は減衰を始めるが変換できない', 'fig-tick'));
     container.appendChild(svg);
   }
 
   function figDeadline(container) {
-    var W = 560, H = 280, m = { left: 40, right: 20, top: 30, bottom: 30 };
+    var W = 560, H = 280, m = { left: 40, right: 40, top: 30, bottom: 30 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, y0 = H - m.bottom, y1 = m.top;
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
+    svg.appendChild(text(x1 - 4, y0 + 16, '時間', 'fig-muted', 'end'));
+    svg.appendChild(text(m.left, y1 - 8, '資産', 'fig-muted', 'middle'));
     var floorY = y0 - 30;
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: floorY, y2: floorY, stroke: 'var(--muted)', 'stroke-dasharray': '3,3' }));
-    svg.appendChild(mathLabel(x1 - 32, floorY - 10, '<math><msub><mi>M</mi><mrow><mi>f</mi><mi>l</mi><mi>o</mi><mi>o</mi><mi>r</mi></mrow></msub></math>', 60, 18));
+    svg.appendChild(text(x1 + 4, floorY + 4, '下限', 'fig-muted', 'start'));
     // 給与所得者: 右肩上がり
     svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + (y0 - 90) + ' L' + x1 + ',' + (y1 + 20) }));
     // R1: 期限に向けて減少しゼロで打ち切り
@@ -555,32 +577,37 @@
   }
 
   function figGrowthFcf(container) {
-    var W = 480, H = 300, m = { left: 46, right: 20, top: 20, bottom: 30 };
+    var W = 520, H = 300, m = { left: 56, right: 90, top: 34, bottom: 34 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, ymid = (m.top + (H - m.bottom)) / 2;
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: ymid, y2: ymid, stroke: 'var(--rule)' }));
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: m.top, y2: H - m.bottom, stroke: 'var(--rule)' }));
     var xIntercept = x0 + (x1 - x0) * 0.55;
-    // CCC>0: 右下がり、g*でFCF=0
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + (m.top + 20) + ' L' + x1 + ',' + (H - m.bottom - 10) }));
-    // CCC<0: 右上がり
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: 'M' + x0 + ',' + (ymid - 10) + ' L' + x1 + ',' + (m.top) }));
+    var cccPosY = m.top + 24, cccPosEndY = H - m.bottom - 10; // CCC>0: 右下がり
+    var cccNegY = ymid - 10, cccNegEndY = m.top;               // CCC<0: 右上がり
+    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + cccPosY + ' L' + x1 + ',' + cccPosEndY }));
+    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: 'M' + x0 + ',' + cccNegY + ' L' + x1 + ',' + cccNegEndY }));
     svg.appendChild(el('line', { x1: xIntercept, x2: xIntercept, y1: ymid, y2: ymid + 30, stroke: 'var(--muted)', 'stroke-dasharray': '3,3' }));
     svg.appendChild(mathLabel(xIntercept, ymid + 42, '<math><msup><mi>g</mi><mo>⋆</mo></msup></math>', 30, 20));
-    svg.appendChild(mathLabel(x0 - 8, m.top + 14, '<math><mi>Φ</mi><mi>C</mi><mi>F</mi></math>', 40, 20));
-    svg.appendChild(mathLabel(x1 - 10, H - m.bottom + 16, '<math><mi>g</mi></math>', 20, 18));
-    svg.appendChild(legend([
-      { label: 'CCC > 0', colorClass: 'fig-series-1' },
-      { label: 'CCC < 0', colorClass: 'fig-series-2' }
-    ], W, { left: m.left, right: m.right }));
+    // 縦軸: FCF/r（FCFは \FCF=\mathrm{FCF} の立体、Φではない）、横軸: g
+    svg.appendChild(mathLabel(x0 - 4, m.top - 18,
+      '<math><mi mathvariant="normal">F</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">F</mi><mo>/</mo><mi>r</mi></math>', 70, 20));
+    svg.appendChild(mathLabel(x1 - 6, H - 10, '<math><mi>g</mi></math>', 20, 18));
+    // 縦軸切片: m+d-I/r
+    svg.appendChild(mathLabel(x0 - 6, cccPosY - 8,
+      '<math><mi>m</mi><mo>+</mo><mi>d</mi><mo>&#8722;</mo><mfrac><mi>I</mi><mi>r</mi></mfrac></math>', 90, 22));
+    // 直線右端に直接ラベル（凡例ではなく原図と同じ直接注記）
+    svg.appendChild(mathLabel(x1 + 40, cccPosEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&gt;</mo><mn>0</mn></math>', 74, 18));
+    svg.appendChild(mathLabel(x1 + 40, cccNegEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&lt;</mo><mn>0</mn></math>', 74, 18));
     container.appendChild(svg);
   }
 
-  function quadrantDiagram(container, labels, cellLabels, strongIdx) {
-    // 左右のラベル（「κ > 0（後払）」等）は文字数が多いため、上下より広い
-    // サイド余白（mSide）を確保する。プロット本体（象限の箱）は中央に
-    // W/2 を軸として左右対称に配置されるので mTop/mSide が非対称でも崩れない。
-    var W = 680, H = 380, mTop = 46, mSide = 140, mBottom = 46;
+  // 2x2の象限図。左側に行ラベル（上段／下段、κ等の数式混在可）、
+  // 上下に列方向の説明、任意で列ごとの下部注記（kappa-scheduleの権利/行使の乖離など）、
+  // 任意で1セルの強調（accent色の薄い塗り、solo-quadrantの「実現可能領域」など）を持つ。
+  function quadrantDiagram(container, opts) {
+    // 左のラベル（「κ<0 前受」等）は文字数が多いため、上下より広いサイド余白を確保する。
+    var W = 760, H = 400, mTop = 46, mSide = 170, mBottom = 46;
     var cw = (W - 2 * mSide) / 2, ch = (H - mTop - mBottom) / 2;
     var svg = svgRoot(W, H);
     svg.appendChild(el('line', { x1: mSide, x2: W - mSide, y1: H / 2, y2: H / 2, class: 'fig-baseline' }));
@@ -590,7 +617,8 @@
       { x: mSide, y: H / 2, i: 2 }, { x: W / 2, y: H / 2, i: 3 }
     ];
     cells.forEach(function (c) {
-      var strong = c.i === strongIdx;
+      var cell = opts.cells[c.i];
+      var strong = !!cell.strong;
       var r = el('rect', {
         x: c.x + 4, y: c.y + 4, width: cw - 8, height: ch - 8, rx: 5,
         class: strong ? 'fig-box' : 'fig-box fig-boxfill',
@@ -598,56 +626,79 @@
       });
       if (strong) { r.setAttribute('opacity', '.15'); }
       svg.appendChild(r);
-      var lines = cellLabels[c.i].split('\n');
+      var lines = [cell.title].concat(cell.lines || []);
+      var cy0 = c.y + ch / 2 - (lines.length - 1) * 9;
       lines.forEach(function (line, li) {
-        svg.appendChild(centered(text(c.x + cw / 2, c.y + ch / 2 - (lines.length - 1) * 8 + li * 16, line, 'fig-label')));
+        svg.appendChild(smartText(c.x + cw / 2, cy0 + li * 18, line, li === 0 ? 'fig-label' : 'fig-muted', 'middle'));
       });
     });
-    svg.appendChild(centered(text(W / 2, mTop - 16, labels.top, 'fig-muted')));
-    svg.appendChild(centered(text(W / 2, H - mBottom + 24, labels.bottom, 'fig-muted')));
-    svg.appendChild(text(mSide - 10, H / 2, labels.left, 'fig-muted', 'end'));
-    svg.appendChild(text(W - mSide + 10, H / 2, labels.right, 'fig-muted', 'start'));
+    svg.appendChild(centered(text(W / 2, mTop - 16, opts.top, 'fig-muted')));
+    svg.appendChild(centered(text(W / 2, H - mBottom + (opts.bottomCols ? 20 : 24), opts.bottom, 'fig-muted')));
+    svg.appendChild(smartText(mSide - 10, mTop + ch / 2, opts.rowTop, 'fig-muted', 'end'));
+    svg.appendChild(smartText(mSide - 10, H / 2 + ch / 2, opts.rowBottom, 'fig-muted', 'end'));
+    if (opts.bottomCols) {
+      var colX = [mSide + cw / 2, W / 2 + cw / 2];
+      opts.bottomCols.forEach(function (colLabel, ci) {
+        svg.appendChild(typeof colLabel === 'function'
+          ? colLabel(colX[ci], H - mBottom + 40)
+          : smartText(colX[ci], H - mBottom + 40, colLabel, 'fig-muted', 'middle'));
+      });
+    }
     container.appendChild(svg);
   }
 
   function figKappaSchedule(container) {
-    quadrantDiagram(container,
-      { top: 'π が δ と独立（定額）', bottom: 'π が δ に連動（従量）', left: '', right: '' },
-      [
-        '会員制\nκ<0/κ>0（族2-1）',
-        '定額アクセス\n認知余剰が生じうる',
-        '従量課金\nκ≈0（族2-2）',
-        '二部料金\n混合（族2-3）'
-      ], 1);
+    quadrantDiagram(container, {
+      top: 'π が δ と独立（定額）', bottom: 'π が δ に連動（従量）',
+      rowTop: 'κ<0 決済が先行', rowBottom: 'κ>0 決済が後行',
+      bottomCols: [
+        function (cx, cy) {
+          return mathLabel(cx, cy - 6, '<math><mtext>権利 </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>' +
+            '<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>', 220, 20);
+        },
+        'δ に張り付くため乖離しない'
+      ],
+      cells: [
+        { title: '前受・定額型', lines: ['サブスク、会費', '保険料、ギフトカード', 'オプション・保証'] },
+        { title: '前受・精算型', lines: ['プリペイド従量', '予約＋当日精算', '受注生産の前金'] },
+        { title: '後払・定額型', lines: ['月額後払サブスク', '基本料金、保守契約', 'リース・レンタル'] },
+        { title: '後払・連動型', lines: ['従量課金、成果報酬', 'レベニューシェア', '掛売・卸'] }
+      ]
+    });
   }
 
   function figSoloQuadrant(container) {
-    quadrantDiagram(container,
-      { top: '履行が人手に依存', bottom: '複製可能な履行', left: 'κ>0（後払）', right: 'κ<0（前受）' },
-      [
-        '対立しない領域\n（左上：R2の退職者）',
-        '実現可能領域\n（右上：無資産の一人事業）',
-        '実行不能',
-        '信用のブートストラップ\n問題が残る領域'
-      ], 1);
+    quadrantDiagram(container, {
+      top: '履行が人手に依存', bottom: '履行が複製可能',
+      rowTop: 'κ<0 前受', rowBottom: 'κ>0 後払',
+      cells: [
+        { title: '頭打ち', lines: ['前受コンサル', '受注制作の前金', '容量が先に尽きる'] },
+        { title: '実現可能領域', strong: true, lines: ['年払いSaaS', 'デジタル商品の売切り', '掲載課金・スポンサー'] },
+        { title: '成立しない', lines: ['成果報酬', '受託の後払い', '与信も容量も不足'] },
+        { title: '条件付き可', lines: ['月末後払いSaaS', '広告・レベニューシェア', 'κ は小さいが正'] }
+      ]
+    });
   }
 
   function figPhiQuadrant(container) {
-    var W = 480, H = 300, m = { left: 40, right: 60, top: 20, bottom: 30 };
+    // 元図（phi-quadrant.tex）: D(t) は原点から右上へ引く1本の対角線（基準線）。
+    // その上側の三角形が κ<0（顧客が企業に与信）、下側の三角形が κ>0（企業が顧客に与信）。
+    // P(t) 自体は描かず、右端に「P(t) 前受」「P(t) 後払」の注記だけを置く
+    // （P(t) が基準線の上／下どちらに来るかで前受・後払を示す、という約束）。
+    var W = 480, H = 300, m = { left: 44, right: 90, top: 20, bottom: 34 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, y0 = H - m.bottom, y1 = m.top;
+    svg.appendChild(el('polygon', { points: x0 + ',' + y0 + ' ' + x0 + ',' + y1 + ' ' + x1 + ',' + y1, fill: 'var(--line)', opacity: .45 }));
+    svg.appendChild(el('polygon', { points: x0 + ',' + y0 + ' ' + x1 + ',' + y1 + ' ' + x1 + ',' + y0, fill: 'var(--line)', opacity: .2 }));
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
-    var dPath = 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + (y0 - 200);
-    var pPath = 'M' + x0 + ',' + y0 + ' L' + (x0 + (x1 - x0) * 0.4) + ',' + (y0 - 40) + ' L' + x1 + ',' + (y0 - 160);
-    // D(t) より P(t) が上（前半、κ<0）→ 塗り分け、後半 P<D（κ>0）
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: dPath }));
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: pPath }));
-    svg.appendChild(mathLabel(x1 + 32, y0 - 200, '<math><mi>D</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>', 40, 20));
-    svg.appendChild(mathLabel(x1 + 32, y0 - 160, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>', 40, 20));
-    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.2, y0 - 30, '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn></math>', 44, 20));
-    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.75, y0 - 130, '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn></math>', 44, 20));
-    svg.appendChild(mathLabel(x1 - 6, y0 + 16, '<math><mi>t</mi></math>', 20, 18));
+    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y1 }));
+    svg.appendChild(text(x0 - 4, y1 - 4, '累積額', 'fig-muted', 'end'));
+    svg.appendChild(mathLabel(x1 - 8, y0 + 16, '<math><mi>t</mi></math>', 20, 18));
+    svg.appendChild(mathLabel((x0 + x1) / 2 - 30, y1 + (y0 - y1) * 0.28, '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>', 200, 20));
+    svg.appendChild(mathLabel((x0 + x1) / 2 + 20, y1 + (y0 - y1) * 0.72, '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>', 200, 20));
+    svg.appendChild(mathLabel(x1 + 42, y1 + 6, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18));
+    svg.appendChild(mathLabel(x1 + 42, y0 - 6, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18));
     container.appendChild(svg);
   }
 

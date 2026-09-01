@@ -216,22 +216,8 @@ img.tikzfig{
 .chart-tooltip .tt-name{color:var(--muted)}
 .chart-tooltip .tt-val{font-weight:600; margin-left:auto; padding-left:.6rem}
 
-.htmlfig .fig-table-toggle{
-  display:inline-block; margin:.7rem 0 0; font-size:.78rem; color:var(--muted);
-  background:none; border:1px solid var(--line); border-radius:5px;
-  padding:.3rem .7rem; cursor:pointer; font-family:inherit;
-}
-.htmlfig .fig-table-toggle:hover{color:var(--fg); border-color:var(--muted)}
-.htmlfig table.fig-datatable{
-  margin:.8rem auto 0; font-size:.82rem; border-collapse:collapse; display:none;
-}
-.htmlfig table.fig-datatable.visible{display:table}
-.htmlfig table.fig-datatable th,.htmlfig table.fig-datatable td{
-  padding:.3rem .6rem; border-bottom:1px solid var(--line); text-align:right;
-}
-.htmlfig table.fig-datatable th:first-child,.htmlfig table.fig-datatable td:first-child{text-align:left}
 @media (max-width:520px){
-  .htmlfig .fig-tick text{font-size:.6rem}
+  .htmlfig text.fig-tick{font-size:.6rem}
 }
 
 /* ---------- 数式 ---------- */
