@@ -14,6 +14,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  VERSION: v0.8.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,23 +27,22 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /var/cache/apt/archives/*.deb
-          key: apt-texlive-v1
+          key: apt-texlive-v2
 
       - name: Install TeX Live and tools
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-luatex texlive-latex-extra texlive-lang-japanese \
-            texlive-fonts-recommended texlive-plain-generic \
-            fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils
+            texlive-fonts-recommended texlive-plain-generic texlive-pictures \
+            fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils mupdf-tools
 
           # make4ht は Debian パッケージに含まれないため CTAN 版を導入する。
           git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
           cd /tmp/make4ht
 
           # 文字定義テーブルはリポジトリに含まれず、ビルド時に生成される。
-          # Makefile の chardef ターゲットに相当する処理。
-          texlua tools/make_chardata.lua      > make4ht-char-def.lua
+          texlua tools/make_chardata.lua       > make4ht-char-def.lua
           texlua tools/make_mathmlchardata.lua > make4ht-mathml-char-def.lua
 
           # ユーザーの texmf ツリーは mktexlsr が走査しないため、
@@ -54,7 +56,6 @@ jobs:
           chmod +x "$MK4HT_DIR/make4ht"
           sudo ln -sf "$MK4HT_DIR/make4ht" /usr/local/bin/make4ht
 
-          # 以降のステップに引き継ぐ
           echo "MK4HT_DIR=$MK4HT_DIR"    >> "$GITHUB_ENV"
           echo "LUAINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
           echo "TEXINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
@@ -64,10 +65,10 @@ jobs:
         run: |
           lualatex --version | head -1
           dvisvgm --version
+          mutool -v 2>&1 | head -1 || true
           make4ht --version
           ls "$MK4HT_DIR/make4ht-char-def.lua"
           ls "$MK4HT_DIR/make4ht-mathml-char-def.lua"
-          ls "$MK4HT_DIR/domfilters" | head -3
 
       - name: Build PDF
         working-directory: src
@@ -96,28 +97,35 @@ jobs:
           done
           exit $fail
 
+      - name: Build figures
+        working-directory: src
+        run: |
+          mkdir -p ../docs/book
+          ./build-figures.sh
+          n=$(ls ../docs/book/figures/*.svg | wc -l)
+          if [ "$n" -lt 10 ]; then echo "::error::too few figures"; exit 1; fi
+
       - name: Build HTML
         working-directory: src
         run: |
+          # make4ht は出力先を空にするため、生成済みの図を退避しておく
+          mv ../docs/book/figures /tmp/figs
+          rm -rf ../docs/book
           make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
+          mv /tmp/figs ../docs/book/figures
           n=$(ls ../docs/book/*.html | wc -l)
-          s=$(ls ../docs/book/*.svg | wc -l)
-          echo "generated: $n html, $s svg"
+          echo "generated $n html files"
           if [ "$n" -lt 10 ]; then echo "::error::too few HTML files"; exit 1; fi
-          if [ "$s" -lt 5 ]; then echo "::error::TikZ figures were not converted"; exit 1; fi
 
       - name: Assemble site
         run: |
           cp src/book.pdf docs/
           cp .github/assets/index.html docs/index.html
-          cp .github/assets/style.css docs/book/custom.css
-          BANNER='<div class="wip"><strong>v0.8.0</strong> &mdash; 本稿は建設中です。理論の構成、命題、実証の結論はいずれも変更されうるものであり、これまでに12件の主張を撤回しています。<a href="../index.html">概要</a></div>'
-          for f in docs/book/*.html; do
-            sed -i "s|</head>|<link href='custom.css' rel='stylesheet' type='text/css' /></head>|" "$f"
-            sed -i "0,/<body>/s|<body>|<body>${BANNER}|" "$f"
-          done
+          cp .github/assets/style.css  docs/book/custom.css
+          cp .github/assets/toc.js     docs/book/toc.js
+          python3 src/inject-sidebar.py docs/book "$VERSION"
           touch docs/.nojekyll
-          echo "html: $(ls docs/book/*.html | wc -l), svg: $(ls docs/book/*.svg | wc -l)"
+          echo "html: $(ls docs/book/*.html | wc -l), figures: $(ls docs/book/figures/*.svg | wc -l)"
           ls -la docs/
 
       - uses: actions/upload-pages-artifact@v3

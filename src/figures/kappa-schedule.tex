@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=1]
+  \node[font=\small] at (2.0,5.2) {$\pi$ が $\delta$ と独立};
+  \node[font=\small] at (7.0,5.2) {$\pi$ が $\delta$ に連動};
+  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ 決済が先行};
+  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ 決済が後行};
+  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
+  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,2.6) rectangle (9.0,4.7);
+  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
+  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,0.2) rectangle (9.0,2.3);
+  \node[font=\small\bfseries] at (2.0,4.4) {前受・定額型};
+  \node[font=\scriptsize,align=center] at (2.0,3.5) {サブスク、会費\\保険料、ギフトカード\\オプション・保証};
+  \node[font=\small\bfseries] at (7.0,4.4) {前受・精算型};
+  \node[font=\scriptsize,align=center] at (7.0,3.5) {プリペイド従量\\予約＋当日精算\\受注生産の前金};
+  \node[font=\small\bfseries] at (2.0,2.0) {後払・定額型};
+  \node[font=\scriptsize,align=center] at (2.0,1.1) {月額後払サブスク\\基本料金、保守契約\\リース・レンタル};
+  \node[font=\small\bfseries] at (7.0,2.0) {後払・連動型};
+  \node[font=\scriptsize,align=center] at (7.0,1.1) {従量課金、成果報酬\\レベニューシェア\\掛売・卸};
+  \node[font=\scriptsize] at (2.0,-0.25) {権利 $\dbar$ と行使 $\delta$ が乖離しうる};
+  \node[font=\scriptsize] at (7.0,-0.25) {$\delta$ に張り付くため乖離しない};
+\end{tikzpicture}

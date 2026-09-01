@@ -1,3 +1,4 @@
+# LaTeX の中間ファイル
 *.aux
 *.log
 *.out
@@ -9,11 +10,16 @@
 *.4ct
 *.4tc
 *.dvi
+*.dlog
 *.fls
 *.fdb_latexmk
+
+# ビルド成果物（GitHub Actions が生成する）
 src/book.pdf
+src/build/
 docs/book/
 docs/book.pdf
 docs/index.html
+docs/.nojekyll
+
 __pycache__/
-*.dlog

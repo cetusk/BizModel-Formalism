@@ -21,17 +21,7 @@
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[>=Stealth,node distance=1.2cm]
-  \node[draw,rounded corners,minimum width=3.4cm,minimum height=1.0cm,align=center,font=\small]
-    (phi) at (0,1.6) {$\Phi$：ビジネスモデル\\[-2pt]\scriptsize 調べたい構造};
-  \node[draw,rounded corners,minimum width=3.4cm,minimum height=1.0cm,align=center,font=\small]
-    (eps) at (0,-1.6) {$\varepsilon$：衝撃・運\\[-2pt]\scriptsize 外生的な変動};
-  \node[draw,very thick,rounded corners,minimum width=3.8cm,minimum height=1.0cm,align=center,font=\small,fill=gray!15]
-    (s) at (6.2,0) {$S$：生存・開示\\[-2pt]\scriptsize $S=1$ で条件づけ};
-  \draw[->,thick] (phi) -- (s);
-  \draw[->,thick] (eps) -- (s);
-  \draw[<->,dashed] (phi) to[bend right=45] node[right,font=\scriptsize,align=left,xshift=2pt] {条件づけで生じる\\見かけの相関} (eps);
-\end{tikzpicture}
+\insertfig{collider}
 \caption{生存 $S$ は $\Phi$ と $\varepsilon$ の共通の帰結（合流点）である。$S$ で条件づけると両者に見かけの相関が生じる。}
 \label{fig:dag}
 \end{figure}

@@ -333,19 +333,7 @@ bonding argument & 労働経済学 & なぜ非自発的失業が存在するか 
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1,>=Stealth]
-  \fill[gray!18] (0,0) -- (7,0) -- (7,4) -- cycle;
-  \fill[gray!35] (0,0) -- (0,4) -- (7,4) -- cycle;
-  \draw[->] (0,0) -- (8.2,0) node[right] {$t$};
-  \draw[->] (0,0) -- (0,4.8) node[above] {累積額};
-  \draw[very thick] (0,0) -- (7,4) node[pos=0.45,below right,font=\small] {$D(t)$};
-  \draw[thick,dashed] (0,0) -- (0,4) -- (7,4);
-  \draw[thick,dotted] (0,0) -- (7,0) -- (7,4);
-  \node[font=\small] at (2.5,3.2) {$\kappa<0$：顧客が企業に与信};
-  \node[font=\small] at (4.6,0.8) {$\kappa>0$：企業が顧客に与信};
-  \node[font=\small,anchor=west] at (7.15,4) {$P(t)$ 前受};
-  \node[font=\small,anchor=west] at (7.15,0.35) {$P(t)$ 後払};
-\end{tikzpicture}
+\insertfig{phi-quadrant}
 \caption{累積履行 $D(t)$ を基準線とした信用ポジション。決済曲線 $P(t)$ が $D(t)$ の上にあれば $\kappa<0$、下にあれば $\kappa>0$。}
 \label{fig:kappa}
 \end{figure}
@@ -715,26 +703,7 @@ $\Phi$ を規定する自由度を六つに整理する。
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-  \node[font=\small] at (2.0,5.2) {$\pi$ が $\delta$ と独立};
-  \node[font=\small] at (7.0,5.2) {$\pi$ が $\delta$ に連動};
-  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ 決済が先行};
-  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ 決済が後行};
-  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
-  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,2.6) rectangle (9.0,4.7);
-  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
-  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,0.2) rectangle (9.0,2.3);
-  \node[font=\small\bfseries] at (2.0,4.4) {前受・定額型};
-  \node[font=\scriptsize,align=center] at (2.0,3.5) {サブスク、会費\\保険料、ギフトカード\\オプション・保証};
-  \node[font=\small\bfseries] at (7.0,4.4) {前受・精算型};
-  \node[font=\scriptsize,align=center] at (7.0,3.5) {プリペイド従量\\予約＋当日精算\\受注生産の前金};
-  \node[font=\small\bfseries] at (2.0,2.0) {後払・定額型};
-  \node[font=\scriptsize,align=center] at (2.0,1.1) {月額後払サブスク\\基本料金、保守契約\\リース・レンタル};
-  \node[font=\small\bfseries] at (7.0,2.0) {後払・連動型};
-  \node[font=\scriptsize,align=center] at (7.0,1.1) {従量課金、成果報酬\\レベニューシェア\\掛売・卸};
-  \node[font=\scriptsize] at (2.0,-0.25) {権利 $\dbar$ と行使 $\delta$ が乖離しうる};
-  \node[font=\scriptsize] at (7.0,-0.25) {$\delta$ に張り付くため乖離しない};
-\end{tikzpicture}
+\insertfig{kappa-schedule}
 \caption{$\Phi$ の二軸分割。縦軸が $\kappa$ の符号を、横軸が認知余剰の生じる余地を決める。}
 \label{fig:quadrant}
 \end{figure}
@@ -1082,15 +1051,7 @@ self-financeable growth rate と実質的に同一である。
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1,>=Stealth]
-  \draw[->] (0,0) -- (8.5,0) node[below right,font=\small] {$g$};
-  \draw[->] (0,-1.2) -- (0,3.2) node[above,font=\small] {$\FCF/r$};
-  \draw[dashed,gray] (0,0) -- (8.2,0);
-  \draw[very thick] (0,1.5) -- (8,-1.0) node[right,font=\small,anchor=west] {$\CCC>0$};
-  \draw[very thick,dash pattern=on 4pt off 2pt] (0,1.5) -- (8,2.9) node[right,font=\small,anchor=west] {$\CCC<0$};
-  \draw[dotted] (4.8,0) -- (4.8,-0.35) node[below,font=\small] {$g^\star$};
-  \node[font=\small,anchor=east] at (-0.1,1.5) {$m{+}d{-}\frac{I}{r}$};
-\end{tikzpicture}
+\insertfig{growth-fcf}
 \caption{成長率とフリーキャッシュフロー。縦軸切片が式\eqref{eq:gstar}の分子、$\CCC$ の符号が傾きの符号を決める。}
 \label{fig:growth}
 \end{figure}

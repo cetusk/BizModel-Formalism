@@ -38,11 +38,17 @@
 ```bash
 cd src
 lualatex book.tex && lualatex book.tex && lualatex book.tex   # PDF
-make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"  # HTML
+./build-figures.sh                                            # 図を SVG 化
+make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
+python3 inject-sidebar.py ../docs/book v0.8.0                 # 目次サイドバー
 ```
 
-必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、make4ht、dvisvgm。
-`main` への push で GitHub Actions が両方をビルドし Pages に反映する。
+必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、
+make4ht、dvisvgm、mutool。`main` への push で GitHub Actions が両方をビルドし Pages に反映する。
+
+tex4ht は DVI 経路を通るため和文 OpenType フォントを解決できず、
+TikZ 内の日本語が脱落する。そのため図は `src/figures/` に切り出し、
+LuaLaTeX で個別に組版してから SVG に変換している。
 
 ## データ
 

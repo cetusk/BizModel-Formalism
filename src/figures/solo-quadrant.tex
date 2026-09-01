@@ -1,0 +1,18 @@
+\begin{tikzpicture}[scale=1]
+  \node[font=\small] at (2.0,5.2) {履行が人手に依存};
+  \node[font=\small] at (7.0,5.2) {履行が複製可能};
+  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ 前受};
+  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ 後払};
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
+  \draw[fill=gray!25,draw=gray!80,very thick,rounded corners=3pt] (5.0,2.6) rectangle (9.0,4.7);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (5.0,0.2) rectangle (9.0,2.3);
+  \node[font=\small\bfseries] at (2.0,4.4) {頭打ち};
+  \node[font=\scriptsize,align=center] at (2.0,3.5) {前受コンサル\\受注制作の前金\\容量が先に尽きる};
+  \node[font=\small\bfseries] at (7.0,4.4) {実現可能領域};
+  \node[font=\scriptsize,align=center] at (7.0,3.5) {年払いSaaS\\デジタル商品の売切り\\掲載課金・スポンサー};
+  \node[font=\small\bfseries] at (2.0,2.0) {成立しない};
+  \node[font=\scriptsize,align=center] at (2.0,1.1) {成果報酬\\受託の後払い\\与信も容量も不足};
+  \node[font=\small\bfseries] at (7.0,2.0) {条件付き可};
+  \node[font=\scriptsize,align=center] at (7.0,1.1) {月末後払いSaaS\\広告・レベニューシェア\\$\kappa$ は小さいが正};
+\end{tikzpicture}

@@ -25,6 +25,18 @@
 \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds}
 \usepackage[hidelinks]{hyperref}
 
+% 図の挿入。PDF では TikZ をそのまま組版し、
+% HTML では事前生成した SVG を読み込む。
+% tex4ht は和文フォントを DVI 経路で解決できないため、
+% TikZ 内の日本語が脱落する。これを避けるための分岐である。
+\ifdefined\HCode
+  \usepackage{graphicx}
+  \newcommand{\insertfig}[1]{%
+    \HCode{<img src="figures/#1.svg" alt="#1" class="tikzfig" />}}
+\else
+  \newcommand{\insertfig}[1]{\input{figures/#1.tex}}
+\fi
+
 \ifdefined\HCode\else
   \geometry{top=25mm,bottom=27mm,left=24mm,right=24mm}
 \fi

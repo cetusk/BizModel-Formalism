@@ -1,88 +1,162 @@
-/* tex4ht の出力に重ねる読みやすさのための調整 */
+/* ==========================================================
+   tex4ht の出力に重ねるスタイル
+   ========================================================== */
+
+/* Latin Modern（PDF 版と同じ書体）を数式と欧文に用いる */
+@font-face{
+  font-family:'Latin Modern Roman';
+  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunrm.woff') format('woff');
+  font-weight:normal; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Latin Modern Roman';
+  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunbx.woff') format('woff');
+  font-weight:bold; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Latin Modern Roman';
+  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunti.woff') format('woff');
+  font-weight:normal; font-style:italic; font-display:swap;
+}
+
 :root{
-  --fg:#1a1a1a; --muted:#666; --line:#ddd; --accent:#0b5; --bg:#fff;
-  --rule:#333;
+  --fg:#1a1a1a; --muted:#666; --line:#dcdcdc; --accent:#0a7d4f; --bg:#fff;
+  --rule:#333; --side:#fafafa; --sidew:19rem;
 }
 @media (prefers-color-scheme:dark){
-  :root{--fg:#e8e8e8; --muted:#999; --line:#333; --accent:#4c9; --bg:#151515; --rule:#bbb}
+  :root{--fg:#e4e4e4; --muted:#9a9a9a; --line:#333; --accent:#4fc48c;
+        --bg:#161616; --rule:#bbb; --side:#1c1c1c}
 }
+
+*{box-sizing:border-box}
 
 body{
-  max-width:46rem; margin:0 auto; padding:2rem 1.2rem 6rem;
+  margin:0; padding:0;
   background:var(--bg); color:var(--fg);
-  font-family:"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
-  line-height:1.85; font-size:16px;
+  font-family:'Latin Modern Roman',"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+  line-height:1.85; font-size:16.5px;
+  -webkit-text-size-adjust:100%;
 }
 
-/* 見出し */
-h1,h2,h3,h4{line-height:1.5; font-weight:600; margin:2.2rem 0 .8rem}
+/* ---------- 目次サイドバー ---------- */
+#toc{
+  position:fixed; top:0; left:0; width:var(--sidew); height:100vh;
+  overflow-y:auto; overscroll-behavior:contain;
+  background:var(--side); border-right:1px solid var(--line);
+  padding:0 0 3rem; font-size:.83rem; line-height:1.6;
+  scrollbar-width:thin;
+}
+.toc-head{
+  position:sticky; top:0; z-index:2;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 1.1rem .7rem; background:var(--side);
+  border-bottom:1px solid var(--line); font-size:.9rem; font-weight:600;
+}
+.toc-head a{color:var(--fg); text-decoration:none}
+#toc-close{
+  display:none; background:none; border:0; color:var(--muted);
+  font-size:1.4rem; line-height:1; cursor:pointer; padding:0 .2rem;
+}
+#toc ul{list-style:none; margin:.5rem 0 0; padding:0}
+#toc li{margin:0}
+#toc a{
+  display:block; padding:.24rem 1.1rem;
+  color:var(--muted); text-decoration:none; overflow-wrap:anywhere;
+}
+#toc a:hover{background:rgba(128,128,128,.12); color:var(--fg)}
+#toc .tn{color:var(--muted); opacity:.7; margin-right:.35em;
+  font-variant-numeric:tabular-nums}
+#toc .t-part>a{
+  color:var(--fg); font-weight:600; font-size:.9rem;
+  margin-top:.9rem; padding-top:.5rem; border-top:1px solid var(--line);
+}
+#toc .t-chap>a{color:var(--fg); font-weight:500}
+#toc .t-sec>a{padding-left:2.2rem; font-size:.8rem}
+#toc li.active>a{
+  color:var(--accent); background:rgba(10,125,79,.09);
+  box-shadow:inset 3px 0 0 var(--accent);
+}
+
+#toc-toggle{
+  display:none; position:fixed; top:.7rem; left:.7rem; z-index:20;
+  width:2.4rem; height:2.4rem; border:1px solid var(--line); border-radius:5px;
+  background:var(--bg); color:var(--fg); font-size:1.1rem; cursor:pointer;
+}
+
+/* ---------- 本文 ---------- */
+#content{margin-left:var(--sidew); max-width:46rem; padding:2.2rem 2rem 6rem}
+
+.wip{
+  border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:3px; padding:.6rem .9rem; margin:0 0 2rem;
+  font-size:.82rem; line-height:1.7; color:var(--muted);
+}
+.wip strong{color:var(--fg)}
+.wip a{color:var(--accent)}
+
+h1,h2,h3,h4{line-height:1.5; font-weight:600; margin:2.3rem 0 .8rem}
 h1{font-size:1.55rem}
 h2{font-size:1.25rem; padding-bottom:.3rem; border-bottom:1px solid var(--line)}
-h3{font-size:1.08rem}
+h3{font-size:1.06rem}
 h4{font-size:1rem; color:var(--muted)}
-.chapterHead,.partHead{margin-top:1rem}
-.titlemark{display:block; font-size:.85rem; color:var(--muted); font-weight:400}
+.chapterHead,.partHead,.likechapterHead{margin-top:.6rem}
+.titlemark{display:block; font-size:.82rem; color:var(--muted); font-weight:400}
 
-/* 本文 */
 p{margin:0 0 1rem}
 p.indent{text-indent:1em}
 a{color:var(--accent)}
 
-/* 定理環境 */
 .theorem,.proposition,.definition,.remark,.example,.corollary{
   margin:1.2rem 0; padding:.1rem 0 .1rem .9rem;
   border-left:3px solid var(--line);
 }
 .proof{margin:1rem 0 1.4rem; color:var(--muted)}
 
-/* 表 */
-table{border-collapse:collapse; margin:1.2rem auto; font-size:.92rem}
-table.equation{border:0}
+table{border-collapse:collapse; margin:1.3rem auto; font-size:.9rem}
+table.equation{border:0; margin:1.2rem 0}
 td,th{padding:.4rem .7rem; vertical-align:top}
 .hline td,.cline td{border-top:1px solid var(--rule)}
 .lefthead,.righthead{white-space:nowrap}
 
-/* 図 */
 figure,.figure{margin:1.8rem 0; text-align:center}
 img,svg{max-width:100%; height:auto}
-.caption,figcaption{font-size:.88rem; color:var(--muted); margin-top:.5rem}
+img.tikzfig{display:block; margin:1.5rem auto; max-width:min(100%,34rem)}
+@media (prefers-color-scheme:dark){
+  img.tikzfig{filter:invert(1) hue-rotate(180deg)}
+}
+.caption,figcaption{font-size:.86rem; color:var(--muted); margin-top:.5rem}
 
-/* 数式 */
-math{font-size:1em}
+/* ---------- 数式 ---------- */
+math{font-family:'Latin Modern Math','Latin Modern Roman',serif; font-size:1.02em}
+math[display='block']{display:block; margin:1.1rem 0;
+  overflow-x:auto; overflow-y:hidden}
+math mo[stretchy='true']{max-height:2.4em}
+math munderover,math munder,math mover{vertical-align:middle}
 .equation{margin:1.2rem 0}
 
-/* 目次 */
-.tableofcontents{font-size:.94rem; line-height:1.9}
-.tableofcontents a{text-decoration:none}
-.tableofcontents a:hover{text-decoration:underline}
-.chapterToc{margin-top:.7rem; font-weight:600}
-.sectionToc{margin-left:1.2rem}
-.subsectionToc{margin-left:2.4rem; color:var(--muted); font-size:.9em}
-
-/* ナビゲーション */
 .crosslinks{
-  margin:2rem 0; padding:.7rem 0; font-size:.9rem;
+  margin:2rem 0; padding:.7rem 0; font-size:.86rem;
   border-top:1px solid var(--line); border-bottom:1px solid var(--line);
 }
 .crosslinks p{margin:0}
+.crosslinks a{margin-right:.8em}
 
-/* 脚注・引用 */
-.footnotes{font-size:.9rem; color:var(--muted); margin-top:2.5rem}
-.thebibliography{font-size:.92rem}
+.tableofcontents{font-size:.92rem; line-height:1.9}
+.tableofcontents a{text-decoration:none}
+
+.footnotes{font-size:.88rem; color:var(--muted); margin-top:2.5rem}
+.thebibliography{font-size:.9rem}
 .bibitem{margin:.6rem 0}
 
-/* 建設中の告知 */
-.wip{
-  border:1px solid var(--line); border-left:3px solid var(--accent);
-  border-radius:3px; padding:.6rem .9rem; margin:0 0 1.8rem;
-  font-size:.84rem; line-height:1.7; color:var(--muted);
-}
-.wip strong{color:var(--fg)}
-.wip a{color:var(--accent)}
-
-/* 狭い画面 */
-@media (max-width:600px){
-  body{font-size:15px; padding:1.2rem .9rem 4rem}
-  table{font-size:.85rem}
-  td,th{padding:.3rem .4rem}
+/* ---------- 狭い画面 ---------- */
+@media (max-width:900px){
+  #toc{transform:translateX(-100%); transition:transform .18s ease;
+    z-index:15; box-shadow:0 0 24px rgba(0,0,0,.25)}
+  body.toc-open #toc{transform:translateX(0)}
+  #toc-close{display:block}
+  #toc-toggle{display:block}
+  #content{margin-left:0; padding:3.6rem 1.1rem 4rem; max-width:none}
+  body{font-size:15.5px}
+  table{font-size:.84rem}
+  td,th{padding:.3rem .45rem}
 }

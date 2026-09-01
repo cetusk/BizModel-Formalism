@@ -63,18 +63,7 @@ Gumroad Discover & 34.5\% & 上記＋集客 \\
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-  \draw[->] (0,0) -- (0,4.6) node[above,font=\small] {\%};
-  \foreach \y in {10,20,30} {
-    \draw[gray!35] (0,{\y/8}) -- (10.4,{\y/8});
-    \node[font=\scriptsize,anchor=east] at (-0.1,{\y/8}) {\y};}
-  \foreach \i/\lab/\v in {0/Stripe/3.6, 1/Polar/5.0, 2/Paddle/6.0,
-      3/{Gumroad 直販}/14.5, 4/{App Store 小規模}/15.0,
-      5/{App Store 標準}/30.0, 6/{Gumroad Discover}/34.5} {
-    \draw[fill=gray!35,draw=gray!70] ({\i*1.45+0.35},0) rectangle ({\i*1.45+1.15},{\v/8});
-    \node[font=\scriptsize] at ({\i*1.45+0.75},{\v/8+0.2}) {\v};
-    \node[font=\scriptsize,rotate=35,anchor=east] at ({\i*1.45+0.95},-0.15) {\lab};}
-\end{tikzpicture}
+\insertfig{fee-ladder}
 \caption{取引額 \$50 における実効料率。吸収する項が増えるほど上昇する。}
 \label{fig:platform-ladder}
 \end{figure}

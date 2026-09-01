@@ -1,0 +1,16 @@
+\begin{tikzpicture}[scale=1]
+  \draw[->] (0,0) -- (0,4.3) node[above,font=\small] {日};
+  \foreach \y/\l in {0/0,20/20,40/40,60/60,80/80} {
+    \draw[gray!40] (0,\y/22) -- (10.2,\y/22);
+    \node[font=\scriptsize,anchor=east] at (-0.1,\y/22) {\l};}
+  \foreach \i/\lab/\dso/\dpo in {0/10億円~/71.4/44.2, 1/1~10億/61.0/46.5,
+      2/5千万~1億/47.0/36.9, 3/2千万~5千万/48.7/38.9,
+      4/1千万~2千万/53.4/35.1, 5/1千万未満/34.8/20.6} {
+    \draw[fill=gray!45,draw=gray!70] ({\i*1.7+0.35},0) rectangle ({\i*1.7+0.95},{\dso/22});
+    \draw[fill=gray!12,draw=gray!70] ({\i*1.7+0.98},0) rectangle ({\i*1.7+1.58},{\dpo/22});
+    \node[font=\scriptsize,rotate=30,anchor=east] at ({\i*1.7+1.1},-0.15) {\lab};}
+  \draw[fill=gray!45,draw=gray!70] (7.4,3.9) rectangle (7.7,4.1);
+  \node[font=\scriptsize,anchor=west] at (7.75,4.0) {DSO};
+  \draw[fill=gray!12,draw=gray!70] (8.9,3.9) rectangle (9.2,4.1);
+  \node[font=\scriptsize,anchor=west] at (9.25,4.0) {DPO};
+\end{tikzpicture}

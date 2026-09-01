@@ -129,22 +129,7 @@ $m$ & 第\ref{sec:growth}章 & \textbf{未取得} \\
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-  \draw[->] (0,0) -- (0,4.3) node[above,font=\small] {日};
-  \foreach \y/\l in {0/0,20/20,40/40,60/60,80/80} {
-    \draw[gray!40] (0,\y/22) -- (10.2,\y/22);
-    \node[font=\scriptsize,anchor=east] at (-0.1,\y/22) {\l};}
-  \foreach \i/\lab/\dso/\dpo in {0/10億円~/71.4/44.2, 1/1~10億/61.0/46.5,
-      2/5千万~1億/47.0/36.9, 3/2千万~5千万/48.7/38.9,
-      4/1千万~2千万/53.4/35.1, 5/1千万未満/34.8/20.6} {
-    \draw[fill=gray!45,draw=gray!70] ({\i*1.7+0.35},0) rectangle ({\i*1.7+0.95},{\dso/22});
-    \draw[fill=gray!12,draw=gray!70] ({\i*1.7+0.98},0) rectangle ({\i*1.7+1.58},{\dpo/22});
-    \node[font=\scriptsize,rotate=30,anchor=east] at ({\i*1.7+1.1},-0.15) {\lab};}
-  \draw[fill=gray!45,draw=gray!70] (7.4,3.9) rectangle (7.7,4.1);
-  \node[font=\scriptsize,anchor=west] at (7.75,4.0) {DSO};
-  \draw[fill=gray!12,draw=gray!70] (8.9,3.9) rectangle (9.2,4.1);
-  \node[font=\scriptsize,anchor=west] at (9.25,4.0) {DPO};
-\end{tikzpicture}
+\insertfig{ccc-trend}
 \caption{資本金階層別の DSO と DPO（全産業、2024年度）。小規模階層は双方とも短い。}
 \label{fig:size-dso-dpo}
 \end{figure}
@@ -305,28 +290,7 @@ $\CCC$ が景気先行指標になる & \textbf{棄却} \\
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-  \draw[->] (0,0) -- (11,0) node[right,font=\small] {年度};
-  \draw[->] (0,0) -- (0,4.3) node[above,font=\small] {日};
-  \foreach \y in {10,20,30,40} {
-    \draw[gray!35] (0,{\y/10}) -- (10.6,{\y/10});
-    \node[font=\scriptsize,anchor=east] at (-0.1,{\y/10}) {\y};}
-  \foreach \x/\l in {0/2000,5/2005,10/2010,15/2015,20/2020,24/2024} {
-    \node[font=\scriptsize,anchor=north] at ({\x*0.42},-0.1) {\l};}
-  \draw[very thick] (0,2.49) -- (0.42,2.65) -- (0.84,2.54) -- (1.26,2.37) -- (1.68,2.40)
-    -- (2.10,2.44) -- (2.52,2.48) -- (2.94,2.66) -- (3.36,2.70) -- (3.78,2.80)
-    -- (4.20,2.71) -- (4.62,2.84) -- (5.04,2.88) -- (5.46,2.87) -- (5.88,2.96)
-    -- (6.30,3.06) -- (6.72,3.00) -- (7.14,3.04) -- (7.56,3.19) -- (7.98,3.25)
-    -- (8.40,3.54) -- (8.82,3.64) -- (9.24,3.62) -- (9.66,3.69) -- (10.08,3.72);
-  \node[font=\scriptsize,anchor=west] at (10.15,3.72) {CCC};
-  \draw[very thick,dash pattern=on 4pt off 2pt] (0,0.98) -- (0.42,1.12) -- (0.84,0.98)
-    -- (1.26,0.91) -- (1.68,0.99) -- (2.10,0.99) -- (2.52,1.03) -- (2.94,1.10)
-    -- (3.36,1.23) -- (3.78,1.25) -- (4.20,1.22) -- (4.62,1.29) -- (5.04,1.33)
-    -- (5.46,1.35) -- (5.88,1.38) -- (6.30,1.49) -- (6.72,1.49) -- (7.14,1.46)
-    -- (7.56,1.52) -- (7.98,1.58) -- (8.40,1.75) -- (8.82,1.84) -- (9.24,1.77)
-    -- (9.66,1.85) -- (10.08,1.85);
-  \node[font=\scriptsize,anchor=west] at (10.15,1.85) {DSO$-$DPO};
-\end{tikzpicture}
+\insertfig{lag-corr}
 \caption{全産業（除く金融保険業）の $\CCC$ と正味与信ポジションの推移。}
 \label{fig:ccc-trend}
 \end{figure}

@@ -150,23 +150,7 @@ IC型 & 15 & 14 & 16 & 15 & 15 & $+23.5\%$ \\
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-  \draw[->] (0,0) -- (9.4,0) node[right,font=\small] {年度};
-  \draw[->] (0,0) -- (0,4.4) node[above,font=\small] {滞留日数};
-  \foreach \y/\l in {1/10,2/100,3/1000} {
-    \draw[gray!35] (0,\y) -- (9.0,\y);
-    \node[font=\scriptsize,anchor=east] at (-0.1,\y) {\l};}
-  \foreach \x/\l in {0/R2,2/R3,4/R4,6/R5,8/R6} {
-    \node[font=\scriptsize,anchor=north] at (\x,-0.1) {\l};}
-  \draw[very thick] (0,3.116) -- (2,3.212) -- (4,3.126) -- (6,3.282) -- (8,3.280);
-  \node[font=\scriptsize,anchor=west] at (8.15,3.28) {磁気型};
-  \draw[very thick,dash pattern=on 4pt off 2pt] (0,2.889) -- (2,2.880) -- (4,2.825) -- (6,2.883) -- (8,2.927);
-  \node[font=\scriptsize,anchor=west] at (8.15,2.90) {紙型};
-  \draw[very thick,dash pattern=on 1pt off 2pt] (0,1.204) -- (2,1.164) -- (4,1.230) -- (6,1.217) -- (8,1.233);
-  \node[font=\scriptsize,anchor=west] at (8.15,1.31) {サーバ型};
-  \draw[very thick,dotted] (0,1.176) -- (2,1.146) -- (4,1.212) -- (6,1.170) -- (8,1.170);
-  \node[font=\scriptsize,anchor=west] at (8.15,1.09) {IC型};
-\end{tikzpicture}
+\insertfig{media-panel}
 \caption{媒体別の滞留日数（対数目盛）。二桁の水準差が起点から存在する。}
 \label{fig:media-panel}
 \end{figure}
