@@ -35,9 +35,16 @@ jobs:
             fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils
 
           # make4ht は Debian パッケージに含まれないため CTAN 版を導入する。
+          git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
+          cd /tmp/make4ht
+
+          # 文字定義テーブルはリポジトリに含まれず、ビルド時に生成される。
+          # Makefile の chardef ターゲットに相当する処理。
+          texlua tools/make_chardata.lua      > make4ht-char-def.lua
+          texlua tools/make_mathmlchardata.lua > make4ht-mathml-char-def.lua
+
           # ユーザーの texmf ツリーは mktexlsr が走査しないため、
           # kpse の探索パスを環境変数で直接指定する。
-          git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
           MK4HT_DIR="$HOME/texmf/scripts/lua/make4ht"
           mkdir -p "$MK4HT_DIR"
           cp /tmp/make4ht/*.lua "$MK4HT_DIR/"
@@ -58,9 +65,7 @@ jobs:
           lualatex --version | head -1
           dvisvgm --version
           make4ht --version
-          echo "LUAINPUTS=$LUAINPUTS"
-          # モジュールが配置されたことだけを確認する。
-          # kpse が実際に解決できるかは Build HTML で判定する。
+          ls "$MK4HT_DIR/make4ht-char-def.lua"
           ls "$MK4HT_DIR/make4ht-mathml-char-def.lua"
           ls "$MK4HT_DIR/domfilters" | head -3
 
