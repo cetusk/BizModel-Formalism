@@ -1,27 +1,30 @@
 /* ==========================================================
    tex4ht の出力に重ねるスタイル
+   フォントは PDF 版と同じ Latin Modern を同梱して用いる。
    ========================================================== */
 
-/* Latin Modern（PDF 版と同じ書体）を数式と欧文に用いる */
 @font-face{
-  font-family:'Latin Modern Roman';
-  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunrm.woff') format('woff');
-  font-weight:normal; font-style:normal; font-display:swap;
+  font-family:'LM Roman'; font-weight:normal; font-style:normal;
+  src:url('fonts/lmroman10-regular.woff2') format('woff2'); font-display:swap;
 }
 @font-face{
-  font-family:'Latin Modern Roman';
-  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunbx.woff') format('woff');
-  font-weight:bold; font-style:normal; font-display:swap;
+  font-family:'LM Roman'; font-weight:bold; font-style:normal;
+  src:url('fonts/lmroman10-bold.woff2') format('woff2'); font-display:swap;
 }
 @font-face{
-  font-family:'Latin Modern Roman';
-  src:url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/font/Serif/cmunti.woff') format('woff');
-  font-weight:normal; font-style:italic; font-display:swap;
+  font-family:'LM Roman'; font-weight:normal; font-style:italic;
+  src:url('fonts/lmroman10-italic.woff2') format('woff2'); font-display:swap;
+}
+@font-face{
+  font-family:'LM Math'; font-weight:normal; font-style:normal;
+  src:url('fonts/latinmodern-math.woff2') format('woff2'); font-display:swap;
 }
 
 :root{
   --fg:#1a1a1a; --muted:#666; --line:#dcdcdc; --accent:#0a7d4f; --bg:#fff;
   --rule:#333; --side:#fafafa; --sidew:19rem; --gutter:6px;
+  --pad:clamp(1rem, 3.5vw, 4rem);
+  --figw:34rem;
 }
 @media (prefers-color-scheme:dark){
   :root{--fg:#e4e4e4; --muted:#9a9a9a; --line:#333; --accent:#4fc48c;
@@ -33,7 +36,7 @@
 body{
   margin:0; padding:0;
   background:var(--bg); color:var(--fg);
-  font-family:'Latin Modern Roman',"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+  font-family:'LM Roman',"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
   line-height:1.85; font-size:16.5px;
   -webkit-text-size-adjust:100%;
 }
@@ -83,16 +86,6 @@ body{
   background:var(--bg); color:var(--fg); font-size:1.1rem; cursor:pointer;
 }
 
-/* ---------- 本文 ---------- */
-#content{
-  margin-left:var(--sidew);
-  padding:2.2rem clamp(1.2rem, 4vw, 4rem) 6rem;
-  max-width:none;
-}
-/* 極端に広い画面では行長を抑える */
-#content > *{max-width:78ch; margin-left:auto; margin-right:auto}
-#content > .wip{max-width:78ch}
-
 /* サイドバーの境界。ドラッグで幅を変えられる */
 #toc-resize{
   position:fixed; top:0; left:calc(var(--sidew) - var(--gutter)/2);
@@ -101,6 +94,14 @@ body{
 }
 #toc-resize:hover,#toc-resize.dragging{background:var(--accent); opacity:.35}
 body.resizing{user-select:none; cursor:col-resize}
+
+/* ---------- 本文 ---------- */
+/* 幅はウィンドウに追従させる。行長の上限は設けない。 */
+#content{
+  margin-left:var(--sidew);
+  padding:2.2rem var(--pad) 6rem;
+  max-width:none;
+}
 
 .wip{
   border:1px solid var(--line); border-left:3px solid var(--accent);
@@ -128,28 +129,33 @@ a{color:var(--accent)}
 }
 .proof{margin:1rem 0 1.4rem; color:var(--muted)}
 
-table{border-collapse:collapse; margin:1.3rem auto; font-size:.9rem}
-table.equation{border:0; margin:1.2rem 0}
+table{border-collapse:collapse; margin:1.3rem 0; font-size:.9rem}
+table.equation{border:0; margin:1.2rem 0; width:100%}
 td,th{padding:.4rem .7rem; vertical-align:top}
 .hline td,.cline td{border-top:1px solid var(--rule)}
 .lefthead,.righthead{white-space:nowrap}
 
+/* ---------- 図 ---------- */
+/* 図は固定サイズ。ウィンドウが狭いときのみ縮める。 */
 figure,.figure{margin:1.8rem 0; text-align:center}
-img,svg{max-width:100%; height:auto}
-img.tikzfig{display:block; margin:1.5rem auto; max-width:min(100%,40rem)}
-#content > figure, #content > .figure{max-width:none}
-#content > table{max-width:none}
+img.tikzfig{
+  display:block; margin:1.6rem auto;
+  width:var(--figw); max-width:100%; height:auto;
+}
 @media (prefers-color-scheme:dark){
   img.tikzfig{filter:invert(1) hue-rotate(180deg)}
 }
 .caption,figcaption{font-size:.86rem; color:var(--muted); margin-top:.5rem}
 
 /* ---------- 数式 ---------- */
-math{font-family:'Latin Modern Math','Latin Modern Roman',serif; font-size:1.02em}
-math[display='block']{display:block; margin:1.1rem 0;
-  overflow-x:auto; overflow-y:hidden; max-width:100%}
-/* 数式が行長制限で切れないようにする */
-#content > table.equation{max-width:none; width:100%}
+math{
+  font-family:'LM Math','Latin Modern Math','LM Roman',serif;
+  font-size:1.05em;
+}
+math[display='block']{
+  display:block; margin:1.1rem 0; max-width:100%;
+  overflow-x:auto; overflow-y:hidden;
+}
 math mo[stretchy='true']{max-height:2.4em}
 math munderover,math munder,math mover{vertical-align:middle}
 .equation{margin:1.2rem 0}
@@ -175,7 +181,8 @@ math munderover,math munder,math mover{vertical-align:middle}
   body.toc-open #toc{transform:translateX(0)}
   #toc-close{display:block}
   #toc-toggle{display:block}
-  #content{margin-left:0; padding:3.6rem 1.1rem 4rem; max-width:none}
+  #toc-resize{display:none}
+  #content{margin-left:0; padding:3.6rem 1.1rem 4rem}
   body{font-size:15.5px}
   table{font-size:.84rem}
   td,th{padding:.3rem .45rem}

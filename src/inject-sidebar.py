@@ -11,8 +11,7 @@ VERSION  = sys.argv[2] if len(sys.argv) > 2 else "v0.8.0"
 
 BANNER = (
     f'<div class="wip"><strong>{VERSION}</strong> &mdash; 本稿は建設中です。'
-    '理論の構成、命題、実証の結論はいずれも変更されうるものであり、'
-    'これまでに12件の主張を撤回しています。'
+    '理論の構成、命題、実証の結論はいずれも変更されうるものです。'
     '<a href="../index.html">概要</a></div>'
 )
 

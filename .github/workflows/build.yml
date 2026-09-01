@@ -111,6 +111,7 @@ jobs:
           cp .github/assets/index.html docs/index.html
           cp .github/assets/style.css  docs/book/custom.css
           cp .github/assets/toc.js     docs/book/toc.js
+          cp -r .github/assets/fonts   docs/book/fonts
           python3 src/inject-sidebar.py docs/book "$VERSION"
           touch docs/.nojekyll
           echo "html: $(ls docs/book/*.html | wc -l), figures: $(ls docs/book/figures/*.svg | wc -l)"
@@ -119,6 +120,39 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs
+
+  # 過去の deployment は不具合の記録でしかないため、最新のもの以外を削除する
+  cleanup:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+      contents: write
+    steps:
+      - name: Delete old deployments
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const deps = await github.paginate(
+              github.rest.repos.listDeployments,
+              { owner, repo, environment: 'github-pages', per_page: 100 });
+            // 新しい順に並べ、先頭以外を削除する
+            deps.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            for (const d of deps.slice(1)) {
+              const st = await github.rest.repos.listDeploymentStatuses(
+                { owner, repo, deployment_id: d.id, per_page: 100 });
+              for (const s of st.data) {
+                if (s.state !== 'inactive') {
+                  await github.rest.repos.createDeploymentStatus(
+                    { owner, repo, deployment_id: d.id, state: 'inactive' });
+                  break;
+                }
+              }
+              await github.rest.repos.deleteDeployment({ owner, repo, deployment_id: d.id });
+              core.info(`deleted deployment ${d.id}`);
+            }
+            core.info(`kept ${deps.length ? deps[0].id : 'none'}`);
 
   deploy:
     needs: build
