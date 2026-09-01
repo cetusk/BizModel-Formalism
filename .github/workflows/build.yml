@@ -48,15 +48,21 @@ jobs:
           sudo ln -sf "$MK4HT_DIR/make4ht" /usr/local/bin/make4ht
 
           # 以降のステップに引き継ぐ
+          echo "MK4HT_DIR=$MK4HT_DIR"    >> "$GITHUB_ENV"
           echo "LUAINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
-          echo "TEXMFHOME=$HOME/texmf" >> "$GITHUB_ENV"
+          echo "TEXINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
+          echo "TEXMFHOME=$HOME/texmf"   >> "$GITHUB_ENV"
 
       - name: Verify toolchain
         run: |
           lualatex --version | head -1
           dvisvgm --version
           make4ht --version
-          kpsewhich make4ht-mathml-char-def.lua
+          echo "LUAINPUTS=$LUAINPUTS"
+          # モジュールが配置されたことだけを確認する。
+          # kpse が実際に解決できるかは Build HTML で判定する。
+          ls "$MK4HT_DIR/make4ht-mathml-char-def.lua"
+          ls "$MK4HT_DIR/domfilters" | head -3
 
       - name: Build PDF
         working-directory: src
@@ -71,12 +77,17 @@ jobs:
         run: |
           fail=0
           if grep -q "^!" book.log; then
-            echo "::error::LaTeX errors found"; grep -A3 "^!" book.log | head -40; fail=1
+            echo "::error::LaTeX errors found"
+            grep -A3 "^!" book.log | head -40
+            fail=1
           fi
           for pat in "Reference.*undefined" "Citation.*undefined" "multiply defined"; do
             n=$(grep -c "$pat" book.log || true)
             echo "$pat: $n"
-            if [ "$n" -ne 0 ]; then grep "$pat" book.log | head -5; fail=1; fi
+            if [ "$n" -ne 0 ]; then
+              grep "$pat" book.log | head -5
+              fail=1
+            fi
           done
           exit $fail
 
@@ -85,15 +96,17 @@ jobs:
         run: |
           make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
           n=$(ls ../docs/book/*.html | wc -l)
-          echo "generated $n html files"
+          s=$(ls ../docs/book/*.svg | wc -l)
+          echo "generated: $n html, $s svg"
           if [ "$n" -lt 10 ]; then echo "::error::too few HTML files"; exit 1; fi
+          if [ "$s" -lt 5 ]; then echo "::error::TikZ figures were not converted"; exit 1; fi
 
       - name: Assemble site
         run: |
           cp src/book.pdf docs/
           cp .github/assets/index.html docs/index.html
           cp .github/assets/style.css docs/book/custom.css
-          BANNER='<div class="wip"><strong>v0.8.0</strong> — 本稿は建設中です。理論の構成、命題、実証の結論はいずれも変更されうるものであり、これまでに12件の主張を撤回しています。<a href="../index.html">概要</a></div>'
+          BANNER='<div class="wip"><strong>v0.8.0</strong> &mdash; 本稿は建設中です。理論の構成、命題、実証の結論はいずれも変更されうるものであり、これまでに12件の主張を撤回しています。<a href="../index.html">概要</a></div>'
           for f in docs/book/*.html; do
             sed -i "s|</head>|<link href='custom.css' rel='stylesheet' type='text/css' /></head>|" "$f"
             sed -i "0,/<body>/s|<body>|<body>${BANNER}|" "$f"
