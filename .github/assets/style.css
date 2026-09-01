@@ -39,6 +39,10 @@ body{
   font-family:'LM Roman',"Hiragino Mincho ProN","Noto Serif CJK JP",serif;
   line-height:1.85; font-size:16.5px;
   -webkit-text-size-adjust:100%;
+  /* tex4ht の book.css が body{max-width:80ch} を課しており、
+     #content の margin-left(サイドバー分)と合わさって本文が極端に狭くなる。
+     ここで打ち消さないと #content 側の max-width:none は効かない。 */
+  max-width:none;
 }
 
 /* ---------- 目次サイドバー ---------- */
