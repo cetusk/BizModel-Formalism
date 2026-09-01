@@ -44,7 +44,10 @@ python3 inject-sidebar.py ../docs/book v0.8.0                 # 目次サイド�
 ```
 
 必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、
-make4ht、dvisvgm、mutool。`main` への push で GitHub Actions が両方をビルドし Pages に反映する。
+make4ht、dvisvgm、mutool。
+
+`main` への push で GitHub Actions がビルドし Pages に反映する。
+ワークフローは `texlive/texlive` コンテナ上で走るため、TeX Live の導入時間がかからない。
 
 tex4ht は DVI 経路を通るため和文 OpenType フォントを解決できず、
 TikZ 内の日本語が脱落する。そのため図は `src/figures/` に切り出し、

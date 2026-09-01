@@ -21,7 +21,7 @@
 
 :root{
   --fg:#1a1a1a; --muted:#666; --line:#dcdcdc; --accent:#0a7d4f; --bg:#fff;
-  --rule:#333; --side:#fafafa; --sidew:19rem;
+  --rule:#333; --side:#fafafa; --sidew:19rem; --gutter:6px;
 }
 @media (prefers-color-scheme:dark){
   :root{--fg:#e4e4e4; --muted:#9a9a9a; --line:#333; --accent:#4fc48c;
@@ -84,7 +84,23 @@ body{
 }
 
 /* ---------- 本文 ---------- */
-#content{margin-left:var(--sidew); max-width:46rem; padding:2.2rem 2rem 6rem}
+#content{
+  margin-left:var(--sidew);
+  padding:2.2rem clamp(1.2rem, 4vw, 4rem) 6rem;
+  max-width:none;
+}
+/* 極端に広い画面では行長を抑える */
+#content > *{max-width:78ch; margin-left:auto; margin-right:auto}
+#content > .wip{max-width:78ch}
+
+/* サイドバーの境界。ドラッグで幅を変えられる */
+#toc-resize{
+  position:fixed; top:0; left:calc(var(--sidew) - var(--gutter)/2);
+  width:var(--gutter); height:100vh; z-index:16;
+  cursor:col-resize; background:transparent;
+}
+#toc-resize:hover,#toc-resize.dragging{background:var(--accent); opacity:.35}
+body.resizing{user-select:none; cursor:col-resize}
 
 .wip{
   border:1px solid var(--line); border-left:3px solid var(--accent);
@@ -120,7 +136,9 @@ td,th{padding:.4rem .7rem; vertical-align:top}
 
 figure,.figure{margin:1.8rem 0; text-align:center}
 img,svg{max-width:100%; height:auto}
-img.tikzfig{display:block; margin:1.5rem auto; max-width:min(100%,34rem)}
+img.tikzfig{display:block; margin:1.5rem auto; max-width:min(100%,40rem)}
+#content > figure, #content > .figure{max-width:none}
+#content > table{max-width:none}
 @media (prefers-color-scheme:dark){
   img.tikzfig{filter:invert(1) hue-rotate(180deg)}
 }
@@ -129,7 +147,9 @@ img.tikzfig{display:block; margin:1.5rem auto; max-width:min(100%,34rem)}
 /* ---------- 数式 ---------- */
 math{font-family:'Latin Modern Math','Latin Modern Roman',serif; font-size:1.02em}
 math[display='block']{display:block; margin:1.1rem 0;
-  overflow-x:auto; overflow-y:hidden}
+  overflow-x:auto; overflow-y:hidden; max-width:100%}
+/* 数式が行長制限で切れないようにする */
+#content > table.equation{max-width:none; width:100%}
 math mo[stretchy='true']{max-height:2.4em}
 math munderover,math munder,math mover{vertical-align:middle}
 .equation{margin:1.2rem 0}

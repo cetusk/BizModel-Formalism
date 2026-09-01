@@ -20,55 +20,37 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # TeX Live 一式と make4ht、dvisvgm を含む公式イメージを用いる。
+    # apt での導入は展開とフォーマット生成に 7 分ほどかかるため。
+    container:
+      image: texlive/texlive:latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache apt packages
-        uses: actions/cache@v4
-        with:
-          path: /var/cache/apt/archives/*.deb
-          key: apt-texlive-v2
-
-      - name: Install TeX Live and tools
+      - name: Install Japanese fonts and PDF tools
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            texlive-luatex texlive-latex-extra texlive-lang-japanese \
-            texlive-fonts-recommended texlive-plain-generic texlive-pictures \
-            fonts-noto-cjk fonts-lmodern dvisvgm poppler-utils mupdf-tools
-
-          # make4ht は Debian パッケージに含まれないため CTAN 版を導入する。
-          git clone --depth 1 https://github.com/michal-h21/make4ht.git /tmp/make4ht
-          cd /tmp/make4ht
-
-          # 文字定義テーブルはリポジトリに含まれず、ビルド時に生成される。
-          texlua tools/make_chardata.lua       > make4ht-char-def.lua
-          texlua tools/make_mathmlchardata.lua > make4ht-mathml-char-def.lua
-
-          # ユーザーの texmf ツリーは mktexlsr が走査しないため、
-          # kpse の探索パスを環境変数で直接指定する。
-          MK4HT_DIR="$HOME/texmf/scripts/lua/make4ht"
-          mkdir -p "$MK4HT_DIR"
-          cp /tmp/make4ht/*.lua "$MK4HT_DIR/"
-          cp /tmp/make4ht/make4ht "$MK4HT_DIR/"
-          cp -r /tmp/make4ht/domfilters /tmp/make4ht/filters \
-                /tmp/make4ht/extensions /tmp/make4ht/formats "$MK4HT_DIR/"
-          chmod +x "$MK4HT_DIR/make4ht"
-          sudo ln -sf "$MK4HT_DIR/make4ht" /usr/local/bin/make4ht
-
-          echo "MK4HT_DIR=$MK4HT_DIR"    >> "$GITHUB_ENV"
-          echo "LUAINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
-          echo "TEXINPUTS=$MK4HT_DIR//:" >> "$GITHUB_ENV"
-          echo "TEXMFHOME=$HOME/texmf"   >> "$GITHUB_ENV"
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            fonts-noto-cjk fonts-noto-cjk-extra mupdf-tools poppler-utils
+          fc-cache -fv > /dev/null
+          echo "--- available CJK fonts ---"
+          fc-list :lang=ja family | sort -u | head -20
 
       - name: Verify toolchain
         run: |
           lualatex --version | head -1
           dvisvgm --version
-          mutool -v 2>&1 | head -1 || true
           make4ht --version
-          ls "$MK4HT_DIR/make4ht-char-def.lua"
-          ls "$MK4HT_DIR/make4ht-mathml-char-def.lua"
+          mutool -v 2>&1 | head -1 || true
+          # 本文で指定するフォント名が解決できるかを先に確かめる
+          for f in "Noto Serif CJK JP" "Noto Sans CJK JP" "Latin Modern Roman" "Latin Modern Math"; do
+            if fc-list "$f" | grep -q .; then
+              echo "OK   $f"
+            else
+              echo "::error::font not found: $f"
+              exit 1
+            fi
+          done
 
       - name: Build PDF
         working-directory: src
@@ -103,7 +85,13 @@ jobs:
           mkdir -p ../docs/book
           bash build-figures.sh
           n=$(ls ../docs/book/figures/*.svg | wc -l)
+          echo "figures: $n"
           if [ "$n" -lt 10 ]; then echo "::error::too few figures"; exit 1; fi
+          # 日本語が脱落していないことを確認する
+          if ! grep -l "NotoSerifCJK" ../docs/book/figures/*.svg > /dev/null; then
+            echo "::error::Japanese font not embedded in figures"
+            exit 1
+          fi
 
       - name: Build HTML
         working-directory: src

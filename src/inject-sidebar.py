@@ -56,7 +56,8 @@ def main():
         print(f"ERROR: only {len(items)} toc entries found", file=sys.stderr)
         sys.exit(1)
     sidebar = build_sidebar(items)
-    toggle = ('<button id="toc-toggle" aria-label="目次">&#9776;</button>')
+    toggle = ('<button id="toc-toggle" aria-label="目次">&#9776;</button>'
+              '<div id="toc-resize" title="ドラッグで幅を変更、ダブルクリックで既定に戻す"></div>')
 
     head_extra = (
         "<link href='custom.css' rel='stylesheet' type='text/css' />"
