@@ -101,7 +101,7 @@ jobs:
         working-directory: src
         run: |
           mkdir -p ../docs/book
-          ./build-figures.sh
+          bash build-figures.sh
           n=$(ls ../docs/book/figures/*.svg | wc -l)
           if [ "$n" -lt 10 ]; then echo "::error::too few figures"; exit 1; fi
 
