@@ -120,7 +120,7 @@
 \title{キャッシュフロー構造としてのビジネスモデル\\[6pt]
 \large 定式化・類型論・調査設計}
 \author{}
-\date{v0.8.0\quad 2026年9月1日}
+\date{v0.9.0\quad 2026年9月2日}
 
 
 \begin{document}
@@ -135,16 +135,18 @@
 \medskip
 本稿はビジネスモデルを「履行スケジュールから決済スケジュールへの写像 $\Phi$」として定式化し、
 そこから信用ポジション $\kappa$、自己金融可能成長率 $g^\star$、余剰の三分解を導く。
-第\ref{part:theory}部で理論を構成し、第\ref{part:catalog}部で $\Phi$ の自由度から七族二七類型を生成し、
-資本と人手の制約を課したときの部分空間とその極限を演繹する。第\ref{part:method}部は検証障害を分類し、
+第\ref{part:theory}部で理論を構成し、第\ref{part:catalog}部で $\Phi$ の自由度から七族二八類型を生成し、
+資本と人手の制約を課したときの部分空間とその極限、
+および情報構造の供給者を差し替えたときの部分空間を演繹する。第\ref{part:method}部は検証障害を分類し、
 選択バイアスの扱いと事前登録の手続きを定める。
 第\ref{part:results}部は族2・族5、法人企業統計、プラットフォーム手数料についての実証であり、
 その冒頭（第\ref{ch:instantiation}章）で理論量と実測値の対応を一覧する。
-16の予測を事前登録し、支持6件・棄却6件・検証不能4件という結果を、
+16の予測を事前登録し、支持5件・棄却7件・検証不能4件という結果を、
 外れた部分を含めて記録する。
 この過程で当初の四分類に収まらない障害が二つ現れ、分類を六つに拡張した。
-実証が完結していないため、制約条件下の $\Phi$ の演繹（第\ref{ch:solo}章、第\ref{part:unmanned}章）も
-独立した応用部とせず実証部に置いた。
+実証が完結していないため、制約条件下の $\Phi$ の演繹（第\ref{ch:solo}章、
+第\ref{part:unmanned}章、第\ref{ch:protocol}章）は独立した応用部とせず、
+$\Phi$ の空間を扱う第\ref{part:catalog}部に置いた。
 証明は本文および付録\ref{app:proofs}に、記号は付録\ref{app:notation}に、
 既存理論との対応は付録\ref{app:priorwork}に置いた。
 \end{abstract}
@@ -159,6 +161,7 @@
 \input{ch_catalog.tex}
 \input{supplement3.tex}
 \input{supplement4.tex}
+\input{supplement6.tex}
 
 %============================================================
 \part{方法論}\label{part:method}

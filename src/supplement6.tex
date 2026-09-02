@@ -1,0 +1,447 @@
+%============================================================
+\chapter{情報構造の供給者：手続きによる決済}
+\label{ch:protocol}
+%============================================================
+
+\section{本章で課す前提}
+
+第\ref{ch:solo}章は資源に制約を課し、第\ref{part:unmanned}章はその極限をとった。
+いずれも第\ref{sec:info}章の情報構造 $\mathcal{G}$ を所与としている。
+本章は $\mathcal{G}$ 自体を動かす。すなわち\textbf{誰が $\mathcal{G}$ を供給するかを差し替えたとき、
+実現可能な $\Phi$ の集合がどう変わるか}を問う。
+
+二点を先に断る。
+
+第一に、\textbf{本章は実証ではなく演繹である。} 結論の妥当性は前提の妥当性に依存する。
+
+第二に、\textbf{本章の内容に新規性はない。} ここで述べる関係はいずれも既存文献に対応があり、
+付録\ref{app:priorwork}に対応表を置いた。
+本章の目的は、第\ref{part:theory}部で構成した理論が
+具体的な条件の下でどう機能するかを示すことにある。
+
+\begin{definition}[手続き]
+\label{def:protocol}
+事前に公開され、実行結果を全参加者が独立に検証できる規則の集合を\emph{手続き}と呼び、
+$\mathcal{P}$ と書く。$\mathcal{P}$ が保持する変数の組を $\mathcal{P}$ の\emph{状態}という。
+\end{definition}
+
+前提は次のとおりである。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 決済 $\pi$ は $\mathcal{P}$ 上の状態遷移として表現される
+\item $\mathcal{P}$ の実行結果は全参加者が独立に検証できる（定義\ref{def:protocol}）
+\item 履行 $\delta$ が $\mathcal{P}$ の状態に含まれるかは対象による
+\end{enumerate}
+
+(1)と(2)は緩和である。第\ref{sec:info}章の $\mathcal{G}=\bigcap_i\mathcal{G}_i$ を供給するのは
+通常は当事者の外にある第三者であり、$\pi$ の検証と執行はそこに依存していた。
+前提(1)(2)はこれを不要にする。
+
+\textbf{(3)のみ前提として固定できない。} これが本章の場合分けを要求する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{本章で扱う理論量}}\\
+\midrule
+$\mathcal{G}$ & 第\ref{sec:info}章 & 供給者を差し替える対象 \\
+$\kappa_i$ の添字 $i$ & 式\eqref{eq:kappa} & 手続き上では識別子になる。\textbf{加法性が失われる} \\
+$\dbar-\delta$ & 定義\ref{def:breakage-def} & 区分「内」では手続き上の状態として観測できる \\
+$E$ & 式\eqref{eq:cash} & 担保として現れる \\
+自由度(2)(3) & 第\ref{sec:dof}節 & 篩がこの二つで切れる \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{本章で扱う理論量。情報構造の供給者を差し替えたときに関わる記号。}
+\label{tab:protocol-quantities}
+\end{center}
+
+\section{前提の翻訳}
+
+\subsection{第三者が担っていた三つの機能}
+
+$\mathcal{G}$ の供給者が契約において果たしている役割を三つに分ける。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+機能 & 内容 & 通常の担い手 \\
+\midrule
+(a) 記録 & $\kappa_i$ の状態を保持する & 銀行、決済代行 \\
+(b) 検証 & $\pi$ の発生条件が成立したかを判定する & 裁判所、監査 \\
+(c) 執行 & 条件成立時に価値を移転する & 裁判所、銀行 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{第三者が契約において果たす三つの機能。}
+\label{tab:third-party-functions}
+\end{center}
+
+前提(1)(2)より、$\mathcal{P}$ は(a)を常に担える。
+(b)は条件が $\mathcal{P}$ の状態から判定できる限り担える。
+(c)は移転の対象が $\mathcal{P}$ の状態である限り担える。
+
+\subsection{履行の所在による場合分け}
+
+前提(3)により二つの場合が生じる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXX@{}}
+\toprule
+区分 & $\delta$ の所在 & $\mathcal{G}$ に載るもの & $\mathcal{P}$ が担える機能 \\
+\midrule
+内 & $\mathcal{P}$ の状態 & $\delta$ と $\pi$ の両方 & (a)(b)(c) すべて \\
+外 & $\mathcal{P}$ の外 & $\pi$ のみ & (a)、および $\pi$ に関する(b)(c) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{履行の所在による区分と、手続きが担える機能。}
+\label{tab:protocol-cases}
+\end{center}
+
+\begin{remark}[区分は対象の属性ではなく $\Phi$ の属性である]
+\label{rem:case-is-phi}
+同一の対象であっても、何を履行とみなすかにより区分が変わる。
+手続き上の残高を他の残高と交換する $\Phi$ では区分は内であり、
+同じ残高を手続きの外にある通貨と交換する $\Phi$ では外になる。
+
+したがって「その対象は内か外か」という問いは立たない。
+問えるのは「その $\Phi$ は内か外か」である。
+第\ref{sec:unit}節の結論と同じ形であり、観測単位を対象ではなく $\Phi$ に置くことがここでも要求される。
+\end{remark}
+
+\begin{remark}[区分「外」における仲介]
+\label{rem:oracle}
+区分「外」において $\delta$ に関する条件を $\mathcal{P}$ に持ち込むには、
+外の事実を状態として書き込む主体が要る。
+$\mathcal{P}$ が検証できるのは所定の署名が付いているかまでであり、
+書き込まれた値が事実かは検証していない。
+すなわちこの主体は前提(2)を満たさず、\textbf{除去したはずの第三者が戻る}。
+
+書き込みの主体は単一の場合も複数の合議による場合もあり、
+除去の程度は離散的でなく連続的である。
+本章はこの連続体を扱わず、両端のみを扱う（第\ref{sec:protocol-limits}節）。
+実装の分類は \cite{pasdar2023} にある。
+\end{remark}
+
+\subsection{拘束する制約の入れ替わり}
+
+第\ref{ch:solo}章では、財務制約と容量制約のいずれが先に拘束するかが
+前提により入れ替わった。本章でも同じことが起きる。
+
+前提(1)(2)は $\mathcal{G}$ を広げるため、命題\ref{prop:implementable}の可測性条件は
+区分「内」において本稿のどの領域よりも緩む。
+\textbf{したがって $\mathcal{G}$ は拘束しなくなり、別の量が拘束する。}
+それが何であるかを第\ref{sec:collateral}節で特定する。
+
+\section{識別子と主体の乖離}
+\label{sec:identifier}
+
+本節は副産物である。第\ref{ch:solo}章がクラウドについて
+$A\to\kappa_S<0$ の対応を記録したのと同じ位置に置く。
+
+式\eqref{eq:kappa}の $\kappa_i$ は主体 $i$ ごとに定義され、
+式\eqref{eq:cash}では $\sum_i\kappa_i$ として加算される。
+この加算は\textbf{添字が主体を一意に指すこと}を前提としている。
+
+手続き上で同定できるのは識別子である。
+一つの主体が複数の識別子を持つことを $\mathcal{P}$ は排除できない。
+識別子の生成に費用がかからないためであり、これは既知の問題である \cite{douceur2002}。
+
+\begin{remark}[加法性の喪失]
+\label{rem:additivity}
+識別子を $j$、主体を $i$、対応を $j\mapsto\iota(j)$ とすると、
+観測できるのは $\kappa_j$ であり、必要なのは
+\begin{equation}
+\kappa_i = \sum_{j:\,\iota(j)=i} \kappa_j
+\label{eq:kappa-aggregation}
+\end{equation}
+である。$\iota$ が観測できないため、式\eqref{eq:kappa-aggregation}は評価できない。
+
+\textbf{これは第\ref{sec:phi}章の定義の限界であって、本章の前提の帰結ではない。}
+$N$ を固定し添字を主体に固定した設定が、識別子が可変な環境に合わないことを示している。
+第\ref{sec:token-limit}節で述べた請求権の流通と同じ箇所、
+すなわち定義域の設定に由来する。理論の修正は行わない。
+\end{remark}
+
+注\ref{rem:additivity}は族7に直接効く。
+族7は受益者と支払者が異なることを定義的性質とするが、
+$\iota$ が観測できない以上、\textbf{両者が異なることを $\mathcal{P}$ は検証できない}。
+族の定義そのものが $\mathcal{G}$ に載らない。
+
+\section{類型のふるい分け}
+\label{sec:protocol-filter}
+
+第\ref{part:catalog}部の28類型を、表\ref{tab:protocol-cases}の二区分で篩にかける。
+
+\textbf{篩の基準は第\ref{ch:solo}章とは異なる。} 第\ref{ch:solo}章は実行可能かどうかで切ったが、
+ここでは手続きが寄与するかどうかで切る。区分「外」で寄与を受けない類型も、
+執行が第三者に戻るだけで消滅はしない。
+以下、$\pi$ を規定する条件が $\mathcal{G}$ に載り、
+かつ執行の対象が $\mathcal{P}$ の状態にあるものを「寄与を受ける」とする。
+判定は類型ごとではなく $\Phi$ ごとに行う（注\ref{rem:case-is-phi}）。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+番号 & 類型 & 内 & 外 & 判定の根拠 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族1：単発交換}}\\
+1-1 & 即時交換 & ○ & --- & 同時性は $\delta$ と $\pi$ が同一の状態遷移である場合にのみ作れる \\
+1-2 & 前受単発 & ○ & ○ & $\pi$ が先行し、$\delta$ を参照しない \\
+1-3 & 後払単発 & ○ & --- & 外では $\delta$ の完了を判定できない \\
+1-4 & 分割後払 & ○ & 部分 & 外でも $\pi$ の徴収は担えるが、不履行時に原資産へ及ばない \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族2：継続アクセス}}\\
+2-1 & 定額アクセス & ○ & ○ & $\pi=c$ が $\delta$ を参照しない \\
+2-2 & 従量 & ○ & --- & 外では $\delta$ の計量に注\ref{rem:oracle}の主体を要する \\
+2-3 & 二部料金 & ○ & 部分 & 外では固定部分 $F$ のみ \\
+2-4 & プリペイド & ○ & ○ & 内では未使用残高が手続き上の状態そのものになる \\
+2-5 & オプション・保証 & ○ & --- & 外では行使条件が手続きの外にある \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族3：資産の時間貸し}}\\
+3-1 & リース・レンタル & ○ & --- & 内は資産自体が手続き上の状態である場合に限る \\
+3-2 & 共用資産 & 条件付 & --- & 稼働を状態遷移として書ける範囲が狭い \\
+3-3 & 譲渡＋長期回収 & ○ & --- & 内は担保付き。外では原資産に及ばない \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族4：補完財による回収}}\\
+4-1 & ロックイン消耗品 & 条件付 & --- & 本体が手続きの外にあるという族の前提が内では崩れる \\
+4-2 & フリーミアム & ○ & ○ & $\kappa>0$ だが自ら発行した信用であり、執行を手続きに求めていない \\
+4-3 & 本体補填＋金融 & ○ & --- & 外では本体が手続きの外にある \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{28類型のふるい分け（族1--4）。○は寄与を受けるもの。}
+\label{tab:protocol-filter-a}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+番号 & 類型 & 内 & 外 & 判定の根拠 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族5：成果・状態連動}}\\
+5-1 & 成果報酬 & 条件付 & --- & $\pi=h(y)$ の $y$ が手続き上の量である場合に限る \\
+5-2 & レベニューシェア & ○ & --- & 内では相手方の流量が手続き上で観測できる \\
+5-3 & コストプラス & --- & --- & 実費が内外いずれでも手続きの外にある \\
+5-4 & 保険引受 & ○ & --- & 内は $\omega$ が手続き上の事象に限られる \\
+5-5 & IPライセンス & ○ & --- & 内は利用が手続き上で観測できる場合 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族6：媒介}}\\
+6-1 & 取引額手数料 & ○ & --- & 内では 1-1 の同時性と組み合わせて完結する \\
+6-2 & エスクロー預り & ○ & 部分 & 外では片側の預りのみ。解放条件に注\ref{rem:oracle}の主体を要する \\
+6-3 & スプレッド & ○ & --- & 内では在庫が手続き上の残高になる \\
+6-4 & 機会課金 & 条件付 & --- & 接触を手続き上の事象として定義できる範囲に限る \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{族7：受益者と支払者の分離}}\\
+7-1 & 広告 & --- & --- & 受益者と支払者が異なることを検証できない（第\ref{sec:identifier}節） \\
+7-2 & クロスサブシディ & --- & --- & 同上 \\
+7-3 & 公的支払 & --- & --- & 支払者が価格を規定し、設計自由度が制度層にある \\
+7-4 & 寄付・支援 & ○ & ○ & 対価関係を明示しないため受益者の同定を要しない \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{28類型のふるい分け（族5--7）。○は寄与を受けるもの。}
+\label{tab:protocol-filter-b}
+\end{center}
+
+区分「内」で寄与を受けるのは20類型、区分「外」では5類型である。
+第\ref{ch:solo}章の篩が28類型を10前後に減らしたのに対し、
+区分「内」の篩はほとんど減らさない。
+\textbf{本章の前提は制約ではなく緩和だからである。}
+
+\begin{remark}[篩が切れる軸]
+区分「外」で残る5類型は 1-2、2-1、2-4、4-2、7-4 であり、
+共通するのは $\pi$ が $\delta$ に可測でないことのみである。
+第\ref{sec:dof}節の六自由度のうち、自由度(2)だけがこの篩に情報を持つ。
+
+\textbf{これは命題ではない。} 区分「外」を $\delta$ が $\mathcal{G}$ に載らない場合として
+定義したのだから、$\delta$ 可測な $\pi$ が書けないことは定義からの帰結である。
+情報があるのは主張の側ではなく、28類型を個別に当てた結果が
+単一の自由度で説明されたという事実の側にある。
+\end{remark}
+
+\begin{remark}[同時交換の消滅]
+区分「外」では 1-1 が存在しない。同時性は $\delta$ と $\pi$ が
+同一の状態遷移として実行される場合にのみ作れるためであり、
+$\delta$ が外にあれば前受か後払のいずれかに退化する。
+現実の即時交換は当事者が互いを同時に観測することで同時性を作っているが、
+$\mathcal{P}$ はその観測を持たない。
+\end{remark}
+
+\begin{remark}[制度層の作用の向き]
+2-4（プリペイド）と 6-2（エスクロー）は、第\ref{sec:bootstrap}節では
+供託義務と登録制により脱落した類型であった。
+区分「内」では手続きとして実装される。
+
+\textbf{同一の類型が、制度層の作用の向きにより脱落もし復帰もする。}
+注\ref{rem:institution-modes}の三形式のうち第一の形式（参入要件）について、
+作用が一方向でないことを示す例になる。
+\end{remark}
+
+\section{担保制約}
+\label{sec:collateral}
+
+第\ref{sec:protocol-filter}節で $\mathcal{G}$ が拘束しなくなることを見た。
+本節で何が拘束するかを特定する。
+
+区分「内」において $\kappa_i>0$、すなわち事業者が与信を出す $\Phi$ を考える。
+$\pi$ が不履行となったとき執行するには、執行の対象が $\mathcal{P}$ の状態になければならない。
+一方、$\mathcal{G}$ は $\mathcal{P}$ の状態のみからなるため、
+\textbf{相手方の弁済能力も過去の履行実績も $\mathcal{G}$ に含まれない}。
+
+したがって与信は事前に拘束された状態、すなわち担保によってのみ手当てできる。
+自己が相手方 $i$ のために拘束した担保を $B_i$、
+相手方 $i$ が自己のために拘束した担保を $B_i'$ と書くと、
+
+\begin{equation}
+\max\{\kappa_i,0\} \;\leq\; B_i',
+\qquad
+\max\{-\kappa_i,0\} \;\leq\; B_i
+\label{eq:protocol-collateral}
+\end{equation}
+
+が成立する。担保は自己の資産から重複なく供されるから $\sum_i B_i\leq E$ であり、次を得る。
+
+\begin{proposition}[担保制約]
+\label{prop:collateral}
+区分「内」において、受けられる与信の総額は自己資本を超えない。
+\begin{equation}
+\sum_i \max\{-\kappa_i,0\} \;\leq\; E
+\label{eq:protocol-finance}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+式\eqref{eq:protocol-collateral}の第二式について全ての $i$ の和をとると
+$\sum_i\max\{-\kappa_i,0\}\leq\sum_i B_i$ を得る。
+同一の資産を複数の相手方に対して同時に拘束することはできないから
+$\sum_i B_i\leq E$ であり、両者を合わせる。
+\end{proof}
+
+式\eqref{eq:protocol-finance}を第\ref{ch:solo}章の式\eqref{eq:solo-finance}と比較する。
+そこでは $E\approx 0$ の下で $\sum\max\{-\kappa_i,0\}\geq\sum\max\{\kappa_i,0\}$、
+すなわち引き出した与信が与えた与信を上回ることが要求された。
+本章では引き出せる与信そのものが $E$ で抑えられる。
+
+\begin{corollary}[代替が片方向に退化する]
+\label{cor:one-way-substitution}
+区分「内」において、命題\ref{prop:substitution}の代替関係は片方向になる。
+資本は信用を代替するが、信用は資本を代替しない。
+\end{corollary}
+
+\begin{proof}
+命題\ref{prop:collateral}より $\kappa<0$ の項は $E$ を上限とする。
+式\eqref{eq:cash}において $\kappa<0$ の項が $E$ を超えて調達を増やすことはない。
+逆向きの代替、すなわち $E$ が $\kappa<0$ を代替することは
+命題\ref{prop:substitution}のとおり成立する。
+\end{proof}
+
+系\ref{cor:one-way-substitution}は、命題\ref{prop:substitution}が
+本稿で三度目に現れる箇所である。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lllX@{}}
+\toprule
+箇所 & $E$ & 信用 & そこで拘束するもの \\
+\midrule
+第\ref{ch:solo}章 一人事業 & 0 & 唯一の調達手段 & 信用のブートストラップ問題 \\
+第\ref{sec:retiree}節 資産を持つ層 & 正 & ゼロから積む & 資本が信用を積む期間を買う \\
+本章 区分「内」 & 唯一の調達手段 & 0 & 積む期間が存在しない \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{命題\ref{prop:substitution}が現れる三つの箇所。両端が揃う。}
+\label{tab:substitution-three-points}
+\end{center}
+
+第\ref{sec:credit-formation}節は、公開された履行の蓄積により信用が形成される経路を述べた。
+区分「内」ではこの経路が働かない。
+$\mathcal{P}$ が識別子しか同定できず（第\ref{sec:identifier}節）、
+過去の履行実績を主体に帰属させられないためである。
+
+\begin{corollary}[資産を持たない主体の排除]
+\label{cor:exclusion}
+$A=\mathrm{Inv}=0$ かつ $E=0$ のとき、実現可能なのは
+全ての $i$ について $\kappa_i=0$ である $\Phi$ に限られる。
+\end{corollary}
+
+\begin{proof}
+式\eqref{eq:protocol-finance}に $E=0$ を代入すると
+全ての $i$ について $\kappa_i\geq 0$ となる。
+一方、命題\ref{prop:substitution}より $A=\mathrm{Inv}=E=0$ のとき
+$\sum_i\max\{-\kappa_i,0\}\geq\sum_i\max\{\kappa_i,0\}$ が要求され、
+左辺は $0$ であるから $\kappa_i\leq 0$ を得る。
+\end{proof}
+
+すなわち\textbf{資産を持たない主体に残るのは $\kappa$ が恒等的に $0$ の類型に限られる}。
+第\ref{part:catalog}部で $\kappa\approx 0$ とした 1-1（即時交換）、2-2（従量）、
+6-1（取引額手数料）とその合成がこれにあたる。
+第\ref{ch:solo}章では $E=0$ が $\kappa_C<0$ を要求したが、
+ここでは $\kappa=0$ を強制する。
+第\ref{sec:bootstrap}節の解(a)(b)(c)はいずれも信用の不足を前提としていたが、
+ここで不足するのは資本である。
+
+\begin{remark}[既存理論との対応]
+\label{rem:collateral-priorwork}
+本節の内容は新規ではない。純資産が担保能力を通じて調達を制約する構造は
+\cite{kiyotaki1997}に、担保制約が企業の資金調達と危険管理を同時に規定する定式化は
+\cite{rampini2010,rampini2013}にある。
+命題\ref{prop:substitution}自体もこれらに対応がある（付録\ref{app:priorwork}）。
+
+前提(1)(2)の下で契約可能な空間が広がることは\cite{cong2019}が扱っている。
+系\ref{cor:exclusion}に相当する指摘、すなわち担保を要求する仕組みが
+資本を持たない主体を排除するという論点も、既に文献がある\cite{oecd2024}。
+
+\textbf{本節の役割は、これらを式\eqref{eq:cash}の同一の不等式の上に置くことにある。}
+\end{remark}
+
+\section{観測可能性}
+\label{sec:protocol-observability}
+
+前提(2)は副次的な帰結を持つ。
+$\mathcal{P}$ の状態が全参加者に対して検証可能であることから、
+区分「内」では次の量が個別に観測できる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+量 & 本稿における測定状況 & 区分「内」での状態 \\
+\midrule
+$M(t)$ & 個社データを要し、集計では意味を持たない & 識別子ごとに観測できる \\
+$\kappa_j$ & 同上 & 同上 \\
+$\dbar-\delta$ & 集計値からの推定にとどまる & 未使用残高として直接観測できる \\
+$B$ & 対応する量を本稿は持たない & 拘束された状態として観測できる \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{区分「内」において観測可能になる量。}
+\label{tab:protocol-observability}
+\end{center}
+
+ただし観測できるのは識別子単位であり、注\ref{rem:additivity}により
+主体単位の $\kappa_i$ は復元できない。
+\textbf{測定の障害が、集計の不在から集計の不能へ入れ替わる。}
+第\ref{part:method}部の障害分類に対して、これは新たな形式にあたる。
+
+本節は本章の主題ではない。
+第\ref{part:results}部の対象に加えるかどうかは第\ref{ch:conclusion}章で検討する。
+
+\section{本章の限界}
+\label{sec:protocol-limits}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{演繹である。} 結論は前提(1)(2)(3)に依存する。
+実測による検証を行っていない。
+
+\item \textbf{両端しか扱っていない。} 注\ref{rem:oracle}のとおり、
+区分「外」において第三者の除去の程度は連続的である。
+本章は完全に除去された場合と全く除去されない場合のみを扱い、中間を扱わない。
+実在する仕組みの多くは中間にある。
+
+\item \textbf{定義の限界が残る。} 第\ref{sec:identifier}節の $\iota$ の観測不能は、
+第\ref{sec:phi}章で $N$ を固定したことに由来する。
+本章はこれを記録するにとどめ、定義域の拡張は行わない。
+第\ref{sec:token-limit}節で述べた請求権の流通と同じ箇所である。
+
+\item \textbf{$\phi$ を扱っていない。} 本章は $\Phi$ の実現可能性のみを論じ、
+第\ref{sec:surplus}章の余剰の三分解を適用していない。
+手続きが複製可能であることから $\phi_{\rm prod}$ に圧力がかかるという
+第\ref{part:unmanned}章の注と同型の議論が成り立ちうるが、
+判定には手数料の実測を要するため本章では扱わない。
+\end{enumerate}
+
+%============================================================

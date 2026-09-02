@@ -457,11 +457,36 @@ $\Phi$ の切り替え費用と待機の価値（注\ref{rem:switching-cost}） 
 自動化とリスク・不確実性の区別（第\ref{part:unmanned}章） & \cite{knight1921} \\
 組織が可測性を吸収すること（第\ref{sec:credit-formation}節） & 企業の境界 \cite{coase1937}、所有権理論 \cite{grossman1986} \\
 支払者と受益者の分離（族7） & 両面市場 \cite{rochet2003} \\
+命題\ref{prop:substitution}（資本と信用の代替） & 担保制約と純資産 \cite{kiyotaki1997,rampini2010,rampini2013} \\
+信用のブートストラップ問題（第\ref{sec:bootstrap}節） & 同上。純資産の低い主体ほど制約が強いという結果に対応 \\
+手続きによる契約空間の拡大（第\ref{ch:protocol}章の前提(1)(2)） & 分散合意と契約可能性 \cite{cong2019} \\
+識別子と主体の乖離（第\ref{sec:identifier}節） & Sybil 攻撃 \cite{douceur2002} \\
+系\ref{cor:exclusion}（資産を持たない主体の排除） & 担保要求と金融包摂の限界 \cite{oecd2024} \\
+注\ref{rem:oracle}（区分「外」における仲介） & 外部状態の取り込みとその検証可能性 \cite{pasdar2023} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{既存理論との対応、第三層(a)：個別の対応関係。}
+\label{tab:priorwork-layer3}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+接続すべきだが接続していない理論 & 対応する既存理論 \\
 \midrule
-\multicolumn{2}{@{}l}{\textbf{接続すべきだが接続していない理論}}\\
 $\bar\delta$ と $\delta$ の同時決定（第\ref{sec:independence-assumption}節） & メカニズムデザイン、自己選択と数量割引 \\
 契約の選別効果（同上） & 契約理論のうち逆選択を扱う部分 \\
 DSO と DPO の同時決定（同上） & 取引信用（trade credit）の理論 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{既存理論との対応、第三層(b)：接続すべきだが接続していない理論。}
+\label{tab:priorwork-layer3b}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+本稿固有の整理 & 対応 \\
 \midrule
 三重添字と三操作の対応（第\ref{sec:three-ops}節） & 本稿の整理 \\
 $\Phi$ による定義（第\ref{sec:phi}章） & 本稿の整理 \\
@@ -471,8 +496,8 @@ $\Phi$ の類型カタログ（第\ref{part:catalog}部） & 本稿の整理 \\
 検証障害の四分類（第\ref{sec:obstacle-taxonomy}節） & 本稿の整理 \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{既存理論との対応、第三層：個別の対応関係、および本稿固有の整理。}
-\label{tab:priorwork-layer3}
+\captionof{table}{既存理論との対応、第三層(c)：本稿固有の整理。}
+\label{tab:priorwork-layer3c}
 \end{center}
 
 \input{app_revisions.tex}
@@ -681,4 +706,45 @@ W.~Wagner,
 \newblock Diversification at financial institutions and systemic crises,
 \newblock \emph{Journal of Financial Intermediation}, 19(3):373--386, 2010.
 \doilink{10.1016/j.jfi.2009.07.002}
+\biblink{https://doi.org/10.1093/rfs/hhz007}\bibitem{cong2019}
+L.~W. Cong and Z.~He,
+\newblock Blockchain disruption and smart contracts,
+\newblock \emph{The Review of Financial Studies}, 32(5):1754--1797, 2019.
+\doilink{10.1093/rfs/hhz007}
+
+\biblink{https://doi.org/10.1007/3-540-45748-8_24}\bibitem{douceur2002}
+J.~R. Douceur,
+\newblock The Sybil attack,
+\newblock in \emph{Peer-to-Peer Systems}, Lecture Notes in Computer Science 2429, pages 251--260, 2002.
+\doilink{10.1007/3-540-45748-8_24}
+
+\biblink{https://doi.org/10.1086/262072}\bibitem{kiyotaki1997}
+N.~Kiyotaki and J.~Moore,
+\newblock Credit cycles,
+\newblock \emph{Journal of Political Economy}, 105(2):211--248, 1997.
+\doilink{10.1086/262072}
+
+\biblink{https://doi.org/10.1787/f00a0c7f-en}\bibitem{oecd2024}
+OECD,
+\newblock The limits of DeFi for financial inclusion,
+\newblock OECD Business and Finance Policy Papers, 2024.
+\doilink{10.1787/f00a0c7f-en}
+
+\biblink{https://doi.org/10.1145/3567582}\bibitem{pasdar2023}
+A.~Pasdar, Y.~C. Lee and Z.~Dong,
+\newblock Connect API with blockchain: a survey on blockchain oracle implementation,
+\newblock \emph{ACM Computing Surveys}, 55(10):1--39, 2023.
+\doilink{10.1145/3567582}
+
+\biblink{https://doi.org/10.1111/j.1540-6261.2010.01616.x}\bibitem{rampini2010}
+A.~A. Rampini and S.~Viswanathan,
+\newblock Collateral, risk management, and the distribution of debt capacity,
+\newblock \emph{The Journal of Finance}, 65(6):2293--2322, 2010.
+\doilink{10.1111/j.1540-6261.2010.01616.x}
+
+\biblink{https://doi.org/10.1016/j.jfineco.2013.03.002}\bibitem{rampini2013}
+A.~A. Rampini and S.~Viswanathan,
+\newblock Collateral and capital structure,
+\newblock \emph{Journal of Financial Economics}, 109(2):466--492, 2013.
+\doilink{10.1016/j.jfineco.2013.03.002}
 \end{thebibliography}
