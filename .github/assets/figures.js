@@ -521,11 +521,12 @@
   function figCollider(container) {
     // 元図（collider.tex）: Φ を左上、ε を左下、S を右に置き、両方から S へ矢印。
     // Φ と ε の間には「条件づけで生じる見かけの相関」を示す湾曲した双方向矢印を引く。
-    var W = 560, H = 300;
+    // 横幅は S の箱と曲線の間に注記を置けるだけ確保する（狭いと注記が箱に重なる）。
+    var W = 620, H = 300;
     var svg = svgRoot(W, H);
     var phiBox = { x: 30, y: 40, w: 190, h: 56 };
     var epsBox = { x: 30, y: 204, w: 190, h: 56 };
-    var sBox = { x: 340, y: 122, w: 190, h: 56 };
+    var sBox = { x: 380, y: 122, w: 190, h: 56 };
     // 原図（collider.tex）: Φ/ε は塗りなしの通常枠、S だけ薄い塗り＋太枠で強調されている。
     [phiBox, epsBox, sBox].forEach(function (b, i) {
       var r = el('rect', {
@@ -536,15 +537,15 @@
       svg.appendChild(r);
     });
     svg.appendChild(mathLabel(phiBox.x + phiBox.w / 2, phiBox.y + 20,
-      '<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>', 180, 20));
-    svg.appendChild(text(phiBox.x + phiBox.w / 2, phiBox.y + 44, '調べたい構造', 'fig-muted'));
+      '<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>', 180, 20, 'fig-label'));
+    svg.appendChild(text(phiBox.x + phiBox.w / 2, phiBox.y + 42, '調べたい構造', 'fig-tick'));
     svg.appendChild(mathLabel(epsBox.x + epsBox.w / 2, epsBox.y + 20,
-      '<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>', 180, 20));
-    svg.appendChild(text(epsBox.x + epsBox.w / 2, epsBox.y + 44, '外生的な変動', 'fig-muted'));
+      '<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>', 180, 20, 'fig-label'));
+    svg.appendChild(text(epsBox.x + epsBox.w / 2, epsBox.y + 42, '外生的な変動', 'fig-tick'));
     svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 20,
-      '<math><mi>S</mi><mtext>：生存・開示</mtext></math>', 180, 20));
-    svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 44,
-      '<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>', 180, 18));
+      '<math><mi>S</mi><mtext>：生存・開示</mtext></math>', 180, 20, 'fig-label'));
+    svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 42,
+      '<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>', 180, 18, 'fig-tick'));
     svg.appendChild(arrow(phiBox.x + phiBox.w, phiBox.y + phiBox.h / 2, sBox.x, sBox.y + sBox.h / 2 - 10));
     svg.appendChild(arrow(epsBox.x + epsBox.w, epsBox.y + epsBox.h / 2, sBox.x, sBox.y + sBox.h / 2 + 10));
     // Φ⇔ε の湾曲した双方向矢印（見かけの相関）
@@ -556,8 +557,10 @@
     svg.appendChild(el('path', { d: curve, class: 'fig-arrow', 'stroke-dasharray': '4,3' }));
     svg.appendChild(arrowheadAt(sx, py, Math.atan2(py - c1y, sx - c1x))); // Φ側の矢じり
     svg.appendChild(arrowheadAt(ex, ey, Math.atan2(ey - c2y, ex - c2x))); // ε側の矢じり
-    svg.appendChild(text((c1x + c2x) / 2 + 26, (py + ey) / 2, '条件づけで生じる', 'fig-muted'));
-    svg.appendChild(text((c1x + c2x) / 2 + 26, (py + ey) / 2 + 16, '見かけの相関', 'fig-muted'));
+    // 曲線の最大ふくらみ（x≈262）と S の箱（x=380）の間に左揃えで置く
+    var noteX = sBox.x - 108;
+    svg.appendChild(text(noteX, (py + ey) / 2, '条件づけで生じる', 'fig-muted', 'start'));
+    svg.appendChild(text(noteX, (py + ey) / 2 + 16, '見かけの相関', 'fig-muted', 'start'));
     container.appendChild(svg);
   }
 
@@ -572,11 +575,14 @@
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(text(x1 - 4, y0 + 16, '時間', 'fig-muted', 'end'));
     // 退職〜競業避止の終了の網掛けと縦の目印
-    svg.appendChild(el('rect', { x: xm, y: y1, width: x2 - xm, height: y0 - y1, fill: 'var(--line)', opacity: .35 }));
-    svg.appendChild(el('line', { x1: xm, x2: xm, y1: y1, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
-    svg.appendChild(el('line', { x1: x2, x2: x2, y1: y1, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
-    svg.appendChild(text(xm, y1 + 14, '退職', 'fig-tick'));
-    svg.appendChild(text(x2, y1 + 14, '競業避止の終了', 'fig-tick'));
+    // 縦の目印と網掛けはラベルの下で止める（原図も線の上端 4.3 に対しラベルは 4.35 にある）。
+    // 上端まで引くと「退職」「競業避止の終了」の文字を線が貫いてしまう。
+    var markTop = y1 + 20;
+    svg.appendChild(el('rect', { x: xm, y: markTop + 4, width: x2 - xm, height: y0 - markTop - 4, fill: 'var(--line)', opacity: .35 }));
+    svg.appendChild(el('line', { x1: xm, x2: xm, y1: markTop, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
+    svg.appendChild(el('line', { x1: x2, x2: x2, y1: markTop, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
+    svg.appendChild(text(xm, y1 + 10, '退職', 'fig-tick'));
+    svg.appendChild(text(x2, y1 + 10, '競業避止の終了', 'fig-tick'));
     // 利用可能な信用: 在職中は高い水準で一定→退職で急落しゼロ近くで一定（原図では両区間とも水平）
     svg.appendChild(el('path', {
       class: 'fig-line fig-c-accent',
@@ -594,9 +600,11 @@
     }));
     // 系列ラベルは原図同様、凡例ではなく各線の近くに直接置く
     (function () {
-      var l1 = text(x0 + 4, y0 - 130 - 8, '利用可能な信用', 'fig-c-accent', 'start');
+      var l1 = text(x0 + 4, y0 - 130 - 12, '利用可能な信用', 'fig-c-accent', 'start');
       l1.style.fontSize = '.72rem'; svg.appendChild(l1);
-      var l2 = text(x0 + (x1 - x0) * 0.26, y0 - 100, '変換原資', 'fig-c-fg', 'start');
+      // 「変換原資」は曲線の下側に置く（原図も anchor=north で曲線の下）。
+      // 曲線の高さに近いところに置くと線が文字を横切る。
+      var l2 = text(x0 + (x1 - x0) * 0.30, y0 - 78, '変換原資', 'fig-c-fg', 'start');
       l2.style.fontSize = '.72rem'; svg.appendChild(l2);
       var l3 = text(x0 + (x1 - x0) * 0.635, y0 - 190 - 8, '変換の自由度', 'fig-c-accent', 'start');
       l3.style.fontSize = '.72rem'; svg.appendChild(l3);
@@ -620,8 +628,10 @@
     // 給与所得者: (0,2.3)→(8.6,4.0) と R1/R2 より低い位置から始まり右肩上がり（原図に忠実、凡例ではなく直接ラベル）
     var salStartY = y0 - (y0 - y1) * 0.5, salEndY = y0 - (y0 - y1) * 0.87;
     svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + salStartY + ' L' + x1 + ',' + salEndY }));
+    // ラベルは右へ伸びる一方、線は右へ行くほど上がるので、線の傾きぶんも見込んで離す
+    // （原図でも軸高の約12%ぶん上に置いている）。8pt では文字が線に乗ってしまう。
     var salLabelX = x0 + (x1 - x0) * 0.23;
-    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 8, '給与所得者', 'fig-c-accent', 'start');
+    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 26, '給与所得者', 'fig-c-accent', 'start');
     salLabel.style.fontSize = '.72rem';
     svg.appendChild(salLabel);
     // R1・R2 は共通の始点 (0,3.5) から分岐する（原図では給与所得者より高い位置から出発）
@@ -630,7 +640,11 @@
     var r1end = x0 + (x1 - x0) * 0.62;
     svg.appendChild(el('path', { class: 'fig-line fig-c-fg fig-p-dashed', d: 'M' + x0 + ',' + r12StartY + ' L' + r1end + ',' + y0 }));
     svg.appendChild(el('circle', { class: 'fig-dot fig-c-fg', cx: r1end, cy: y0, r: 4 }));
-    var r1Label = text(x0 + (x1 - x0) * 0.42, y0 - (y0 - y1) * 0.24, 'R1', 'fig-c-fg', 'start');
+    // R1 のラベルはその x での R1 直線の高さから一定量だけ上に置く（直線に重ねない）
+    var r1LabelX = x0 + (x1 - x0) * 0.42;
+    var r1LineY = r12StartY + (r1LabelX - x0) / (r1end - x0) * (y0 - r12StartY);
+    // 上には下限（R2）の水平線が走っているので、ラベルは直線の左下に出す
+    var r1Label = text(r1LabelX - 8, r1LineY + 20, 'R1', 'fig-c-fg', 'end');
     r1Label.style.fontSize = '.72rem';
     svg.appendChild(r1Label);
     // R2: 下限で下げ止まる（原図は点線）
@@ -784,15 +798,20 @@
     }));
     svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y1 }));
     svg.appendChild(text(x0 - 6, y1 - 8, '累積額', 'fig-muted', 'end'));
-    svg.appendChild(mathLabel(x1 - 8, y0 + 16, '<math><mi>t</mi></math>', 20, 18));
-    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.45 + 16, y0 + (y1 - y0) * 0.45 + 12,
-      '<math><mi>D</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>', 40, 18));
-    svg.appendChild(mathLabel((x0 + x1) / 2 - 30, y1 + (y0 - y1) * 0.28, '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>', 200, 20));
-    svg.appendChild(mathLabel((x0 + x1) / 2 + 20, y1 + (y0 - y1) * 0.72, '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>', 200, 20));
+    svg.appendChild(mathLabel(x1 - 8, y0 + 16, '<math><mi>t</mi></math>', 20, 18, 'fig-label'));
+    // D(t) は対角線の右下にずらす（原図の pos=0.45, below right）。線に触れないよう十分離す。
+    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.45 + 22, y0 + (y1 - y0) * 0.45 + 22,
+      '<math><mi>D</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>', 40, 18, 'fig-label'));
+    // κ の注記は原図の座標比（(2.5,3.2) と (4.6,0.8) / 7×4 の枠）に合わせる。
+    // 中央付近に置くと対角線が文字を貫くため、上側は左寄り・下側は右寄りに離す。
+    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.357, y0 - (y0 - y1) * 0.8,
+      '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>', 200, 20, 'fig-label'));
+    svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.657, y0 - (y0 - y1) * 0.2,
+      '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>', 200, 20, 'fig-label'));
     // 右端の注記は原図と同じく境界線の「右外側」に置く（cx は中心なので幅の半分だけ余分にずらす）。
     // 上は上辺の高さ、下は下辺のやや上（原図の y=0.35 相当）に合わせる。
-    svg.appendChild(mathLabel(x1 + 8 + 42, y1, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18));
-    svg.appendChild(mathLabel(x1 + 8 + 42, y0 - (y0 - y1) * 0.0875, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18));
+    svg.appendChild(mathLabel(x1 + 8 + 42, y1, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18, 'fig-label'));
+    svg.appendChild(mathLabel(x1 + 8 + 42, y0 - (y0 - y1) * 0.0875, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18, 'fig-label'));
     container.appendChild(svg);
   }
 

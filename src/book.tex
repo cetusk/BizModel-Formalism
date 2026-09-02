@@ -36,6 +36,17 @@
 \newcommand{\doilink}[1]{\newblock\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
 \newcommand{\weblink}[2]{\newblock\href{#1}{\nolinkurl{#2}}}
 
+% 参考文献の番号 [n] 自体もリンクにする。番号は \bibitem の時点で
+% \@biblabel から組まれるので、URL は各 \bibitem の直前に \biblink で渡しておく。
+% 使い終えたら空に戻し、リンクを持たない項目が前の URL を引き継がないようにする。
+\makeatletter
+\gdef\@currentbiburl{}
+\newcommand{\biblink}[1]{\gdef\@currentbiburl{#1}}
+\renewcommand{\@biblabel}[1]{%
+  \ifx\@currentbiburl\@empty[#1]\else[\href{\@currentbiburl}{#1}]\fi
+  \gdef\@currentbiburl{}}
+\makeatother
+
 % 図の挿入。PDF では TikZ をそのまま組版し、
 % HTML では事前生成した SVG を読み込む。
 % tex4ht は和文フォントを DVI 経路で解決できないため、
