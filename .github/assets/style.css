@@ -162,6 +162,18 @@ table tr[id^="TBL-"]{border-color:var(--rule) !important}
    （番号をリンクにして <a> が挟まったことで折り返し位置が生まれた）。 */
 .thebibliography dt{white-space:nowrap}
 
+/* マウスオーバーした文献を、番号と本文まとめて帯状にハイライトする。
+   dd の左マージンはブラウザ既定の 40px なので、そのままだと番号と本文の間で
+   帯が途切れる。マージンを番号側の padding に付け替えて連続させる。
+   dd にホバーしたとき手前の dt を選ぶのは :has()（未対応環境では dd だけ光る）。 */
+.thebibliography dd{margin-left:0}
+.thebibliography dt{padding-right:2.4rem}
+.thebibliography dt,.thebibliography dd{transition:background-color .12s}
+.thebibliography dt:hover,
+.thebibliography dt:hover + dd,
+.thebibliography dd:hover,
+.thebibliography dt:has(+ dd:hover){background:rgba(128,128,128,.16)}
+
 /* ---------- 図 ---------- */
 /* 図は固定サイズ。ウィンドウが狭いときのみ縮める。 */
 figure,.figure{margin:1.8rem 0; text-align:center}
