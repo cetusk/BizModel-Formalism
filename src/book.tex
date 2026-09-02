@@ -8,6 +8,18 @@
   \renewcommand{\figurename}{図}      % 同上。HTML 版の図表キャプションが "Figure"/"Table" のままだった
   \renewcommand{\tablename}{表}
   \renewcommand{\appendixname}{付録}  % 同上。HTML 版の付録見出しが "Appendix A" のままだった
+  % tex4ht は \hat{U} や \dot{r} を合成済みの1文字（Û, ṙ）に変換する。
+  % これらには数式イタリックの対応字が無いため、周囲の記号が斜体でも直立のまま残る。
+  % 引数に空グループを足すと合成されず <mover> になるので、アクセント全般に適用する。
+  % プリアンブルで再定義しても tex4ht 側のフックに上書きされるため \AtBeginDocument で行う。
+  % 退避名に @ は使わない。プリアンブルでは @ は文字ではないので \let\accent@hat... は
+  % \let\accent=@ と解釈され、TeX プリミティブ \accent を壊す（tex4ht が .tfm を見失う）。
+  \AtBeginDocument{%
+    \let\origHat\hat   \renewcommand{\hat}[1]{\origHat{#1{}}}%
+    \let\origDot\dot   \renewcommand{\dot}[1]{\origDot{#1{}}}%
+    \let\origBar\bar   \renewcommand{\bar}[1]{\origBar{#1{}}}%
+    \let\origTilde\tilde \renewcommand{\tilde}[1]{\origTilde{#1{}}}%
+  }
 \else
   \documentclass[a4paper,11pt,openany]{ltjsbook}
   \usepackage{luatexja-fontspec}
@@ -69,6 +81,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}{定義}[chapter]
 \newtheorem{remark}[definition]{注}
+% 例は定義・注と同じく本文を立体で組む（plain スタイルだと本文が斜体になり、
+% 例の中に置いた表まで斜体になってしまう）。命題・系は定理型なので plain のまま。
+\newtheorem{example}[definition]{例}
 \theoremstyle{plain}
 \newtheorem{proposition}[definition]{命題}
 
@@ -79,7 +94,6 @@
 \newcommand{\CCC}{\mathrm{CCC}}
 \newcommand{\FCF}{\mathrm{FCF}}
 \newcommand{\dbar}{\bar{\delta}}
-\newtheorem{example}[definition]{例}
 \newtheorem{corollary}[definition]{系}
 
 \setlist{itemsep=2pt,parsep=0pt,topsep=4pt}
