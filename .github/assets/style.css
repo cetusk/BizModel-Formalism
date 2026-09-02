@@ -156,6 +156,12 @@ td,th{padding:.4rem .7rem; vertical-align:top}
    見えなくなる。属性セレクタ＋!important で一括して打ち消す。 */
 table tr[id^="TBL-"]{border-color:var(--rule) !important}
 
+/* 参考文献の番号 [n]。tex4ht は [ と ] の間に改行を含む形で出力するため、
+   book.css の .thebibliography dl{grid-auto-columns:min-content ...} が
+   「[1」の幅で列を決めてしまい ] だけが次行に落ちる
+   （番号をリンクにして <a> が挟まったことで折り返し位置が生まれた）。 */
+.thebibliography dt{white-space:nowrap}
+
 /* ---------- 図 ---------- */
 /* 図は固定サイズ。ウィンドウが狭いときのみ縮める。 */
 figure,.figure{margin:1.8rem 0; text-align:center}
@@ -200,9 +206,15 @@ img.tikzfig{
    色と線種は独立したクラスとして組み合わせる（例: "fig-c-accent fig-p-dashed"）。 */
 .fig-c-accent{fill:var(--fig-accent); stroke:var(--fig-accent); background:var(--fig-accent)}
 .fig-c-fg{fill:var(--fg); stroke:var(--fg); background:var(--fg)}
-.fig-p-dashed{stroke-dasharray:7,4}
-.fig-p-dotted{stroke-dasharray:1,3}
-.fig-p-dashdot{stroke-dasharray:6,2,1.2,2}
+/* 上の色クラスは線にも文字にも使うが、SVG の text に stroke が乗ると字が縁取られて
+   太く潰れて見える。文字では stroke を消し、点の縁取り（地色の縁）も戻す。 */
+.htmlfig text.fig-c-accent,.htmlfig text.fig-c-fg{stroke:none}
+.htmlfig circle.fig-dot{stroke:var(--bg); stroke-width:2}
+/* 線種は .fig-line の丸いキャップ（両端が線幅ぶん伸びる）を見込んで間隔を取る。
+   間隔が狭いと破線が実線に見え、種類どうしの区別もつかなくなる。 */
+.fig-p-dashed{stroke-dasharray:10,8}
+.fig-p-dotted{stroke-dasharray:0.1,6}
+.fig-p-dashdot{stroke-dasharray:12,6,0.1,6}
 
 .chart-tooltip{
   position:fixed; z-index:40; pointer-events:none;
