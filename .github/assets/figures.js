@@ -27,7 +27,9 @@
   var CLS_STYLE = {
     'fig-muted': 'color:var(--muted); font-size:.72rem;',
     'fig-label': 'color:var(--fg); font-size:.78rem;',
-    'fig-tick': 'color:var(--muted); font-size:.66rem;'
+    'fig-tick': 'color:var(--muted); font-size:.66rem;',
+    'fig-c-accent': 'color:var(--fig-accent);',
+    'fig-c-fg': 'color:var(--fg);'
   };
   function mathLabel(cx, cy, mathmlHTML, w, h, cls) {
     var fo = el('foreignObject', { x: cx - w / 2, y: cy - h / 2, width: w, height: h });
@@ -59,6 +61,20 @@
   }
   function escapeXml(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // 折れ線の終点ラベルを線の右端からどれだけ離すか（viewBox 単位）
+  var END_LABEL_X = 6;
+  // 文字列の描画幅の見積もり（viewBox 単位）。SVG が DOM 未接続の時点で
+  // マージンを決める必要があり getBBox が使えないため、全角＝1em、半角＝0.5em で概算する。
+  // em は呼び出し側が font-size（viewBox 単位換算）で渡す。
+  function textWidth(str, em) {
+    var w = 0;
+    for (var i = 0; i < str.length; i++) {
+      // CJK・全角記号・かなはほぼ1em、ラテン文字と数字は約0.5em
+      w += /[　-ヿ㐀-鿿＀-￯]/.test(str[i]) ? em : em * 0.5;
+    }
+    return w;
   }
   // 和文全角・数式記号とも概算 12 単位/字（凡例の幅見積もりと同じ基準）で幅を確保する。
   function smartWidth(str) { return str.length * 16 + 10; }
@@ -165,7 +181,9 @@
 
     var n = opts.categories.length, s = opts.series.length;
     var slot = plotW / n;
-    var barW = Math.min(24, slot * 0.72 / s);
+    // 単系列のときは棒を太くする。24 のままだと区画（slot）に対して棒が細くなりすぎ、
+    // 図がほとんど余白に見える（原図の棒はもっと太い）。
+    var barW = Math.min(s === 1 ? 46 : 24, slot * 0.72 / s);
     var groupW = barW * s + (s > 1 ? 4 * (s - 1) : 0);
 
     opts.categories.forEach(function (cat, ci) {
@@ -236,8 +254,16 @@
   function lineChart(container, opts) {
     var W = 640, H = 340;
     // 右余白: 原図（TikZ）は凡例ではなく各線の終点に直接ラベルを置く（末尾の年の右）ため、
-    // その分のスペースを確保する。
-    var m = { top: 20, right: 58, bottom: 34, left: opts.leftMargin || 46 };
+    // 実際に置くラベルの中で最も長いものが収まる幅を見積もって確保する
+    // （固定値にすると "DSO－DPO" のような長いラベルが右端で見切れる）。
+    var endLabels = opts.series.map(function (s) { return s.label; });
+    if (opts.refLine != null) endLabels.push(opts.refLineLabel || '');
+    var m = {
+      top: 20, right: Math.max(58, endLabels.reduce(function (a, s) {
+        return Math.max(a, END_LABEL_X + textWidth(s, 13.2));
+      }, 0) + 8),
+      bottom: 34, left: opts.leftMargin || 46
+    };
     var svg = svgRoot(W, H);
     var plotW = W - m.left - m.right;
     var xs = opts.xValues;
@@ -336,7 +362,7 @@
     // 系列ラベルは原図同様、凡例ではなく各線の終点の右に直接置く（refLineLabel も同列で扱う）。
     // 終点の高さが近い系列は重なるため、最小間隔を確保して上下にずらす。
     (function () {
-      var xEnd = x(xs[xs.length - 1]) + 6;
+      var xEnd = x(xs[xs.length - 1]) + END_LABEL_X;
       var items = opts.series.map(function (ser) {
         return { y: y(ser.values[ser.values.length - 1]), label: ser.label, cls: ser.colorClass };
       });
@@ -384,8 +410,8 @@
     barChart(container, {
       categories: cats, data: data,
       series: [
-        { key: 'dso', label: 'DSO（売上債権）', colorClass: 'fig-series-1' },
-        { key: 'dpo', label: 'DPO（仕入債務）', colorClass: 'fig-series-2' }
+        { key: 'dso', label: 'DSO（売上債権）', colorClass: 'fig-c-accent' },
+        { key: 'dpo', label: 'DPO（仕入債務）', colorClass: 'fig-c-fg' }
       ],
       yMax: 80, yTicks: [0, 20, 40, 60, 80], yFmt: function (v) { return v; },
       yAxisLabel: '日', fmt: function (v) { return v + ' 日'; }
@@ -401,7 +427,7 @@
     var data = { a: { v: 3.6 }, b: { v: 5.0 }, c: { v: 6.0 }, d: { v: 14.5 }, e: { v: 15.0 }, f: { v: 30.0 }, g: { v: 34.5 } };
     barChart(container, {
       categories: cats, data: data,
-      series: [{ key: 'v', label: '実効料率', colorClass: 'fig-series-1' }],
+      series: [{ key: 'v', label: '実効料率', colorClass: 'fig-c-accent' }],
       yMax: 40, yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
       yAxisLabel: '%', fmt: function (v) { return v + ' %'; },
       valueLabel: function (v) { return v.toFixed(1); }
@@ -415,7 +441,7 @@
     lineChart(container, {
       xValues: GSTAR_YEARS, xTickEvery: 4,
       xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '%',
-      series: [{ key: 'g', label: 'm/CCC', colorClass: 'fig-series-1', values: GSTAR_VALUES }],
+      series: [{ key: 'g', label: 'm/CCC', colorClass: 'fig-c-accent', values: GSTAR_VALUES }],
       yDomain: [20, 60], yTicks: [20, 30, 40, 50, 60], yFmt: function (v) { return v; },
       refLine: 41.1, refLineLabel: '平均 41.1',
       fmt: function (v) { return v.toFixed(1) + ' %'; }
@@ -431,8 +457,8 @@
       xValues: LAG_YEARS, xTickEvery: 4,
       xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '日',
       series: [
-        { key: 'ccc', label: 'CCC', colorClass: 'fig-series-1', values: LAG_CCC },
-        { key: 'net', label: 'DSO－DPO', colorClass: 'fig-series-2', values: LAG_NET }
+        { key: 'ccc', label: 'CCC', colorClass: 'fig-c-accent', values: LAG_CCC },
+        { key: 'net', label: 'DSO－DPO', colorClass: 'fig-c-fg fig-p-dashed', values: LAG_NET }
       ],
       yDomain: [0, 40], yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
       fmt: function (v) { return v.toFixed(1) + ' 日'; }
@@ -452,10 +478,10 @@
       xAxisLabel: '年度', yAxisLabel: '滞留日数',
       log: true, leftMargin: 52,
       series: [
-        { key: 'mag', label: '磁気型', colorClass: 'fig-series-1', values: magnetic },
-        { key: 'pap', label: '紙型', colorClass: 'fig-series-2', values: paper },
-        { key: 'srv', label: 'サーバ型', colorClass: 'fig-series-3', values: server },
-        { key: 'ic', label: 'IC型', colorClass: 'fig-series-4', values: ic }
+        { key: 'mag', label: '磁気型', colorClass: 'fig-c-accent', values: magnetic },
+        { key: 'pap', label: '紙型', colorClass: 'fig-c-fg fig-p-dashed', values: paper },
+        { key: 'srv', label: 'サーバ型', colorClass: 'fig-c-accent fig-p-dashdot', values: server },
+        { key: 'ic', label: 'IC型', colorClass: 'fig-c-fg fig-p-dotted', values: ic }
       ],
       yDomain: [10, 2000], yTicks: [10, 100, 1000], yFmt: function (v) { return v.toLocaleString(); },
       fmt: function (v) { return v.toLocaleString() + ' 日'; }
@@ -500,11 +526,14 @@
     var phiBox = { x: 30, y: 40, w: 190, h: 56 };
     var epsBox = { x: 30, y: 204, w: 190, h: 56 };
     var sBox = { x: 340, y: 122, w: 190, h: 56 };
+    // 原図（collider.tex）: Φ/ε は塗りなしの通常枠、S だけ薄い塗り＋太枠で強調されている。
     [phiBox, epsBox, sBox].forEach(function (b, i) {
-      svg.appendChild(el('rect', {
+      var r = el('rect', {
         x: b.x, y: b.y, width: b.w, height: b.h, rx: 6,
-        class: i === 2 ? 'fig-box' : 'fig-box fig-boxfill', fill: i === 2 ? 'var(--side)' : null
-      }));
+        class: i === 2 ? 'fig-box fig-boxfill' : 'fig-box'
+      });
+      if (i === 2) r.style.strokeWidth = '2';
+      svg.appendChild(r);
     });
     svg.appendChild(mathLabel(phiBox.x + phiBox.w / 2, phiBox.y + 20,
       '<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>', 180, 20));
@@ -550,26 +579,26 @@
     svg.appendChild(text(x2, y1 + 14, '競業避止の終了', 'fig-tick'));
     // 利用可能な信用: 在職中は高い水準で一定→退職で急落しゼロ近くで一定（原図では両区間とも水平）
     svg.appendChild(el('path', {
-      class: 'fig-line fig-series-1',
+      class: 'fig-line fig-c-accent',
       d: 'M' + x0 + ',' + (y0 - 130) + ' L' + xm + ',' + (y0 - 130) + ' L' + xm + ',' + (y0 - 10) + ' L' + x1 + ',' + (y0 - 10)
     }));
     // 変換原資: 退職前後で緩やかに山なりになり、その後も高い水準を保ったまま緩降下する
     var d2 = 'M' + x0 + ',' + (y0 - 70);
     d2 += ' C' + (x0 + (xm - x0) * 0.5) + ',' + (y0 - 95) + ' ' + (xm - 20) + ',' + (y0 - 140) + ' ' + xm + ',' + (y0 - 150);
     d2 += ' C' + (xm + (x1 - xm) * 0.35) + ',' + (y0 - 125) + ' ' + (xm + (x1 - xm) * 0.7) + ',' + (y0 - 95) + ' ' + x1 + ',' + (y0 - 60);
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: d2 }));
+    svg.appendChild(el('path', { class: 'fig-line fig-c-fg fig-p-dashed', d: d2 }));
     // 変換の自由度: 競業避止の終了までは低いまま、そこで一段上がる（在職中の守秘義務が解ける）
     svg.appendChild(el('path', {
-      class: 'fig-line fig-series-3',
+      class: 'fig-line fig-c-accent fig-p-dashdot',
       d: 'M' + x0 + ',' + (y0 - 20) + ' L' + x2 + ',' + (y0 - 20) + ' L' + x2 + ',' + (y0 - 190) + ' L' + x1 + ',' + (y0 - 190)
     }));
     // 系列ラベルは原図同様、凡例ではなく各線の近くに直接置く
     (function () {
-      var l1 = text(x0 + 4, y0 - 130 - 8, '利用可能な信用', 'fig-series-1', 'start');
+      var l1 = text(x0 + 4, y0 - 130 - 8, '利用可能な信用', 'fig-c-accent', 'start');
       l1.style.fontSize = '.72rem'; svg.appendChild(l1);
-      var l2 = text(x0 + (x1 - x0) * 0.26, y0 - 100, '変換原資', 'fig-series-2', 'start');
+      var l2 = text(x0 + (x1 - x0) * 0.26, y0 - 100, '変換原資', 'fig-c-fg', 'start');
       l2.style.fontSize = '.72rem'; svg.appendChild(l2);
-      var l3 = text(x0 + (x1 - x0) * 0.635, y0 - 190 - 8, '変換の自由度', 'fig-series-3', 'start');
+      var l3 = text(x0 + (x1 - x0) * 0.635, y0 - 190 - 8, '変換の自由度', 'fig-c-accent', 'start');
       l3.style.fontSize = '.72rem'; svg.appendChild(l3);
     })();
     svg.appendChild(text((xm + x2) / 2, y0 + 16, '原資は減衰を始めるが変換できない', 'fig-tick'));
@@ -590,24 +619,24 @@
     svg.appendChild(text(x1 + 4, floorY + 4, '下限', 'fig-muted', 'start'));
     // 給与所得者: (0,2.3)→(8.6,4.0) と R1/R2 より低い位置から始まり右肩上がり（原図に忠実、凡例ではなく直接ラベル）
     var salStartY = y0 - (y0 - y1) * 0.5, salEndY = y0 - (y0 - y1) * 0.87;
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + salStartY + ' L' + x1 + ',' + salEndY }));
+    svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + salStartY + ' L' + x1 + ',' + salEndY }));
     var salLabelX = x0 + (x1 - x0) * 0.23;
-    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 8, '給与所得者', 'fig-series-1', 'start');
+    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 8, '給与所得者', 'fig-c-accent', 'start');
     salLabel.style.fontSize = '.72rem';
     svg.appendChild(salLabel);
     // R1・R2 は共通の始点 (0,3.5) から分岐する（原図では給与所得者より高い位置から出発）
     var r12StartY = y0 - (y0 - y1) * 0.76;
-    // R1: 期限に向けて減少しゼロで打ち切り
+    // R1: 期限に向けて減少しゼロで打ち切り（原図は破線）
     var r1end = x0 + (x1 - x0) * 0.62;
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: 'M' + x0 + ',' + r12StartY + ' L' + r1end + ',' + y0 }));
-    svg.appendChild(el('circle', { class: 'fig-dot fig-series-2', cx: r1end, cy: y0, r: 4 }));
-    var r1Label = text(x0 + (x1 - x0) * 0.42, y0 - (y0 - y1) * 0.24, 'R1', 'fig-series-2', 'start');
+    svg.appendChild(el('path', { class: 'fig-line fig-c-fg fig-p-dashed', d: 'M' + x0 + ',' + r12StartY + ' L' + r1end + ',' + y0 }));
+    svg.appendChild(el('circle', { class: 'fig-dot fig-c-fg', cx: r1end, cy: y0, r: 4 }));
+    var r1Label = text(x0 + (x1 - x0) * 0.42, y0 - (y0 - y1) * 0.24, 'R1', 'fig-c-fg', 'start');
     r1Label.style.fontSize = '.72rem';
     svg.appendChild(r1Label);
-    // R2: 下限で下げ止まる
+    // R2: 下限で下げ止まる（原図は点線）
     var r2bendX = x0 + (x1 - x0) * 0.36;
-    svg.appendChild(el('path', { class: 'fig-line fig-series-3', d: 'M' + x0 + ',' + r12StartY + ' L' + r2bendX + ',' + floorY + ' L' + x1 + ',' + floorY }));
-    var r2Label = text(x0 + (x1 - x0) * 0.8, floorY - 8, 'R2', 'fig-series-3', 'middle');
+    svg.appendChild(el('path', { class: 'fig-line fig-c-accent fig-p-dotted', d: 'M' + x0 + ',' + r12StartY + ' L' + r2bendX + ',' + floorY + ' L' + x1 + ',' + floorY }));
+    var r2Label = text(x0 + (x1 - x0) * 0.8, floorY - 8, 'R2', 'fig-c-accent', 'middle');
     r2Label.style.fontSize = '.72rem';
     svg.appendChild(r2Label);
     svg.appendChild(mathLabel(r1end, y0 + 16, '<math><mi>τ</mi><mo>=</mo><mi>E</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>/</mo><mi>c</mi></math>', 90, 20));
@@ -618,7 +647,7 @@
     // 元図（growth-fcf.tex）: 縦軸は -1.2〜3.2 で g=0 の縦軸交点（1.5, どちらの直線も共有）が
     // 全体の61%の高さに来る非対称な範囲。CCC>0 は g=8 で -1.0 まで（横軸=0のさらに下）下がり、
     // CCC<0 は 2.9 まで上がる。2直線は横軸切片ではなく、この共有の縦軸切片から分岐する。
-    var W = 520, H = 300, m = { left: 56, right: 90, top: 34, bottom: 34 };
+    var W = 520, H = 300, m = { left: 104, right: 90, top: 34, bottom: 34 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, y0 = H - m.bottom, y1 = m.top;
     var zeroY = y0 - (y0 - y1) * 0.273;   // g軸（FCF/r=0）
@@ -628,20 +657,22 @@
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: zeroY, y2: zeroY, stroke: 'var(--rule)' }));
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, stroke: 'var(--rule)' }));
     var xIntercept = x0 + (x1 - x0) * 0.585;
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + startY + ' L' + x1 + ',' + cccPosEndY }));
-    svg.appendChild(el('path', { class: 'fig-line fig-series-2', d: 'M' + x0 + ',' + startY + ' L' + x1 + ',' + cccNegEndY }));
+    svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + startY + ' L' + x1 + ',' + cccPosEndY }));
+    svg.appendChild(el('path', { class: 'fig-line fig-c-fg fig-p-dashed', d: 'M' + x0 + ',' + startY + ' L' + x1 + ',' + cccNegEndY }));
     svg.appendChild(el('line', { x1: xIntercept, x2: xIntercept, y1: zeroY, y2: zeroY + 30, stroke: 'var(--muted)', 'stroke-dasharray': '3,3' }));
     svg.appendChild(mathLabel(xIntercept, zeroY + 42, '<math><msup><mi>g</mi><mo>⋆</mo></msup></math>', 30, 20));
     // 縦軸: FCF/r（FCFは \FCF=\mathrm{FCF} の立体、Φではない）、横軸: g
     svg.appendChild(mathLabel(x0 - 4, y1 - 18,
       '<math><mi mathvariant="normal">F</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">F</mi><mo>/</mo><mi>r</mi></math>', 70, 20));
-    svg.appendChild(mathLabel(x1 - 6, H - 10, '<math><mi>g</mi></math>', 20, 18));
-    // 縦軸切片: m+d-I/r（両直線が分岐する共有の始点）
-    svg.appendChild(mathLabel(x0 - 6, startY - 4,
+    // 横軸ラベル g は原図同様、横軸（FCF/r=0 の線）の右端のすぐ下に置く
+    svg.appendChild(mathLabel(x1 + 12, zeroY + 14, '<math><mi>g</mi></math>', 20, 18));
+    // 縦軸切片: m+d-I/r（両直線が分岐する共有の始点）。原図は anchor=east なので
+    // 縦軸の左側に右揃えで置く。mathLabel は中心指定のため幅の半分だけ左にずらす。
+    svg.appendChild(mathLabel(x0 - 8 - 45, startY,
       '<math><mi>m</mi><mo>+</mo><mi>d</mi><mo>&#8722;</mo><mfrac><mi>I</mi><mi>r</mi></mfrac></math>', 90, 22));
     // 直線右端に直接ラベル（凡例ではなく原図と同じ直接注記）
-    svg.appendChild(mathLabel(x1 + 40, cccPosEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&gt;</mo><mn>0</mn></math>', 74, 18));
-    svg.appendChild(mathLabel(x1 + 40, cccNegEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&lt;</mo><mn>0</mn></math>', 74, 18));
+    svg.appendChild(mathLabel(x1 + 40, cccPosEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&gt;</mo><mn>0</mn></math>', 74, 18, 'fig-c-accent'));
+    svg.appendChild(mathLabel(x1 + 40, cccNegEndY, '<math><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">C</mi><mo>&lt;</mo><mn>0</mn></math>', 74, 18, 'fig-c-fg'));
     container.appendChild(svg);
   }
 
@@ -664,10 +695,11 @@
       var strong = !!cell.strong;
       var r = el('rect', {
         x: c.x + 4, y: c.y + 4, width: cw - 8, height: ch - 8, rx: 5,
-        class: strong ? 'fig-box' : 'fig-box fig-boxfill',
-        fill: strong ? 'var(--accent)' : null
+        class: strong ? 'fig-box' : 'fig-box fig-boxfill'
       });
-      if (strong) { r.setAttribute('opacity', '.15'); }
+      // .fig-box の CSS（fill:none）は SVG の fill 属性より詳細度が高く上書きされてしまうため、
+      // 強調セルの塗りはインラインスタイルで指定する。
+      if (strong) { r.style.fill = 'var(--fig-accent)'; r.style.opacity = '.15'; }
       svg.appendChild(r);
       var lines = [cell.title].concat(cell.lines || []);
       var cy0 = c.y + ch / 2 - (lines.length - 1) * 9;
@@ -733,7 +765,7 @@
     // その上側の三角形が κ<0（顧客が企業に与信）、下側の三角形が κ>0（企業が顧客に与信）。
     // 上辺・左辺に沿う破線（即時決済の極限）と、右辺・下辺に沿う点線（決済を最大限遅らせる極限）で
     // P(t) の取りうる範囲を境界づける（原図の dashed/dotted の「への字」）。
-    var W = 480, H = 300, m = { left: 44, right: 90, top: 20, bottom: 34 };
+    var W = 480, H = 300, m = { left: 44, right: 100, top: 26, bottom: 34 };
     var svg = svgRoot(W, H);
     var x0 = m.left, x1 = W - m.right, y0 = H - m.bottom, y1 = m.top;
     svg.appendChild(el('polygon', { points: x0 + ',' + y0 + ' ' + x0 + ',' + y1 + ' ' + x1 + ',' + y1, fill: 'var(--line)', opacity: .45 }));
@@ -750,15 +782,17 @@
       d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y0 + ' L' + x1 + ',' + y1,
       stroke: 'var(--muted)', 'stroke-width': 1.4, 'stroke-dasharray': '1.5,3', fill: 'none'
     }));
-    svg.appendChild(el('path', { class: 'fig-line fig-series-1', d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y1 }));
-    svg.appendChild(text(x0 - 4, y1 - 4, '累積額', 'fig-muted', 'end'));
+    svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y1 }));
+    svg.appendChild(text(x0 - 6, y1 - 8, '累積額', 'fig-muted', 'end'));
     svg.appendChild(mathLabel(x1 - 8, y0 + 16, '<math><mi>t</mi></math>', 20, 18));
     svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.45 + 16, y0 + (y1 - y0) * 0.45 + 12,
       '<math><mi>D</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>', 40, 18));
     svg.appendChild(mathLabel((x0 + x1) / 2 - 30, y1 + (y0 - y1) * 0.28, '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>', 200, 20));
     svg.appendChild(mathLabel((x0 + x1) / 2 + 20, y1 + (y0 - y1) * 0.72, '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>', 200, 20));
-    svg.appendChild(mathLabel(x1 + 42, y1 + 6, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18));
-    svg.appendChild(mathLabel(x1 + 42, y0 - 6, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18));
+    // 右端の注記は原図と同じく境界線の「右外側」に置く（cx は中心なので幅の半分だけ余分にずらす）。
+    // 上は上辺の高さ、下は下辺のやや上（原図の y=0.35 相当）に合わせる。
+    svg.appendChild(mathLabel(x1 + 8 + 42, y1, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18));
+    svg.appendChild(mathLabel(x1 + 8 + 42, y0 - (y0 - y1) * 0.0875, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18));
     container.appendChild(svg);
   }
 

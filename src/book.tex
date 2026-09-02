@@ -30,6 +30,12 @@
 \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds}
 \usepackage[hidelinks]{hyperref}
 
+% 参考文献の外部リンク。DOI があるものは doi.org に、無いものは公式ページに繋ぐ。
+% \nolinkurl で組むのは、長い DOI や URL を行末で折り返させるため
+% （\href の第2引数を素のテキストにすると折り返せず overfull hbox になる）。
+\newcommand{\doilink}[1]{\newblock\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
+\newcommand{\weblink}[2]{\newblock\href{#1}{\nolinkurl{#2}}}
+
 % 図の挿入。PDF では TikZ をそのまま組版し、
 % HTML では事前生成した SVG を読み込む。
 % tex4ht は和文フォントを DVI 経路で解決できないため、

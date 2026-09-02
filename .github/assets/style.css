@@ -32,15 +32,15 @@
   --rule:#333; --side:#fafafa; --sidew:19rem; --gutter:6px;
   --pad:clamp(1rem, 3.5vw, 4rem);
   --figw:34rem;
-  /* データ図の系列色。dataviz スキルの検証済みカテゴリカルパレット（8色中の
-     先頭4色）を、このサイトの実サーフェス色（#fff / #161616）に対して
-     validate_palette.js で再検証して採用（隣接ペアCVD・コントラストとも合格）。 */
-  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+  /* 図の配色は地の色（黒/白）とこの1色のみに統一する。#0d9488 はこのサイトの
+     実サーフェス色（#fff / #161616）双方に対して dataviz スキルの
+     validate_palette.js で検証済み（明度帯・彩度下限・コントラストとも合格、
+     単色のためCVD分離チェックは対象外）。ライト/ダークで同一値のまま両方通る。 */
+  --fig-accent:#0d9488;
 }
 @media (prefers-color-scheme:dark){
   :root{--fg:#e4e4e4; --muted:#9a9a9a; --line:#333; --accent:#4fc48c;
-        --bg:#161616; --rule:#bbb; --side:#1c1c1c;
-        --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500}
+        --bg:#161616; --rule:#bbb; --side:#1c1c1c}
 }
 
 *{box-sizing:border-box}
@@ -195,10 +195,14 @@ img.tikzfig{
 .htmlfig .fig-arrow{stroke:var(--fg); stroke-width:1.4; fill:none}
 .htmlfig .fig-arrowhead{fill:var(--fg)}
 
-.fig-series-1{fill:var(--series-1); stroke:var(--series-1); background:var(--series-1)}
-.fig-series-2{fill:var(--series-2); stroke:var(--series-2); background:var(--series-2)}
-.fig-series-3{fill:var(--series-3); stroke:var(--series-3); background:var(--series-3)}
-.fig-series-4{fill:var(--series-4); stroke:var(--series-4); background:var(--series-4)}
+/* 図の配色は原則2色（地の色＝黒／白とターコイズ）に統一する。複数系列は
+   原図（TikZ）と同じく色ではなく線種（実線/破線/点線/一点鎖線）で区別し、
+   色と線種は独立したクラスとして組み合わせる（例: "fig-c-accent fig-p-dashed"）。 */
+.fig-c-accent{fill:var(--fig-accent); stroke:var(--fig-accent); background:var(--fig-accent)}
+.fig-c-fg{fill:var(--fg); stroke:var(--fg); background:var(--fg)}
+.fig-p-dashed{stroke-dasharray:7,4}
+.fig-p-dotted{stroke-dasharray:1,3}
+.fig-p-dashdot{stroke-dasharray:6,2,1.2,2}
 
 .chart-tooltip{
   position:fixed; z-index:40; pointer-events:none;
