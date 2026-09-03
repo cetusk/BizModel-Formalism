@@ -31,6 +31,7 @@
 第13段階 & \texttt{v0.13.0} & 操作化の補充 & 可用性を式として書き、類型への割り当て規則を定めた。未解決の問題を21項目に整理し直した \\
 第14段階 & \texttt{v0.14.0} & 測定の是正 & 棚卸資産の範囲が $\CCC$ と弾力性に与える影響を10業種について測定（第\ref{sec:inventory-scope}節） \\
 第15段階 & \texttt{v0.15.0} & 予測の追加登録 & 規模と離職率の相関を B1 の代理と読み、予測YとZを登録（第\ref{sec:b1-proxy}節） \\
+第16段階 & \texttt{v0.16.0} & 第II部への検定経路 & 手続き上の記録について予測$\Phi$1--$\Phi$4 を登録（第\ref{sec:protocol-predictions}節） \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{版の履歴。各段階の版番号、構成の変更、主な内容。}
@@ -370,6 +371,38 @@ $b$ が二値でしか取れないと記述していた。
 第\ref{sec:frame}節に追記した。
 第\ref{sec:nintei-small}節が同節を「述べたとおり」と参照していたが、
 参照先に当該の記述が存在していなかった。
+
+\section{第II部の演繹に対する検定経路}
+
+第\ref{part:catalog}部の演繹は、第15段階まで\textbf{事前登録した予測をほとんど持たなかった}。
+16の予測のうち同部を明確に対象とするのはDとTの二件で、
+Dは方向のみの支持、Tは検証不能である。
+
+第16段階で、第\ref{ch:protocol}章の区分「内」について予測$\Phi$1--$\Phi$4 を登録した
+（第\ref{sec:protocol-predictions}節）。
+同区分では手続きの記録そのものが母集団になり、停止したものも残るため、
+第\ref{ch:method}章の生存条件づけが発生しない。
+第\ref{ch:platformfee}章が「母集団フレームを欠く」として断念した項目の
+断念理由がここでは消える。
+
+登録にあたり三点を先に区別した（表\ref{tab:protocol-testability}）。
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{手続きが強制する量は検証の対象にならない。}
+命題\ref{prop:collateral}の担保制約がこれにあたる。
+担保が置かれていることを観測しても、規約を読んでいるにすぎない。
+対象になるのは事業者が選んだ結果として現れる量に限られる。
+
+\item \textbf{母集団が異なる}（注\ref{rem:protocol-population}）。
+検証できるのは演繹の正しさであって、
+その演繹が現実の一人事業に当てはまるかではない。
+
+\item \textbf{主体単位の量は復元できない}（注\ref{rem:additivity}）。
+測れるのは識別子単位の分布にとどまる。
+\end{enumerate}
+
+$\Phi$1 については、依存の数と利用量が相関しうるため
+対抗仮説を棄却しにくいことを注記した（注\ref{rem:dep-usage-confound}）。
 
 \section{予測YとZの登録}
 

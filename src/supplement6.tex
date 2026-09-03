@@ -491,15 +491,126 @@ $B$ & 対応する量を本稿は持たない & 拘束された状態として�
 \textbf{測定の障害が、集計の不在から集計の不能へ入れ替わる。}
 第\ref{part:method}部の障害分類に対して、これは新たな形式にあたる。
 
-本節は本章の主題ではない。
-第\ref{part:results}部の対象に加えるかどうかは第\ref{ch:conclusion}章で検討する。
+\subsection{母集団フレームが得られる}
+\label{sec:protocol-frame}
+
+観測可能になるのは量だけではない。
+
+第\ref{ch:method}章の生存条件づけは、
+観測される対象が制約\eqref{eq:constraint}を破らなかった経路に限られることから生じる。
+区分「内」では\textbf{手続きの記録そのものが母集団になる}。
+稼働した $\Phi$ は停止したものも含めて残るため、条件づけが発生しない。
+
+第\ref{ch:platformfee}章は無人継続期間の直接測定を
+「母集団フレームを欠く」として断念した。断念の理由がここでは消える。
+
+\subsection{検証できることとできないこと}
+\label{sec:protocol-testable}
+
+観測できることは検証できることを意味しない。三点を先に区別する。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+区別 & 内容 \\
+\midrule
+手続きが強制する量 & 観測しても検証にならない。規約を読んでいるにすぎない \\
+設計の結果である量 & 検証の対象になる \\
+主体単位の量 & 復元できない（注\ref{rem:additivity}） \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{区分「内」で観測できる量の三区分。}
+\label{tab:protocol-testability}
+\end{center}
+
+命題\ref{prop:collateral}の担保制約は第一に属する。
+手続きが担保を要求する以上、担保が置かれていることを観測しても命題の検証にならない。
+\textbf{検証の対象になるのは、事業者が選んだ結果として現れる量に限られる。}
+
+\begin{remark}[母集団が異なる]
+\label{rem:protocol-population}
+区分「内」で測った分布を企業一般に一般化することはできない。
+第\ref{ch:method}章の意味で別の母集団である。
+\textbf{ここで検証できるのは演繹が正しいかであって、
+その演繹が現実の一人事業に当てはまるかではない。}
+第\ref{ch:solo}章の命題は検証できるが、同章の対象については何も言わない。
+\end{remark}
+
+\subsection{予測の登録}
+\label{sec:protocol-predictions}
+
+第\ref{ch:next}章の手続きに従い、取得の前に予測を固定する。
+本章の予測は四つあるため、$\Phi$ に番号を付して区別する。
+
+\begin{quote}
+\textbf{予測$\Phi$1}：手続きが呼び出す他の手続きの数が少ないほど、
+改修されるまでの期間が長い。命題\ref{prop:unmanned-period}の $\lambda_{\rm dep}$ 側の含意である。
+
+\textbf{対抗仮説}：改修の頻度は依存の数ではなく利用量で決まる。
+依存が少なくとも利用が多ければ改修される。
+\end{quote}
+
+\begin{quote}
+\textbf{予測$\Phi$2}：取引が途絶えた $\Phi$ について、
+$M(t)$ は途絶に先行して単調に減少する。
+第\ref{sec:objective}章の $\tau=\inf\{t:M(t)<0\}$ が吸収状態であることの含意である。
+
+\textbf{対抗仮説}：途絶は $M(t)$ と無関係に生じる。
+$M(t)$ は途絶の直前まで変化しない。
+\end{quote}
+
+\begin{quote}
+\textbf{予測$\Phi$3}：区分「内」で稼働する $\Phi$ の $\CCC$ の分布は非負に偏る。
+系\ref{cor:growth-needs-capital}より、$\CCC<0$ の実現には $E>0$ を要するためである。
+
+\textbf{対抗仮説}：$\CCC$ の分布は第\ref{part:industry}章の企業部門と同様であり、
+区分「内」に固有の偏りはない。
+\end{quote}
+
+\begin{quote}
+\textbf{予測$\Phi$4}：稼働する $\Phi$ を第\ref{sec:type-assignment}節の規則で割り当てると、
+族7は 7-4 を除いてほぼ現れない。命題\ref{prop:beneficiary}の含意である。
+
+\textbf{対抗仮説}：族7型も他の族と同程度の比重で現れる。
+\end{quote}
+
+\paragraph{事前に確定した事項。}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+項目 & 内容 \\
+\midrule
+母集団 & 基準時点に手続きの記録上で稼働していた $\Phi$ の全数。事後に選ばない \\
+下限 & 取引件数が基準期間に一定数未満のものを除く。閾値は取得前に確定する \\
+途絶の定義 & 一定期間にわたり取引が生じないこと。区分「内」では手続き自体は停止しないため、停止ではなく途絶で定義する \\
+定常状態 & $\CCC$ は定常を前提とするため、$r$ が安定した期間に限る（第\ref{sec:age}節） \\
+観測単位 & 識別子。主体単位への集計は行わない（注\ref{rem:additivity}） \\
+類型の割り当て & 第\ref{sec:type-assignment}節の判定順序を用いる。順序は変更しない \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{予測$\Phi$1--$\Phi$4 について事前に確定した事項。}
+\label{tab:protocol-registration}
+\end{center}
+
+\begin{remark}[$\lambda_{\rm dep}$ と利用量は相関しうる]
+\label{rem:dep-usage-confound}
+予測$\Phi$1 の対抗仮説は棄却しにくい。
+依存の多い手続きは機能が豊富であり、利用量も大きい傾向があるためである。
+検定では利用量を統制する必要があるが、
+統制後も残差に依存の効果が現れるかは事前には分からない。
+\textbf{統制の手続きを取得前に確定しておく。}
+\end{remark}
+
+\textbf{本稿はこれらを検定していない。}
+第\ref{ch:conclusion}章の未解決の問題に取得の項目として登録する。
 
 \section{本章の限界}
 \label{sec:protocol-limits}
 
 \begin{enumerate}[label=(\arabic*)]
 \item \textbf{演繹である。} 結論は前提(1)(2)(3)に依存する。
-実測による検証を行っていない。
+第\ref{sec:protocol-predictions}節で予測を登録したが、実測による検証を行っていない。
 
 \item \textbf{両端しか扱っていない。} 注\ref{rem:oracle}のとおり、
 区分「外」において第三者の除去の程度は連続的である。
