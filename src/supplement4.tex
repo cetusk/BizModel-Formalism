@@ -56,6 +56,7 @@ $\omega\in\Omega\setminus\hat\Omega$ が到来したとき $a$ は定義され�
 法改正、脆弱性の発見、決済事業者の規約変更、想定外の使用がこれにあたる。
 
 \begin{proposition}[無人化は期間の関数である]
+\label{prop:unmanned-period}
 未想定状態の到来率を $\lambda_{\rm novel}$ とすると、
 無人で運転できる期間はおよそ $1/\lambda_{\rm novel}$ である。
 有限期間の完全無人は成立するが、無期限には成立しない。
@@ -77,13 +78,59 @@ $\Omega\setminus\hat\Omega$ への応答は定常的な労働ではない。
 オプションとしての可用性は有人である。
 
 これは第\ref{part:solo}章の容量制約とは別種の拘束である。
-式\eqref{eq:solo-capacity}は時間を消費するが、可用性は\emph{拘束}を消費する。
+式\eqref{eq:solo-capacity}が履行の\emph{総量}に上限を課すのに対し、
+可用性は\textbf{連続して応答できない区間の長さ}に上限を課す。
+
+\begin{definition}[応答期限と可用性制約]
+\label{def:availability}
+$\omega\in\Omega\setminus\hat\Omega$ の到来から応答までに許される時間を
+\emph{応答期限}と呼び $T_{\rm resp}$ と書く。
+運営者が連続して応答できない区間の長さを $u$ とすると、可用性制約は
+\begin{equation}
+\sup u \;\leq\; T_{\rm resp}
+\label{eq:availability}
+\end{equation}
+と書ける。
+\end{definition}
+
+式\eqref{eq:solo-capacity}と式\eqref{eq:availability}は次元がともに時間であるが、
+拘束する対象が異なる。前者は積分に、後者は上限に効く。
+\textbf{したがって労働量をいくら減らしても式\eqref{eq:availability}は緩まない。}
 一人事業の実務的負担がここにあるという説明が可能である。
 
+\begin{remark}[$T_{\rm resp}$ の水準は成分ごとに異なる]
+\label{rem:tresp-components}
+$T_{\rm resp}$ は $\Omega\setminus\hat\Omega$ の内容に依存する。
+第\ref{ch:platformfee}章で $\lambda_{\rm novel}$ を四成分に分解するが、
+脆弱性の公表と法改正では猶予の桁が異なる。
+式\eqref{eq:availability}を実際に評価するには成分ごとの $T_{\rm resp}$ を要するが、
+本稿はこれを測定していない。
+\end{remark}
+
 \begin{remark}[ナイトの区別との対応]
+\label{rem:knight}
 $\hat\Omega$ 上の変動は測度が定義されているためリスクであり、
 自動化も保険（族5-4）も可能である。
 $\Omega\setminus\hat\Omega$ は不確実性であり、どちらもできない。
+\end{remark}
+
+\begin{remark}[無人化の程度は定義できない]
+\label{rem:automation-rate-illposed}
+「どの程度無人か」を比として表すことはできない。
+
+履行の側で測る経路は成立しない。
+$\delta$ は評価写像 $v$ により貨幣単位を持つが、
+$v$ が測るのは価値であって手間ではない。
+自動化された履行と人手による履行の価値の比は、無人化の程度を表さない。
+
+応答の側で測る経路も成立しない。
+自動化とは $a$ が $\hat\Omega$ 上で事前指定されていることであるから、
+程度は $\hat\Omega$ と $\Omega$ の大きさの比になる。
+しかし注\ref{rem:knight}のとおり $\Omega\setminus\hat\Omega$ には測度が定義されない。
+
+\textbf{したがって障害は単位の不在ではなく測度の不在であり、
+定義を精密化しても解消しない。}
+無人化は程度ではなく期間の関数として述べるほかない（命題\ref{prop:unmanned-period}）。
 \end{remark}
 
 \begin{remark}[無人化と利潤の関係]
@@ -184,4 +231,25 @@ $\Phi$ の選択 & 契約形態の決定 & \textbf{不可} & --- \\
 第\ref{part:solo}章の漏れ出し項 $\theta$（式\eqref{eq:leakage}）が、
 ここでは公開から $T_{\rm dev}$ への寄与として逆向きに働く。
 \textbf{立ち上げ費用は一括で支払う必要がなく、族を渡り歩くことで分割できる。}
+
+\section{本章の限界}
+\label{sec:unmanned-limits}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{無人化の程度を表す量を持たない。}
+注\ref{rem:automation-rate-illposed}のとおり、障害は単位の不在ではなく測度の不在であり、
+定義の精密化では解消しない。本章が述べるのは期間についてのみである。
+
+\item \textbf{$T_{\rm resp}$ の水準を与えていない。}
+式\eqref{eq:availability}は書けるが、その右辺は
+$\Omega\setminus\hat\Omega$ の成分ごとに異なり、本章は値を特定しない
+（注\ref{rem:tresp-components}）。
+
+\item \textbf{無人化と利潤の逆相関は機構の指摘にとどまる。}
+反例（ネットワーク効果、ブランド）の扱いを含めた検証を行っていない。
+
+\item \textbf{立ち上げ費用の外部化価格を持たない。}
+表\ref{tab:bootstrap-outsourcing}は外部化先を列挙するが対価を数値で与えていない。
+第\ref{ch:platformfee}章でこれを測定する。
+\end{enumerate}
 
