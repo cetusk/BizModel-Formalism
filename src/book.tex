@@ -78,6 +78,9 @@
   \geometry{top=25mm,bottom=27mm,left=24mm,right=24mm}
 \fi
 
+% 証明の見出しは amsthm の既定で英語の Proof になる。和文の文書なので改める。
+\renewcommand{\proofname}{証明}
+
 % 定理型の環境もすべて本文を立体で組む。plain スタイルは本文を斜体にするが、
 % 和文には斜体がないため立体のまま残り、英数字だけが斜体になって混在する。
 % 見出しは太字＋番号のままで、定理型であることは失われない。
@@ -120,7 +123,7 @@
 \title{キャッシュフロー構造としてのビジネスモデル\\[6pt]
 \large 定式化・類型論・調査設計}
 \author{}
-\date{v0.18.0\quad 2026年9月3日}
+\date{v0.18.1\quad 2026年9月3日}
 
 
 \begin{document}
