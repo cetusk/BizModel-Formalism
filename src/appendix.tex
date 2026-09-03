@@ -529,9 +529,13 @@ $\Phi$ の類型カタログ（第\ref{part:catalog}部） & 本稿の整理 \\
 \end{center}
 
 \paragraph{再現について。}
-第\ref{part:industry}章の算出に用いた処理は
-\texttt{parse.py}、\texttt{ccc.py}、\texttt{e1.py} として別添した。
-入力は法人企業統計の CSV（Shift-JIS、6項目 $\times$ 62業種 $\times$ 規模 $\times$ 年度）である。
+取得したデータと処理を \texttt{data/} に置いた。
+\texttt{raw/} が取得したままの入力、\texttt{scripts/} が分析の処理である。
+\texttt{derived/} は中間データであり、\texttt{scripts/parse.py} で再生成する。
+
+第\ref{part:industry}章の算出は \texttt{ccc.py}、\texttt{e1.py}、\texttt{elast.py} ほか、
+第\ref{sec:predY-result}節の検定は \texttt{parse\_jinzai.py} と \texttt{predY.py} による。
+対応の一覧は \texttt{data/README.md} にある。
 
 \begin{thebibliography}{99}
 

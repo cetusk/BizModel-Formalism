@@ -35,6 +35,12 @@ data/raw/chusho/extracted/*
 # 取得途中の素材（手貼りのテキストなど。整形後に raw/ へ移す）
 data/_tmp/
 
+# セッション固有のロック（Claude Code が作る）
+.claude/*.lock
+
+# 分析スクリプトが出す中間の結果
+data/scripts/*.json
+
 __pycache__/
 *.pyc
 claude_sandbox.bat

@@ -2,7 +2,7 @@
 
 **キャッシュフロー構造としてのビジネスモデル** — 定式化・類型論・調査設計
 
-> **v0.18.3**（2026年9月3日）— **本稿は建設中です。**
+> **v0.19.0**（2026年9月3日）— **本稿は建設中です。**
 > 理論の構成、命題、実証の結論はいずれも変更されうるものです。
 > 引用される場合は版を明記してください。
 
@@ -40,7 +40,7 @@ cd src
 lualatex book.tex && lualatex book.tex && lualatex book.tex   # PDF
 ./build-figures.sh                                            # 図を SVG 化
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book v0.18.3                 # 目次サイドバー
+python3 inject-sidebar.py ../docs/book v0.19.0                 # 目次サイドバー
 ```
 
 必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、
@@ -53,9 +53,31 @@ tex4ht は DVI 経路を通るため和文 OpenType フォントを解決でき�
 TikZ 内の日本語が脱落する。そのため図は `src/figures/` に切り出し、
 LuaLaTeX で個別に組版してから SVG に変換している。
 
+## 開発
+
+Claude Code で作業する場合、`CLAUDE.md` に規約と過去の失敗を記録してある。
+権限設定は `.claude/settings.json`。
+
+```bash
+bash scripts/setup-dev.sh      # 環境の確認と make4ht の導入
+python3 scripts/check.py       # 整合性の検査（内容変更のたびに実行）
+```
+
+`scripts/check.py` は参照の型、過去形の前方参照、未参照の命題、
+未引用の文献、経緯の混入、白紙ページ、長い表を機械的に調べる。
+いずれも過去に見落とした項目である。
+
 ## データ
 
-`src/analysis/` に実証の処理を置いた。入力は以下の公開データ。
+`data/` に実証の入力と処理を置いた。詳細は `data/README.md`。
+
+```bash
+cd data/scripts
+python3 parse.py      # derived/*.json を生成（git 管理外のため初回に必要）
+python3 gstar4.py     # g* の算出
+```
+
+入力は以下の公開データ。
 
 - 財務省「法人企業統計調査」（e-Stat 統計表ID 0003060791）
 - 中小企業庁「中小企業実態基本調査」
@@ -71,7 +93,7 @@ LuaLaTeX で個別に組版してから SVG に変換している。
 | 第二桁 | 構成の変更、命題の追加・撤回、新たな実証 |
 | 第三桁 | 誤記の修正、体裁の調整、参照の整合 |
 
-現在は v0.18.3（付録Dの第18段階）。
+現在は v0.19.0（付録Dの第19段階）。
 
 ## ライセンス
 

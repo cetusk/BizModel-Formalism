@@ -1,6 +1,3 @@
-* text=auto eol=lf
-*.png binary
-*.pdf binary
-*.woff2 binary
-*.otf binary
-*.svg text eol=lf
+# raw/ は取得したままを保つ。改行コードも文字コードも変換しない。
+# 法人企業統計の CSV は CP932＋CRLF、人材サービス総合サイトの複写は UTF-8＋CRLF。
+data/raw/** -text
