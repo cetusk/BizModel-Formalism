@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VERSION: v0.19.0
+  VERSION: v0.20.0
 
 jobs:
   build:
