@@ -27,7 +27,17 @@ docs/.nojekyll
 src/book.css
 src/book*.html
 
+# データの生成物（data/scripts/parse.py などで再生成できる）
+data/derived/
+data/raw/chusho/extracted/*
+!data/raw/chusho/extracted/README.md
+
+# 取得途中の素材（手貼りのテキストなど。整形後に raw/ へ移す）
+data/_tmp/
+
 __pycache__/
+*.pyc
+claude_sandbox.bat
 
 # 検討・実装記録（ローカルのみで管理するメモ）
 docs/IMPL.md

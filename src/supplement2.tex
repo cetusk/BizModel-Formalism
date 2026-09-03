@@ -590,6 +590,120 @@ B1が大きい職種では $\pi$ を $y$ に載せる価値が高いためであ
 これが満たされない限り相関は照合にとどまる（第\ref{sec:comparison-vs-test}節）。
 \end{remark}
 
+\subsection{予測Yの検定}
+\label{sec:predY-result}
+
+人材サービス総合サイトの詳細検索を、都道府県を全国として四職種について取得した。
+第\ref{sec:predX-result}節の標本は東京都に限られていたため、
+\textbf{東京都を除いた部分が標本外にあたる}。
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+職種 & 宣言件数 & 抽出行数 & 欠損 & 名寄せ後 \\
+\midrule
+施設介護の職業 & 1,075 & 1,007 & 68 & 450 \\
+保育士 & 552 & 490 & \textbf{62} & 192 \\
+医師 & 479 & 471 & 8 & 261 \\
+看護師、准看護師 & 1,322 & 1,253 & 69 & 460 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{予測Yに用いた標本の取得状況。単位は事業所行、名寄せ後は企業。}
+\label{tab:predY-sample}
+\end{center}
+
+\begin{remark}[行は事業所単位、値は企業単位である]
+\label{rem:jinzai-dedup}
+検索結果の各行は事業所を表すが、
+\textbf{就職者数・離職率・手数料は許可番号すなわち企業単位の値であり、
+その企業の全事業所に同じ値が複製されている}。
+
+医師では株式会社パソナ一社が471行中134行を占める。
+名寄せせずに相関を取ると同社が134倍の重みを持ち、
+無期就職者数の中央値は14人から6,430人に、相関の符号は正から負に変わる。
+\textbf{許可番号による名寄せは前処理ではなく、結論を決める手続きである。}
+\end{remark}
+
+\paragraph{基準値の再現。}
+表\ref{tab:b1-proxy-order}の相関を、今回取得した標本の東京都部分で再現する。
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+職種 & 表\ref{tab:b1-proxy-order} & $n$ & 今回の東京 & $n$ \\
+\midrule
+施設介護 & +0.431 & 46 & +0.406 & 45 \\
+保育士 & +0.331 & 38 & +0.346 & 38 \\
+医師 & +0.191 & 49 & +0.186 & 50 \\
+看護師 & \textminus 0.009 & 69 & \textminus 0.014 & 69 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{基準値の再現。標本数は四職種とも1以内で一致する。}
+\label{tab:predY-baseline}
+\end{center}
+
+差は表\ref{tab:predY-sample}の欠損と取得時点の違いによる。
+\textbf{再現されたとみなす。}
+
+\paragraph{結果。}
+東京都を除いた標本で同じ量を算出する。
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{登録どおり（金額表示を含む）} & \multicolumn{3}{c}{金額表示を除く} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+職種 & $n$ & $r$ & $t$ & $n$ & $r$ & $t$ \\
+\midrule
+施設介護 & 171 & +0.243 & \textbf{+3.26} & 119 & +0.216 & \textbf{+2.39} \\
+保育士 & 56 & +0.157 & +1.17 & 41 & +0.644 & \textbf{+5.26} \\
+医師 & 52 & +0.155 & +1.11 & 41 & +0.120 & +0.76 \\
+看護師 & 143 & +0.068 & +0.81 & 114 & +0.074 & +0.78 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{東京都を除いた標本における規模と離職率の相関。}
+\label{tab:predY-result}
+\end{center}
+
+\textbf{予測Yは部分的に支持される。}
+
+登録した内容は「施設介護と保育士で正、看護師でゼロ近傍」であった。
+\textbf{この定性的な区分は二つの規則のいずれでも満たされる}。
+施設介護と保育士は両規則で正、看護師は両規則で有意でない。
+
+一方で\textbf{順位は保たれない}。
+金額表示を除くと保育士が施設介護を上回り、上位二つが入れ替わる。
+医師が中間、看護師が最下位である点は保たれる。
+
+\begin{remark}[登録した除外規則が基準値の構成と一致していなかった]
+\label{rem:predY-registration-error}
+表\ref{tab:predYZ-registration}は、金額表示の事業所を予測Yでは用いると定めた。
+しかし表\ref{tab:b1-proxy-order}の基準値は
+金額表示を除いた標本について算出されている（注\ref{rem:predX-scope}）。
+\textbf{登録した規則は、比較の対象である基準値を生む構成ではなかった。}
+
+両方を報告するのはこのためである。
+判定が規則によらないことは確認できたが、
+\textbf{登録の時点で基準値の構成を確認していれば生じなかった不備である}。
+\end{remark}
+
+\begin{remark}[標本の限界]
+\label{rem:predY-limits}
+三点を記す。
+
+第一に、複写の際に行が脱落している（表\ref{tab:predY-sample}）。
+保育士は11.2\%であり、脱落がページ境界に偏っていれば標本が歪む。
+
+第二に、表示される離職率は同じ行の就職者数と離職者数から計算できない。
+医師では一致するのが471行中115行にとどまり、両者は期間が異なる。
+離職率はサイト側の集計値として用いている。
+これは第\ref{sec:predX-result}節と同じ構成であり、比較には支障しないが、
+\textbf{規模と離職率が同一期間の量ではないことは記録しておく}。
+
+第三に、東京都を除いた標本では規模の分布が異なる。
+無期就職者数の中央値は東京都で23人、それ以外で5人である。
+\end{remark}
+
 \section{判定}
 \label{sec:family-assignment}
 
