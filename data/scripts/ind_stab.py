@@ -1,9 +1,9 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json, statistics as st
-E={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"E.json"))}
-Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json"))}
-B={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"B.json"))}
+E={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"E.json", encoding="utf-8"))}
+Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json", encoding="utf-8"))}
+B={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"B.json", encoding="utf-8"))}
 def fa(x): return (x["有形固定資産"] or 0)+(x["無形固定資産"] or 0)-(x["土地"] or 0)
 def ccc(k):
     r=B.get(k)

@@ -1,7 +1,7 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json
-Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json"))}
+Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json", encoding="utf-8"))}
 def d(r):
     s=r["売上高"]
     return (1-r["売上原価"]/s, r["販売費及び一般管理費"]/s, r["営業利益"]/s)

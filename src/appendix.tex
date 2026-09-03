@@ -537,6 +537,23 @@ $\Phi$ の類型カタログ（第\ref{part:catalog}部） & 本稿の整理 \\
 第\ref{sec:predY-result}節の検定は \texttt{parse\_jinzai.py} と \texttt{predY.py} による。
 対応の一覧は \texttt{data/README.md} にある。
 
+\paragraph{取り扱いについて。}
+用いたのはすべて公開統計である。ただし人材サービス総合サイトだけは、
+集計値ではなく\textbf{事業所ごとの届出内容}を個別に掲載しており、
+本稿はこれを統計解析の入力として用いている。
+
+\textbf{本稿が示すのは解析の結果であって、収集した個社データの集合ではない。}
+それを複製して公開・再配布することはしない。
+リポジトリに含めるのは分析の処理と、そこから得た集計結果である。
+同サイトから取得した個社データは、検索結果の一覧も事業所詳細のページも
+返戻金制度の届出書類も含めない。
+
+残してあるのは\textbf{許可・届出受理番号の一覧}（\texttt{data/raw/jinzai/permits.tsv}）
+だけで、届出の値は含まない。これを種として
+\texttt{data/scripts/fetch\_jinzai\_detail.py} を回せば、
+手数料実績率・離職率・就職者数は再現できる。
+取得は1件あたり6秒の間隔を置き、日を分けて行った。
+
 \begin{thebibliography}{99}
 
 \biblink{https://www.nber.org/papers/w2025}\bibitem{akerlof1986}

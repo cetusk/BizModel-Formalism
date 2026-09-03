@@ -80,12 +80,12 @@ if __name__ == "__main__":
     if out:
         D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived")
         os.makedirs(D, exist_ok=True)
-        json.dump(out, open(os.path.join(D, "jinzai_search.json"), "w"), ensure_ascii=False)
+        json.dump(out, open(os.path.join(D, "jinzai_search.json"), "w", encoding="utf-8"), ensure_ascii=False)
         flat = []
         for r in out:
             job = r["firms"][0]["job"] if r["firms"] else r["path"]
             for x in r["firms"]:
                 y = dict(x); y["src"] = r["path"]; flat.append(y)
-        json.dump(flat, open(os.path.join(D, "jinzai_firms.json"), "w"), ensure_ascii=False)
+        json.dump(flat, open(os.path.join(D, "jinzai_firms.json"), "w", encoding="utf-8"), ensure_ascii=False)
         print("→ derived/jinzai_search.json（ファイル単位）")
         print("→ derived/jinzai_firms.json（企業単位 %d 件）" % len(flat))

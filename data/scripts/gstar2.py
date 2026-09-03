@@ -6,10 +6,10 @@ def ccc(r):
     if not s or s<=0 or r["売掛金"] is None or r["買掛金"] is None: return None
     ar=(r["受取手形"] or 0)+(r["売掛金"] or 0); ap=(r["支払手形"] or 0)+(r["買掛金"] or 0)
     return (ar+(r["製品又は商品"] or 0)-ap)/s*365
-A={(r["ind"],r["year"]):r for r in json.load(open(D+"A.json"))}
-Am={(r["ind"],r["year"]):r for r in json.load(open(D+"Am.json"))}
-B={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"B.json"))}
-Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json"))}
+A={(r["ind"],r["year"]):r for r in json.load(open(D+"A.json", encoding="utf-8"))}
+Am={(r["ind"],r["year"]):r for r in json.load(open(D+"Am.json", encoding="utf-8"))}
+B={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"B.json", encoding="utf-8"))}
+Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json", encoding="utf-8"))}
 print("年度\tCCC\t営業利益率\tg*")
 ser=[]
 for y in range(2000,2025):

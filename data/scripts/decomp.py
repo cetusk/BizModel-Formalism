@@ -1,7 +1,7 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json
-Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json"))}
+Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json", encoding="utf-8"))}
 tiers=[("10億円以上","10億円~"),("1億円以上 - 10億円未満","1~10億"),
  ("5千万円以上 - 1億円未満","5千万~1億"),("2千万円以上 - 5千万円未満","2千万~5千万"),
  ("1千万円以上 - 2千万円未満","1千万~2千万"),("1千万円未満","1千万未満")]

@@ -35,6 +35,24 @@ data/raw/chusho/extracted/*
 # 取得途中の素材（手貼りのテキストなど。整形後に raw/ へ移す）
 data/_tmp/
 
+# 個社データの収集物。解析には使うが、集合そのものは再配布しない。
+# 再取得の手順は data/raw/jinzai/search/README.md に書いてある。
+# 残すのは許可番号の一覧（permits.tsv）だけで、届出の値は含めない。
+data/raw/jinzai/detail/
+data/raw/jinzai/henreikin/
+data/raw/jinzai/search/html/
+data/raw/jinzai/search/*.txt
+data/raw/jinzai/*.py
+# 同じデータの旧複製（data/raw/jinzai/*.py と同一。md5 一致）
+data/scripts/jinzai_care.py
+data/scripts/jinzai_doctor.py
+data/scripts/jinzai_hoiku.py
+data/scripts/jinzai_nurse.py
+src/analysis/jinzai_care.py
+src/analysis/jinzai_doctor.py
+src/analysis/jinzai_hoiku.py
+src/analysis/jinzai_nurse.py
+
 # セッション固有のロック（Claude Code が作る）
 .claude/*.lock
 

@@ -6,7 +6,7 @@ def m(r):
     if not s or s<=0 or r["売掛金"] is None or r["買掛金"] is None: return None
     ar=(r["受取手形"] or 0)+(r["売掛金"] or 0); ap=(r["支払手形"] or 0)+(r["買掛金"] or 0)
     return (ar-ap)/s*365, (ar+(r["製品又は商品"] or 0)-ap)/s*365
-B=json.load(open(D+"B.json"))
+B=json.load(open(D+"B.json", encoding="utf-8"))
 tiers=["10億円以上","1億円以上 - 10億円未満","5千万円以上 - 1億円未満",
        "2千万円以上 - 5千万円未満","1千万円以上 - 2千万円未満","1千万円未満"]
 print("=== DSO-DPO（正=与信の出し手）全産業 時系列 ===")

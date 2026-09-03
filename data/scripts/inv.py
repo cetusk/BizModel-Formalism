@@ -7,11 +7,11 @@
 #
 # 弾力性の比較は必ず共通標本で行う。定義ごとに W>0 の観測が異なるため、
 # 別々の標本で比べると符号が逆に出る。
-import json, os, math, statistics as st
+import json, os, math, statistics as st, sys
 
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
-B = json.load(open(D + "B.json"))
-E = json.load(open(D + "E.json"))
+B = json.load(open(D + "B.json", encoding="utf-8"))
+E = json.load(open(D + "E.json", encoding="utf-8"))
 inv = {(r["ind"], r["size"], r["year"]): r["棚卸資産"] for r in E}
 
 rows = []
@@ -93,3 +93,81 @@ for sizes, lab in [(None, "全11規模階層・集約系列を除く8業種")]:
     print("\n【弾力性 β = Δln W / Δln r】%s  共通標本 n = %d" % (lab, n))
     print("  製品又は商品のみ  β = %.3f  R2 = %.3f  分母効果 1-β = %.3f" % (bn, r2n, 1 - bn))
     print("  棚卸資産（総額）  β = %.3f  R2 = %.3f  分母効果 1-β = %.3f" % (bf, r2f, 1 - bf))
+
+
+# ---------------- 62業種・全規模（F.json）----------------
+# derived/F.json は棚卸資産のみを 62業種×全規模×2000-2024年度で持つ。
+# 第20章の時系列と同じ範囲であり、こちらが本題の是正にあたる。
+FP = os.path.join(D, "F.json")
+if not os.path.exists(FP):
+    print("\n（F.json がない。raw/hojin/F_tanaoroshi.csv を置いて parse.py を実行する）")
+    sys.exit()
+
+A = json.load(open(os.path.join(D, "A.json"), encoding="utf-8"))
+FF = {(r["ind"], r["size"], r["year"]): r["棚卸資産"]
+      for r in json.load(open(FP, encoding="utf-8"))}
+AGG = {"全産業（除く金融保険業）", "製造業", "非製造業"}
+
+
+def leaf(n):
+    return not ("(集約)" in n or "H20年度" in n or n in AGG)
+
+
+R2 = []
+for r in A:
+    s2, iv = r["売上高"], FF.get((r["ind"], r["size"], r["year"]))
+    if not s2 or s2 <= 0 or iv is None:
+        continue
+    if any(r[k] is None for k in ("受取手形", "売掛金", "製品又は商品", "支払手形", "買掛金")):
+        continue
+    dso = (r["受取手形"] + r["売掛金"]) / s2 * 365
+    dpo = (r["支払手形"] + r["買掛金"]) / s2 * 365
+    R2.append(dict(ind=r["ind"], year=r["year"], r=s2,
+                   dio_n=r["製品又は商品"] / s2 * 365, dio_f=iv / s2 * 365,
+                   ccc_n=dso + r["製品又は商品"] / s2 * 365 - dpo,
+                   ccc_f=dso + iv / s2 * 365 - dpo))
+
+print("\n" + "=" * 60)
+print("【62業種・全規模】突合 %d 件 / 業種 %d / %d-%d 年度"
+      % (len(R2), len({r["ind"] for r in R2}),
+         min(r["year"] for r in R2), max(r["year"] for r in R2)))
+print("  DIO 倍率 中央値 %.2f 倍 / CCC 中央値 %.1f → %.1f 日"
+      % (st.median([r["dio_f"] / r["dio_n"] for r in R2 if r["dio_n"] > 0.5]),
+         st.median([r["ccc_n"] for r in R2]), st.median([r["ccc_f"] for r in R2])))
+for y in (2000, 2024):
+    x = [r for r in R2 if r["ind"] == "全産業（除く金融保険業）" and r["year"] == y][0]
+    print("  全産業 %d年度  CCC %.1f → %.1f 日" % (y, x["ccc_n"], x["ccc_f"]))
+
+K2 = {}
+for r in R2:
+    K2.setdefault(r["ind"], {})[r["year"]] = r
+dn2, df2 = [], []
+for k, ys in K2.items():
+    for y in sorted(ys):
+        if y - 1 in ys:
+            dn2.append(ys[y]["ccc_n"] - ys[y - 1]["ccc_n"])
+            df2.append(ys[y]["ccc_f"] - ys[y - 1]["ccc_f"])
+sg2 = [(a, b) for a, b in zip(dn2, df2) if a * b != 0]
+print("  ΔCCC %d観測  corr = %.3f  符号一致 %.1f%%"
+      % (len(dn2), corr(dn2, df2), 100 * sum(1 for a, b in sg2 if a * b > 0) / len(sg2)))
+
+P = []
+for k, ys in K2.items():
+    if not leaf(k):
+        continue
+    for y in sorted(ys):
+        if y - 1 not in ys:
+            continue
+        a, b = ys[y - 1], ys[y]
+        Wn = (a["ccc_n"] * a["r"], b["ccc_n"] * b["r"])
+        Wf = (a["ccc_f"] * a["r"], b["ccc_f"] * b["r"])
+        if min(Wn + Wf) <= 0:
+            continue
+        P.append((math.log(b["r"] / a["r"]),
+                  math.log(Wn[1] / Wn[0]), math.log(Wf[1] / Wf[0])))
+xs = [p[0] for p in P]
+print("  弾力性  共通標本 n = %d（集約系列を除く）" % len(P))
+for i, lab in [(1, "製品又は商品のみ"), (2, "棚卸資産（総額）")]:
+    b, r2 = ols(xs, [p[i] for p in P])
+    print("    %-18s β = %.3f  R2 = %.3f  分母効果 1-β = %.3f" % (lab, b, r2, 1 - b))
+print("    本文（予測N、45業種946観測）  β = 0.830  分母効果 0.170")

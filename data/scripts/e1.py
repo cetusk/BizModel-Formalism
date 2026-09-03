@@ -1,7 +1,7 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json, statistics as st
-A=json.load(open(D+"A.json"))
+A=json.load(open(D+"A.json", encoding="utf-8"))
 def calc(r):
     s=r["売上高"]
     if not s or s<=0 or r["売掛金"] is None or r["買掛金"] is None: return None
@@ -36,4 +36,4 @@ for ind,d in sorted(series.items()):
     row+=f"{len([y for y in dccc if y+1 in g]):>4}"
     results[ind]=vals
     print(row)
-json.dump({k:{str(a):b for a,b in v.items()} for k,v in results.items()}, open("predE_lagcorr.json","w"), ensure_ascii=False)
+json.dump({k:{str(a):b for a,b in v.items()} for k,v in results.items()}, open("predE_lagcorr.json", "w", encoding="utf-8"), ensure_ascii=False)

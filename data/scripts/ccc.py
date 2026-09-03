@@ -10,7 +10,7 @@ def ccc(r):
     if r["売掛金"] is None or r["買掛金"] is None: return None
     return dict(DSO=ar/s*365, DIO=inv/s*365, DPO=ap/s*365, CCC=(ar+inv-ap)/s*365,
                 NET=(ar-ap)/s*365, sales=s)
-B=json.load(open(D+"B.json"))
+B=json.load(open(D+"B.json", encoding="utf-8"))
 order=["10億円以上","5億円以上 - 10億円未満","1億円以上 - 5億円未満","5千万円以上 - 1億円未満",
  "2千万円以上 - 5千万円未満","1千万円以上 - 2千万円未満","1千万円未満","2百万円以上 - 5百万円未満",
  "5百万円以上 - 1千万円未満","2百万円未満","全規模"]

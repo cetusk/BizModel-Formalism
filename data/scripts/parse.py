@@ -22,6 +22,9 @@ TABLES = [
     ("Bm", "B_kibo_dammen.csv",       "10業種×11規模。同上"),
     ("C",  "C_jinkenhi.csv",          "役員給与・役員賞与・従業員給与・従業員賞与"),
     ("E",  "E_genka_setsubi.csv",     "減価償却費・棚卸資産・固定資産ほか"),
+    # 未取得。62業種×全規模の棚卸資産（調査項目 146）を落とせばここに入る。
+    # 第20章の DIO を全業種で是正するために要る（第22章 (19)）
+    ("F",  "F_tanaoroshi.csv",        "62業種×全規模。棚卸資産のみ"),
 ]
 
 NA = ("", "-", "*", "***", "x")
@@ -59,5 +62,5 @@ if __name__ == "__main__":
               % (tag, len(rows), len({r["ind"] for r in rows}),
                  len({r["size"] for r in rows}), min(yrs), max(yrs), note))
         print("      項目: %s" % names)
-        json.dump(rows, open(os.path.join(DER, tag + ".json"), "w"),
+        json.dump(rows, open(os.path.join(DER, tag + ".json"), "w", encoding="utf-8"),
                   ensure_ascii=False)

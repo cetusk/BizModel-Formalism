@@ -12,8 +12,8 @@ def marg(r):
     gp=(s-(r["売上原価"] or 0))/s
     op=(r["営業利益"] or 0)/s
     return gp,op
-A={(r["ind"],r["year"]):r for r in json.load(open(D+"A.json"))}
-Am={(r["ind"],r["year"]):r for r in json.load(open(D+"Am.json"))}
+A={(r["ind"],r["year"]):r for r in json.load(open(D+"A.json", encoding="utf-8"))}
+Am={(r["ind"],r["year"]):r for r in json.load(open(D+"Am.json", encoding="utf-8"))}
 
 print("=== 全産業（除く金融保険業）の時系列 ===")
 print(f"{'年度':<7}{'CCC(日)':>9}{'粗利率':>9}{'営業利益率':>11}{'g*(粗利)':>11}{'g*(営業)':>11}")

@@ -1,8 +1,8 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json, statistics as st
-Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json"))}
-C ={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"C.json"))}
+Bm={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"Bm.json", encoding="utf-8"))}
+C ={(r["ind"],r["size"],r["year"]):r for r in json.load(open(D+"C.json", encoding="utf-8"))}
 def calc(k):
     b=Bm.get(k); c=C.get(k)
     if not b or not c: return None

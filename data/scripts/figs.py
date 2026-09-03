@@ -9,7 +9,7 @@ def calc(r):
                 DSO=ar/s*365, DPO=ap/s*365, sales=s)
 
 # --- 図1: 規模別 DSO/DPO/正味 (2024, 全産業) ---
-B=json.load(open(D+"B.json"))
+B=json.load(open(D+"B.json", encoding="utf-8"))
 tiers=[("10億円以上","10億円~"),("1億円以上 - 10億円未満","1~10億円"),
        ("5千万円以上 - 1億円未満","5千万~1億"),("2千万円以上 - 5千万円未満","2千万~5千万"),
        ("1千万円以上 - 2千万円未満","1千万~2千万"),("1千万円未満","1千万未満")]
@@ -26,7 +26,7 @@ for ind in ["情報通信業","建設業","製造業","卸売業","職業紹介�
     if a and b: print(f"{ind}\t{calc(a[0])['NET']:.1f}\t{calc(b[0])['NET']:.1f}")
 
 # --- 図3: 全産業CCCの推移 2000-2024 ---
-A=json.load(open(D+"A.json"))
+A=json.load(open(D+"A.json", encoding="utf-8"))
 print("\n=== FIG3 全産業CCC推移 ===")
 for y in range(2000,2025):
     r=[x for x in A if x["ind"]=="全産業（除く金融保険業）" and x["year"]==y]

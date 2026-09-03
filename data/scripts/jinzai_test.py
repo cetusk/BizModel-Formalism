@@ -1,4 +1,4 @@
-exec(open('../raw/jinzai/nurse.py').read())
+exec(open('../raw/jinzai/nurse.py', encoding="utf-8").read())
 import math, statistics as st
 def corr(x,y):
     n=len(x); mx=sum(x)/n; my=sum(y)/n

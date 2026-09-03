@@ -1,7 +1,7 @@
 import os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "derived") + "/"
 import json, math, statistics as st
-A=json.load(open(D+"A.json"))
+A=json.load(open(D+"A.json", encoding="utf-8"))
 def wr(r):
     s=r["売上高"]
     if not s or s<=0 or r["売掛金"] is None or r["買掛金"] is None: return None
