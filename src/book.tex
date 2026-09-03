@@ -78,13 +78,13 @@
   \geometry{top=25mm,bottom=27mm,left=24mm,right=24mm}
 \fi
 
+% 定理型の環境もすべて本文を立体で組む。plain スタイルは本文を斜体にするが、
+% 和文には斜体がないため立体のまま残り、英数字だけが斜体になって混在する。
+% 見出しは太字＋番号のままで、定理型であることは失われない。
 \theoremstyle{definition}
 \newtheorem{definition}{定義}[chapter]
 \newtheorem{remark}[definition]{注}
-% 例は定義・注と同じく本文を立体で組む（plain スタイルだと本文が斜体になり、
-% 例の中に置いた表まで斜体になってしまう）。命題・系は定理型なので plain のまま。
 \newtheorem{example}[definition]{例}
-\theoremstyle{plain}
 \newtheorem{proposition}[definition]{命題}
 
 \newcommand{\R}{\mathbb{R}}
@@ -120,7 +120,7 @@
 \title{キャッシュフロー構造としてのビジネスモデル\\[6pt]
 \large 定式化・類型論・調査設計}
 \author{}
-\date{v0.17.1\quad 2026年9月3日}
+\date{v0.18.0\quad 2026年9月3日}
 
 
 \begin{document}
