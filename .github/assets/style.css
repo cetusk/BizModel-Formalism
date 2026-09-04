@@ -344,11 +344,16 @@ math munderover,math munder,math mover{vertical-align:middle}
 /* 主要な結果の式を囲む枠。PDF では \boxed が描くが、HTML で tex4ht が出す
    <menclose notation="box"> は MathML Core に無く、Chrome と Safari では
    枠が出ず、Firefox では分数の高さに上辺が切られる。外側の div で描く。 */
-.keyeq{
+/* 本稿で唯一枠で囲む式（式7.3）。tex4ht の <menclose notation="box"> は
+   MathML Core に無く描画されないため、直前の段落に置いた空の印
+   （\HCode{<span class="keyeq-mark"></span>}）を手がかりに、
+   隣接する式の表へ枠を描く。生の <div> で囲むと <p> の入れ子が壊れ、
+   make4ht の domfilter が退避してファイル全体の数式が壊れる。 */
+p:has(> .keyeq-mark) + table.equation{
   border:1px solid var(--rule);
   border-radius:4px;
   margin:1.2rem 0;
-  padding:0 .6rem;
+  padding:.5rem .6rem;
   background:var(--side);
 }
-.keyeq table.equation{margin:.5rem 0}
+.keyeq-mark{display:none}

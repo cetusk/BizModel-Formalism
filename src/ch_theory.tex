@@ -1050,14 +1050,17 @@ $\FCF\geq 0$ の条件は
 % 本稿で唯一、枠で囲む式。PDF は \boxed でよいが、HTML では tex4ht が
 % <menclose notation="box"> を出す。これは MathML Core に無いため
 % Chrome と Safari では枠が描かれず、Firefox では枠の上辺が分数に切られる。
-% HTML 側は枠を外側の div で描く。
+% HTML 側は空の span で印をつけ、隣接する式の表に CSS で枠を描く。
+% 生の <div> を段落の途中に差し込むと <p> の入れ子が壊れ、make4ht の
+% domfilter が XML 解析を諦めて HTML 解析に退避する。そのときファイル全体が
+% 再直列化され、数式中の < が <mo>&lt;</mo> から壊れた出力に化ける。
+% 印を釣り合う空要素にすればこれが起きない。
 \ifdefined\HCode
-\HCode{<div class="keyeq">}
+\HCode{<span class="keyeq-mark"></span>}%
 \begin{equation}
 g \ \leq\ g^{\star} = \frac{m + d - I/r}{\CCC}
 \label{eq:gstar}
 \end{equation}
-\HCode{</div>}
 \else
 \begin{equation}
 \boxed{\ g \ \leq\ g^{\star} = \frac{m + d - I/r}{\CCC}\ }
@@ -1147,7 +1150,7 @@ $\CCC=120$ 日の事業は年率12\%を超える成長で必ず外部資金を�
 この点は第\ref{sec:age}節で改めて扱う。
 \end{remark}
 
-\subsection{\texorpdfstring{$\CCC$}{CCC} は遅れ時間の和である}
+\section{\texorpdfstring{$\CCC$}{CCC} は遅れ時間の和である}
 \label{sec:ccc-as-tau}
 
 命題\ref{prop:kappa-tau}を式\eqref{eq:ccc}に代入すると、$r$ が消える。
