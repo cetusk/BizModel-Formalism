@@ -41,6 +41,8 @@ data/_tmp/
 data/raw/jinzai/detail/
 data/raw/jinzai/henreikin/
 data/raw/jinzai/henreikin_web/
+# 人が読み取った原文。構造化した結果からは復元できないので原文で保存する
+data/raw/jinzai/henreikin_manual/
 data/raw/jinzai/search/html/
 data/raw/jinzai/search/*.txt
 data/raw/jinzai/*.py
