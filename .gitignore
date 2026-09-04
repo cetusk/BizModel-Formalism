@@ -68,3 +68,7 @@ claude_sandbox.bat
 
 # 検討・実装記録（ローカルのみで管理するメモ）
 docs/IMPL.md
+
+# 予測Φ1--Φ4 の入力。いずれも公開の台帳・API から再取得できる。
+# 手順は PHI.md と data/scripts/phi/ にある。
+data/raw/phi/
