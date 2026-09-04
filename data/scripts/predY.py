@@ -8,7 +8,12 @@
 # 本文の基準値（注 副次的な観測：規模と離職率）は 307 社について算出されており、
 # その標本は金額表示の事業者を除外していた。すなわち
 # 登録した除外規則と基準値の構成が食い違っている。両方を報告する。
-import sys, os, math, glob, statistics as st
+#
+# 【入力の二経路】検索結果一覧のテキストは個社データなので再配布しない。
+#   テキストが無い環境では derived/jinzai_firms_detail.json を読む。
+#   これは permits.tsv を種に詳細ページを取得して組み立てたもので、
+#   1,402 行すべてについて手数料実績率・離職率・就職者数が一覧と一致する。
+import io, sys, os, math, glob, json, statistics as st
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from parse_jinzai import parse
 
@@ -25,6 +30,20 @@ def corr(x, y):
     if sx == 0 or sy == 0: return float("nan"), float("nan"), n
     r = sum((a - mx) * (b - my) for a, b in zip(x, y)) / (n * sx * sy)
     return r, r * math.sqrt((n - 2) / max(1e-12, 1 - r * r)), n
+
+def load_detail():
+    """詳細ページ由来のデータを職種別に束ねる。テキストが無いときの経路。"""
+    f = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                     "..", "derived", "jinzai_firms_detail.json")
+    D, loss = {}, {}
+    for r in json.load(io.open(f, encoding="utf-8")):
+        key = [v for k, v in JOB.items() if k in r["job"]]
+        if not key:
+            continue
+        D.setdefault(key[0], []).append(r)
+    for k in D:
+        loss[k] = (len(D[k]), len(D[k]), 0)
+    return D, loss
 
 def load(d):
     D, loss = {}, {}
@@ -45,7 +64,13 @@ def run(D, job, tokyo, fee_pct_only):
 if __name__ == "__main__":
     d = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "..", "raw", "jinzai", "search")
-    D, loss = load(d)
+    # テキストがあればそれを、無ければ詳細ページ由来のデータを読む。
+    if "--detail" in sys.argv or not glob.glob(os.path.join(d, "*.txt")):
+        D, loss = load_detail()
+        sys.stderr.write("  入力: derived/jinzai_firms_detail.json（詳細ページ由来）\n")
+    else:
+        D, loss = load(d)
+        sys.stderr.write("  入力: %s（検索結果一覧のテキスト）\n" % d)
     print("【取得の状態】")
     for j in ORDER:
         dec, rows, lo = loss[j]

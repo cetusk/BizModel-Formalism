@@ -235,11 +235,11 @@ $\delta$ が $\mathcal{P}$ の状態にあっても、それを受ける\emph{�
 かつ執行の対象が $\mathcal{P}$ の状態にあるものを「寄与を受ける」とする。
 判定は類型ごとではなく $\Phi$ ごとに行う（注\ref{rem:case-is-phi}）。
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llccX@{}}
-\toprule
-番号 & 類型 & 内 & 外 & 判定の根拠 \\
-\midrule
+% 28類型のふるい分け。判定の行は下の二つの macro にしか実体がない。
+% PDF では紙面の高さに収まらないため族1--4と族5--7の二表に分けるが、
+% HTML にはその制約がないので一つにまとめる。
+% 判定を直すときは macro だけを見ればよい。
+\newcommand{\protocolfilterrowsA}{%
 \multicolumn{5}{@{}l}{\textbf{族1：単発交換}}\\
 1-1 & 即時交換 & ○ & --- & 同時性は $\delta$ と $\pi$ が同一の状態遷移である場合にのみ作れる \\
 1-2 & 前受単発 & ○ & ○ & $\pi$ が先行し、$\delta$ を参照しない \\
@@ -262,17 +262,8 @@ $\delta$ が $\mathcal{P}$ の状態にあっても、それを受ける\emph{�
 4-1 & ロックイン消耗品 & 条件付 & --- & 本体が手続きの外にあるという族の前提が内では崩れる \\
 4-2 & フリーミアム & ○ & ○ & $\kappa>0$ だが自ら発行した信用であり、執行を手続きに求めていない \\
 4-3 & 本体補填＋金融 & ○ & --- & 外では本体が手続きの外にある \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{28類型のふるい分け（族1--4）。○は寄与を受けるもの。}
-\label{tab:protocol-filter-a}
-\end{center}
-
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llccX@{}}
-\toprule
-番号 & 類型 & 内 & 外 & 判定の根拠 \\
-\midrule
+}
+\newcommand{\protocolfilterrowsB}{%
 \multicolumn{5}{@{}l}{\textbf{族5：成果・状態連動}}\\
 5-1 & 成果報酬 & 条件付 & --- & $\pi=h(y)$ の $y$ が手続き上の量である場合に限る \\
 5-2 & レベニューシェア & ○ & --- & 内では相手方の流量が手続き上で観測できる \\
@@ -291,11 +282,47 @@ $\delta$ が $\mathcal{P}$ の状態にあっても、それを受ける\emph{�
 7-2 & クロスサブシディ & --- & --- & 同上 \\
 7-3 & 公的支払 & --- & --- & 支払者が価格を規定し、設計自由度が制度層にある \\
 7-4 & 寄付・支援 & ○ & ○ & 対価関係を明示しないため受益者の同定を要しない \\
+}
+
+\ifdefined\HCode
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+番号 & 類型 & 内 & 外 & 判定の根拠 \\
+\midrule
+\protocolfilterrowsA
+\midrule
+\protocolfilterrowsB
+\bottomrule
+\end{tabularx}
+\captionof{table}{28類型のふるい分け。○は寄与を受けるもの。}
+\label{tab:protocol-filter-a}
+\end{center}
+\else
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+番号 & 類型 & 内 & 外 & 判定の根拠 \\
+\midrule
+\protocolfilterrowsA
+\bottomrule
+\end{tabularx}
+\captionof{table}{28類型のふるい分け（族1--4）。○は寄与を受けるもの。}
+\label{tab:protocol-filter-a}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+番号 & 類型 & 内 & 外 & 判定の根拠 \\
+\midrule
+\protocolfilterrowsB
 \bottomrule
 \end{tabularx}
 \captionof{table}{28類型のふるい分け（族5--7）。○は寄与を受けるもの。}
 \label{tab:protocol-filter-b}
 \end{center}
+\fi
 
 区分「内」で寄与を受けるのは20類型、区分「外」では5類型である。
 第\ref{ch:solo}章の篩が28類型を10前後に減らしたのに対し、
