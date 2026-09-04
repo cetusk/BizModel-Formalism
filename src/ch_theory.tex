@@ -73,6 +73,21 @@
 その多くが棄却された。本稿の枠組みは記述の道具として機能するが、
 記述された量が何を予測するかについて、本稿は確立した結果を持たない。
 
+\textbf{それにもかかわらず本稿は17の予測を登録している。} 理由は二つある。
+
+一つは、記述の枠組みが\textbf{観測されたどんな事実にも事後の説明を与えられる}ためである。
+説明できることは、枠組みが正しいことの証拠にならない。
+観測の前に予測を文章として固定し、外れたものを外れたまま残さなければ、
+枠組みが働いた場合と、自分が後から筋を通した場合とを区別できない。
+実際に後付けの物語を採用しかけた箇所は第\ref{sec:prereg-worked}節に挙げる。
+\textbf{予測は枠組みの主張ではなく、自分の解釈に課した拘束である。}
+
+もう一つは、\textbf{予測が外れることと枠組みが棄却されることが別}だからである。
+$\CCC$、$\kappa$、$\Phi$ という記述が機能するかどうかと、
+それらの量が何を予測するかは、別の問いである。
+外れた予測は後者についての推測を否定するが、前者を否定しない
+（第\ref{sec:two-rejections}節）。
+
 第二に、本稿は\textbf{規範的でない}。どの $\Phi$ が望ましいかを論じず、
 どの $\Phi$ が制約の下で実現可能かのみを論じる。
 
@@ -1032,10 +1047,23 @@ $\dot W = \CCC\cdot\dot r$ を得る。代入すれば式\eqref{eq:fcf}が従う
 \label{cor:gstar}
 売上高減価償却費率を $d$ とし、成長率を $g=\dot r/r$ とすると、
 $\FCF\geq 0$ の条件は
+% 本稿で唯一、枠で囲む式。PDF は \boxed でよいが、HTML では tex4ht が
+% <menclose notation="box"> を出す。これは MathML Core に無いため
+% Chrome と Safari では枠が描かれず、Firefox では枠の上辺が分数に切られる。
+% HTML 側は枠を外側の div で描く。
+\ifdefined\HCode
+\HCode{<div class="keyeq">}
+\begin{equation}
+g \ \leq\ g^{\star} = \frac{m + d - I/r}{\CCC}
+\label{eq:gstar}
+\end{equation}
+\HCode{</div>}
+\else
 \begin{equation}
 \boxed{\ g \ \leq\ g^{\star} = \frac{m + d - I/r}{\CCC}\ }
 \label{eq:gstar}
 \end{equation}
+\fi
 である。$\CCC<0$ のとき $g^\star$ は存在せず、任意の成長率で $\FCF>0$ となる。
 \end{corollary}
 
