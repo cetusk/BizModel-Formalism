@@ -14,6 +14,8 @@
 | `raw/jinzai/*.py` 東京都分（予測X） | 同上 |
 | `raw/jinzai/detail/` 事業所詳細 | `scripts/fetch_jinzai_detail.py` |
 | `raw/jinzai/henreikin/` 返戻金の届出書類 | `scripts/fetch_henreikin.py` |
+| `raw/jinzai/henreikin_web/` 自社サイトの取得結果 | `scripts/fetch_henreikin_web.py` |
+| `derived/henreikin_ocr/` OCR したテキスト | `scripts/ocr_henreikin.py` |
 
 **種だけは残してある。** `raw/jinzai/permits.tsv` に許可番号と職種の対応が入っている。
 届出の値は含まない。ここから `fetch_jinzai_detail.py` を回せば、
@@ -183,7 +185,11 @@ Excel の構造は年度で異なる。項目名列の位置が令和2・3年と
 | `parse_jinzai_detail.py` | 詳細ページ → `derived/jinzai_detail.json` | 同上 |
 | `firms_from_detail.py` | 詳細ページ → 一覧と同じ形の企業単位データ | 同上 |
 | `fetch_henreikin.py` | 返戻金制度の PDF を取得 | 予測Z |
-| `parse_henreikin.py` | PDF から返戻の段階と強度を読む | 同上 |
+| `parse_henreikin.py` | PDF から段階を機械的に抽出（**精度が足りず不採用**） | 同上 |
+| `ocr_henreikin.py` | 文字を持たない PDF を OCR する | 同上 |
+| `henreikin_windows.py` | 判読すべき箇所を切り出す | 同上 |
+| `henreikin_strength.py` | 判読結果 → 強度（6ヶ月窓の積分） | 同上 |
+| `predZ.py` | 予測Z の検定 | 第17.6節 |
 
 実行例。
 
@@ -225,3 +231,28 @@ python3 jinzai_test.py # 予測X の検定
 
 **日本資金決済業協会「発行事業実態調査統計」。**
 族2の $\kappa$ に用いたが、本一式には含めていない（PDF から手で転記した）。
+
+---
+
+## 返戻金の判読について
+
+**正規表現による抽出は採用していない。** 書式が事業者ごとに自由で、
+表・散文・日割り・分数が混在する。8件を検めて3件で誤りが出ており、
+しかも誤りは**余分な広い区間に高い率を与える向きに偏る**。
+無作為な誤差ではないので平均を取っても消えない。
+
+907件すべてを人が読み、`derived/henreikin_read.json` に記録した。
+判読の規則は `raw/jinzai/henreikin/README.md` にあり、**読む前に固定した**。
+
+```
+ok        839  段階を読み取れた
+undisc     46  契約書で定めるとして開示せず（欠測）
+none       11  制度なしと明記（強度 0）
+misfiled    7  リンク先が返戻金に触れていない（欠測）
+zero        4  制度ありと申告、率は 0%（強度 0）
+unread      0
+```
+
+`henreikin_strength.py` が式(17.x)の強度を算出し、
+`predZ.py` が予測Zを検定する。欠測を除外した場合と 0 と置いた場合の
+両方を出力する（判定は変わらない）。

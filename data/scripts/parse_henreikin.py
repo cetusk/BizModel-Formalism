@@ -23,46 +23,83 @@ def text(path):
                            capture_output=True, timeout=60).stdout.decode("utf-8", "replace")
     except Exception:
         return ""
-    return re.sub(r"[ \t]+", " ", s.translate(Z))
+    s = re.sub(r"[ \t]+", " ", s.translate(Z))
+    # 「5 0%」「雇 用 後 3ヶ 月」のように字間を空けた PDF がある。
+    # 数字どうし、和文どうしのあいだの空白を落とす。
+    s = re.sub(r"(?<=\d)\s+(?=\d)", "", s)
+    s = re.sub(r"(?<=[\u3040-\u30ff\u4e00-\u9fff])[ \t]+(?=[\u3040-\u30ff\u4e00-\u9fff])", "", s)
+    return s
 
 def days(n, unit):
     n = float(n)
     return n * 30 if unit and unit != "日" else n
 
 def steps(t):
-    """(開始日, 終了日, 返戻率) の並びを返す。"""
-    out = []
-    U = r"(?:[ヶケヵか箇]?月|日)"
-    pats = [
-        # 31日以上90日以内 … 50%
-        (r"(\d+)\s*" + U + r"\s*(?:以上|超|を超え)\s*(\d+)\s*(" + U + r")\s*(?:以内|未満|まで)", "range"),
-        # 30日以内 … 80%
-        (r"(\d+)\s*(" + U + r")\s*(?:以内|未満|まで)", "upto"),
-    ]
-    # 「31日以上90日以内」の後半は「90日以内」にも当たる。範囲の規則を先に当て、
-    # 消費した位置に重なる上限だけの一致は捨てる。
+    """(開始日, 終了日, 返戻率) の並びを返す。
+
+    書式は事業者ごとに自由で、実際に次の四つが現れる。
+      1. 「30日以内 80%」        期間と率が近接する
+      2. 「31日以上90日以内 50%」 範囲で書く
+      3. 「1ヶ月（100%）2ヶ月（50%）」括弧で率を添える
+      4. 期間だけを横一列に並べ、率を次の行に並べる表
+    4 は期間と率が離れるため、近接では対応が取れない。
+    期間の並びの後ろに同数の率が並ぶ場合は、順序で対応させる。
+
+    手数料率と返戻率を取り違えないよう、返戻に触れる最初の位置から後ろだけを見る。
+    """
+    m = re.search(r"返戻|返金|返還", t)
+    if m:
+        t = t[m.start():]
+    U = r"(?:[ヶケヵカかカ箇个]?月|日)"
+
+    # 期間の並び。(開始日, 終了日, 出現位置の終わり)
+    per = []
     used = []
-    for pat, kind in pats:
-        for m in re.finditer(pat, t):
-            if kind == "upto" and any(a <= m.start() < b for a, b in used):
-                continue
-            tail = t[m.end():m.end() + 120]
-            head = t[max(0, m.start() - 60):m.start()]
-            q = re.search(r"(\d+(?:\.\d+)?)\s*%", tail) or re.search(r"(\d+(?:\.\d+)?)\s*%", head)
-            if not q:
-                continue
-            pct = float(q.group(1))
-            if not (0 < pct <= 100):
-                continue
-            if kind == "range":
-                a, b = days(m.group(1), m.group(3)), days(m.group(2), m.group(3))
-            else:
-                a, b = 0.0, days(m.group(1), m.group(2))
-            if b > a and b <= 400:
-                out.append((a, b, pct))
-                if kind == "range":
-                    used.append((m.start(), m.end()))
-    # 同じ区間が二つの規則で重複して拾われることがある。狭いほうを残す。
+    def add(a, b, st_, en_):
+        if b > a and b <= 400:
+            per.append((a, b, st_, en_))
+            used.append((st_, en_))
+    def ov(i):
+        return any(a <= i < b for a, b in used)
+
+    for m in re.finditer(r"(\d+)\s*" + U + r"\s*(?:以上|超|を超え)\s*(\d+)\s*(" + U + r")\s*(?:以内|未満|まで)", t):
+        add(days(m.group(1), m.group(3)), days(m.group(2), m.group(3)), m.start(), m.end())
+    for m in re.finditer(r"(\d+)\s*(" + U + r")\s*[~～〜\-–—]\s*(\d+)\s*(" + U + r")?", t):
+        if ov(m.start()):
+            continue
+        u = m.group(4) or m.group(2)
+        add(days(m.group(1), m.group(2)), days(m.group(3), u), m.start(), m.end())
+    for m in re.finditer(r"(\d+)\s*(" + U + r")\s*(?:以内|未満|まで|間)", t):
+        if ov(m.start()):
+            continue
+        add(0.0, days(m.group(1), m.group(2)), m.start(), m.end())
+    for m in re.finditer(r"(\d+)\s*(" + U + r")\s*[（(]", t):
+        if ov(m.start()):
+            continue
+        add(0.0, days(m.group(1), m.group(2)), m.start(), m.end())
+    if not per:
+        return []
+    per.sort(key=lambda x: x[2])
+
+    pct = [(m.start(), float(m.group(1)))
+           for m in re.finditer(r"(\d+(?:\.\d+)?)\s*%", t)
+           if 0 < float(m.group(1)) <= 100]
+    if not pct:
+        return []
+
+    out = []
+    if len(pct) == len(per) and pct[0][0] > per[-1][3]:
+        # 表形式。期間が並び切ってから率が並ぶ。順序で対応させる
+        for (a, b, _, _), (_, p) in zip(per, pct):
+            out.append((a, b, p))
+    else:
+        for a, b, s_, e_ in per:
+            nxt = [(i - e_, p) for i, p in pct if i >= e_ and i - e_ < 140]
+            prv = [(s_ - i, p) for i, p in pct if i < s_ and s_ - i < 70]
+            cand = sorted(nxt) or sorted(prv)
+            if cand:
+                out.append((a, b, cand[0][1]))
+
     out.sort(key=lambda x: (x[0], x[1] - x[0]))
     keep = []
     for a, b, p in out:

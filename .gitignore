@@ -40,6 +40,7 @@ data/_tmp/
 # 残すのは許可番号の一覧（permits.tsv）だけで、届出の値は含めない。
 data/raw/jinzai/detail/
 data/raw/jinzai/henreikin/
+data/raw/jinzai/henreikin_web/
 data/raw/jinzai/search/html/
 data/raw/jinzai/search/*.txt
 data/raw/jinzai/*.py
