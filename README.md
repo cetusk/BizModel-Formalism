@@ -10,7 +10,7 @@
 信用ポジション κ、自己金融可能成長率 g*、余剰の三分解を導く。
 
 📖 **[HTML で読む](https://cetusk.github.io/BizModel-Formalism/book/book.html)** ・
-📄 **[PDF](https://cetusk.github.io/BizModel-Formalism/book.pdf)**（145ページ）
+📄 **[PDF](https://cetusk.github.io/BizModel-Formalism/book.pdf)**（194ページ）
 
 ## 構成
 

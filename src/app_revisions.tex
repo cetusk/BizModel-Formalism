@@ -11,11 +11,22 @@
 構成の変更、命題の追加や撤回、新たな実証があれば段階を上げ、
 誤記や体裁の修正は第三桁で扱う（\texttt{v0.8.1} など）。
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}lllX@{}}
+\begin{longtable}{@{}ll>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}@{}}
+\caption{版の履歴。各段階の版番号、構成の変更、主な内容。}
+\label{tab:version-stages}\\
 \toprule
 段階 & 版 & 構成 & 主な内容 \\
 \midrule
+\endfirsthead
+\toprule
+段階 & 版 & 構成 & 主な内容 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r@{}}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 第1段階 & \texttt{v0.1.0} & 検討の時系列順 & $\Phi$ の定義、27類型、方法論の四分類 \\
 第2段階 & \texttt{v0.2.0} & 論理順へ再編 & 理論・類型・方法・実証・総括の五部構成。証明と数値例を追加 \\
 第3段階 & \texttt{v0.3.0} & 部構成の変更 & 制約下の演繹を「応用」から「写像の空間と制約」へ移動 \\
@@ -42,11 +53,8 @@
 第24段階 & \texttt{v0.24.0} & 予測$\Phi$1--$\Phi$4 の検定 & 公開型の分散台帳の記録により第\ref{part:catalog}部の演繹を初めて検定した（第\ref{sec:protocol-results}節）。支持は $\Phi$2 のみ。登録は22予測となった \\
 第25段階 & \texttt{v0.25.0} & 副次的に測れた量 & $\lambda$ と手続きの継続期間を測り、命題\ref{prop:unmanned-period}に上限を与えた（第\ref{sec:protocol-byproducts}節）。予測Dが$\Phi$1 と同一であることが判明し、判定を棄却に改めた \\
 第26段階 & \texttt{v0.26.0} & 本としての整理 & 22章を20章に統合し、本文から予測の記号を一掃した。登録の文言と判定は付録\ref{app:prereg}に集約し、手続きの実証を第\ref{ch:protocol-emp}章として実証部へ移した。検証障害は最初から六分類として提示する \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{版の履歴。各段階の版番号、構成の変更、主な内容。}
-\label{tab:version-stages}
-\end{center}
+\end{longtable}
+
 
 \section{撤回した主張}
 

@@ -181,11 +181,15 @@ grep -c "Overfull \\\\hbox" book.log
 
 ```
 src/book.tex               \date{v0.x.y\quad ...}
-.github/assets/index.html  バナー2箇所とフッター
+.github/assets/index.html  バナー2箇所とフッター、**PDFのページ数**
 .github/workflows/build.yml  env: VERSION
-README.md                  冒頭の引用と「現在は」の行
+README.md                  冒頭の引用、「現在は」の行、**PDFのページ数**
 src/app_revisions.tex      版の履歴（第二桁のときのみ行を追加）
 ```
+
+**ページ数は版ごとに変わる。** `README.md` と `index.html` の
+「（NNNページ）」を毎回洗う。数える元は
+`grep -o 'on book.pdf ([0-9]* pages' src/book.log`。
 
 タグは最新の1つのみ保持する。
 
