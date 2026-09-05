@@ -3,21 +3,20 @@
 \label{ch:protocol-emp}
 %============================================================
 
-第\ref{ch:protocol}章の区分「内」では、本稿が他の章で個社データを要するとして
-測定を断念した量が個別に公開されている（第\ref{sec:protocol-observability}節）。
-本章はこれを観測する。
+第\ref{ch:protocol}章の区分「内」では、$M(t)$、$\kappa_j$、$\dbar-\delta$、$B$ が
+識別子ごとに公開されている（第\ref{sec:protocol-observability}節）。
+他の章では個社データを要するため測れない量である。本章はこれを観測する。
 
 母集団は基準時点で稼働していた $\Phi$ の全数であり、標本は事後に選んでいない。
-第\ref{part:catalog}部の演繹に対する初めての観測である。
 
-\section{検証する含意の登録}
+\section{検証する含意}
 \label{sec:protocol-predictions}
 
-第\ref{ch:next}節の手続きに従い、取得の前に予測を固定する。
-本章の予測は四つあるため、$\Phi$ に番号を付して区別する。
+第\ref{ch:next}節の手続きに従い、取得の前に四つの含意を固定した。
+区別のため $\Phi$ に番号を付す。
 
 \begin{quote}
-\textbf{予測$\Phi$1}：手続きが呼び出す他の手続きの数が少ないほど、
+\textbf{含意$\Phi$1}：手続きが呼び出す他の手続きの数が少ないほど、
 改修されるまでの期間が長い。命題\ref{prop:unmanned-period}の $\lambda_{\rm dep}$ 側の含意である。
 
 \textbf{対抗仮説}：改修の頻度は依存の数ではなく利用量で決まる。
@@ -25,7 +24,7 @@
 \end{quote}
 
 \begin{quote}
-\textbf{予測$\Phi$2}：取引が途絶えた $\Phi$ について、
+\textbf{含意$\Phi$2}：取引が途絶えた $\Phi$ について、
 $M(t)$ は途絶に先行して単調に減少する。
 第\ref{sec:objective}節の $\tau=\inf\{t:M(t)<0\}$ が吸収状態であることの含意である。
 
@@ -34,7 +33,7 @@ $M(t)$ は途絶の直前まで変化しない。
 \end{quote}
 
 \begin{quote}
-\textbf{予測$\Phi$3}：区分「内」で稼働する $\Phi$ の $\CCC$ の分布は非負に偏る。
+\textbf{含意$\Phi$3}：区分「内」で稼働する $\Phi$ の $\CCC$ の分布は非負に偏る。
 系\ref{cor:growth-needs-capital}より、$\CCC<0$ の実現には $E>0$ を要するためである。
 
 \textbf{対抗仮説}：$\CCC$ の分布は第\ref{part:industry}章の企業部門と同様であり、
@@ -42,13 +41,13 @@ $M(t)$ は途絶の直前まで変化しない。
 \end{quote}
 
 \begin{quote}
-\textbf{予測$\Phi$4}：稼働する $\Phi$ を第\ref{sec:type-assignment}節の規則で割り当てると、
+\textbf{含意$\Phi$4}：稼働する $\Phi$ を第\ref{sec:type-assignment}節の規則で割り当てると、
 族7は 7-4 を除いてほぼ現れない。命題\ref{prop:beneficiary}の含意である。
 
 \textbf{対抗仮説}：族7型も他の族と同程度の比重で現れる。
 \end{quote}
 
-\subsection{事前に確定した事項。}
+\subsection{事前に確定した事項}
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}lX@{}}
@@ -63,13 +62,13 @@ $M(t)$ は途絶の直前まで変化しない。
 類型の割り当て & 第\ref{sec:type-assignment}節の判定順序を用いる。順序は変更しない \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{予測$\Phi$1--$\Phi$4 について事前に確定した事項。}
+\captionof{table}{四つの含意について事前に確定した事項。}
 \label{tab:protocol-registration}
 \end{center}
 
 \begin{remark}[$\lambda_{\rm dep}$ と利用量は相関しうる]
 \label{rem:dep-usage-confound}
-予測$\Phi$1 の対抗仮説は棄却しにくい。
+含意$\Phi$1 の対抗仮説は棄却しにくい。
 依存の多い手続きは機能が豊富であり、利用量も大きい傾向があるためである。
 検定では利用量を統制する必要があるが、
 統制後も残差に依存の効果が現れるかは事前には分からない。
@@ -79,14 +78,12 @@ $M(t)$ は途絶の直前まで変化しない。
 \section{検定の結果}
 \label{sec:protocol-results}
 
-公開型の分散台帳の記録により四つを検定した。
-母集団は基準時点で稼働していた $\Phi$ の全数であり、標本は事後に選んでいない。
 支持されたのは一つである。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llXl@{}}
 \toprule
-予測 & 標本 & 結果 & 判定 \\
+含意 & 標本 & 結果 & 判定 \\
 \midrule
 $\Phi$1 & 改修可能な手続き 193 万件 & 依存の数は改修までの期間を説明しない & 棄却 \\
 $\Phi$2 & 手数料と残高の双方を持つ 427 件 & 途絶前 30 日で減少（$p=3.2\times10^{-9}$） & 支持 \\
@@ -94,11 +91,11 @@ $\Phi$3 & 稼働する $\Phi$ 52 件 & 対抗仮説が識別されない & 検�
 $\Phi$4 & 同上 & 族7 は 1 件だが 7-2 であり 7-4 は現れない & 棄却 \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{予測$\Phi$1--$\Phi$4 の検定結果。}
+\captionof{table}{四つの含意の検定結果。}
 \label{tab:protocol-results}
 \end{center}
 
-\begin{remark}[$\Phi$1：複製の集中が推定を支配する]
+\begin{remark}[複製の集中が推定を支配する]
 \label{rem:clone-concentration}
 193 万の識別子が指す実装は 76,609 種しかない。
 うち一つを 155 万件、すなわち母集団の 80\% が指している。
@@ -115,30 +112,30 @@ $\Phi$4 & 同上 & 族7 は 1 件だが 7-2 であり 7-4 は現れない & 棄�
 \textbf{台帳上で標本を組むときは、複製の集中を先に数える必要がある。}
 \end{remark}
 
-\begin{remark}[$\Phi$3：対照が識別されない]
+\begin{remark}[対照が識別されない]
 \label{rem:phi3-illposed}
 $\CCC<0$ は前受けであり、系\ref{cor:growth-needs-capital}によれば $E>0$ を要する。
 しかし比較対象である企業部門の $\CCC$ は、
 第\ref{part:industry}章の 58 業種すべてで非負である（最小 4.9 日）。
 負の $\CCC$ は個別企業に現れるもので、業種の集計では相殺されて消える。
 
-予測と対抗仮説が同じことを述べており、観測しても区別がつかない。
+含意と対抗仮説が同じことを述べており、観測しても区別がつかない。
 第\ref{sec:predB-illposed}節の可測性仮説と同型の不良設定である。
 加えて区分「内」の $\tau$ は秒の単位であり、企業部門の日の単位とは桁が五つ違う。
 \end{remark}
 
-\begin{remark}[$\Phi$4：実装できることと現れることは別である]
+\begin{remark}[実装できることと現れることは別である]
 \label{rem:implementable-not-observed}
 族7 は 52 件中 1 件であり、稀であるという量的な部分は当たった。
 しかし現れたのは 7-2（クロスサブシディ）であり、7-4 は 0 件であった。
 
-予測は命題\ref{prop:beneficiary}から「7-4 のみが残る」を導いていたが、
+この含意は命題\ref{prop:beneficiary}から「7-4 のみが残る」を導いていたが、
 命題が述べるのは実装の可否であって出現の頻度ではない。
 \textbf{実装できることから現れることを導いたのが誤りである。}
 
 なお唯一の 7-2 は、受益者の選定を署名により手続きの外で行っている。
 命題\ref{prop:beneficiary}と整合するが、
-予測の文言が外れている以上これを支持の証拠として扱わない。
+含意の文言が外れている以上これを支持の証拠として扱わない。
 \end{remark}
 
 \begin{remark}[判定順序の前に一段が要る]
@@ -154,15 +151,13 @@ $\CCC<0$ は前受けであり、系\ref{cor:growth-needs-capital}によれば $
 名称の詐称という形で現れている。
 \end{remark}
 
-\section{副次的に測れた量}
+\section{同じ記録から測れる量}
 \label{sec:protocol-byproducts}
 
-検定の過程で、本稿が他の章で測定を断念していた量が測れた。
+含意の検定に用いた記録から、他の章で測れなかった量が三つ測れる。
 
-\subsection{未想定状態への応答の率。}
+\subsection{未想定状態への応答の率}
 命題\ref{prop:unmanned-period}は無人で運転できる期間を $1/\lambda_{\rm novel}$ とした。
-$\lambda_{\rm novel}$ は本稿のどこでも測定されていない。
-
 区分「内」では二つの率が測れる。
 
 \begin{center}
@@ -197,7 +192,7 @@ $\lambda_{\rm novel}$ は本稿のどこでも測定されていない。
 平均としての $1/\lambda$ はこの二峰性を覆い隠す。
 \end{remark}
 
-\subsection{手続きの継続期間。}
+\subsection{手続きの継続期間}
 第\ref{ch:platformfee}章は無人継続期間の直接測定を「母集団フレームを欠く」として断念した。
 第\ref{sec:protocol-frame}節のとおり、区分「内」ではこの断念の理由が消える。
 
@@ -211,14 +206,14 @@ $\lambda_{\rm novel}$ は本稿のどこでも測定されていない。
 高倍率の運用 11.5 年、発行支援 15.3 年、指数 18.1 年、橋渡し 20.1 年、
 保険 22.3 年、貸付 22.6 年、利回り 22.7 年である。
 \textbf{他の手続きへの依存が薄い種別ほど長い}という向きは読めるが、
-予測$\Phi$1 が棄却された以上、この順序を依存の数で説明することはしない。
+含意$\Phi$1 が棄却された以上、この順序を依存の数で説明することはしない。
 
-\subsection{拘束された状態 $B$。}
+\subsection{拘束された状態 $B$}
 表\ref{tab:protocol-quantities}は $B$ について「対応する量を本稿は持たない」と記していた。
 区分「内」では手続き上に置かれた資産として直接観測でき、
-1,718 件の日次系列が得られる。予測$\Phi$2 で $M(t)$ の代理としたのはこれである。
+1,718 件の日次系列が得られる。含意$\Phi$2 で $M(t)$ の代理としたのはこれである。
 
-\subsection{料率。}
+\subsection{料率}
 $B$ が測れると、年間の手数料を $B$ で割った料率が定義できる。
 ただし\textbf{分母は族によって異なる}。族3（資産の時間貸し）では $B$ が正しい分母だが、
 族6（媒介）では取引額が分母であり $B$ は在庫にすぎない。

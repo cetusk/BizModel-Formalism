@@ -53,10 +53,14 @@ def load(d):
         D[key] = p["firms"]; loss[key] = (p["declared"], p["rows"], p["lost"])
     return D, loss
 
-def run(D, job, tokyo, fee_pct_only):
+def run(D, job, scope, fee_pct_only):
+    """scope: "tokyo" 東京都のみ / "rest" 東京都以外 / "all" 全国"""
+    def keep(r):
+        if scope == "tokyo":  return r["pref"] == "13"
+        if scope == "rest":   return r["pref"] != "13"
+        return True
     S = [r for r in D[job]
-         if r["to"] is not None
-         and (r["pref"] == "13" if tokyo else r["pref"] != "13")
+         if r["to"] is not None and keep(r)
          and (r["fee_pct"] is not None if fee_pct_only else True)
          and r["emp"] is not None and r["emp"] > 0]
     return corr([math.log(r["emp"]) for r in S], [r["to"] for r in S])
@@ -80,11 +84,15 @@ if __name__ == "__main__":
     for pct, lab in [(False, "登録どおり：金額表示も用いる"), (True, "参考：金額表示を除く（本文の基準値の構成）")]:
         print("\n" + "=" * 76)
         print("【%s】" % lab)
-        print("  %-6s %-24s %-24s %s" % ("職種", "東京（本文の標本）", "東京以外（標本外）", "本文"))
+        print("  %-6s %-22s %-22s %-22s %s"
+              % ("職種", "東京（基準の標本）", "東京以外（標本外）", "全国", "基準値"))
         for j in ORDER:
-            r1, t1, n1 = run(D, j, True, pct)
-            r2, t2, n2 = run(D, j, False, pct)
-            print("  %-6s n=%3d r=%+.3f t=%+5.2f   n=%3d r=%+.3f t=%+5.2f   %+.3f"
-                  % (j, n1, r1, t1, n2, r2, t2, BOOK[j]))
-        east = [(j, run(D, j, False, pct)[0]) for j in ORDER]
-        print("  東京以外の順位:", " > ".join(x[0] for x in sorted(east, key=lambda z: -z[1])))
+            r1, t1, n1 = run(D, j, "tokyo", pct)
+            r2, t2, n2 = run(D, j, "rest",  pct)
+            r3, t3, n3 = run(D, j, "all",   pct)
+            print("  %-6s n=%3d r=%+.3f t=%+5.2f  n=%3d r=%+.3f t=%+5.2f  "
+                  "n=%3d r=%+.3f t=%+5.2f  %+.3f"
+                  % (j, n1, r1, t1, n2, r2, t2, n3, r3, t3, BOOK[j]))
+        for sc, lab2 in [("rest", "東京以外"), ("all", "全国")]:
+            o = [(j, run(D, j, sc, pct)[0]) for j in ORDER]
+            print("  %s の順位: %s" % (lab2, " > ".join(x[0] for x in sorted(o, key=lambda z: -z[1]))))
