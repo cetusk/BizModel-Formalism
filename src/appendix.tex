@@ -236,14 +236,14 @@ $qT_1+(1-q)T_2=\E[\Theta]$ を満たすようにとれば、成功確率は $q>0
 \begin{remark}[目的関数が成功確率であることの含意]
 \label{rem:deadline-objective}
 命題\ref{prop:deadline-variance}は目的関数を $\Prob(\Theta\leq T_{\max})$ とした。
-これは第\ref{sec:objective}章の $\E[\sum\beta^t\phi_t]$ とは異なる。
+これは第\ref{sec:objective}節の $\E[\sum\beta^t\phi_t]$ とは異なる。
 
 両者が食い違うのは、\textbf{期限を超えた場合の損失が
 どれだけ超えたかに依存しない}ためである。
 $T_{\max}$ を1日超えても1年超えても結果は同じであり、
 目的関数は二値になる。この不連続性が分散選好を反転させる。
 
-第\ref{sec:objective}章の倒産時刻 $\tau$ も吸収状態であり同じ性質を持つ。
+第\ref{sec:objective}節の倒産時刻 $\tau$ も吸収状態であり同じ性質を持つ。
 すなわち\textbf{本稿の枠組みは、目的関数が滑らかでない領域を含んでいる}。
 命題\ref{prop:pathwise}の経路制約はその現れである。
 \end{remark}
@@ -365,8 +365,8 @@ $\mathcal{F},\ \mathcal{F}_t$ & 事象の$\sigma$加法族とフィルトレー�
 \midrule
 $\mathcal{G}$ & 検証可能な共有情報 & 第\ref{sec:info}章 \\
 $H$ & 時間の上限（計画期間） & 同上、基本集合 \\
-$\tau$ & 倒産時刻 & 第\ref{sec:objective}章 \\
-$\beta_i$ & 主体 $i$ の割引因子 & 第\ref{sec:objective}章 \\
+$\tau$ & 倒産時刻 & 第\ref{sec:objective}節 \\
+$\beta_i$ & 主体 $i$ の割引因子 & 第\ref{sec:objective}節 \\
 $W,\ r,\ m$ & 運転資本、売上速度、粗利率 & 第\ref{sec:growth}章 \\
 $\CCC$ & キャッシュコンバージョンサイクル & 式\eqref{eq:ccc} \\
 $g^\star$ & 自己金融可能成長率 & 式\eqref{eq:gstar} \\
@@ -493,15 +493,16 @@ DSO と DPO の同時決定（同上） & 取引信用（trade credit）の理�
 三重添字と三操作の対応（第\ref{sec:three-ops}節） & 本稿の整理 \\
 $\Phi$ による定義（第\ref{sec:phi}章） & 本稿の整理 \\
 余剰の三分解（式\eqref{eq:surplus}） & 本稿の整理 \\
-レイヤー構造（第\ref{sec:layers}章） & 本稿の整理 \\
+レイヤー構造（第\ref{sec:layers}節） & 本稿の整理 \\
 $\Phi$ の類型カタログ（第\ref{part:catalog}部） & 本稿の整理 \\
-検証障害の四分類（第\ref{sec:obstacle-taxonomy}節） & 本稿の整理 \\
+検証障害の六分類（第\ref{sec:obstacle-taxonomy}節） \& 本稿の整理 \\\\
 \bottomrule
 \end{tabularx}
 \captionof{table}{既存理論との対応、第三層(c)：本稿固有の整理。}
 \label{tab:priorwork-layer3c}
 \end{center}
 
+\input{app_prereg.tex}
 \input{app_revisions.tex}
 
 \chapter{データ源}

@@ -1,13 +1,13 @@
 \chapter{外部化の対価：プラットフォーム手数料}
 \label{ch:platformfee}
 \label{sec:platform-fee}
-\section{予測の事前登録}
+\section{本章で検証する含意}
 
 前節の主張、すなわち外部化の対価が $\phi_{\rm barg}$ の譲渡であるという命題は
 直接検証できる。第\ref{part:method}部の規律に従い、調査前に予測を確定した。
 
 \begin{quote}
-\textbf{予測C}：プラットフォームの手数料率は、
+\textbf{登録した含意}：プラットフォームの手数料率は、
 そのプラットフォームが吸収する項の数に単調増加する。
 \end{quote}
 
@@ -22,7 +22,7 @@
 \item 同一事業者内の率の差。機能説では説明できない差の有無
 \end{enumerate}
 
-本調査は第\ref{sec:obstacle-taxonomy}節の四分類において
+本調査は第\ref{sec:obstacle-taxonomy}節の分類において
 いずれの障害にも該当しない。料金表は公開されており、
 個社データの取得も守秘義務も関与しない。
 
@@ -123,7 +123,7 @@ T_{\rm acq}\text{ の価格} = 20.0\ \text{ポイント}
 
 支配力説ではこの差を説明できない。同一企業が同一顧客に対し、
 集客を行ったか否かだけで料率を変えている。
-式\eqref{eq:tacq-price}は予測Cの最も強い証拠である。
+式\eqref{eq:tacq-price}はこの含意の最も強い証拠である。
 
 さらに、$T_{\rm acq}$ の単独価格20ポイントは、
 他の全項目の合計（3.6\%から14.5\%への約11ポイント）を上回る。
@@ -158,7 +158,7 @@ Epic Games との係争が重なった2020年に発表された。
 料率は機能で完全に説明される & \textbf{棄却}（App Store の15ポイント差） \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{予測Cに関する三つの主張の判定結果。}
+\captionof{table}{外部化の対価に関する三つの主張の判定結果。}
 \label{tab:predC-verdict}
 \end{center}
 
@@ -194,7 +194,7 @@ Epic Games との係争が重なった2020年に発表された。
 本節の二社では $\phi_{\rm risk}\approx 0$ であったため二項に縮約できたにすぎない。
 \end{remark}
 
-\subsection{リスク成分についての未検証の予測}
+\subsection{リスク成分：未検証}
 \label{sec:pred-J}
 
 式\eqref{eq:fee-decomp3}の第二項について、
@@ -210,7 +210,7 @@ Epic Games との係争が重なった2020年に発表された。
 \textbf{仮定を外しても予測の符号は変わらない。}
 
 \begin{quote}
-\textbf{予測J}：決済代行の業種別料率の差は、
+\textbf{登録した含意}：決済代行の業種別料率の差は、
 その業種のチャージバック率の平均 $\mu$ ではなく、
 \textbf{業種内の相関 $\rho$} に対応する。
 平均が高いだけの業種は転嫁で済むが、
@@ -224,7 +224,7 @@ $\Phi$ の設計上の含意が異なる。前者は価格に転嫁できるが�
 
 検証可能性は注\ref{rem:predJ-infeasible}のとおり制約される。
 
-\begin{remark}[予測Jが検証できない理由]
+\begin{remark}[この含意が検証できない理由]
 \label{rem:predJ-infeasible}
 $\rho$ の推定には業種別チャージバック率の時系列が必要だが、
 これは仲介者と国際ブランドの内部データであり公開されない。
@@ -245,7 +245,7 @@ $\mu$ すら公開されていない。
 第\ref{sec:surplus}章の三分解でいえば、手数料は $\phi_{\rm prod}$（実際に代行している機能）と
 $\phi_{\rm barg}$（移転）の双方を含み、Gumroad の設計がそれを分離する手がかりを与えた。
 
-これは第\ref{sec:layers}章の耐久性の主張とも整合する。
+これは第\ref{sec:layers}節の耐久性の主張とも整合する。
 \textbf{支配力に由来する部分は制度層に削られる}。
 App Store の30\%から15\%への引き下げは規制圧力の産物であるのに対し、
 機能に由来する部分（Gumroad の集客20ポイント）は削られていない。
@@ -289,7 +289,7 @@ $T_{\rm credit}$ と $T_{\rm acq}$ を自弁するための時間投資であっ
 \section{制度層の作用形態}
 \label{sec:institution-mode}
 
-第\ref{sec:layers}章で、支配力に由来する $\phi_{\rm barg}$ は制度層に削られると述べた。
+第\ref{sec:layers}節で、支配力に由来する $\phi_{\rm barg}$ は制度層に削られると述べた。
 本節はその作用形態を四例で確認する。
 
 \begin{center}
@@ -326,13 +326,13 @@ $T_{\rm credit}$ と $T_{\rm acq}$ を自弁するための時間投資であっ
 
 すなわち制度層の作用は、上限を課す形式と競争条件を操作する形式の 二つに分かれ、
 後者が近年の主流である。
-第\ref{sec:layers}章の記述はこの区別を含んでいないため、
+第\ref{sec:layers}節の記述はこの区別を含んでいないため、
 「上限を課す」を「制約を課す」と読むべきである。
 \end{remark}
 
 \section{調査可能性の判定}
 
-本章の他の論点について、第\ref{sec:obstacle-taxonomy}節の四分類を適用した結果を記録する。
+本章の他の論点について、第\ref{sec:obstacle-taxonomy}節の分類を適用した結果を記録する。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}lXl@{}}
@@ -346,13 +346,13 @@ $\lambda_{\rm novel}$ の成分分解 & 接続の作業量 & 次点 \\
 無人化率そのもの & （i）＋（ii） & 断念 \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{本章の他の論点に対する、検証障害の四分類（第\ref{sec:obstacle-taxonomy}節）の適用結果。}
+\captionof{table}{本章の他の論点に対する、検証障害の分類（第\ref{sec:obstacle-taxonomy}節）の適用結果。}
 \label{tab:platformfee-obstacle-assignment}
 \end{center}
 
 \subsection{次点：\texorpdfstring{$\lambda_{\rm novel}$}{lambda} の成分分解}
 
-$\lambda_{\rm novel}$ は分解でき、成分が第\ref{sec:layers}章のレイヤーに対応する。
+$\lambda_{\rm novel}$ は分解でき、成分が第\ref{sec:layers}節のレイヤーに対応する。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llXl@{}}
@@ -372,7 +372,7 @@ $\lambda_{\rm dem}$ & 需要の変化 & 測定されていない & 認知層 \\
 四成分のうち三つに公開データが存在する。予測が立つ。
 
 \begin{quote}
-\textbf{予測D}：依存の少ない構成ほど $\lambda_{\rm dep}$ が小さく、無人運転可能期間が長い。
+\textbf{登録した含意}：依存の少ない構成ほど $\lambda_{\rm dep}$ が小さく、無人運転可能期間が長い。
 \end{quote}
 
 これは設計判断に直結する。無人化を目指すならば、
@@ -396,7 +396,7 @@ $\lambda_{\rm dem}$ & 需要の変化 & 測定されていない & 認知層 \\
 
 無人化率そのものは命題が不良設定である。
 $\delta$ の何割が自動化されているかを定義するには $\delta$ の単位が必要だが、
-それが存在しない。第\ref{sec:predB-illposed}節の予測Bと同型の欠陥である。
+それが存在しない。第\ref{sec:predB-illposed}節の可測性仮説と同型の欠陥である。
 
 \section{本章の限界}
 
@@ -407,7 +407,7 @@ $\delta$ の何割が自動化されているかを定義するには $\delta$ �
 \item 第\ref{sec:platform-fee}章は母集団を宣言していない事例比較である。
 同一プラットフォーム内の識別を除き、推定として扱ってはならない。
 
-\item 予測Dは第\ref{ch:protocol}章の予測$\Phi$1 と同一の関係を述べている。
+\item 本章で登録した含意は、第\ref{ch:protocol}章で登録したものと同一の関係を述べている。
 登録の時点でこれに気づいていなかった。$\Phi$1 の検定により\textbf{棄却された}
 （第\ref{sec:protocol-results}節）。本章の対象では検定していない。
 

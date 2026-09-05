@@ -123,7 +123,7 @@
 \title{キャッシュフロー構造としてのビジネスモデル\\[6pt]
 \large 定式化・類型論・調査設計}
 \author{}
-\date{v0.25.0\quad 2026年9月5日}
+\date{v0.26.0\quad 2026年9月5日}
 
 
 \begin{document}
@@ -142,11 +142,11 @@
 資本と人手の制約を課したときの部分空間とその極限、
 および情報構造の供給者を差し替えたときの部分空間を演繹する。第\ref{part:method}部は理論を観測に接続するまでの五段階を定め、
 選択バイアスの扱い、事前登録の手続き、検証障害の分類を与える。
-第\ref{part:results}部は族2・族5、法人企業統計、プラットフォーム手数料についての実証であり、
+第\ref{part:results}部は族2・族5、法人企業統計、プラットフォーム手数料、
+および公開型の分散台帳の記録についての実証であり、
 その冒頭（第\ref{ch:instantiation}章）で理論量と実測値の対応を一覧する。
-18の予測を事前登録し、支持6件・棄却8件・検証不能4件という結果を、
-外れた部分を含めて記録する。
-この過程で当初の四分類に収まらない障害が二つ現れ、分類を六つに拡張した。
+理論から導いた22の含意を観測にあたる前に固定し、
+支持6件・棄却11件・検証不能5件という結果を、外れた部分を含めて記録する。
 実証が完結していないため、制約条件下の $\Phi$ の演繹（第\ref{ch:solo}章、
 第\ref{part:unmanned}章、第\ref{ch:protocol}章）は独立した応用部とせず、
 $\Phi$ の空間を扱う第\ref{part:catalog}部に置いた。
@@ -171,8 +171,7 @@ $\Phi$ の空間を扱う第\ref{part:catalog}部に置いた。
 %============================================================
 \input{ch_design.tex}
 \input{ch_method.tex}
-\input{ch_next.tex}
-\input{supplement2.tex}
+\input{ch_obstacles.tex}
 
 %============================================================
 \part{実証}\label{part:results}
@@ -181,6 +180,7 @@ $\Phi$ の空間を扱う第\ref{part:catalog}部に置いた。
 \input{supplement.tex}
 \input{supplement5.tex}
 \input{supplement4b.tex}
+\input{ch_protocol_emp.tex}
 
 %============================================================
 \part{総括}\label{part:conclusion}
