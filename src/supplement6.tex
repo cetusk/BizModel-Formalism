@@ -19,6 +19,9 @@
 本章の目的は、第\ref{part:theory}部で構成した理論が
 具体的な条件の下でどう機能するかを示すことにある。
 
+本章が差し替えるのは第\ref{sec:info}章の $\mathcal{G}$ であり、
+命題\ref{prop:implementable}の可測性条件を誰が担保するかを問う。
+
 \begin{definition}[手続き]
 \label{def:protocol}
 事前に公開され、実行結果を全参加者が独立に検証できる規則の集合を\emph{手続き}と呼び、
@@ -103,7 +106,8 @@ $\mathcal{G}$ の供給者が契約において果たしている役割を三つ
 \label{tab:protocol-cases}
 \end{center}
 
-区分の差は第\ref{sec:dof}節の自由度(1)、すなわち時間関係に直接現れる。
+区分の差は第\ref{sec:dof}節の自由度(1)、すなわち時間関係に直接現れ、
+式\eqref{eq:kappa}の $\kappa_i$ の符号を決める。
 
 \begin{proposition}[同時性]
 \label{prop:simultaneity}
@@ -373,6 +377,7 @@ $\pi$ が不履行となったとき執行するには、執行の対象が $\ma
 したがって与信は事前に拘束された状態、すなわち担保によってのみ手当てできる。
 自己が相手方 $i$ のために拘束した担保を $B_i$、
 相手方 $i$ が自己のために拘束した担保を $B_i'$ と書くと、
+式\eqref{eq:kappa}の $\kappa_i$ について
 
 \begin{equation}
 \max\{\kappa_i,0\} \;\leq\; B_i',
@@ -381,7 +386,8 @@ $\pi$ が不履行となったとき執行するには、執行の対象が $\ma
 \label{eq:protocol-collateral}
 \end{equation}
 
-が成立する。担保は自己の資産から重複なく供されるから $\sum_i B_i\leq E$ であり、次を得る。
+が成立する。担保は自己の資産から重複なく供されるから $\sum_i B_i\leq E$ であり、
+式\eqref{eq:protocol-collateral}を $i$ について足し合わせて次を得る。
 
 \begin{proposition}[担保制約]
 \label{prop:collateral}
