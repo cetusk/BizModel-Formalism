@@ -13,6 +13,11 @@
 しかもその制約は期待値ではなく経路ごとに課される（第\ref{sec:objective}節）。
 存続と成長を扱う枠組みは、現金の時間構造を第一級の対象としなければならない。
 
+標準的な変数を捨てるわけではない。
+\textbf{損益計算書、貸借対照表、キャッシュフロー計算書は、
+本稿が構成する対象を添字方向に潰した射影として現れる}（表\ref{tab:statements-projection}）。
+本稿は会計と別の量を置くのではなく、会計が潰している添字を残す。
+
 \section{本稿の構成と読み方}
 
 本稿は六部からなる。
@@ -96,7 +101,10 @@ $\CCC$、$\kappa$、$\Phi$ という記述が機能するかどうかと、
 各項を説明する既存理論、それらを接続する部分、本稿の整理を区別した。
 本稿の寄与は接続にあり、要素の新規性にはない。
 
-\chapter{基本設定：三重添字とリスク操作}
+%============================================================
+\chapter{ビジネスモデル：\texorpdfstring{$\Phi$}{Φ} とキャッシュフローの生成}
+\label{sec:phi}
+%============================================================
 
 \section{基本集合}
 
@@ -113,17 +121,57 @@ T &= [0,H] \subset \R_{\geq 0} && \text{時間} \\
 制度 $G$ は現金の相手方ではなく制約として扱う（第\ref{sec:layers}節）。
 \end{definition}
 
-\section{キャッシュフローの三重添字表現}
+
+\section{スケジュールと空間}
+\label{sec:schedules}
+
+主体 $i$ との関係を、二つのスケジュールの組として記述する。
+\begin{align}
+\delta_i : T\times\Omega \to \mathcal{D} && \text{履行（企業から $i$ への価値の引渡し）} \\
+\pi_i : T\times\Omega \to \R && \text{決済（$i$ から企業への支払い）}
+\end{align}
+評価写像 $v:\mathcal{D}\to\R$ により履行を貨幣単位で測る。
+
+これらの組の全体を空間として置く。
+\begin{equation}
+\Delta = \{(\delta_i)_{i\in N} : \delta_i : T\times\Omega\to\mathcal{D}\},
+\qquad
+\Pi = \{(\pi_i)_{i\in N} : \pi_i : T\times\Omega\to\R\}
+\label{eq:spaces}
+\end{equation}
+$\Delta$ を\emph{履行スケジュールの空間}、$\Pi$ を\emph{決済スケジュールの空間}と呼ぶ。
+
+\section{履行から決済への写像}
+
+\begin{definition}[ビジネスモデル]
+式\eqref{eq:spaces}の $\Delta$ と $\Pi$ を用いて、
+ビジネスモデルを写像
+\begin{equation}
+\Phi : \Delta \longrightarrow \Pi
+\label{eq:phi}
+\end{equation}
+として定義する。
+\end{definition}
+
+
+\section{キャッシュフローの生成}
+\label{sec:cashflow}
+
+式\eqref{eq:phi}の $\Phi$ が定まれば、主体ごとの決済が定まる。これをキャッシュフローと呼ぶ。
 
 \begin{definition}[キャッシュフロー]
-キャッシュフローを次の写像として定義する。
+$\delta\in\Delta$ に対し
 \begin{equation}
-X : N \times T \times \Omega \longrightarrow \R
+X(i,t,\omega) = \Phi(\delta)_i(t,\omega)
 \label{eq:X}
 \end{equation}
-$X(i,t,\omega)$ は、状態 $\omega$ において時刻 $t$ に主体 $i$ との間で生じる
+と定める。$X(i,t,\omega)$ は、状態 $\omega$ において時刻 $t$ に主体 $i$ との間で生じる
 正味の現金移動を表す。符号は企業への流入を正とする。
+仕入先 $S$ や労働 $L$ への支払いは $\Phi(\delta)_i<0$ として表される。
 \end{definition}
+
+\textbf{$X$ は $\Phi$ の像である。} $\Phi$ を差し替えれば、
+同じ履行 $\delta$ に対して異なる $X$ が生じる。これが本稿の中心的な操作である。
 
 式\eqref{eq:X}は「誰が・いつ・どの状態で」の三つの添字を持つ。
 通常の財務諸表は、この対象を添字方向に潰した射影である。
@@ -167,6 +215,56 @@ $\omega$ は解約時刻を含み、$X$ は $\omega$ に依存する。
 サーバ費用を月額30,000円とすると $X(S,t,\omega)=-30{,}000$ である。
 \end{example}
 
+
+\section{\texorpdfstring{$\Phi$}{Φ} の自由度}
+\label{sec:dof}
+
+式\eqref{eq:phi}の $\Phi$ を規定する自由度を六つに整理する。
+式\eqref{eq:X}の三つの添字に対応するものと、そうでないものに分かれる。
+
+\paragraph{添字を動かすもの。}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{時間関係}：$\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の前後関係。$t$ を動かす。$\kappa$ の符号を決める。
+\setcounter{enumi}{2}
+\item \textbf{支払主体}：受益者本人か、第三者か、反対側の市場か。添字 $i$ を動かす。
+\item \textbf{状態依存性}：$\pi$ が $\omega$ に可測か。$\omega$ を動かす。リスクの所在を決める。
+これは第\ref{sec:info}章の $\mathcal{G}$ 可測性そのものであり、
+$\Phi$ の設計者が自由に選べる範囲は $\mathcal{G}$ が限る
+（命題\ref{prop:implementable}、注\ref{rem:G-limits-dof4}）。
+\end{enumerate}
+
+\paragraph{写像の関数形を決めるもの。}
+\begin{enumerate}[label=(\arabic*)]
+\setcounter{enumi}{1}
+\item \textbf{依存形式}：$\pi = c$（定額）、$\pi=p\,\delta$（従量）、$\pi = F + p\,\delta$（二部）、$\pi = h(y)$（成果連動）。
+\end{enumerate}
+
+\paragraph{定義域 \texorpdfstring{$\Delta$}{Δ} の側の性質。}
+\begin{enumerate}[label=(\arabic*)]
+\setcounter{enumi}{4}
+\item \textbf{権利と行使の分離}：契約上の権利 $\dbar$ と実現利用 $\delta$ が乖離しうるか。
+\item \textbf{反復性}：単発か、自動更新か、コミット期間つきか。取引頻度 $\nu$ を決める。
+\end{enumerate}
+
+\begin{remark}[三群の区別]
+\label{rem:dof-groups}
+(1)(3)(4) は式\eqref{eq:X}の添字を動かす。すなわち
+\textbf{同じ $\delta$ に対して $X$ の置き場所を変える}操作である。
+(2) は写像そのものの形を決め、(5)(6) は定義域 $\Delta$ の側の性質である。
+
+第\ref{sec:three-ops}節のリスク操作の三分類は、(1)(3)(4) を動かす操作にあたる。
+\end{remark}
+
+このうち (1) と (2) が支配的であり、この二軸で $\Phi$ の空間を粗く分割できる（図\ref{fig:quadrant}）。
+\textbf{二つは別の群から取っている。} (1) は添字を動かし、(2) は関数形を決める。
+
+\begin{figure}[htbp]
+\centering
+\insertfig{kappa-schedule}
+\caption{$\Phi$ の二軸分割。縦軸が $\kappa$ の符号を、横軸が認知余剰の生じる余地を決める。}
+\label{fig:quadrant}
+\end{figure}
+
 \section{リスク操作の三分類}
 \label{sec:three-ops}
 
@@ -187,7 +285,12 @@ $\omega$ & 集約 (pooling) & 総額 & 保険引受、分散投資 \\
 \label{tab:three-ops}
 \end{center}
 
+この三つは、注\ref{rem:dof-groups}のとおり自由度 (1)(3)(4) を動かす操作である。
+繰延が $t$ を、移転が $i$ を、集約が $\omega$ を動かす。
+
 三つのうち、分散を実際に減少させるのは集約のみである。
+これは確率論の帰結であり、$\Phi$ の構造とは独立に成立する。
+\textbf{本稿が導いたものではなく、引用である。}
 
 \begin{proposition}[集約による分散低減]
 \label{prop:pooling}
@@ -262,337 +365,17 @@ $n\to\infty$ でも標準偏差は $\sqrt{0.3}\times 100 \approx 54.8$ より下
 相関 $0.3$ という穏当な値でも、分散低減の効果は半分以下に落ちる。
 \end{example}
 
-\chapter{信用ポジション：\texorpdfstring{$\kappa$}{κ} と遅れ時間 \texorpdfstring{$\tau$}{τ}}
-
-\section{二つのスケジュール}
-
-主体 $i$ との関係を、二つのスケジュールの組として記述する。
-\begin{align}
-\delta_i : T\times\Omega \to \mathcal{D} && \text{履行（企業から $i$ への価値の引渡し）} \\
-\pi_i : T\times\Omega \to \R && \text{決済（$i$ から企業への支払い）}
-\end{align}
-評価写像 $v:\mathcal{D}\to\R$ により履行を貨幣単位で測り、累積を
-\begin{equation}
-D_i(t) = \int_0^t v(\delta_i(s))\,ds, \qquad P_i(t) = \int_0^t \pi_i(s)\,ds
-\end{equation}
-と書く。
-
-\begin{definition}[信用ポジション]
-主体 $i$ に対する信用ポジションを
-\begin{equation}
-\kappa_i(t) = D_i(t) - P_i(t)
-\label{eq:kappa}
-\end{equation}
-と定義する。$\kappa_i>0$ は企業が $i$ に与信している状態（履行済み・未回収）、
-$\kappa_i<0$ は $i$ が企業に与信している状態（受領済み・未履行）を表す。
-\end{definition}
-
-式\eqref{eq:kappa}の利点は統合性にある。
-
-\begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-勘定科目 & 主体 & 符号 & 意味 \\
-\midrule
-売掛金 & $C$ & $\kappa_C>0$ & 企業が顧客に与信 \\
-前受金・契約負債 & $C$ & $\kappa_C<0$ & 顧客が企業に与信 \\
-買掛金 & $S$ & $\kappa_S<0$ & 仕入先が企業に与信 \\
-前渡金 & $S$ & $\kappa_S>0$ & 企業が仕入先に与信 \\
-\bottomrule
-\end{tabular}
-\captionof{table}{式\eqref{eq:kappa}が統合する四つの勘定科目。}
-\label{tab:kappa-accounts}
-\end{center}
-
-四つの別勘定ではなく、符号と添字の異なる単一の量である。
-
-\subsection{各項を説明する既存理論}
-\label{sec:kappa-literature}
-
-$\kappa_i$ の各項には、それぞれ確立した理論がある。
-本稿はこれらを土台として用いる。
-
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
-\toprule
-主体と符号 & 現象 & 説明する理論 \\
-\midrule
-$\kappa_C>0$（企業間） & 掛売 & 取引信用の四類型。金融優位、価格差別、品質保証、清算優位 \cite{petersen1997,schwartz1974} \\
-$\kappa_C<0$（企業間） & 前受 & reverse trade credit。供給者金融、取引保証、交渉力 \cite{mateut2014,daripa2011} \\
-$\kappa_C<0$（対消費者） & 前払い契約 & メンタルアカウンティング、退蔵の実証 \cite{nber2026pnbl} \\
-$\kappa_S<0$ & 買掛 & 取引信用の鏡像 \\
-$\kappa_L<0$ & 給与後払い & bonding argument、後払いによる規律 \cite{akerlof1986} \\
-$\kappa_K<0$ & 借入 & 企業金融の標準理論 \\
-$\kappa_K^{j}$ & 出資（残余請求権） & 主体依存。定義\ref{def:kappa-K} \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{$\kappa_i$ の各項を説明する既存理論。}
-\label{tab:kappa-literature}
-\end{center}
-
-\begin{remark}[四つの理論は互いを参照しない]
-\label{rem:disjoint-literatures}
-表\ref{tab:kappa-literature}の理論は、それぞれ異なる分野で異なる問いに答えるために発展した。
-
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
-\toprule
-理論 & 分野 & 中心的な問い \\
-\midrule
-取引信用 & 企業金融 & なぜ供給者が銀行より安く与信できるか \\
-bonding argument & 労働経済学 & なぜ非自発的失業が存在するか \\
-シグナリング & 情報の経済学 & 能力をどう開示するか \\
-前払い契約の研究 & 消費者行動 & なぜ消費者が先に払うか \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{$\kappa_i$ の各項を説明する理論の分野と中心的な問い。}
-\label{tab:disjoint-theories-questions}
-\end{center}
-
-問いが異なるため、これらは互いを引用しない。
-しかし式\eqref{eq:cash}において、
-\textbf{顧客の前払い、仕入先の掛売、労働者の後払い、資本の出資は
-すべて同一の和の項として現れる}。
-
-各理論は和の一項ずつを説明するが、和として扱う枠組みを持たない。
-本稿の寄与はこの統合にあり、個々の項の説明にはない。
-\end{remark}
-
-\begin{figure}[htbp]
-\centering
-\insertfig{phi-quadrant}
-\caption{累積履行 $D(t)$ を基準線とした信用ポジション。決済曲線 $P(t)$ が $D(t)$ の上にあれば $\kappa<0$、下にあれば $\kappa>0$。}
-\label{fig:kappa}
-\end{figure}
-
-\subsection{遅れ時間としての表現}
-\label{sec:tau}
-
-$\kappa_i$ は累積の差であり、その内実は\textbf{履行と決済の時間差}である。
-これを明示する。
-
-\begin{definition}[決済の遅れ]
-主体 $i$ について、履行から決済までの平均的な遅れを $\tau_i$ と書く。
-符号は $\kappa_i$ に合わせ、決済が履行より遅い場合を正とする。
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}lXl@{}}
-\toprule
-符号 & 状態 & 例 \\
-\midrule
-$\tau_i>0$ & 決済が履行より遅い（企業が与信） & 売掛金、掛売 \\
-$\tau_i<0$ & 決済が履行より早い（$i$ が与信） & 前受金、買掛金 \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{決済の遅れ $\tau_i$ の符号と対応する状態。}
-\label{tab:tau-sign}
-\end{center}
-\end{definition}
-
-\begin{proposition}[信用ポジションの分解]
-\label{prop:kappa-tau}
-定常状態において履行速度が一定であるとき、時間平均として
-\begin{equation}
-\bar{\kappa}_i = r\,\tau_i
-\label{eq:kappa-tau}
-\end{equation}
-が成立する。
-\end{proposition}
-
-\begin{proof}
-決済が履行から一律に $\tau_i$ 遅れるとき、時刻 $t$ における未決済の累積は
-直近 $\tau_i$ 期間の履行にあたる。
-\[
-\kappa_i(t) = \int_{t-\tau_i}^{t} r(s)\,ds .
-\]
-$r$ が一定であれば右辺は $r\tau_i$ に等しい。
-遅れが分布を持つ場合は $\tau_i$ をその平均とすればよい。
-\end{proof}
-
-\begin{remark}[平均としてのみ成立する]
-\label{rem:kappa-tau-average}
-実際の決済は離散的である。月末締め翌月末払いであれば
-$\pi$ は月に一度のパルスとなり、$\kappa_i(t)$ は鋸歯状に変動する。
-式\eqref{eq:kappa-tau}はその時間平均について成立するにすぎない。
-
-期末残高を用いる統計では、決算期が特定の月に集中していれば
-鋸歯の位相が揃い、平均から系統的に乖離しうる。
-本稿はこの偏りを補正していない。
-\end{remark}
-
-\begin{example}[年払いサブスクリプションの $\kappa$]
-月額1,000円のサービスを年払い12,000円で1月1日に受け取る。
-履行は12か月かけて均等に行われるから、$t$ か月経過時点で
-\[
-\kappa_C(t) = 1{,}000\,t - 12{,}000 .
-\]
-$t=0$ で $-12{,}000$、$t=6$ で $-6{,}000$、$t=12$ で $0$ である。
-顧客100名なら、期央の平均で $\kappa_C = -600{,}000$ 円。
-これがそのまま無利子の調達額となる。
-\end{example}
-
-\section{現金残高の分解}
-
-\begin{proposition}[現金の信用分解]
-\label{prop:cash}
-自己資本 $E(t)$、棚卸資産 $\mathrm{Inv}(t)$、固定資産 $A(t)$ を用いて
-\begin{equation}
-M(t) = E(t) + \sum_{i\in N}\max\{-\kappa_i(t),0\} - \sum_{i\in N}\max\{\kappa_i(t),0\}
-- \mathrm{Inv}(t) - A(t)
-\label{eq:cash}
-\end{equation}
-が成立する。
-\end{proposition}
-
-\begin{proof}
-貸借対照表恒等式より、資産の総和は負債と純資産の総和に等しい。
-資産を現金 $M$、正の信用ポジション（売掛金・前渡金など）、棚卸資産 $\mathrm{Inv}$、
-固定資産 $A$ に分割し、負債を負の信用ポジション（買掛金・前受金など）に、
-純資産を $E$ に対応させると
-\[
-M + \sum_i \max\{\kappa_i,0\} + \mathrm{Inv} + A
-= \sum_i \max\{-\kappa_i,0\} + E .
-\]
-$M$ について解けば式\eqref{eq:cash}を得る。
-\end{proof}
-
-式\eqref{eq:cash}は恒等式の並べ替えにすぎないが、読み方を規定する。
-第二項が他者から引き出した与信の総額、第三項が他者に与えた与信の総額である。
-
-\begin{corollary}[現金の意味]
-企業の現金とは、全ての相手方から引き出した信用の合計から、
-与えた信用と固定化した資産を差し引いた残余である。
-\end{corollary}
-
-\begin{example}[三者からの調達]
-自己資本100万円で開業した事業が、顧客から年払いで600万円を受け取り
-（$\kappa_C=-600$万円）、クラウド事業者に対して未払い50万円を持ち
-（$\kappa_S=-50$万円）、大口顧客への売掛金が200万円ある（$\kappa_{C'}=+200$万円）。
-在庫はなく、固定資産は30万円とする。
-\[
-M = 100 + (600+50) - 200 - 0 - 30 = 520\ \text{万円}.
-\]
-自己資本100万円に対し手元現金は520万円である。
-差額420万円は顧客と仕入先から引き出した与信であり、返済期限を持つ。
-\end{example}
-
-\subsection{自己資本と資本提供者}
-\label{sec:equity}
-
-式\eqref{eq:cash}の $E$ は残余として現れるが、内訳を明示する。
-
-\begin{definition}[自己資本]
-\label{def:equity}
-払込資本を $P_K(t)$、配当の累積を $\mathrm{Div}(t)$ として
-\begin{equation}
-E(t) = P_K(t) + \int_0^t \phi(s)\,ds - \mathrm{Div}(t)
-\label{eq:equity}
-\end{equation}
-と定める。第二項が内部留保である。
-\end{definition}
-
-定義\ref{def:equity}は第\ref{sec:surplus}章の $\phi$ と本章の $E$ を結ぶ。
-$\phi$ の三分解を代入すれば
-\[
-\text{内部留保} = \int (\phi_{\mathrm{prod}} + \phi_{\mathrm{barg}} + \phi_{\mathrm{cog}})\,ds - \mathrm{Div}
-\]
-となる。第\ref{sec:surplus}章では $\phi_{\mathrm{cog}}$ が学習と規制で削られることを扱うが、
-\textbf{削られるのは将来のフローであり、過去に蓄積した分は $E$ に残る}。
-
-\begin{definition}[資本提供者との信用ポジション]
-\label{def:kappa-K}
-主体 $j$ の確率測度 $\Prob_j$ の下での残余請求権の価値を
-$V_j(t) = \E_j[\text{将来キャッシュフローの現在価値}]$ として
-\begin{equation}
-\kappa_K^{j}(t) = V_j(t) - P_K(t)
-\label{eq:kappa-K}
-\end{equation}
-と定める。
-\end{definition}
-
-\begin{proposition}[$\kappa_K$ は式\eqref{eq:cash}に入らない]
-\label{prop:kappa-K-excluded}
-$\kappa_K^{j}$ は主体 $j$ に依存するため、式\eqref{eq:cash}の恒等式に含められない。
-\end{proposition}
-
-\begin{proof}
-式\eqref{eq:cash}は貸借対照表恒等式の変形であり、
-全主体が同一の値を認識する量のみで構成される。
-売掛金や買掛金は当事者間で額が一致するが、
-式\eqref{eq:kappa-K}の $V_j$ は $\Prob_j$ に依存し一致しない。
-主体依存の量を含めれば恒等式が主体ごとに変わり、恒等式でなくなる。
-\end{proof}
-
-\begin{remark}[主観性の三段階]
-\label{rem:subjectivity}
-本稿には観測できない量が複数現れるが、性質が異なる。
-第\ref{sec:info}章の $\mathcal{G}$ を用いて三段階に分けられる。
-
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
-\toprule
-段階 & 条件 & 例 \\
-\midrule
-共有 & $\mathcal{G}$ 可測 & 決済額 $\pi$、売掛金 \\
-私的情報 & $\mathcal{F}_t$ 可測だが $\mathcal{G}$ 可測でない & 評価写像 $v$、努力 $a$ \\
-測度依存 & $\mathcal{F}_t$ 可測だが $\Prob_j$ に依存 & 残余請求権の価値 $V_j$ \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{観測できない量の三段階の主観性。}
-\label{tab:subjectivity-levels}
-\end{center}
-
-$v$ の主観性は情報の非対称であり、開示によって解消しうる。
-$V_j$ の主観性は\textbf{確率測度の不一致}であり、
-同じ情報を見ても予測が異なるため開示では解消しない。
-
-この区別から二つの帰結が出る。
-第一に、$\kappa_K^{j}$ の値は当事者間で一致せず、他の $\kappa_i$ と性質が異なる。
-第二に、\textbf{その不一致こそが出資を成立させる}。
-出資者が経営者より $V$ を高く評価するから出資する。
-これは命題\ref{prop:discount}の割引因子の異質性と同型の構造である。
-\end{remark}
-
-資本の期限については注\ref{rem:tau-K}で述べる。
-
-\begin{remark}[$\tau_K$ と倒産]
-\label{rem:tau-K}
-$\tau_K$ は借入では返済期限として確定するが、出資では確定しない。
-資本は最も長期の与信であり、期限を持たない。
-
-配当を義務化すれば $\kappa_K$ が確定するが、
-支払不能時に式\eqref{eq:constraint}が直ちに破れる。
-義務化せず残余請求権とし、
-第\ref{sec:objective}節の倒産時刻 $\tau$ において強制的に清算する仕組みが
-これを回避している。破産は $\kappa_K$ の確定機構である。
-\end{remark}
-
-\begin{remark}[預り金の扱い]
-$\kappa_i<0$ のうち、エスクローのように法的に他人に帰属する資金は、
-式\eqref{eq:cash}上は同じ位置に現れるが性質が異なる。
-流量が減少すると急速に流出するため、他の負の $\kappa$ と同一視してはならない。
-\end{remark}
-
-\chapter{ビジネスモデルの定義：履行から決済への写像 \texorpdfstring{$\Phi$}{Φ}}
-\label{sec:phi}
-
-\section{履行から決済への写像}
-
-\begin{definition}[ビジネスモデル]
-履行スケジュールの空間を $\Delta$、決済スケジュールの空間を $\Pi$ とする。
-ビジネスモデルを写像
-\begin{equation}
-\Phi : \Delta \longrightarrow \Pi
-\label{eq:phi}
-\end{equation}
-として定義する。
-\end{definition}
-
 \subsection{生産関数が定める量}
 \label{sec:production}
 
 投入から履行への対応を生産関数 $f$ と呼ぶ。
 本稿は投入の内訳を扱わないため定義域を明示しないが、
 $f$ が定める次の三つの量は以降で用いる。
+
+\textbf{$f$ は $\Phi$ とは独立に与えられる。}
+同じ技術（同じ $f$）に対して異なる $\Phi$ を置くことができ、
+逆に同じ $\Phi$ を異なる技術の上に置くこともできる。
+本稿が動かすのは $\Phi$ であって $f$ ではない。
 
 \begin{definition}[費用の分割]
 \label{def:cost}
@@ -722,35 +505,14 @@ $f$ は同一であり、限界費用も同一である。異なるのは $\Phi$
 $\kappa$ の符号が反転し、必要な運転資本が変わる。
 \end{example}
 
-\section{\texorpdfstring{$\Phi$}{} の自由度}
-\label{sec:dof}
-
-$\Phi$ を規定する自由度を六つに整理する。
-
-\begin{enumerate}[label=(\arabic*)]
-\item \textbf{時間関係}：$\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の前後関係。$\kappa$ の符号を決める。
-\item \textbf{依存形式}：$\pi = c$（定額）、$\pi=p\,\delta$（従量）、$\pi = F + p\,\delta$（二部）、$\pi = h(y)$（成果連動）。
-\item \textbf{支払主体}：受益者本人か、第三者か、反対側の市場か。添字 $i$ の選択。
-\item \textbf{状態依存性}：$\pi$ が $\omega$ に可測か。リスクの所在を決める。
-\item \textbf{権利と行使の分離}：契約上の権利 $\dbar$ と実現利用 $\delta$ が乖離しうるか。
-\item \textbf{反復性}：単発か、自動更新か、コミット期間つきか。取引頻度 $\nu$ を決める。
-\end{enumerate}
-
-このうち (1) と (2) が支配的であり、この二軸で $\Phi$ の空間を粗く分割できる（図\ref{fig:quadrant}）。
-
-\begin{figure}[htbp]
-\centering
-\insertfig{kappa-schedule}
-\caption{$\Phi$ の二軸分割。縦軸が $\kappa$ の符号を、横軸が認知余剰の生じる余地を決める。}
-\label{fig:quadrant}
-\end{figure}
-
 \section{権利と行使の乖離}
 \label{sec:breakage}
 
 自由度 (2) と (5) は連動している。$\pi$ が $\delta$ に比例する場合、
 顧客は使った分だけ支払うため、権利と行使は一致する。
 $\pi$ が $\delta$ と独立な場合にのみ、両者が乖離しうる。
+
+式\eqref{eq:phi}の自由度(5) が立つとき、次を定める。
 
 \begin{definition}[権利と行使]
 \label{def:breakage-def}
@@ -841,6 +603,326 @@ $\dbar$ を「毎日利用可能」とすれば $m\dbar$ は容量を大きく�
 外形上は同じ族2-1 に属するが、実行可能領域の形が異なる。
 \end{example}
 
+%============================================================
+\chapter{信用ポジション：\texorpdfstring{$\kappa$}{κ} と遅れ時間 \texorpdfstring{$\tau$}{τ}}
+%============================================================
+
+\section{履行と決済の差}
+
+第\ref{sec:schedules}節の履行 $\delta_i$ と、
+式\eqref{eq:phi}の $\Phi$ が定める決済 $\Phi(\delta)_i$ の累積を
+\begin{equation}
+D_i(t) = \int_0^t v(\delta_i(s))\,ds, \qquad
+P_i(t) = \int_0^t \Phi(\delta)_i(s)\,ds
+\label{eq:cum}
+\end{equation}
+と書く。$D_i$ は与えた価値、$P_i$ は受け取った対価である。
+
+\begin{definition}[信用ポジション]
+主体 $i$ に対する信用ポジションを
+\begin{equation}
+\kappa_i(t) = D_i(t) - P_i(t)
+\label{eq:kappa}
+\end{equation}
+と定義する。式\eqref{eq:cum}より
+\[
+\kappa_i(t) = \int_0^t v(\delta_i(s))\,ds - \int_0^t \Phi(\delta)_i(s)\,ds
+\]
+であり、\textbf{$\kappa_i$ は式\eqref{eq:phi}の $\Phi$ の関数である。}
+同じ履行 $\delta$ に対して $\Phi$ を差し替えれば $\kappa_i$ が変わる。$\kappa_i>0$ は企業が $i$ に与信している状態（履行済み・未回収）、
+$\kappa_i<0$ は $i$ が企業に与信している状態（受領済み・未履行）を表す。
+\end{definition}
+
+式\eqref{eq:kappa}の利点は統合性にある。
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+勘定科目 & 主体 & 符号 & 意味 \\
+\midrule
+売掛金 & $C$ & $\kappa_C>0$ & 企業が顧客に与信 \\
+前受金・契約負債 & $C$ & $\kappa_C<0$ & 顧客が企業に与信 \\
+買掛金 & $S$ & $\kappa_S<0$ & 仕入先が企業に与信 \\
+前渡金 & $S$ & $\kappa_S>0$ & 企業が仕入先に与信 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{式\eqref{eq:kappa}が統合する四つの勘定科目。}
+\label{tab:kappa-accounts}
+\end{center}
+
+四つの別勘定ではなく、符号と添字の異なる単一の量である。
+
+\subsection{各項を説明する既存理論}
+\label{sec:kappa-literature}
+
+$\kappa_i$ の各項には、それぞれ確立した理論がある。
+本稿はこれらを土台として用いる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+主体と符号 & 現象 & 説明する理論 \\
+\midrule
+$\kappa_C>0$（企業間） & 掛売 & 取引信用の四類型。金融優位、価格差別、品質保証、清算優位 \cite{petersen1997,schwartz1974} \\
+$\kappa_C<0$（企業間） & 前受 & reverse trade credit。供給者金融、取引保証、交渉力 \cite{mateut2014,daripa2011} \\
+$\kappa_C<0$（対消費者） & 前払い契約 & メンタルアカウンティング、退蔵の実証 \cite{nber2026pnbl} \\
+$\kappa_S<0$ & 買掛 & 取引信用の鏡像 \\
+$\kappa_L<0$ & 給与後払い & bonding argument、後払いによる規律 \cite{akerlof1986} \\
+$\kappa_K<0$ & 借入 & 企業金融の標準理論 \\
+$\kappa_K^{j}$ & 出資（残余請求権） & 主体依存。定義\ref{def:kappa-K} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{$\kappa_i$ の各項を説明する既存理論。}
+\label{tab:kappa-literature}
+\end{center}
+
+\begin{remark}[四つの理論は互いを参照しない]
+\label{rem:disjoint-literatures}
+表\ref{tab:kappa-literature}の理論は、それぞれ異なる分野で異なる問いに答えるために発展した。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+理論 & 分野 & 中心的な問い \\
+\midrule
+取引信用 & 企業金融 & なぜ供給者が銀行より安く与信できるか \\
+bonding argument & 労働経済学 & なぜ非自発的失業が存在するか \\
+シグナリング & 情報の経済学 & 能力をどう開示するか \\
+前払い契約の研究 & 消費者行動 & なぜ消費者が先に払うか \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{$\kappa_i$ の各項を説明する理論の分野と中心的な問い。}
+\label{tab:disjoint-theories-questions}
+\end{center}
+
+問いが異なるため、これらは互いを引用しない。
+しかし式\eqref{eq:cash}において、
+\textbf{顧客の前払い、仕入先の掛売、労働者の後払い、資本の出資は
+すべて同一の和の項として現れる}。
+
+各理論は和の一項ずつを説明するが、和として扱う枠組みを持たない。
+本稿の寄与はこの統合にあり、個々の項の説明にはない。
+\end{remark}
+
+\begin{figure}[htbp]
+\centering
+\insertfig{phi-quadrant}
+\caption{累積履行 $D(t)$ を基準線とした信用ポジション。決済曲線 $P(t)$ が $D(t)$ の上にあれば $\kappa<0$、下にあれば $\kappa>0$。}
+\label{fig:kappa}
+\end{figure}
+
+\subsection{遅れ時間としての表現}
+\label{sec:tau}
+
+$\kappa_i$ は累積の差であり、その内実は\textbf{履行と決済の時間差}である。
+これを明示する。
+
+\begin{definition}[決済の遅れ]
+主体 $i$ について、履行から決済までの平均的な遅れを $\tau_i$ と書く。
+符号は $\kappa_i$ に合わせ、決済が履行より遅い場合を正とする。
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+符号 & 状態 & 例 \\
+\midrule
+$\tau_i>0$ & 決済が履行より遅い（企業が与信） & 売掛金、掛売 \\
+$\tau_i<0$ & 決済が履行より早い（$i$ が与信） & 前受金、買掛金 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{決済の遅れ $\tau_i$ の符号と対応する状態。}
+\label{tab:tau-sign}
+\end{center}
+\end{definition}
+
+式\eqref{eq:kappa}の $\kappa_i$ を、遅れ時間 $\tau_i$ で表す。
+
+\begin{proposition}[信用ポジションの分解]
+\label{prop:kappa-tau}
+定常状態において履行速度が一定であるとき、時間平均として
+\begin{equation}
+\bar{\kappa}_i = r\,\tau_i
+\label{eq:kappa-tau}
+\end{equation}
+が成立する。
+\end{proposition}
+
+\begin{proof}
+決済が履行から一律に $\tau_i$ 遅れるとき、時刻 $t$ における未決済の累積は
+直近 $\tau_i$ 期間の履行にあたる。
+\[
+\kappa_i(t) = \int_{t-\tau_i}^{t} r(s)\,ds .
+\]
+$r$ が一定であれば右辺は $r\tau_i$ に等しい。
+遅れが分布を持つ場合は $\tau_i$ をその平均とすればよい。
+\end{proof}
+
+\begin{remark}[平均としてのみ成立する]
+\label{rem:kappa-tau-average}
+実際の決済は離散的である。月末締め翌月末払いであれば
+$\pi$ は月に一度のパルスとなり、$\kappa_i(t)$ は鋸歯状に変動する。
+式\eqref{eq:kappa-tau}はその時間平均について成立するにすぎない。
+
+期末残高を用いる統計では、決算期が特定の月に集中していれば
+鋸歯の位相が揃い、平均から系統的に乖離しうる。
+本稿はこの偏りを補正していない。
+\end{remark}
+
+\begin{example}[年払いサブスクリプションの $\kappa$]
+月額1,000円のサービスを年払い12,000円で1月1日に受け取る。
+履行は12か月かけて均等に行われるから、$t$ か月経過時点で
+\[
+\kappa_C(t) = 1{,}000\,t - 12{,}000 .
+\]
+$t=0$ で $-12{,}000$、$t=6$ で $-6{,}000$、$t=12$ で $0$ である。
+顧客100名なら、期央の平均で $\kappa_C = -600{,}000$ 円。
+これがそのまま無利子の調達額となる。
+\end{example}
+
+\section{現金残高の分解}
+
+式\eqref{eq:kappa}の $\kappa_i$ を用いて現金残高を分解する。
+
+\begin{proposition}[現金の信用分解]
+\label{prop:cash}
+自己資本 $E(t)$、棚卸資産 $\mathrm{Inv}(t)$、固定資産 $A(t)$ を用いて
+\begin{equation}
+M(t) = E(t) + \sum_{i\in N}\max\{-\kappa_i(t),0\} - \sum_{i\in N}\max\{\kappa_i(t),0\}
+- \mathrm{Inv}(t) - A(t)
+\label{eq:cash}
+\end{equation}
+が成立する。
+\end{proposition}
+
+\begin{proof}
+貸借対照表恒等式より、資産の総和は負債と純資産の総和に等しい。
+資産を現金 $M$、正の信用ポジション（売掛金・前渡金など）、棚卸資産 $\mathrm{Inv}$、
+固定資産 $A$ に分割し、負債を負の信用ポジション（買掛金・前受金など）に、
+純資産を $E$ に対応させると
+\[
+M + \sum_i \max\{\kappa_i,0\} + \mathrm{Inv} + A
+= \sum_i \max\{-\kappa_i,0\} + E .
+\]
+$M$ について解けば式\eqref{eq:cash}を得る。
+\end{proof}
+
+式\eqref{eq:cash}は恒等式の並べ替えにすぎないが、読み方を規定する。
+第二項が他者から引き出した与信の総額、第三項が他者に与えた与信の総額である。
+
+\begin{corollary}[現金の意味]
+企業の現金とは、全ての相手方から引き出した信用の合計から、
+与えた信用と固定化した資産を差し引いた残余である。
+\end{corollary}
+
+\begin{example}[三者からの調達]
+自己資本100万円で開業した事業が、顧客から年払いで600万円を受け取り
+（$\kappa_C=-600$万円）、クラウド事業者に対して未払い50万円を持ち
+（$\kappa_S=-50$万円）、大口顧客への売掛金が200万円ある（$\kappa_{C'}=+200$万円）。
+在庫はなく、固定資産は30万円とする。
+\[
+M = 100 + (600+50) - 200 - 0 - 30 = 520\ \text{万円}.
+\]
+自己資本100万円に対し手元現金は520万円である。
+差額420万円は顧客と仕入先から引き出した与信であり、返済期限を持つ。
+\end{example}
+
+\subsection{自己資本と資本提供者}
+\label{sec:equity}
+
+命題\ref{prop:cash}の $E$ は残余として現れるが、内訳を明示する。
+式\eqref{eq:cash}はこの $E$ を用いている。
+
+\begin{definition}[自己資本]
+\label{def:equity}
+払込資本を $P_K(t)$、配当の累積を $\mathrm{Div}(t)$ として
+\begin{equation}
+E(t) = P_K(t) + \int_0^t \phi(s)\,ds - \mathrm{Div}(t)
+\label{eq:equity}
+\end{equation}
+と定める。第二項が内部留保である。
+\end{definition}
+
+定義\ref{def:equity}は第\ref{sec:surplus}章の $\phi$ と本章の $E$ を結ぶ。
+$\phi$ の三分解を代入すれば
+\[
+\text{内部留保} = \int (\phi_{\mathrm{prod}} + \phi_{\mathrm{barg}} + \phi_{\mathrm{cog}})\,ds - \mathrm{Div}
+\]
+となる。第\ref{sec:surplus}章では $\phi_{\mathrm{cog}}$ が学習と規制で削られることを扱うが、
+\textbf{削られるのは将来のフローであり、過去に蓄積した分は $E$ に残る}。
+
+\begin{definition}[資本提供者との信用ポジション]
+\label{def:kappa-K}
+主体 $j$ の確率測度 $\Prob_j$ の下での残余請求権の価値を
+$V_j(t) = \E_j[\text{将来キャッシュフローの現在価値}]$ として
+\begin{equation}
+\kappa_K^{j}(t) = V_j(t) - P_K(t)
+\label{eq:kappa-K}
+\end{equation}
+と定める。
+\end{definition}
+
+\begin{proposition}[$\kappa_K$ は式\eqref{eq:cash}に入らない]
+\label{prop:kappa-K-excluded}
+$\kappa_K^{j}$ は主体 $j$ に依存するため、式\eqref{eq:cash}の恒等式に含められない。
+\end{proposition}
+
+\begin{proof}
+式\eqref{eq:cash}は貸借対照表恒等式の変形であり、
+全主体が同一の値を認識する量のみで構成される。
+売掛金や買掛金は当事者間で額が一致するが、
+式\eqref{eq:kappa-K}の $V_j$ は $\Prob_j$ に依存し一致しない。
+主体依存の量を含めれば恒等式が主体ごとに変わり、恒等式でなくなる。
+\end{proof}
+
+\begin{remark}[主観性の三段階]
+\label{rem:subjectivity}
+本稿には観測できない量が複数現れるが、性質が異なる。
+第\ref{sec:info}章の $\mathcal{G}$ を用いて三段階に分けられる。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+段階 & 条件 & 例 \\
+\midrule
+共有 & $\mathcal{G}$ 可測 & 決済額 $\pi$、売掛金 \\
+私的情報 & $\mathcal{F}_t$ 可測だが $\mathcal{G}$ 可測でない & 評価写像 $v$、努力 $a$ \\
+測度依存 & $\mathcal{F}_t$ 可測だが $\Prob_j$ に依存 & 残余請求権の価値 $V_j$ \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{観測できない量の三段階の主観性。}
+\label{tab:subjectivity-levels}
+\end{center}
+
+$v$ の主観性は情報の非対称であり、開示によって解消しうる。
+$V_j$ の主観性は\textbf{確率測度の不一致}であり、
+同じ情報を見ても予測が異なるため開示では解消しない。
+
+この区別から二つの帰結が出る。
+第一に、$\kappa_K^{j}$ の値は当事者間で一致せず、他の $\kappa_i$ と性質が異なる。
+第二に、\textbf{その不一致こそが出資を成立させる}。
+出資者が経営者より $V$ を高く評価するから出資する。
+これは命題\ref{prop:discount}の割引因子の異質性と同型の構造である。
+\end{remark}
+
+資本の期限については注\ref{rem:tau-K}で述べる。
+
+\begin{remark}[$\tau_K$ と倒産]
+\label{rem:tau-K}
+$\tau_K$ は借入では返済期限として確定するが、出資では確定しない。
+資本は最も長期の与信であり、期限を持たない。
+
+配当を義務化すれば $\kappa_K$ が確定するが、
+支払不能時に式\eqref{eq:constraint}が直ちに破れる。
+義務化せず残余請求権とし、
+第\ref{sec:objective}節の倒産時刻 $\tau$ において強制的に清算する仕組みが
+これを回避している。破産は $\kappa_K$ の確定機構である。
+\end{remark}
+
+\begin{remark}[預り金の扱い]
+$\kappa_i<0$ のうち、エスクローのように法的に他人に帰属する資金は、
+式\eqref{eq:cash}上は同じ位置に現れるが性質が異なる。
+流量が減少すると急速に流出するため、他の負の $\kappa$ と同一視してはならない。
+\end{remark}
+
 \chapter{情報構造と目的関数：契約が書ける条件と経路制約}
 \label{sec:info}
 
@@ -882,6 +964,21 @@ $\pi(\omega)\neq\pi(\omega')$ となるものが存在する。
 
 これは契約理論の標準的な結果であり（\cite{holmstrom1979}）、本稿の寄与ではない。
 
+\begin{remark}[$\mathcal{G}$ が限るのは自由度(4) である]
+\label{rem:G-limits-dof4}
+命題\ref{prop:implementable}は、第\ref{sec:dof}節の自由度(4)（状態依存性）に
+直接効く。$\pi$ を $\omega$ に依存させられるのは $\mathcal{G}$ の範囲内に限られ、
+$\mathcal{G}$ の外にある $\omega$ の区別は契約に書けない。
+
+\textbf{したがって $\mathcal{G}$ は $\Phi$ の定義域ではなく値域の側を限る。}
+履行 $\delta$ は何でも選べるが、それに応じて $\pi$ をどう動かせるかが制約される。
+
+この制約は第\ref{part:catalog}部の判定順序に現れる。
+自由度(4) で判定される族は族5（成果・状態連動）であり、
+$\pi=h(y)$ の $y$ が $\mathcal{G}$ 可測でなければこの族は実装できない。
+第\ref{ch:protocol}章の族7の不可能性（命題\ref{prop:beneficiary}）も同じ形をとる。
+\end{remark}
+
 \begin{remark}[$\mathcal{G}$ の内生性]
 \label{rem:G-endogenous}
 本章は $\mathcal{G}$ を所与として扱う。実際には\textbf{事業者は $\mathcal{G}$ に投資できる}。
@@ -922,6 +1019,8 @@ $\sigma^2=2$ で $b^\star=0.33$、$\sigma^2=9$ で $b^\star=0.10$ となる。
 
 \section{目的関数：経路ごとに課される現金制約}
 \label{sec:objective}
+
+制約に現れる $M(t,\omega)$ は命題\ref{prop:cash}の現金残高である。
 
 \begin{definition}[最適化問題]
 期間利益を $\phi_t$、割引因子を $\beta$ として、
@@ -1014,6 +1113,9 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 
 売上速度を $r(t)$、運転資本を $W(t)=\sum_i\kappa_i(t)+\mathrm{Inv}(t)$ とする。
 
+命題\ref{prop:cash}の運転資本 $W=\sum_i\kappa_i+\mathrm{Inv}$ を用いる。
+$W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依存する。
+
 \begin{definition}[キャッシュコンバージョンサイクル]
 定常状態において
 \begin{equation}
@@ -1022,6 +1124,8 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 \end{equation}
 と定義する。次元は時間である。
 \end{definition}
+
+式\eqref{eq:ccc}の $\CCC$ を用いる。
 
 \begin{proposition}[成長とフリーキャッシュフロー]
 \label{prop:fcf}
@@ -1042,6 +1146,8 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 式\eqref{eq:ccc}より $W=\CCC\cdot r$ であり、$\CCC$ が一定であれば
 $\dot W = \CCC\cdot\dot r$ を得る。代入すれば式\eqref{eq:fcf}が従う。
 \end{proof}
+
+式\eqref{eq:fcf}を $g$ について解く。分母には式\eqref{eq:ccc}の $\CCC$ が現れる。
 
 \begin{corollary}[自己金融可能成長率]
 \label{cor:gstar}
@@ -1241,6 +1347,9 @@ $g^\star$ は比の値として報告するにとどめ、因果的な解釈を�
 \label{sec:surplus}
 
 期間利益を源泉によって三分解する。この分解は本稿の整理である。
+第三項は式\eqref{eq:cog}の認知余剰であり、
+式\eqref{eq:phi}の自由度(5) が立つときに正となりうる。
+第一項と第二項は定義\ref{def:phi-prod}で定める。
 \begin{equation}
 \phi = \phi_{\mathrm{prod}} + \phi_{\mathrm{barg}} + \phi_{\mathrm{cog}}
 \label{eq:surplus}

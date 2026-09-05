@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>理論マップ — BizModel-Formalism</title>
+<style>
+:root{
+  --bg:#fbfbfa; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e0dedb; --rule:#333;
+  --side:#f4f3f1; --accent:#0d9488; --warn:#b45309;
+  --c-def:#6366f1; --c-prop:#0d9488; --c-cor:#0891b2; --c-eq:#78716c;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161616; --fg:#e8e6e3; --muted:#9a9a9a; --line:#333; --rule:#bbb; --side:#1c1c1c;
+}}
+:root[data-theme="dark"]{--bg:#161616;--fg:#e8e6e3;--muted:#9a9a9a;--line:#333;--rule:#bbb;--side:#1c1c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+  font-size:14px;line-height:1.7}
+header{padding:1.4rem 1.6rem .8rem;border-bottom:1px solid var(--line)}
+h1{margin:0 0 .3rem;font-size:1.25rem;font-weight:700;letter-spacing:.02em}
+.sub{color:var(--muted);font-size:.86rem}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;
+  padding:.7rem 1.6rem;border-bottom:1px solid var(--line);background:var(--side)}
+.bar label{font-size:.8rem;color:var(--muted);margin-right:.2rem}
+button{font:inherit;font-size:.8rem;padding:.28rem .7rem;border:1px solid var(--line);
+  border-radius:5px;background:var(--bg);color:var(--fg);cursor:pointer}
+button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+main{padding:1.2rem 1.6rem 3rem}
+#wrap{position:relative;overflow-x:auto}
+svg{display:block;min-width:940px;width:100%;height:auto}
+.lane{fill:var(--side)}
+.lane-t{fill:var(--muted);font-size:11px;letter-spacing:.06em}
+.edge{fill:none;stroke:var(--line);stroke-width:1.4}
+.edge.hot{stroke:var(--accent);stroke-width:2.4}
+.edge.emp{stroke:var(--warn);stroke-dasharray:5,4}
+.nd rect{stroke-width:1.5;rx:5}
+.nd text{font-size:11px;pointer-events:none}
+.nd .t1{font-weight:700}
+.nd .t2{fill:var(--muted);font-size:10px}
+.nd{cursor:pointer}
+.nd.dim{opacity:.18}
+.emp rect{fill:var(--warn);stroke:var(--warn)}
+.emp text{fill:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0 0;font-size:.78rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.35rem;
+  vertical-align:-1px}
+table{border-collapse:collapse;margin:1.4rem 0;font-size:.82rem;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;border-bottom:1px solid var(--rule)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+h2{font-size:1rem;margin:2rem 0 .5rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+p.note{color:var(--muted);font-size:.82rem;max-width:64ch}
+</style></head><body>
+
+<header>
+  <h1>理論マップ</h1>
+  <div class="sub">BizModel-Formalism v0.26.3 ／ 定義・命題・系・式の依存と、実証がどこに当たるか</div>
+</header>
+
+<div class="bar">
+  <label>表示</label>
+  <button id="b-def" aria-pressed="true">定義</button>
+  <button id="b-prop" aria-pressed="true">命題</button>
+  <button id="b-cor" aria-pressed="true">系</button>
+  <button id="b-eq" aria-pressed="true">式</button>
+  <span style="width:1rem"></span>
+  <label>実証との対応</label>
+  <button id="b-emp" aria-pressed="true">表示する</button>
+  <span style="width:1rem"></span>
+  <button id="b-reset">選択を解除</button>
+</div>
+
+<main>
+  <div id="wrap"><svg id="map" role="img" aria-label="理論の依存関係と実証の対応"></svg></div>
+
+  <div class="legend">
+    <span><i style="background:var(--c-def)"></i>定義</span>
+    <span><i style="background:var(--c-prop)"></i>命題</span>
+    <span><i style="background:var(--c-cor)"></i>系</span>
+    <span><i style="background:var(--c-eq)"></i>式</span>
+    <span><i style="background:var(--warn)"></i>実証</span>
+    <span>灰の線＝理論内の依存　橙の破線＝実証が参照する理論量</span>
+  </div>
+
+  <h2>実証がどの理論量に当たっているか</h2>
+  <div id="emptable"></div>
+
+  <h2>理論の連結性</h2>
+  <p class="note">定義・命題・系・式のあいだの依存を、本文の相互参照から取った。
+  節点から次の節点までの地の文を含めて数えている。
+  <b>中核の成分が全体の 57% を占め、その外に小さな島が残る。</b></p>
+  <div id="comp"></div>
+
+  <h2>参照されていない理論量</h2>
+  <p class="note">実証章から一度も参照されていない定義・命題・系・式。理論として立てたが観測に接続していない箇所を示す。</p>
+  <div id="orphan"></div>
+</main>
+
+
+<script id="data" type="application/json">{"nodes": {"prop:pooling": {"kind": "命題", "num": "2.5", "title": "集約による分散低減", "chap": 2}, "eq:pooling": {"kind": "式", "num": "2.6", "title": "", "chap": 2}, "eq:kappa": {"kind": "式", "num": "3.4", "title": "", "chap": 3}, "prop:kappa-tau": {"kind": "命題", "num": "3.4", "title": "信用ポジションの分解", "chap": 3}, "eq:kappa-tau": {"kind": "式", "num": "3.5", "title": "", "chap": 3}, "prop:cash": {"kind": "命題", "num": "3.7", "title": "現金の信用分解", "chap": 3}, "eq:cash": {"kind": "式", "num": "3.6", "title": "", "chap": 3}, "def:equity": {"kind": "定義", "num": "3.10", "title": "自己資本", "chap": 3}, "eq:equity": {"kind": "式", "num": "3.7", "title": "", "chap": 3}, "def:kappa-K": {"kind": "定義", "num": "3.11", "title": "資本提供者との信用ポジション", "chap": 3}, "prop:kappa-K-excluded": {"kind": "命題", "num": "3.12", "title": "kappa_K は式eqrefeq:cashに入らない", "chap": 3}, "eq:phi": {"kind": "式", "num": "4.1", "title": "", "chap": 4}, "def:cost": {"kind": "定義", "num": "4.2", "title": "費用の分割", "chap": 4}, "eq:cost-split": {"kind": "式", "num": "4.2", "title": "", "chap": 4}, "def:breakage-def": {"kind": "定義", "num": "4.8", "title": "権利と行使", "chap": 4}, "eq:cog": {"kind": "式", "num": "4.5", "title": "", "chap": 4}, "eq:cap-general": {"kind": "式", "num": "4.6", "title": "", "chap": 4}, "eq:cap-simplified": {"kind": "式", "num": "4.7", "title": "", "chap": 4}, "prop:capacity": {"kind": "命題", "num": "4.11", "title": "容量制約下の会員制", "chap": 4}, "prop:implementable": {"kind": "命題", "num": "5.1", "title": "実装可能性", "chap": 5}, "eq:bstar": {"kind": "式", "num": "5.1", "title": "", "chap": 5}, "eq:obj": {"kind": "式", "num": "5.2", "title": "", "chap": 5}, "eq:constraint": {"kind": "式", "num": "5.3", "title": "", "chap": 5}, "prop:pathwise": {"kind": "命題", "num": "5.6", "title": "経路制約の非可換性", "chap": 5}, "prop:discount": {"kind": "命題", "num": "5.9", "title": "決済スケジュールの組み替え利得", "chap": 5}, "eq:ccc": {"kind": "式", "num": "6.1", "title": "", "chap": 6}, "prop:fcf": {"kind": "命題", "num": "6.2", "title": "成長とフリーキャッシュフロー", "chap": 6}, "eq:fcf": {"kind": "式", "num": "6.2", "title": "", "chap": 6}, "cor:gstar": {"kind": "系", "num": "6.3", "title": "自己金融可能成長率", "chap": 6}, "eq:gstar": {"kind": "式", "num": "6.3", "title": "", "chap": 6}, "prop:ccc-structure": {"kind": "命題", "num": "6.8", "title": "CCC の構造", "chap": 6}, "eq:ccc-tau": {"kind": "式", "num": "6.4", "title": "", "chap": 6}, "cor:ccc-level": {"kind": "系", "num": "6.9", "title": "水準差の源泉", "chap": 6}, "cor:no-cross-comparison": {"kind": "系", "num": "6.10", "title": "横断比較の無意味さ", "chap": 6}, "cor:ccc-change": {"kind": "系", "num": "6.11", "title": "変化の分解", "chap": 6}, "eq:ccc-change": {"kind": "式", "num": "6.5", "title": "", "chap": 6}, "eq:surplus": {"kind": "式", "num": "7.1", "title": "", "chap": 7}, "def:phi-prod": {"kind": "定義", "num": "7.2", "title": "生産余剰と交渉余剰", "chap": 7}, "eq:decay": {"kind": "式", "num": "7.4", "title": "", "chap": 7}, "eq:solo-finance": {"kind": "式", "num": "9.1", "title": "", "chap": 9}, "eq:solo-capacity": {"kind": "式", "num": "9.2", "title": "", "chap": 9}, "eq:deadline": {"kind": "式", "num": "9.7", "title": "", "chap": 9}, "eq:leakage": {"kind": "式", "num": "9.13", "title": "", "chap": 9}, "prop:unmanned-period": {"kind": "命題", "num": "10.2", "title": "無人化は期間の関数である", "chap": 10}, "def:availability": {"kind": "定義", "num": "10.4", "title": "応答期限と可用性制約", "chap": 10}, "eq:availability": {"kind": "式", "num": "10.3", "title": "", "chap": 10}, "def:protocol": {"kind": "定義", "num": "11.1", "title": "手続き", "chap": 11}, "prop:simultaneity": {"kind": "命題", "num": "11.2", "title": "同時性", "chap": 11}, "eq:kappa-aggregation": {"kind": "式", "num": "11.1", "title": "", "chap": 11}, "prop:beneficiary": {"kind": "命題", "num": "11.6", "title": "受益者の同定を要する Phi は実装できない", "chap": 11}, "eq:protocol-collateral": {"kind": "式", "num": "11.2", "title": "", "chap": 11}, "prop:collateral": {"kind": "命題", "num": "11.9", "title": "担保制約", "chap": 11}, "eq:protocol-finance": {"kind": "式", "num": "11.3", "title": "", "chap": 11}, "cor:one-way-substitution": {"kind": "系", "num": "11.10", "title": "代替が片方向に退化する", "chap": 11}, "cor:exclusion": {"kind": "系", "num": "11.11", "title": "資産を持たない主体の排除", "chap": 11}, "cor:growth-needs-capital": {"kind": "系", "num": "11.12", "title": "前受による成長は資本を要する", "chap": 11}, "eq:apc-main": {"kind": "式", "num": "13.2", "title": "", "chap": 13}, "prop:gstar-flat": {"kind": "命題", "num": "15.2", "title": "m/CCC は低下していない", "chap": 15}, "prop:small-margin": {"kind": "命題", "num": "15.6", "title": "小規模層の制約は CCC ではない", "chap": 15}, "prop:officer": {"kind": "命題", "num": "15.8", "title": "役員報酬が m の規模差を説明する", "chap": 15}, "prop:phicog-requirements": {"kind": "命題", "num": "15.13", "title": "phi_rm cog の測定に要する三条件", "chap": 15}, "eq:delta-star": {"kind": "式", "num": "15.11", "title": "", "chap": 15}, "eq:henreikin-strength": {"kind": "式", "num": "16.2", "title": "", "chap": 16}, "eq:shift-share": {"kind": "式", "num": "17.5", "title": "", "chap": 17}, "eq:wc-elasticity": {"kind": "式", "num": "17.6", "title": "", "chap": 17}, "eq:tacq-price": {"kind": "式", "num": "18.1", "title": "", "chap": 18}, "eq:fee-decomp": {"kind": "式", "num": "18.2", "title": "", "chap": 18}, "eq:fee-decomp3": {"kind": "式", "num": "18.3", "title": "", "chap": 18}, "prop:collider": {"kind": "命題", "num": "A.1", "title": "合流点バイアス", "chap": 21}, "prop:apc": {"kind": "命題", "num": "A.7", "title": "APC の識別不能性", "chap": 21}, "prop:deadline-variance": {"kind": "命題", "num": "A.11", "title": "期限下では分散最小化が最適でない", "chap": 21}, "prop:substitution": {"kind": "命題", "num": "A.15", "title": "代替関係", "chap": 21}}, "chap": {"1": "序論：現金の時間構造を変数に選ぶ", "2": "基本設定：三重添字とリスク操作", "3": "信用ポジション：kappa と遅れ時間 tau", "4": "ビジネスモデルの定義：履行から決済への写像 Phi", "5": "情報構造と目的関数：契約が書ける条件と経路制約", "6": "成長制約：CCC と自己金融可能成長率", "7": "余剰とレイヤー：源泉・耐久性・可変性", "8": "Phi の類型カタログ：七族二八類型", "9": "制約下の部分空間：一人・無資産・無信用", "10": "無人化：運営者を除いた極限", "11": "情報構造の供給者：手続きによる決済", "12": "実証の設計と調査計画：観測への接続", "13": "選択バイアス：観測に入る歪みの分解", "14": "検証障害の分類：六つの状態", "15": "理論量の測定対応：測れた量と測れなかった量", "16": "族2と族5の実証：前受型と成果連動型", "17": "法人企業統計による実証：kappa と CCC の横断", "18": "外部化の対価：プラットフォーム手数料", "19": "手続き上の記録による実証：M(t) と改修の率", "20": "到達点：確立したものと未解決の問題", "21": "補遺：方法論に関する証明", "22": "記号一覧", "23": "既存理論との対応", "24": "データ源"}, "edges": [["prop:pooling", "eq:pooling", 1], ["def:kappa-K", "eq:kappa", 1], ["eq:cash", "eq:kappa", 1], ["def:equity", "eq:equity", 1], ["eq:cash", "def:kappa-K", 1], ["eq:cash", "prop:kappa-K-excluded", 3], ["prop:discount", "prop:kappa-K-excluded", 1], ["eq:constraint", "prop:kappa-K-excluded", 1], ["def:cost", "eq:cost-split", 1], ["def:breakage-def", "eq:cog", 1], ["eq:cap-simplified", "prop:capacity", 1], ["eq:constraint", "prop:pathwise", 4], ["eq:obj", "prop:pathwise", 1], ["eq:kappa", "prop:pathwise", 1], ["eq:ccc", "eq:fcf", 1], ["eq:fcf", "eq:gstar", 1], ["eq:ccc", "eq:gstar", 2], ["prop:kappa-tau", "eq:gstar", 1], ["eq:kappa-tau", "eq:ccc-tau", 2], ["eq:ccc-tau", "cor:ccc-change", 1], ["cor:no-cross-comparison", "eq:ccc-change", 2], ["cor:gstar", "eq:ccc-change", 1], ["prop:pooling", "eq:surplus", 1], ["eq:pooling", "eq:surplus", 1], ["def:cost", "def:phi-prod", 1], ["prop:substitution", "eq:solo-finance", 1], ["prop:capacity", "eq:solo-capacity", 1], ["eq:solo-finance", "eq:solo-capacity", 3], ["eq:gstar", "eq:solo-capacity", 1], ["prop:deadline-variance", "eq:deadline", 1], ["eq:solo-capacity", "eq:deadline", 1], ["eq:solo-finance", "eq:deadline", 2], ["eq:solo-capacity", "prop:unmanned-period", 1], ["eq:solo-capacity", "eq:availability", 1], ["prop:unmanned-period", "eq:availability", 1], ["eq:leakage", "eq:availability", 1], ["eq:kappa", "def:protocol", 1], ["def:breakage-def", "def:protocol", 1], ["eq:cash", "def:protocol", 1], ["def:protocol", "prop:simultaneity", 1], ["eq:kappa", "prop:simultaneity", 2], ["prop:implementable", "prop:simultaneity", 1], ["eq:cash", "prop:simultaneity", 1], ["prop:implementable", "prop:beneficiary", 1], ["prop:simultaneity", "prop:beneficiary", 1], ["cor:growth-needs-capital", "prop:beneficiary", 1], ["cor:exclusion", "prop:beneficiary", 1], ["eq:protocol-collateral", "eq:protocol-finance", 1], ["eq:solo-finance", "eq:protocol-finance", 1], ["prop:substitution", "cor:one-way-substitution", 4], ["prop:collateral", "cor:one-way-substitution", 1], ["eq:cash", "cor:one-way-substitution", 1], ["eq:protocol-finance", "cor:exclusion", 1], ["prop:substitution", "cor:exclusion", 1], ["eq:ccc", "cor:growth-needs-capital", 1], ["prop:collateral", "cor:growth-needs-capital", 2], ["prop:substitution", "cor:growth-needs-capital", 1], ["cor:exclusion", "cor:growth-needs-capital", 1], ["eq:cash", "cor:growth-needs-capital", 1], ["eq:constraint", "cor:growth-needs-capital", 1], ["eq:decay", "eq:apc-main", 1], ["eq:cash", "eq:apc-main", 1], ["cor:gstar", "prop:gstar-flat", 3], ["cor:ccc-level", "prop:small-margin", 1], ["cor:gstar", "prop:small-margin", 1], ["prop:small-margin", "prop:officer", 1], ["prop:fcf", "prop:officer", 1], ["eq:cog", "prop:officer", 2], ["eq:decay", "eq:delta-star", 1], ["eq:surplus", "eq:delta-star", 1], ["prop:apc", "eq:delta-star", 1], ["prop:pathwise", "eq:delta-star", 1], ["prop:phicog-requirements", "eq:delta-star", 1], ["prop:phicog-requirements", "eq:henreikin-strength", 1], ["cor:ccc-change", "eq:shift-share", 2], ["prop:kappa-tau", "eq:wc-elasticity", 2], ["eq:kappa-tau", "eq:wc-elasticity", 1], ["eq:cap-simplified", "eq:wc-elasticity", 2], ["eq:cap-general", "eq:wc-elasticity", 1], ["eq:surplus", "eq:tacq-price", 1], ["prop:pooling", "eq:fee-decomp3", 2], ["eq:pooling", "eq:fee-decomp3", 2], ["eq:apc-main", "prop:apc", 2], ["prop:pathwise", "prop:deadline-variance", 1], ["prop:cash", "prop:substitution", 1], ["eq:cash", "prop:substitution", 4], ["def:kappa-K", "prop:substitution", 2], ["eq:kappa", "prop:substitution", 1], ["eq:ccc-tau", "prop:substitution", 1], ["eq:phi", "prop:substitution", 1], ["def:cost", "prop:substitution", 1], ["eq:equity", "prop:substitution", 1], ["cor:gstar", "prop:substitution", 1], ["eq:ccc", "prop:substitution", 1], ["eq:gstar", "prop:substitution", 2], ["eq:surplus", "prop:substitution", 3], ["eq:decay", "prop:substitution", 1], ["eq:apc-main", "prop:substitution", 2], ["eq:solo-capacity", "prop:substitution", 1], ["prop:ccc-structure", "prop:substitution", 1], ["cor:ccc-level", "prop:substitution", 1], ["prop:collider", "prop:substitution", 1], ["eq:pooling", "prop:substitution", 1], ["prop:discount", "prop:substitution", 1], ["cor:exclusion", "prop:substitution", 1], ["prop:beneficiary", "prop:substitution", 1]], "emp": {"15": {"eq:kappa": 2, "eq:ccc": 1, "cor:gstar": 6, "cor:ccc-level": 1, "prop:fcf": 1, "eq:cog": 2, "eq:decay": 1, "eq:surplus": 1, "prop:pathwise": 1}, "16": {"eq:kappa": 2, "eq:ccc": 2, "eq:decay": 2, "eq:cog": 1}, "17": {"eq:gstar": 4, "eq:kappa": 3, "eq:ccc": 2, "cor:gstar": 1, "cor:ccc-change": 2, "prop:kappa-tau": 2, "eq:kappa-tau": 1, "eq:cap-simplified": 2, "eq:cap-general": 1}, "18": {"eq:surplus": 3, "def:cost": 1, "prop:pooling": 2, "eq:pooling": 2}, "19": {"prop:unmanned-period": 3, "cor:growth-needs-capital": 2, "prop:beneficiary": 3, "def:protocol": 1}}, "empname": {"15": "理論量の測定対応", "16": "族2と族5", "17": "法人企業統計", "18": "手数料", "19": "公開台帳"}, "comp": {"def:kappa-K": 0, "prop:kappa-K-excluded": 0, "eq:kappa": 0, "prop:kappa-tau": 0, "eq:cash": 0, "prop:capacity": 0, "eq:cog": 0, "eq:cap-simplified": 0, "def:breakage-def": 0, "prop:implementable": 0, "eq:obj": 0, "eq:constraint": 0, "prop:pathwise": 0, "prop:discount": 0, "eq:ccc": 0, "eq:fcf": 0, "eq:gstar": 0, "eq:solo-finance": 0, "eq:leakage": 0, "eq:solo-capacity": 0, "eq:deadline": 0, "prop:unmanned-period": 0, "eq:availability": 0, "cor:one-way-substitution": 0, "def:protocol": 0, "cor:exclusion": 0, "cor:growth-needs-capital": 0, "prop:simultaneity": 0, "eq:protocol-collateral": 0, "eq:protocol-finance": 0, "prop:beneficiary": 0, "prop:collateral": 0, "prop:pooling": 1, "eq:pooling": 1, "eq:surplus": 1, "eq:kappa-tau": 2, "cor:ccc-change": 2, "eq:ccc-tau": 2, "def:cost": 3, "eq:cost-split": 3, "def:phi-prod": 3, "cor:no-cross-comparison": 4, "cor:gstar": 4, "eq:ccc-change": 4, "def:equity": 5, "eq:equity": 5, "prop:cash": 6, "eq:phi": 7, "eq:cap-general": 8, "eq:bstar": 9, "prop:fcf": 10, "prop:ccc-structure": 11, "cor:ccc-level": 12, "eq:decay": 13, "def:availability": 14, "eq:kappa-aggregation": 15}}</script>
+<script>
+const TMAP=JSON.parse(document.getElementById("data").textContent);
+const CH = {2:"基本設定",3:"信用ポジション",4:"Φ の定義",5:"情報構造と目的関数",
+  6:"成長制約",7:"余剰とレイヤー",8:"類型カタログ",9:"一人・無資産・無信用",
+  10:"無人化",11:"手続きによる決済"};
+const KIND = {"定義":"--c-def","命題":"--c-prop","系":"--c-cor","式":"--c-eq"};
+const svg = document.getElementById("map");
+let D=null, sel=null, show={"定義":1,"命題":1,"系":1,"式":1}, showEmp=1;
+
+const el=(t,a={})=>{const e=document.createElementNS("http://www.w3.org/2000/svg",t);
+  for(const k in a) e.setAttribute(k,a[k]); return e;};
+
+D=TMAP; draw(); tables();
+
+function layout(){
+  const chs=Object.keys(CH).map(Number).sort((a,b)=>a-b);
+  const byCh={}; chs.forEach(c=>byCh[c]=[]);
+  for(const [k,v] of Object.entries(D.nodes)){
+    if(v.chap>=2 && v.chap<=11 && show[v.kind]) (byCh[v.chap]=byCh[v.chap]||[]).push([k,v]);
+  }
+  const LW=132, GAP=16, TOP=34, RH=30, RG=9;
+  const pos={}; let x=10, lanes=[];
+  chs.forEach(c=>{
+    const arr=(byCh[c]||[]).sort((a,b)=>parseFloat(a[1].num)-parseFloat(b[1].num));
+    if(!arr.length){return;}
+    lanes.push({c,x,n:arr.length});
+    arr.forEach(([k,v],i)=>{pos[k]={x:x, y:TOP+i*(RH+RG), w:LW, h:RH};});
+    x += LW+GAP;
+  });
+  return {pos,lanes,W:x+10};
+}
+
+function draw(){
+  svg.textContent="";
+  const {pos,lanes,W}=layout();
+  let maxY=0; for(const k in pos) maxY=Math.max(maxY,pos[k].y+pos[k].h);
+  const empY = maxY+56, H = empY+64;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+
+  lanes.forEach(l=>{
+    svg.appendChild(el("rect",{x:l.x-7,y:8,width:132+14,height:H-20,class:"lane",rx:6,opacity:.55}));
+    const t=el("text",{x:l.x-1,y:22,class:"lane-t"}); t.textContent=`${l.c} ${CH[l.c]}`;
+    svg.appendChild(t);
+  });
+
+  const gE=el("g"); svg.appendChild(gE);
+  D.edges.forEach(([a,b])=>{
+    if(!pos[a]||!pos[b]) return;
+    const p=pos[a], q=pos[b];
+    const x1=p.x+p.w, y1=p.y+p.h/2, x2=q.x, y2=q.y+q.h/2;
+    const mx=(x1+x2)/2;
+    const path=el("path",{d:`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`,
+      class:"edge","data-a":a,"data-b":b});
+    gE.appendChild(path);
+  });
+
+  // 実証の節点
+  const empKeys=Object.keys(D.empname).map(Number).sort((a,b)=>a-b);
+  const eW=(W-40)/empKeys.length, ePos={};
+  if(showEmp) empKeys.forEach((c,i)=>{
+    const x=20+i*eW, y=empY, w=eW-14, h=34;
+    ePos[c]={x,y,w,h};
+    const g=el("g",{class:"nd emp"});
+    g.appendChild(el("rect",{x,y,width:w,height:h,rx:5}));
+    const t1=el("text",{x:x+9,y:y+15,class:"t1"}); t1.textContent=`第${c}章`;
+    const t2=el("text",{x:x+9,y:y+27,style:"font-size:10px;opacity:.9"});
+    t2.textContent=D.empname[c]; g.appendChild(t1); g.appendChild(t2);
+    svg.appendChild(g);
+    // 実証 → 理論の線
+    for(const k in (D.emp[c]||{})){
+      if(!pos[k]) continue;
+      const p=pos[k];
+      gE.appendChild(el("path",{
+        d:`M${x+w/2},${y} C${x+w/2},${y-40} ${p.x+p.w/2},${p.y+p.h+40} ${p.x+p.w/2},${p.y+p.h}`,
+        class:"edge emp","data-a":k,"data-emp":c}));
+    }
+  });
+
+  for(const [k,v] of Object.entries(D.nodes)){
+    if(!pos[k]) continue;
+    const p=pos[k], col=`var(${KIND[v.kind]})`;
+    const g=el("g",{class:"nd","data-k":k});
+    g.appendChild(el("rect",{x:p.x,y:p.y,width:p.w,height:p.h,
+      fill:col,"fill-opacity":.12,stroke:col}));
+    const t1=el("text",{x:p.x+8,y:p.y+13,class:"t1",fill:col});
+    t1.textContent=`${v.kind} ${v.num}`;
+    const t2=el("text",{x:p.x+8,y:p.y+24,class:"t2"});
+    t2.textContent=v.title? v.title.slice(0,13) : "";
+    g.appendChild(t1); g.appendChild(t2);
+    g.addEventListener("click",()=>{sel=(sel===k?null:k); highlight();});
+    svg.appendChild(g);
+  }
+  highlight();
+}
+
+function lab(k){const v=D.nodes[k]; return v? `${v.kind}${v.num}`:k;}
+
+
+function highlight(){
+  const keep=new Set();
+  if(sel){
+    keep.add(sel);
+    D.edges.forEach(([a,b])=>{ if(a===sel) keep.add(b); if(b===sel) keep.add(a); });
+  }
+  svg.querySelectorAll(".nd").forEach(g=>{
+    const k=g.getAttribute("data-k");
+    g.classList.toggle("dim", !!sel && k && !keep.has(k));
+  });
+  svg.querySelectorAll(".edge").forEach(p=>{
+    const a=p.getAttribute("data-a"), b=p.getAttribute("data-b");
+    p.classList.toggle("hot", !!sel && (a===sel||b===sel));
+    p.style.opacity = (!sel || a===sel || b===sel) ? "" : ".12";
+  });
+}
+
+function tables(){
+  const rows=[];
+  for(const c of Object.keys(D.empname).sort((a,b)=>a-b)){
+    const e=D.emp[c]||{};
+    const items=Object.entries(e).sort((a,b)=>b[1]-a[1])
+      .map(([k,n])=>`${lab(k)}<span style="color:var(--muted)"> ×${n}</span>`).join("、");
+    rows.push(`<tr><td>第${c}章 ${D.empname[c]}</td><td class="n">${Object.keys(e).length}</td>
+      <td>${items||"—"}</td></tr>`);
+  }
+  document.getElementById("emptable").innerHTML =
+    `<table><tr><th>実証</th><th>参照した理論量</th><th>内訳</th></tr>${rows.join("")}</table>`;
+
+  const used=new Set(); for(const c in D.emp) for(const k in D.emp[c]) used.add(k);
+  const orp={};
+  for(const [k,v] of Object.entries(D.nodes)){
+    if(v.chap>=2&&v.chap<=11&&!used.has(k)) (orp[v.chap]=orp[v.chap]||[]).push(`${v.kind}${v.num}`);
+  }
+  const r2=Object.keys(orp).sort((a,b)=>a-b).map(c=>
+    `<tr><td>第${c}章 ${CH[c]||""}</td><td class="n">${orp[c].length}</td><td>${orp[c].join("、")}</td></tr>`);
+  // 連結成分
+  const byC={};
+  for(const [k,v] of Object.entries(D.nodes)){
+    if(v.chap<2||v.chap>11) continue;
+    const c=(D.comp&&D.comp[k]!==undefined)?D.comp[k]:-1;
+    (byC[c]=byC[c]||[]).push(k);
+  }
+  const cs=Object.keys(byC).map(Number).sort((a,b)=>byC[b].length-byC[a].length);
+  const rc=cs.map(c=>{
+    const ks=byC[c].sort((a,b)=>parseFloat(D.nodes[a].num)-parseFloat(D.nodes[b].num));
+    const chs=[...new Set(ks.map(k=>D.nodes[k].chap))].sort((a,b)=>a-b);
+    const nm = ks.length>=20 ? "中核" : (ks.length===1 ? "孤立" : "島");
+    return `<tr><td>${nm}</td><td class="n">${ks.length}</td>
+      <td>第${chs[0]}${chs.length>1?"–"+chs[chs.length-1]:""}章</td>
+      <td>${ks.map(k=>lab(k)).join("、")}</td></tr>`;
+  });
+  document.getElementById("comp").innerHTML =
+    `<table><tr><th>成分</th><th>節点</th><th>章</th><th>内訳</th></tr>${rc.join("")}</table>`;
+
+  document.getElementById("orphan").innerHTML =
+    `<table><tr><th>章</th><th>件数</th><th>節点</th></tr>${r2.join("")}</table>`;
+}
+
+const bind=(id,key)=>document.getElementById(id).addEventListener("click",e=>{
+  const on=e.target.getAttribute("aria-pressed")==="true";
+  e.target.setAttribute("aria-pressed", on?"false":"true");
+  if(key==="emp") showEmp=on?0:1; else show[key]=on?0:1;
+  draw();
+});
+bind("b-def","定義"); bind("b-prop","命題"); bind("b-cor","系"); bind("b-eq","式"); bind("b-emp","emp");
+document.getElementById("b-reset").addEventListener("click",()=>{sel=null;highlight();});
+</script>
+</body></html>
