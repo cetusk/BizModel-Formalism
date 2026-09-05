@@ -46,6 +46,9 @@ $\CCC$ の予測力 & 景気先行指標としての機能 & \textbf{棄却}（�
 $\phi_{\rm cog}$ の測定 & 認知余剰の実測 & 本稿では\textbf{未達}（第\ref{sec:phicog-measurable}節） \\
 可測性と契約形態 & 観測可能性が $\Phi$ を決める & \textbf{未検証}（第\ref{sec:predB-illposed}節） \\
 手数料率と離職率 & 成果のリスクが価格に反映されるか & \textbf{棄却}。307社で無相関（第\ref{sec:predX-result}節） \\
+経路制約の吸収性 & $M(t)$ は途絶に先行して減るか & \textbf{支持}（第\ref{sec:protocol-results}節） \\
+依存と無人継続期間 & 依存が少ないほど改修が遅いか & \textbf{棄却}。複製の集中が結果を作る \\
+族7の実装可能性 & 残るのは 7-4 か & \textbf{棄却}。稀である点のみ当たる \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{実証で判定した主張とその状態。棄却・未検証を含む。}
@@ -58,8 +61,8 @@ $\phi_{\rm cog}$ の測定 & 認知余剰の実測 & 本稿では\textbf{未達}
 \section{事前登録が働いた記録}
 \label{sec:prereg-worked}
 
-本稿では18の予測を事前に文章として固定した。
-支持されたのは6件（支持2件、部分的支持4件）、棄却が8件、検証不能が4件である。
+本稿では22の予測を事前に文章として固定した。
+支持されたのは7件（支持3件、部分的支持4件）、棄却が10件、検証不能が5件である。
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}llXl@{}}
@@ -80,20 +83,35 @@ N & 法人統計 & $\Delta\ln W$ と $\Delta\ln r$ の正相関（$\beta=0.83$�
 O & 法人統計 & 遅れ構造。年次データで検出できず & 棄却 \\
 P & 法人統計 & ラグを含む総弾力性。$0.830\to0.821$ & 棄却 \\
 T & 労働側 & 新法による $\kappa$ の移動。統計が存在しない & 検証不能 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{事前登録した22予測の対象・内容・判定結果（A--T）。}
+\label{tab:predictions-AT}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+予測 & 対象 & 内容と結果 & 判定 \\
+\midrule
 U & 個人企業 & 営業利益率が役員報酬を戻した値に近い & 支持 \\
 X & 族5 & 手数料率と離職率の負相関。307社で無相関 & 棄却 \\
 Y & 族5 & 規模と離職率の相関の職種順序。定性的な区分のみ規則によらず成立 & 部分的支持 \\
 Z & 族5 & B1 の大きい職種ほど返戻金が強い。順位相関 $\rho=0.000$ & \textbf{棄却} \\
+$\Phi$1 & 手続き & 依存の数と改修までの期間。複製の集中が結果を作っていた & 棄却 \\
+$\Phi$2 & 手続き & $M(t)$ は途絶に先行して減少（$p=3.2\times10^{-9}$） & 支持 \\
+$\Phi$3 & 手続き & $\CCC$ の非負性。企業部門も全業種で非負であり対照が立たない & 検証不能 \\
+$\Phi$4 & 手続き & 族7 の型。稀である点は当たり、残る型が外れた & 棄却 \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{事前登録した18予測の対象・内容・判定結果。}
-\label{tab:predictions-16}
+\captionof{table}{事前登録した22予測の対象・内容・判定結果（U--$\Phi$4）。}
+\label{tab:predictions-22}
 \end{center}
 
 Q・R・S は労働者視点の検討過程で登録したが、
 第\ref{sec:worker-predictions}節のとおり検証に着手していない。
-$\Phi$1--$\Phi$4 は第\ref{sec:protocol-predictions}節で登録したが、
-本稿が用いていない標本を要するため検定していない。
+$\Phi$1--$\Phi$4 は第\ref{sec:protocol-predictions}節で登録し、
+第\ref{sec:protocol-results}節で検定した。第\ref{part:catalog}部の演繹に対する初めての検定である。
 G・H・I は制度による料率規制を対象としたが、
 母集団が3件しかないことが判明したため設計段階で取り下げた。
 
@@ -109,6 +127,17 @@ G・H・I は制度による料率規制を対象としたが、
 「$\CCC$ は景気指標として機能する」と読み、
 大企業の与信ポジションを「大企業が取引先を支えている」と解釈しえた。
 いずれも後付けの物語である。
+
+\item 第\ref{sec:protocol-results}節の $\Phi$2 において、
+途絶した $\Phi$ の残高が事前に減少していることだけを見れば支持と読めた。
+継続した $\Phi$ にも同じ窓を当てると、180 日では両者が分離しない。
+\textbf{対照を置くと決めていなければ、全体の減少基調を支持と読み違えた。}
+
+\item 同節の $\Phi$4 において、唯一現れた族7 が
+受益者の選定を手続きの外へ出していることは、
+命題\ref{prop:beneficiary}の傍証として提示できた。
+しかし予測の文言は「残るのは 7-4」であり、現れたのは 7-2 である。
+\textbf{機構が命題と整合することは、外れた予測を救わない。}
 \end{itemize}
 
 第\ref{sec:narrative}節で他者の記述について述べた事後的物語化は、
@@ -287,25 +316,20 @@ $\tau$ の上限を規定したことの効果を検証できない。
 なお当初この項目に含めていた労働側の $\Phi$ と B2B 複合契約は、
 既存類型で記述できることが確認された（第\ref{sec:labor-phi}節）。
 
-\item \textbf{手続き上の記録による観測。}
-第\ref{sec:protocol-observability}節のとおり、
-第\ref{ch:protocol}章の区分「内」では $M(t)$、$\kappa_j$、$\dbar-\delta$ が
-個別に公開されている。本稿が個社データを要するとして測定を断念した量である。
+\item \textbf{手続き上の記録による観測。検定は行った。}
+第\ref{sec:protocol-results}節のとおり予測$\Phi$1--$\Phi$4 を検定した。
+第\ref{part:catalog}部の演繹に対する初めての検定であり、支持されたのは $\Phi$2 のみである。
 
-第\ref{sec:protocol-predictions}節で予測$\Phi$1--$\Phi$4 を登録した。
-$\Phi$1 は第\ref{part:unmanned}章の命題、$\Phi$2 は第\ref{ch:solo}章の経路制約、
-$\Phi$3 と $\Phi$4 は第\ref{ch:protocol}章の系と命題に対応する。
-\textbf{第\ref{part:catalog}部の演繹に対する初めての検定になる。}
-
-ただし観測できるのは識別子単位であり、
+\textbf{残るのは主体単位の量である。}
+観測できるのは識別子単位であり、
 一主体が複数の識別子を持つため主体単位の $\kappa_i$ を復元できない
 （注\ref{rem:additivity}）。障害は集計の不在ではなく\textbf{集計の不能}であり、
 第\ref{sec:sixth-obstacle}節で追加した二形式のいずれとも異なる。
+検定を経て、この乖離には第二の形式があることが分かった。
+同一の実装を指す識別子の集中である（注\ref{rem:clone-concentration}）。
 
-また検証できるのは演繹の正しさであって、
+また検証できたのは演繹の正しさであって、
 その演繹が現実の一人事業に当てはまるかではない（注\ref{rem:protocol-population}）。
-手続きが強制する量を観測しても検証にならない点にも注意を要する
-（表\ref{tab:protocol-testability}）。
 
 前項(12)と同じ箇所、すなわち添字の設定に由来する制約である。
 
@@ -370,11 +394,11 @@ $\Delta\CCC$ の相関は 0.882、分母効果は 0.160 から 0.172 に留ま�
 \toprule
  & 項目 & 分類 & 実行可能性 & 波及 \\
 \midrule
-1 & (13) 予測$\Phi$1--$\Phi$4 の検定 & 集計の不能 & 高 & 大 \\
-2 & (17) $\lambda_{\rm novel}$ の成分分解 & 障害なし & 中 & 中 \\
-3 & (3) R2 の $H$ と $\beta$ & (ii) & 中 & 中 \\
-4 & (5) $\Delta\ln W$ の変動要因 & (iii) & 中 & 中 \\
-5 & (11) 個人事業主の $\kappa$ & 集計の選択 & 中 & 大 \\
+1 & (17) $\lambda_{\rm novel}$ の成分分解 & 障害なし & 中 & 中 \\
+2 & (3) R2 の $H$ と $\beta$ & (ii) & 中 & 中 \\
+3 & (5) $\Delta\ln W$ の変動要因 & (iii) & 中 & 中 \\
+4 & (11) 個人事業主の $\kappa$ & 集計の選択 & 中 & 大 \\
+5 & (13) 主体単位の $\kappa_i$ & 集計の不能 & 低 & 大 \\
 6 & (18) 棚卸資産の範囲（規模との交差） & 集計の選択 & 低 & 小 \\
 \bottomrule
 \end{tabularx}

@@ -1,11 +1,16 @@
 """予測Φ2：TVL（ストック）と手数料（フロー）を突き合わせて途絶事象を作る。
 
-途絶は手数料の系列で判定する。TVL で判定すると
-「M(t)→0 を途絶と呼ぶ」ことになり、予測が定義から自明になる。
+途絶の定義（第2.5節で確定、変更しない）
+  手数料が 90 日以上連続してゼロであり、かつ最後まで再開しないこと。
+  その最初の日を途絶の日とする。途絶の前に 180 日以上の活動を要求する。
+
+途絶を TVL で判定すると「M(t)→0 を途絶と呼ぶ」ことになり
+予測が定義から自明になるため、途絶はフロー（手数料）だけで判定する。
+
+継続群にも同じ窓で傾きを測る。これを欠くと
+TVL が全体として減少基調である可能性を排除できない。
 
 出力 data/raw/phi/phi2_panel.tsv
-  slug  category  cease_date  n_days_obs  tvl_at_cease
-  slope_pre_180  slope_pre_90  slope_pre_30   （途絶前の窓における日次 log TVL の傾き）
 """
 import json, math, statistics, datetime as dt
 
@@ -13,12 +18,12 @@ TVL = "data/raw/phi/llama_tvl.jsonl"
 FEES = "data/raw/phi/llama_fees.jsonl"
 OUT = "data/raw/phi/phi2_panel.tsv"
 
-CEASE_DAYS = 90        # 手数料が連続してゼロなら途絶とみなす日数。事前に固定する
-MIN_ACTIVE = 180       # 途絶の前にこの日数以上の活動を要求する（下限）
+CEASE_DAYS = 90     # 第2.5節で確定
+MIN_ACTIVE = 180    # 第2.5節で確定
+WINDOWS = (180, 90, 30)
 
 
 def to_series(pairs):
-    """[[unix, value], ...] を {date: value} に畳む。"""
     out = {}
     for t, v in pairs or []:
         try:
@@ -48,74 +53,72 @@ def slope(series, end, days):
 
 
 def find_cease(fees):
-    """手数料がゼロで CEASE_DAYS 日続く最初の日を返す。"""
+    """末尾まで再開しないゼロの連なりの開始日。途絶でなければ None。"""
     if not fees:
         return None
     days = sorted(fees)
     first, last = days[0], days[-1]
     if (last - first).days < MIN_ACTIVE:
         return None
-    run, start = 0, None
-    d = first
-    while d <= last:
+    # 末尾から遡って、最後に手数料が出た日を探す
+    d, last_pos = last, None
+    while d >= first:
         v = fees.get(d, 0.0)
-        if v is None or v <= 0:
-            if run == 0:
-                start = d
-            run += 1
-            if run >= CEASE_DAYS:
-                return start
-        else:
-            run = 0
-        d += dt.timedelta(days=1)
-    # 末尾がゼロで続いている場合
-    if run >= CEASE_DAYS:
-        return start
-    return None
+        if v and v > 0:
+            last_pos = d
+            break
+        d -= dt.timedelta(days=1)
+    if last_pos is None:                 # 一度も手数料が出ていない
+        return None
+    run = (last - last_pos).days
+    if run < CEASE_DAYS:
+        return None
+    if (last_pos - first).days < MIN_ACTIVE:
+        return None
+    return last_pos + dt.timedelta(days=1)
 
 
 def main():
-    tvl = {}
-    for line in open(TVL):
-        r = json.loads(line)
-        tvl[r["slug"]] = r
+    tvl = {json.loads(l)["slug"]: json.loads(l) for l in open(TVL)}
     fees = {}
-    for line in open(FEES):
-        r = json.loads(line)
+    for l in open(FEES):
+        r = json.loads(l)
         fees[r["slug"]] = to_series(r.get("fees"))
-    print(f"TVL {len(tvl)} 件、手数料 {len(fees)} 件、"
-          f"両方ある {len(set(tvl) & set(fees))} 件")
+    both = sorted(set(tvl) & set(fees))
+    print(f"TVL {len(tvl)} 件、手数料 {len(fees)} 件、両方ある {len(both)} 件")
 
-    rows, n_cease = [], 0
-    for slug in sorted(set(tvl) & set(fees)):
+    rows = []
+    for slug in both:
         f = fees[slug]
         s = to_series(tvl[slug].get("tvl_eth") or tvl[slug].get("tvl_all"))
-        if not s:
+        if not s or not f:
             continue
         c = find_cease(f)
-        if c is None:
-            rows.append((slug, tvl[slug].get("category"), "", len(f),
-                         "", "", "", ""))
-            continue
-        n_cease += 1
-        rows.append((slug, tvl[slug].get("category"), c.isoformat(), len(f),
-                     round(s.get(c, 0)),
-                     slope(s, c, 180), slope(s, c, 90), slope(s, c, 30)))
+        # 継続群の基準日は観測の末尾（途絶群の基準日と同じ役割）
+        ref = c if c else max(f)
+        rows.append([slug, tvl[slug].get("category"),
+                     "途絶" if c else "継続",
+                     ref.isoformat(), len(f),
+                     round(s.get(ref, 0))]
+                    + [slope(s, ref, w) for w in WINDOWS])
 
     with open(OUT, "w") as o:
-        o.write("slug\tcategory\tcease_date\tn_days_obs\ttvl_at_cease\t"
-                "slope_pre_180\tslope_pre_90\tslope_pre_30\n")
+        o.write("slug\tcategory\tgroup\tref_date\tn_days_obs\ttvl_at_ref\t"
+                + "\t".join(f"slope_pre_{w}" for w in WINDOWS) + "\n")
         for r in rows:
             o.write("\t".join(str(x) for x in r) + "\n")
-    print(f"途絶を観測 {n_cease} 件 / 継続 {len(rows)-n_cease} 件 → {OUT}")
 
-    for w in ("slope_pre_180", "slope_pre_90", "slope_pre_30"):
-        i = {"slope_pre_180": 5, "slope_pre_90": 6, "slope_pre_30": 7}[w]
-        v = [r[i] for r in rows if r[2] and r[i] != ""]
-        if v:
+    nc = sum(1 for r in rows if r[2] == "途絶")
+    print(f"途絶 {nc} 件 / 継続 {len(rows)-nc} 件 → {OUT}\n")
+    print(f"{'窓':>6} {'群':>4} {'n':>5} {'負の割合':>9} {'中央値':>11}")
+    for i, w in enumerate(WINDOWS):
+        for g in ("途絶", "継続"):
+            v = [r[6 + i] for r in rows if r[2] == g and r[6 + i] != ""]
+            if not v:
+                continue
             neg = sum(1 for x in v if x < 0)
-            print(f"  {w}: n={len(v)}  負の割合 {neg/len(v):.1%}  "
-                  f"中央値 {statistics.median(v):+.5f}")
+            print(f"{w:>5}日 {g:>4} {len(v):>5} {neg/len(v)*100:>8.1f}% "
+                  f"{statistics.median(v):>+11.5f}")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 **キャッシュフロー構造としてのビジネスモデル** — 定式化・類型論・調査設計
 
-> **v0.23.2**（2026年9月4日）— **本稿は建設中です。**
+> **v0.24.0**（2026年9月5日）— **本稿は建設中です。**
 > 理論の構成、命題、実証の結論はいずれも変更されうるものです。
 > 引用される場合は版を明記してください。
 
@@ -40,7 +40,7 @@ cd src
 lualatex book.tex && lualatex book.tex && lualatex book.tex   # PDF
 ./build-figures.sh                                            # 図を SVG 化
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book v0.23.2                 # 目次サイドバー
+python3 inject-sidebar.py ../docs/book v0.24.0                 # 目次サイドバー
 ```
 
 必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、
@@ -93,7 +93,7 @@ python3 gstar4.py     # g* の算出
 | 第二桁 | 構成の変更、命題の追加・撤回、新たな実証 |
 | 第三桁 | 誤記の修正、体裁の調整、参照の整合 |
 
-現在は v0.23.2（付録Dの第23段階）。
+現在は v0.24.0（付録Dの第24段階）。
 
 ## ライセンス
 

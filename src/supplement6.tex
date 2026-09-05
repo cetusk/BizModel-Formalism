@@ -629,15 +629,97 @@ $M(t)$ は途絶の直前まで変化しない。
 \textbf{統制の手続きを取得前に確定しておく。}
 \end{remark}
 
-\textbf{本稿はこれらを検定していない。}
-第\ref{ch:conclusion}章の未解決の問題に取得の項目として登録する。
+\subsection{予測の検定}
+\label{sec:protocol-results}
+
+公開型の分散台帳の記録により四つを検定した。
+母集団は基準時点で稼働していた $\Phi$ の全数であり、標本は事後に選んでいない。
+支持されたのは一つである。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+予測 & 標本 & 結果 & 判定 \\
+\midrule
+$\Phi$1 & 改修可能な手続き 193 万件 & 依存の数は改修までの期間を説明しない & 棄却 \\
+$\Phi$2 & 手数料と残高の双方を持つ 427 件 & 途絶前 30 日で減少（$p=3.2\times10^{-9}$） & 支持 \\
+$\Phi$3 & 稼働する $\Phi$ 52 件 & 対抗仮説が識別されない & 検証不能 \\
+$\Phi$4 & 同上 & 族7 は 1 件だが 7-2 であり 7-4 は現れない & 棄却 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{予測$\Phi$1--$\Phi$4 の検定結果。}
+\label{tab:protocol-results}
+\end{center}
+
+\begin{remark}[$\Phi$1：複製の集中が推定を支配する]
+\label{rem:clone-concentration}
+193 万の識別子が指す実装は 76,609 種しかない。
+うち一つを 155 万件、すなわち母集団の 80\% が指している。
+これらは独立な $\Phi$ ではなく、一つの $\Phi$ の複製である。
+
+全体では依存の数の係数が正で有意になるが（$p=0.004$）、
+この一つのクラスタを外すと符号が逆転して有意でなくなる（$p=0.45$）。
+\textbf{クラスタ頑健標準誤差では防げない。}
+クラスタ内の相関は補正するが、一つのクラスタが曝露の 95\% を占める場合の
+点推定の偏りは補正しないためである。
+
+注\ref{rem:additivity}の加法性の喪失は主体と識別子の乖離を述べたが、
+同一の実装を指す識別子の集中は別の形の乖離である。
+\textbf{台帳上で標本を組むときは、複製の集中を先に数える必要がある。}
+\end{remark}
+
+\begin{remark}[$\Phi$3：対照が識別されない]
+\label{rem:phi3-illposed}
+$\CCC<0$ は前受けであり、系\ref{cor:growth-needs-capital}によれば $E>0$ を要する。
+しかし比較対象である企業部門の $\CCC$ は、
+第\ref{part:industry}章の 58 業種すべてで非負である（最小 4.9 日）。
+負の $\CCC$ は個別企業に現れるもので、業種の集計では相殺されて消える。
+
+予測と対抗仮説が同じことを述べており、観測しても区別がつかない。
+第\ref{sec:predB-illposed}節の予測Bと同型の不良設定である。
+加えて区分「内」の $\tau$ は秒の単位であり、企業部門の日の単位とは桁が五つ違う。
+\end{remark}
+
+\begin{remark}[$\Phi$4：実装できることと現れることは別である]
+\label{rem:implementable-not-observed}
+族7 は 52 件中 1 件であり、稀であるという量的な部分は当たった。
+しかし現れたのは 7-2（クロスサブシディ）であり、7-4 は 0 件であった。
+
+予測は命題\ref{prop:beneficiary}から「7-4 のみが残る」を導いていたが、
+命題が述べるのは実装の可否であって出現の頻度ではない。
+\textbf{実装できることから現れることを導いたのが誤りである。}
+
+なお唯一の 7-2 は、受益者の選定を署名により手続きの外で行っている。
+命題\ref{prop:beneficiary}と整合するが、
+予測の文言が外れている以上これを支持の証拠として扱わない。
+\end{remark}
+
+\begin{remark}[判定順序の前に一段が要る]
+\label{rem:is-it-phi}
+表\ref{tab:family-assignment-order}は $\Phi$ を所与としている。
+台帳の識別子に当てると、標本 200 件のうち 131 件が $\Phi$ ではなかった。
+トークンの台帳（決済の媒体であり $\delta$ と $\pi$ の対を持たない）が 74 件、
+対価を伴わない基盤が 27 件、
+そして\textbf{決済媒体の名を模した識別子が 30 件}である。
+
+最後のものは定義\ref{def:protocol}を満たすが履行を持たない。
+第\ref{sec:identifier}節の $\iota$ の観測不能が、
+名称の詐称という形で現れている。
+\end{remark}
 
 \section{本章の限界}
 \label{sec:protocol-limits}
 
 \begin{enumerate}[label=(\arabic*)]
 \item \textbf{演繹である。} 結論は前提(1)(2)(3)に依存する。
-第\ref{sec:protocol-predictions}節で予測を登録したが、実測による検証を行っていない。
+第\ref{sec:protocol-results}節の検定は演繹の含意を測ったものであり、
+前提そのものを検証していない。
+
+\item \textbf{判定の対象を絞る規則を要した。} 表\ref{tab:family-assignment-order}は
+$\Phi$ を所与としており、台帳の識別子をそのまま当てることはできない。
+第\ref{sec:protocol-results}節では判定順序の前に
+「これは $\Phi$ か」を置いた（注\ref{rem:is-it-phi}）。
+この一段は第\ref{ch:catalog}章の規則に含まれていない。
 
 \item \textbf{両端しか扱っていない。} 注\ref{rem:oracle}のとおり、
 区分「外」において第三者の除去の程度は連続的である。
