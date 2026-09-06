@@ -261,8 +261,21 @@ $\Phi$ の設計者が自由に選べる範囲は $\mathcal{G}$ が限る
 \paragraph{写像の関数形を決めるもの。}
 \begin{enumerate}[label=(\arabic*)]
 \setcounter{enumi}{1}
-\item \textbf{依存形式}：$\pi = c$（定額）、$\pi=p\,\delta$（従量）、$\pi = F + p\,\delta$（二部）、$\pi = h(y)$（成果連動）。
+\item \textbf{依存形式}：$\pi$ が $\delta$ にどう依存するか。
+定額 $\pi = c$、従量 $\pi=p\,\delta$、二部 $\pi = F + p\,\delta$、成果連動 $\pi = h(y)$。
+ここで $c$ は定額料金、$p$ は単価、$F$ は基本料金、$y$ は成果、
+$h$ は成果を決済に変える関数である。
+$y$ が観測できるかは自由度(4) に属し、第\ref{sec:info}章で扱う。
 \end{enumerate}
+
+\begin{remark}[$F$ と $c$ の区別]
+\label{rem:dof2-symbols}
+$F$ は基本料金であり、状態空間の $\sigma$ 加法族 $\mathcal{F}$ とは別の量である。
+書体で区別する。
+
+$c$ は定額料金を表す。引数を伴う $c(\delta)$ は限界費用（定義\ref{def:cost}）であり、
+別の量である。以降、引数の有無で区別する。
+\end{remark}
 
 \paragraph{定義域 \texorpdfstring{$\Delta$}{Δ} の側の性質。}
 \begin{enumerate}[label=(\arabic*)]
@@ -275,7 +288,7 @@ $\Phi$ の設計者が自由に選べる範囲は $\mathcal{G}$ が限る
 \label{rem:dof-groups}
 (1)(3)(4) は式\eqref{eq:X}の添字を動かす。すなわち
 \textbf{同じ $\delta$ に対して $X$ の置き場所を変える}操作である。
-(2) は写像そのものの形を決め、(5)(6) は定義域 $\Delta$ の側の性質である。
+(2) は写像そのものの形を決め（注\ref{rem:dof2-symbols}）、(5)(6) は定義域 $\Delta$ の側の性質である。
 
 第\ref{sec:three-ops}節のリスク操作の三分類は、(1)(3)(4) を動かす操作にあたる。
 \end{remark}
@@ -682,6 +695,21 @@ P_i(t) = \int_0^t \pi_i(s)\,ds
 $\kappa_i<0$ は $i$ が企業に与信している状態（受領済み・未履行）を表す。
 \end{definition}
 
+信用ポジションの総和に棚卸資産を加えた量を、以降で繰り返し用いる。
+
+\begin{definition}[運転資本]
+\label{def:wc}
+棚卸資産を $\mathrm{Inv}(t)\geq 0$ として
+\begin{equation}
+W(t) = \sum_{i\in N}\kappa_i(t) + \mathrm{Inv}(t)
+\label{eq:wc}
+\end{equation}
+と定める。$\kappa_i$ が $\Phi$ の関数であるから、$W$ も $\Phi$ の関数である。
+\end{definition}
+
+$W$ は事業に拘束されている資金の量であり、
+第\ref{sec:growth}章ではこれを売上速度で割って $\CCC$ を定義する。
+
 式\eqref{eq:kappa}の利点は統合性にある。
 
 \begin{center}
@@ -983,7 +1011,7 @@ $M$ について解けば式\eqref{eq:cash}を得る。
 
 \begin{proposition}[現金は運転資本の裏返しである]
 \label{prop:cash-net}
-運転資本を $W(t)=\sum_i\kappa_i(t)+\mathrm{Inv}(t)$ とすると、式\eqref{eq:cash}は
+定義\ref{def:wc}の運転資本 $W$ を用いると、式\eqref{eq:cash}は
 \begin{equation}
 M(t) = E(t) - W(t) - A(t)
 \label{eq:cash-net}
@@ -1313,9 +1341,7 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 \chapter{成長制約：\texorpdfstring{$\CCC$}{CCC} と自己金融可能成長率}
 \label{sec:growth}
 
-売上速度を $r(t)$、運転資本を $W(t)=\sum_i\kappa_i(t)+\mathrm{Inv}(t)$ とする。
-
-命題\ref{prop:cash-net}の運転資本 $W=\sum_i\kappa_i+\mathrm{Inv}$ を用いる。
+売上速度を $r(t)$、運転資本を定義\ref{def:wc}の $W(t)$ とする。
 $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依存する。
 
 \begin{definition}[キャッシュコンバージョンサイクル]
@@ -1330,7 +1356,7 @@ $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依�
 \section{基本不等式}
 \label{sec:fundamental}
 
-式\eqref{eq:cash-net}に式\eqref{eq:ccc}を代入すると、現金残高が
+命題\ref{prop:cash-net}の式\eqref{eq:cash-net}に式\eqref{eq:ccc}を代入すると、現金残高が
 \begin{equation}
 M(t) = E(t) - \CCC\cdot r(t) - A(t)
 \label{eq:M-ccc}
