@@ -118,9 +118,10 @@ T &= [0,H] \subset \R_{\geq 0} && \text{時間} \\
 \end{align}
 主体の内訳は、顧客 $C$、仕入先 $S$、資本提供者 $K$、労働 $L$、
 リスク引受の第三者 $R$ を想定する。
-これらは $N$ の分割であり、個々の主体は $C_j\in C$ のように添字で書く。
-複数の主体をまとめて扱うときは類別の記号をそのまま用い、
-$\kappa_C=\sum_{j}\kappa_{C_j}$ のように解する。
+これらは $N$ の部分集合であり、$N\setminus\{0\}$ を覆う。
+個々の主体は $i\in C$ のように $N$ の元として書く。
+類別をそのまま添字にしたときは、その類別に属する主体についての和を表す。
+たとえば $\kappa_C=\sum_{i\in C}\kappa_i$ である。
 制度 $G$ は現金の相手方ではなく制約として扱う（第\ref{sec:layers}節）。
 \end{definition}
 
@@ -137,9 +138,9 @@ $\kappa_C=\sum_{j}\kappa_{C_j}$ のように解する。
 
 これらの組の全体を空間として置く。
 \begin{equation}
-\Delta = \{(\delta_i)_{i\in N} : \delta_i : T\times\Omega\to\mathcal{D}\},
+\Delta = \bigl\{\, (\delta_i)_{i\in N} \ \bigm| \ \delta_i : T\times\Omega\to\mathcal{D} \,\bigr\},
 \qquad
-\Pi = \{(\pi_i)_{i\in N} : \pi_i : T\times\Omega\to\R\}
+\Pi = \bigl\{\, (\pi_i)_{i\in N} \ \bigm| \ \pi_i : T\times\Omega\to\R \,\bigr\}
 \label{eq:spaces}
 \end{equation}
 $\Delta$ を\emph{履行スケジュールの空間}、$\Pi$ を\emph{決済スケジュールの空間}と呼ぶ。
@@ -156,6 +157,17 @@ $\Delta$ を\emph{履行スケジュールの空間}、$\Pi$ を\emph{決済ス�
 として定義する。
 \end{definition}
 
+\begin{remark}[$\Phi$ と $\phi$ は別の対象である]
+\label{rem:Phi-vs-phi}
+大文字の $\Phi$ は式\eqref{eq:phi}の写像そのもの、すなわち\textbf{構造}を指す。
+小文字の $\phi$ は、その構造のもとで一期間に生じる\textbf{余剰の大きさ}を指す量であり、
+第\ref{sec:surplus}章の式\eqref{eq:surplus}で三つの源泉に分解して定める。
+$\Phi$ が履行と決済の対応の形を決め、$\phi$ はその形のもとで企業に残る取り分を測る。
+本稿では両者を結ぶ一般の関係式を与えない。
+$\Phi$ の選択が $\phi$ の各項をどう動かすかは、
+第\ref{sec:surplus}章で項ごとに個別に論じる。
+\end{remark}
+
 
 \section{キャッシュフローの生成}
 \label{sec:cashflow}
@@ -163,15 +175,21 @@ $\Delta$ を\emph{履行スケジュールの空間}、$\Pi$ を\emph{決済ス�
 式\eqref{eq:phi}の $\Phi$ が定まれば、主体ごとの決済が定まる。これをキャッシュフローと呼ぶ。
 
 \begin{definition}[キャッシュフロー]
-$\delta\in\Delta$ に対し
+履行 $\delta\in\Delta$ を一つ定めると、$\Phi$ はその像として決済の組
+$\pi = \Phi(\delta) \in \Pi$ を返す。$\Pi$ の元は主体ごとの関数の組であるから、
+その第 $i$ 成分 $\pi_i$ は $T\times\Omega$ 上の関数である。これを
 \begin{equation}
-X(i,t,\omega) = \Phi(\delta)_i(t,\omega)
+X(i,t,\omega) \ \equiv\ \pi_i(t,\omega), \qquad \pi = \Phi(\delta)
 \label{eq:X}
 \end{equation}
-と定める。$X(i,t,\omega)$ は、状態 $\omega$ において時刻 $t$ に主体 $i$ との間で生じる
+と書く。$X(i,t,\omega)$ は、状態 $\omega$ において時刻 $t$ に主体 $i$ との間で生じる
 正味の現金移動を表す。符号は企業への流入を正とする。
-仕入先 $S$ や労働 $L$ への支払いは $\Phi(\delta)_i<0$ として表される。
+仕入先や労働への支払いは $\pi_i<0$ として表される。
 \end{definition}
+
+\textbf{$\Phi$ が受け取るのは履行の組 $\delta$ ひとつであり、
+$t$ や $\omega$ を引数に取らない。} 時刻と状態への依存は、
+$\Phi$ が返した $\pi_i$ が持つ。
 
 \textbf{$X$ は $\Phi$ の像である。} $\Phi$ を差し替えれば、
 同じ履行 $\delta$ に対して異なる $X$ が生じる。これが本稿の中心的な操作である。
@@ -210,13 +228,16 @@ X(i,t,\omega) = \Phi(\delta)_i(t,\omega)
 \begin{example}[三重添字の具体化]
 \label{ex:triple-index}
 月額1,000円のサービスを100名に提供する事業を考える。
-顧客 $j$ が毎月末に支払う場合、
+顧客 $i\in C$ が毎月末に支払う場合、
 \[
-X(C_j,\ t,\ \omega) = \begin{cases} 1{,}000 & t \in \{1,2,\dots\}\ \text{（月末）} \\ 0 & \text{otherwise}\end{cases}
+X(i,\ t,\ \omega) = \begin{cases} 1{,}000 & t \in \{1,2,\dots\}\ \text{（月末）} \\ 0 & \text{otherwise}\end{cases}
 \]
 であり、$\omega$ には依存しない。一方、解約が生じうるならば
 $\omega$ は解約時刻を含み、$X$ は $\omega$ に依存する。
-サーバ費用を月額30,000円とすると $X(S,t,\omega)=-30{,}000$ である。
+
+仕入先が一社であれば $S=\{s\}$ であり、サーバ費用を月額30,000円として
+$X(s,t,\omega)=-30{,}000$ である。類別で書けば
+$\sum_{i\in S}X(i,t,\omega)=-30{,}000$ に等しい。
 \end{example}
 
 
@@ -282,7 +303,7 @@ $\Phi$ の設計者が自由に選べる範囲は $\mathcal{G}$ が限る
 この対応づけは本稿の整理である。
 
 \begin{center}
-\begin{tabular}{@{}llll@{}}
+\begin{tabular}{@{}clll@{}}
 \toprule
 操作する添字 & 名称 & 不変量 & 例 \\
 \midrule
@@ -495,7 +516,7 @@ $C$ と $\Phi$ がともに事前指定できることが複製可能性の条�
 物理層はこの $C$ の性質を指す（第\ref{sec:layers}節）。
 \end{remark}
 
-\begin{example}[同一の $f$、異なる $\Phi$]
+\begin{example}[同一の $C_{\mathrm{prod}}$、異なる $\Phi$]
 同一の業務用ソフトウェアを、次の三通りで提供できる。
 \begin{center}
 \begin{tabular}{@{}llr@{}}
@@ -556,10 +577,10 @@ $\dbar$ が外生に与えられることを前提とする。
 \begin{remark}[容量制約の一般形と本稿の簡略化]
 \label{rem:cap-simplification}
 供給側の容量には、施設の収容人数、設備の台数、人員の可処分時間などが該当する。
-第\ref{sec:phi}章の定義より $\delta_j$ は $T\times\Omega$ 上の関数であるから、
+第\ref{sec:phi}章の定義より $\delta_i$ は $T\times\Omega$ 上の関数であるから、
 容量制約の一般形は各時刻で評価される。
 \begin{equation}
-\sum_j \delta_j(t,\omega) \ \leq\ \mathrm{Cap}(t,\omega)
+\sum_i \delta_i(t,\omega) \ \leq\ \mathrm{Cap}(t,\omega)
 \qquad \forall t\in T,\ \forall\omega\in\Omega
 \label{eq:cap-general}
 \end{equation}
@@ -569,7 +590,7 @@ $\dbar$ が外生に与えられることを前提とする。
 \textbf{本稿では以下、$\mathrm{Cap}$ を定数として扱う。}
 すなわち式\eqref{eq:cap-general}を期間全体で積分した
 \begin{equation}
-\sum_j \delta_j \ \leq\ \mathrm{Cap}
+\sum_i \delta_i \ \leq\ \mathrm{Cap}
 \label{eq:cap-simplified}
 \end{equation}
 の形で用いる。$\delta_j$ は総量を表す。
@@ -619,10 +640,10 @@ $\dbar$ を「毎日利用可能」とすれば $m\dbar$ は容量を大きく�
 \section{履行と決済の差}
 
 第\ref{sec:schedules}節の履行 $\delta_i$ と、
-式\eqref{eq:phi}の $\Phi$ が定める決済 $\Phi(\delta)_i$ の累積を
+式\eqref{eq:phi}の $\Phi$ が定める決済 $\pi_i$（ただし $\pi=\Phi(\delta)$）の累積を
 \begin{equation}
 D_i(t) = \int_0^t v(\delta_i(s))\,ds, \qquad
-P_i(t) = \int_0^t \Phi(\delta)_i(s)\,ds
+P_i(t) = \int_0^t \pi_i(s)\,ds
 \label{eq:cum}
 \end{equation}
 と書く。$D_i$ は与えた価値、$P_i$ は受け取った対価である。
@@ -635,7 +656,7 @@ P_i(t) = \int_0^t \Phi(\delta)_i(s)\,ds
 \end{equation}
 と定義する。式\eqref{eq:cum}より
 \[
-\kappa_i(t) = \int_0^t v(\delta_i(s))\,ds - \int_0^t \Phi(\delta)_i(s)\,ds
+\kappa_i(t) = \int_0^t v(\delta_i(s))\,ds - \int_0^t \pi_i(s)\,ds
 \]
 であり、\textbf{$\kappa_i$ は式\eqref{eq:phi}の $\Phi$ の関数である。}
 同じ履行 $\delta$ に対して $\Phi$ を差し替えれば $\kappa_i$ が変わる。$\kappa_i>0$ は企業が $i$ に与信している状態（履行済み・未回収）、
@@ -678,7 +699,7 @@ $\kappa_C<0$（対消費者） & 前払い契約 & メンタルアカウンテ�
 $\kappa_S<0$ & 買掛 & 取引信用の鏡像 \\
 $\kappa_L<0$ & 給与後払い & bonding argument、後払いによる規律 \cite{akerlof1986} \\
 $\kappa_K<0$ & 借入 & 企業金融の標準理論 \\
-$\kappa_K^{j}$ & 出資（残余請求権） & 主体依存。定義\ref{def:kappa-K} \\
+$\kappa_K^{i}$ & 出資（残余請求権） & 主体依存。定義\ref{def:kappa-K} \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{$\kappa_i$ の各項を説明する既存理論。}
@@ -860,10 +881,10 @@ $\phi$ の三分解を代入すれば
 
 \begin{definition}[資本提供者との信用ポジション]
 \label{def:kappa-K}
-主体 $j$ の確率測度 $\Prob_j$ の下での残余請求権の価値を
-$V_j(t) = \E_j[\text{将来キャッシュフローの現在価値}]$ として
+資本提供者 $i\in K$ の確率測度 $\Prob_i$ の下での残余請求権の価値を
+$V_i(t) = \E_i[\text{将来キャッシュフローの現在価値}]$ として
 \begin{equation}
-\kappa_K^{j}(t) = V_j(t) - P_K(t)
+\kappa_K^{i}(t) = V_i(t) - P_K(t)
 \label{eq:kappa-K}
 \end{equation}
 と定める。
@@ -871,14 +892,14 @@ $V_j(t) = \E_j[\text{将来キャッシュフローの現在価値}]$ として
 
 \begin{proposition}[$\kappa_K$ は式\eqref{eq:cash}に入らない]
 \label{prop:kappa-K-excluded}
-$\kappa_K^{j}$ は主体 $j$ に依存するため、式\eqref{eq:cash}の恒等式に含められない。
+$\kappa_K^{i}$ は資本提供者 $i$ に依存するため、式\eqref{eq:cash}の恒等式に含められない。
 \end{proposition}
 
 \begin{proof}
 式\eqref{eq:cash}は貸借対照表恒等式の変形であり、
 全主体が同一の値を認識する量のみで構成される。
 売掛金や買掛金は当事者間で額が一致するが、
-式\eqref{eq:kappa-K}の $V_j$ は $\Prob_j$ に依存し一致しない。
+式\eqref{eq:kappa-K}の $V_i$ は $\Prob_i$ に依存し一致しない。
 主体依存の量を含めれば恒等式が主体ごとに変わり、恒等式でなくなる。
 \end{proof}
 
@@ -906,7 +927,7 @@ $V_j$ の主観性は\textbf{確率測度の不一致}であり、
 同じ情報を見ても予測が異なるため開示では解消しない。
 
 この区別から二つの帰結が出る。
-第一に、$\kappa_K^{j}$ の値は当事者間で一致せず、他の $\kappa_i$ と性質が異なる。
+第一に、$\kappa_K^{i}$ の値は当事者間で一致せず、他の $\kappa_i$ と性質が異なる。
 第二に、\textbf{その不一致こそが出資を成立させる}。
 出資者が経営者より $V$ を高く評価するから出資する。
 これは命題\ref{prop:discount}の割引因子の異質性と同型の構造である。
@@ -1355,6 +1376,7 @@ $g^\star$ は比の値として報告するにとどめ、因果的な解釈を�
 \chapter{余剰とレイヤー：源泉・耐久性・可変性}
 \label{sec:surplus}
 
+注\ref{rem:Phi-vs-phi}で予告した余剰 $\phi$ を、ここで定める。
 期間利益を源泉によって三分解する。この分解は本稿の整理である。
 第三項は式\eqref{eq:cog}の認知余剰であり、
 式\eqref{eq:phi}の自由度(5) が立つときに正となりうる。
@@ -1475,7 +1497,7 @@ $\lambda$ が年間取引回数に比例し、$\lambda = 0.02\nu$ とする。
 認知層 & $\dbar-\delta$、$\hat U - U$ & 学習と規制で単調に削られる \\
 信用層 & $\kappa_i$ の配分 & 交渉力に依存。制度層が制約を課す \\
 時間層 & $\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の関係 & 物理層にかなり規定される \\
-物理層 & $f$、限界費用、資産の重さ & 技術と物理法則。短期には所与 \\
+物理層 & $C_{\mathrm{prod}}$、限界費用、資産の重さ & 技術と物理法則。短期には所与 \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{可変性の順に整理した五層構造。}
