@@ -423,6 +423,17 @@ c(\delta) = \frac{dC_{\mathrm{prod}}}{d\delta} && &\text{限界費用}
 と書く。
 \end{definition}
 
+\begin{remark}[$c(\delta)$ に形状を仮定しない]
+本稿は $c(\delta)$ の単調性も凸性も仮定しない。
+費用構造は業種ごとに大きく異なり、一つの形状を置くと適用範囲が狭まるためである。
+
+代償として、\textbf{最適な履行量 $\delta$ を内点で定めることができない}。
+式\eqref{eq:cap-simplified}の容量制約は上限を与えるが、
+その手前で費用と価格が釣り合う点は本稿の仮定からは出ない。
+以降で $\delta$ の水準が問題になる箇所（第\ref{ch:solo}章の配分など）では、
+制約の端点として扱う。
+\end{remark}
+
 この分割に意味があるのは、第二項が実在するからである。
 $C_{\mathrm{admin}}$ は $\Phi$ の六自由度（第\ref{sec:dof}節）のすべてから生じる。
 
@@ -470,6 +481,12 @@ $\tau_C<0$（前受）は回収費用を要しないが、
 第\ref{ch:solo}章の一人事業と第\ref{part:results}部の族2では成立するが、
 \textbf{第\ref{part:industry}章が扱う小規模企業では成立しない}。
 請求と督促が人手で行われる場合、$C_{\mathrm{admin}}$ は無視できない。
+
+この省略の代償を明示しておく。$C_{\mathrm{admin}}$ を落とすため、
+本稿は\textbf{$\Phi$ の選択が費用を通じて $\phi$ に跳ね返る経路を扱えない}。
+式\eqref{eq:cost-split}は以降で使わず、$C_{\mathrm{prod}}$ のみが現れる。
+$\tau_i$ を延ばす契約変更が回収費用を増やす、といった対応関係は、
+本稿の枠組みの中では書けない。
 \end{remark}
 
 以上より、費用構造が同一でも異なる契約形態を選べるという自由度が、
@@ -605,7 +622,7 @@ $\dbar$ が外生に与えられることを前提とする。
 \begin{proposition}[容量制約下の会員制]
 \label{prop:capacity}
 式\eqref{eq:cap-simplified}の容量制約が存在し、
-\textbf{会員数 $m$ と平均利用 $\E[\delta]$ が独立に決まるとき}、
+\textbf{会員数 $n$ と平均利用 $\E[\delta]$ が独立に決まるとき}、
 定額会員制 $\pi_j=c$ が実行可能であるためには
 \begin{equation}
 \sum_{j}\E[\delta_j] \ \ll\ \sum_{j}\dbar_j
@@ -614,12 +631,13 @@ $\dbar$ が外生に与えられることを前提とする。
 \end{proposition}
 
 \begin{proof}
-会員数を $m$、各会員の契約上の上限を $\dbar$ とする。
-全会員が権利を行使すれば需要は $m\dbar$ となる。
-実行可能性は $m\,\E[\delta] \leq \mathrm{Cap}$ を要求する。
-一方、会員が $\dbar$ に価値を感じて加入している以上 $m\dbar > \mathrm{Cap}$ が通常成立する
+会員数を $n$、各会員の契約上の上限を $\dbar$ とする。
+全会員が権利を行使すれば需要は $n\dbar$ となる。
+実行可能性は $n\,\E[\delta] \leq \mathrm{Cap}$ を要求する。
+一方、会員が $\dbar$ に価値を感じて加入している以上 $n\dbar > \mathrm{Cap}$ が通常成立する
 （そうでなければ容量制約が拘束していない）。
-両者を合わせると $\E[\delta] \leq \mathrm{Cap}/m < \dbar$ を得る。
+両者を合わせると $\E[\delta] \leq \mathrm{Cap}/n < \dbar$ を得る。
+$m$ は第\ref{sec:growth}章で粗利率に用いるため、ここでは $n$ と書く。
 \end{proof}
 
 \begin{example}[二種の会員制]
@@ -635,6 +653,7 @@ $\dbar$ を「毎日利用可能」とすれば $m\dbar$ は容量を大きく�
 
 %============================================================
 \chapter{信用ポジション：\texorpdfstring{$\kappa$}{κ} と遅れ時間 \texorpdfstring{$\tau$}{τ}}
+\label{sec:kappa}
 %============================================================
 
 \section{履行と決済の差}
@@ -741,6 +760,118 @@ bonding argument & 労働経済学 & なぜ非自発的失業が存在するか 
 \label{fig:kappa}
 \end{figure}
 
+\subsection{取引の両側：$\kappa$ は反対称である}
+\label{sec:kappa-antisym}
+
+式\eqref{eq:kappa}は自社の帳簿で書いた量である。
+同じ取引を相手方 $i$ の側で書くと、与えた価値と受け取った対価が入れ替わる。
+
+\begin{proposition}[反対称性]
+\label{prop:kappa-antisym}
+主体 $A$ と主体 $i$ が評価写像 $v$ を共有するとき、
+$A$ の帳簿における $i$ への信用ポジションを $\kappa_i^{(A)}$ と書けば
+\begin{equation}
+\kappa_i^{(A)} = -\,\kappa_A^{(i)}
+\label{eq:kappa-antisym}
+\end{equation}
+が成立する。
+\end{proposition}
+
+\begin{proof}
+$A$ が $i$ に与えた価値は $i$ が $A$ から受け取った価値であり、
+$A$ が $i$ から受け取った対価は $i$ が $A$ に与えた対価である。
+したがって $D_i^{(A)}=P_A^{(i)}$、$P_i^{(A)}=D_A^{(i)}$ であり、
+式\eqref{eq:kappa}に代入すれば従う。
+\end{proof}
+
+\begin{remark}[$v$ の共有が要る]
+式\eqref{eq:kappa-antisym}は両者が同じ $v$ を用いることを前提とする。
+注\ref{rem:subjectivity}のとおり $v$ は主観的でありうるが、
+決済額 $\pi$ は $\mathcal{G}$ 可測で一致するから、
+不一致が生じるのは $D$ の側だけである。
+検収基準の相違や係争中の債権がこれにあたる。
+\end{remark}
+
+反対称性から、集計についての帰結が出る。
+
+\begin{corollary}[企業間の信用は集計で消える]
+\label{cor:kappa-nets-out}
+法人部門に属する主体の集合を $\mathcal{N}$ とすると、
+$\mathcal{N}$ の内部で閉じた信用ポジションの総和はゼロである。したがって
+\begin{equation}
+\sum_{A\in\mathcal{N}} W^{(A)}
+= \kappa_{\text{対非法人}} + \sum_{A\in\mathcal{N}}\mathrm{Inv}^{(A)}
+\label{eq:aggregate-W}
+\end{equation}
+が成立する。ここで $\kappa_{\text{対非法人}}$ は法人部門と家計・政府・海外との
+あいだの正味ポジションである。
+\end{corollary}
+
+\begin{proof}
+$\mathcal{N}$ の内部の各対 $(A,i)$ について式\eqref{eq:kappa-antisym}より
+$\kappa_i^{(A)}+\kappa_A^{(i)}=0$ である。
+$W=\sum_i\kappa_i+\mathrm{Inv}$ を $A$ について足すと内部の対は消え、
+外部との対と在庫が残る。
+\end{proof}
+
+\begin{corollary}[すべての階層が与信の出し手にはなれない]
+\label{cor:no-uniform-direction}
+法人部門を互いに素な階層に分割したとき、
+すべての階層が企業間で正味の与信の出し手であることはありえない。
+ある階層が正味の出し手であれば、別の階層は正味の受け手である。
+\end{corollary}
+
+\begin{proof}
+系\ref{cor:kappa-nets-out}より、階層をまたぐ企業間ポジションの総和はゼロである。
+すべてが同符号であれば総和は同符号となり、矛盾する。
+\end{proof}
+
+系\ref{cor:no-uniform-direction}は、規模階層の比較に構造的な制約を課す。
+第\ref{part:results}部で与信の向きを規模別に測るとき、
+観測される符号の一部はこの制約から自動的に決まる。
+
+\begin{remark}[集計の $\CCC$ が測っているもの]
+式\eqref{eq:aggregate-W}を売上の総和で割ると、集計の $\CCC$ が得られる。
+分子から企業間ポジションが落ちているから、
+\textbf{集計の $\CCC$ は企業間信用の指標ではない}。
+残るのは対非法人ポジションと在庫である。
+第\ref{part:industry}章で全産業の $\CCC$ を報告するが、
+その水準の解釈にはこの区別が要る。
+\end{remark}
+
+\subsection{$\Phi$ の並置に対する加法性}
+\label{sec:kappa-additive}
+
+一つの主体が複数の $\Phi$ を並行して運用することがある。
+
+\begin{proposition}[$\kappa$ の加法性]
+\label{prop:kappa-additive}
+互いに素な履行 $\delta^1,\dots,\delta^K$ に対して
+$\Phi^1,\dots,\Phi^K$ を並行して運用するとき、
+\begin{equation}
+\kappa = \sum_{k=1}^{K}\kappa^{k},
+\qquad
+W = \sum_{k=1}^{K} W^{k}
+\label{eq:kappa-additive}
+\end{equation}
+が成立する。
+\end{proposition}
+
+\begin{proof}
+式\eqref{eq:cum}の $D_i$ と $P_i$ は積分であり、被積分関数について加法的である。
+式\eqref{eq:kappa}は両者の差であるから加法性を保つ。
+\end{proof}
+
+加法的なのは $\kappa$ と $W$ であって、$\CCC$ ではない。
+$\CCC=W/r$ は比であり、比は加法的でない（系\ref{cor:ccc-weighted}）。
+
+\begin{remark}[分解は一意でない]
+\label{rem:decomposition-not-unique}
+式\eqref{eq:kappa-additive}は分解の存在を述べるが、一意性を述べない。
+同じ $\kappa$ を与える $\{\Phi^k\}$ の組は複数ある。
+第\ref{ch:catalog}章の類型は $\Phi$ の生成系であって基底ではない。
+\end{remark}
+
 \subsection{遅れ時間としての表現}
 \label{sec:tau}
 
@@ -843,7 +974,46 @@ $M$ について解けば式\eqref{eq:cash}を得る。
 与えた信用と固定化した資産を差し引いた残余である。
 \end{corollary}
 
+\subsection{正味の形}
+\label{sec:cash-net}
+
+式\eqref{eq:cash}の第二項と第三項は、総額を分けて見せるために置いている。
+正味だけを見るなら、任意の実数 $x$ について $\max\{-x,0\}-\max\{x,0\}=-x$ であるから、
+二項は打ち消し合う。
+
+\begin{proposition}[現金は運転資本の裏返しである]
+\label{prop:cash-net}
+運転資本を $W(t)=\sum_i\kappa_i(t)+\mathrm{Inv}(t)$ とすると、式\eqref{eq:cash}は
+\begin{equation}
+M(t) = E(t) - W(t) - A(t)
+\label{eq:cash-net}
+\end{equation}
+と書ける。
+\end{proposition}
+
+\begin{proof}
+$\max\{-\kappa_i,0\}-\max\{\kappa_i,0\}=-\kappa_i$ を $i$ について足すと
+$\sum_i\max\{-\kappa_i,0\}-\sum_i\max\{\kappa_i,0\}=-\sum_i\kappa_i$ である。
+式\eqref{eq:cash}に代入し、$\mathrm{Inv}$ をまとめて $W$ とすればよい。
+\end{proof}
+
+例\ref{ex:three-sources}で確かめると、$\sum_i\kappa_i=-600-50+200=-450$、
+$\mathrm{Inv}=0$ より $W=-450$ であり、$100+450-30=520$ で一致する。
+
+式\eqref{eq:cash-net}は式\eqref{eq:cash}と同じ内容だが、
+\textbf{$W$ を通じて第\ref{sec:growth}章の $\CCC$ に接続する}。
+第\ref{sec:objective}節の制約 $M\geq 0$ が
+$\Phi$ の選択にどう効くかは、この形を経由して定まる。
+
+\begin{remark}[既存の恒等式である]
+式\eqref{eq:cash-net}は財務分析で用いられる恒等式
+（現金 ＝ 自己資本 $-$ 正味営業資産）と同一である。
+本稿における意味は、$W$ が式\eqref{eq:kappa}を通じて $\Phi$ の関数であり、
+したがって現金制約が $\Phi$ についての制約になる点にある。
+\end{remark}
+
 \begin{example}[三者からの調達]
+\label{ex:three-sources}
 自己資本100万円で開業した事業が、顧客から年払いで600万円を受け取り
 （$\kappa_C=-600$万円）、クラウド事業者に対して未払い50万円を持ち
 （$\kappa_S=-50$万円）、大口顧客への売掛金が200万円ある（$\kappa_{C'}=+200$万円）。
@@ -1033,17 +1203,18 @@ $\mathcal{G}$ を固定した短期の条件として読むべきである。
 \begin{example}[成果連動の最適強度]
 \label{ex:bstar}
 線形契約 $\pi = \alpha + b\,y$ を考える。
-エージェントの絶対的リスク回避度を $r$、結果のノイズ分散を $\sigma^2$ とすると、
+エージェントの絶対的リスク回避度を $\gamma$、結果のノイズ分散を $\sigma^2$ とすると、
+（$r$ は第\ref{sec:growth}章で売上速度に用いるため、ここでは $\gamma$ と書く）
 最適な成果連動係数は
 \begin{equation}
-b^{\star} = \frac{1}{1+r\,\sigma^{2}\,k}
+b^{\star} = \frac{1}{1+\gamma\,\sigma^{2}\,k}
 \label{eq:bstar}
 \end{equation}
 の形をとる（$k$ は努力の限界費用に関する定数、\cite{holmstrom1991}）。
 $\sigma^2$ が大きいほど $b^\star$ は小さい。
 すなわち\textbf{結果が騒がしいほど成果連動は弱めるべきである}。
 
-数値例として $r k = 1$ とすると、$\sigma^2=0.5$ で $b^\star=0.67$、
+数値例として $\gamma k = 1$ とすると、$\sigma^2=0.5$ で $b^\star=0.67$、
 $\sigma^2=2$ で $b^\star=0.33$、$\sigma^2=9$ で $b^\star=0.10$ となる。
 \end{example}
 
@@ -1065,8 +1236,9 @@ $\sigma^2=2$ で $b^\star=0.33$、$\sigma^2=9$ で $b^\star=0.10$ となる。
 \begin{proposition}[経路制約の非可換性]
 \label{prop:pathwise}
 $\E[M(t)]\geq 0$ は式\eqref{eq:constraint}を含意しない。
-また倒産時刻 $\tau=\inf\{t: M(t)<0\}$ は吸収状態であり、
-$t>\tau$ における $\phi_t$ は実現しない。
+また倒産時刻 $\Tins=\inf\{t: M(t)<0\}$ は吸収状態であり、
+$t>\Tins$ における $\phi_t$ は実現しない。
+$\tau_i$ は決済の遅れに用いているため、倒産時刻は $\Tins$ と書く。
 \end{proposition}
 
 \begin{proof}
@@ -1074,11 +1246,11 @@ $t>\tau$ における $\phi_t$ は実現しない。
 $M(t)$ が確率 $1/2$ で $+100$、確率 $1/2$ で $-100$ をとるとき
 $\E[M(t)]=0\geq 0$ であるが、確率 $1/2$ の経路で制約が破れる。
 
-第二の主張は、$M(\tau)<0$ において支払不能が生じ、
+第二の主張は、$M(\Tins)<0$ において支払不能が生じ、
 以後の履行 $\delta$ が実行できないことによる。
 したがって目的関数は正しくは
-$\E\bigl[\sum_{t<\tau}\beta^t\phi_t\bigr]$ と書かれるべきであり、
-$\tau$ は $\Phi$ に依存する。
+$\E\bigl[\sum_{t<\Tins}\beta^t\phi_t\bigr]$ と書かれるべきであり、
+$\Tins$ は $\Phi$ に依存する。
 \end{proof}
 
 \begin{corollary}[黒字倒産]
@@ -1143,7 +1315,7 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 
 売上速度を $r(t)$、運転資本を $W(t)=\sum_i\kappa_i(t)+\mathrm{Inv}(t)$ とする。
 
-命題\ref{prop:cash}の運転資本 $W=\sum_i\kappa_i+\mathrm{Inv}$ を用いる。
+命題\ref{prop:cash-net}の運転資本 $W=\sum_i\kappa_i+\mathrm{Inv}$ を用いる。
 $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依存する。
 
 \begin{definition}[キャッシュコンバージョンサイクル]
@@ -1154,6 +1326,58 @@ $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依�
 \end{equation}
 と定義する。次元は時間である。
 \end{definition}
+
+\section{基本不等式}
+\label{sec:fundamental}
+
+式\eqref{eq:cash-net}に式\eqref{eq:ccc}を代入すると、現金残高が
+\begin{equation}
+M(t) = E(t) - \CCC\cdot r(t) - A(t)
+\label{eq:M-ccc}
+\end{equation}
+と書ける。第\ref{sec:objective}節の制約 $M\geq 0$ はしたがって次の形をとる。
+
+\begin{proposition}[基本不等式]
+\label{prop:fundamental}
+式\eqref{eq:constraint}の現金制約は
+\begin{equation}
+\CCC\cdot r(t,\omega) \ \leq\ E(t) - A(t)
+\label{eq:fundamental}
+\end{equation}
+と同値である。
+\end{proposition}
+
+\begin{proof}
+式\eqref{eq:cash-net}に $W=\CCC\cdot r$ を代入して $M\geq 0$ を整理すればよい。
+\end{proof}
+
+式\eqref{eq:fundamental}は\textbf{運転資本が自己資本から固定資産を引いた額を超えられない}
+と読む。左辺は $\Phi$ が決め、右辺は資本構成が決める。
+本章の残りと、第\ref{part:catalog}部の各章は、この不等式の特例を扱う。
+
+\begin{corollary}[規模の上限]
+\label{cor:rmax}
+$\CCC>0$ のとき、実行可能な売上速度は
+\begin{equation}
+r \ \leq\ r^{\max} = \frac{E-A}{\CCC}
+\label{eq:rmax}
+\end{equation}
+で上から抑えられる。$\CCC\leq 0$ かつ $E\geq A$ のとき、
+式\eqref{eq:fundamental}は任意の $r$ で成立する。
+\end{corollary}
+
+次元は円÷年であり、売上速度と一致する。
+$g^\star$ が成長率の上限であるのに対し、$r^{\max}$ は\textbf{水準の上限}である。
+両者は別の制約であり、一方は他方を含意しない（注\ref{rem:level-and-change}）。
+
+\begin{corollary}[資本がなければ $\CCC\leq 0$ の $\Phi$ しか選べない]
+\label{cor:zero-equity}
+$E=0$ のとき、式\eqref{eq:fundamental}は $\CCC\cdot r\leq -A\leq 0$ を要求する。
+すなわち $\CCC\leq 0$ である。
+\end{corollary}
+
+系\ref{cor:zero-equity}は第\ref{ch:solo}章の出発点になる。
+資本を持たない主体に残るのは、決済が履行に先行する $\Phi$ だけである。
 
 式\eqref{eq:ccc}の $\CCC$ を用いる。
 
@@ -1176,6 +1400,18 @@ $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依�
 式\eqref{eq:ccc}より $W=\CCC\cdot r$ であり、$\CCC$ が一定であれば
 $\dot W = \CCC\cdot\dot r$ を得る。代入すれば式\eqref{eq:fcf}が従う。
 \end{proof}
+
+\begin{remark}[$\FCF$ は現金残高の時間微分である]
+\label{rem:fcf-is-mdot}
+式\eqref{eq:M-ccc}を微分する。式\eqref{eq:equity}より $\dot E=\phi-\dot{\mathrm{Div}}$、
+固定資産は投資から減価償却を引いて $\dot A = I - d\,r$ である。
+配当と外部調達がなければ
+\[
+\dot M = \phi + d\,r - \CCC\,\dot r - I = \FCF
+\]
+となる。$\FCF$ は独立に導入された量ではなく、\textbf{式\eqref{eq:cash-net}の時間微分である}。
+したがって次節の $g^\star$ は $\dot M\geq 0$ の境界にあたる。
+\end{remark}
 
 式\eqref{eq:fcf}を $g$ について解く。分母には式\eqref{eq:ccc}の $\CCC$ が現れる。
 
@@ -1216,6 +1452,71 @@ $\FCF/r = (m+d) - \CCC\,g - I/r$。
 $\FCF\geq 0$ を $g$ について解けば式\eqref{eq:gstar}を得る。
 $\CCC<0$ のときは左辺が全ての $g>0$ で正となる。
 \end{proof}
+
+\begin{remark}[水準の制約と変化の制約は独立である]
+\label{rem:level-and-change}
+系\ref{cor:rmax}は $M\geq 0$ から、系\ref{cor:gstar}は $\dot M\geq 0$ から出る。
+一方は他方を含意しない。$M(0)>0$ であっても $g>g^\star$ ならば $M$ は減少し、
+有限の時刻で式\eqref{eq:constraint}が破れる。
+\end{remark}
+
+\begin{proposition}[現金の枯渇時刻]
+\label{prop:depletion}
+$I=0$、$g$ 一定、$r(t)=r_0e^{gt}$ とする。$g>g^\star=(m+d)/\CCC$ のとき、
+$M(0)=M_0>0$ から出発しても現金は
+\begin{equation}
+\Tins = \frac{1}{g}\,
+\ln\!\left(1+\frac{g\,M_0}{(\CCC\,g-m-d)\,r_0}\right)
+\label{eq:depletion}
+\end{equation}
+で尽きる。$g\downarrow g^\star$ のとき $\Tins\to\infty$ である。
+\end{proposition}
+
+\begin{proof}
+注\ref{rem:fcf-is-mdot}より $\dot M = a\,r_0e^{gt}$、$a=(m+d)-\CCC g$ である。
+積分して $M(t)=M_0+(a r_0/g)(e^{gt}-1)$。
+$g>g^\star$ より $a<0$ であるから $M$ は減少し、$M(\Tins)=0$ を解けば
+式\eqref{eq:depletion}を得る。$g\to g^\star$ で $a\to 0$ となり対数の引数が発散する。
+\end{proof}
+
+式\eqref{eq:depletion}は、命題\ref{prop:pathwise}が記号で導入した倒産時刻に値を与える。
+
+\begin{example}[$g^\star$ は閾値だが崖ではない]
+\label{ex:depletion}
+$m=5\%$、$d=2\%$、$\CCC=0.25$ 年、$M_0=100$、$r_0=1{,}000$ とすると $g^\star=28\%$ である。
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+成長率 & $\Tins$ \\
+\midrule
+$g^\star+0.001$ & 16.8 年 \\
+$g^\star+0.01$ & 8.7 年 \\
+$g^\star+0.05$ & 3.9 年 \\
+$g^\star+0.2$ & 1.4 年 \\
+$g^\star+0.5$ & 0.6 年 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$g^\star$ の超過幅と現金の枯渇時刻。}
+\label{tab:depletion}
+\end{center}
+わずかな超過には十数年の猶予があり、大幅な超過は一年で尽きる。
+\textbf{$g^\star$ を超えたかどうかではなく、どれだけ超えたかが効く。}
+\end{example}
+
+\begin{remark}[$\CCC$ は需要変動の増幅係数でもある]
+\label{rem:ccc-amplifier}
+式\eqref{eq:M-ccc}は $r$ について線形であり、係数は $-\CCC$ である。
+$E$ と $A$ が短期に $r$ と独立であれば
+\[
+\operatorname{Var}[M] = \CCC^{2}\operatorname{Var}[r]
+\]
+となる。\textbf{$\CCC$ は水準の上限を決めるだけでなく、
+需要の変動を現金の変動に増幅する。}
+$\CCC$ が大きい業種ほど、同じ需要変動に対して式\eqref{eq:constraint}が破れやすい。
+
+本稿は $r$ の過程を指定しないため $\Prob(\Tins\leq t)$ を与えない。
+増幅係数が $\CCC$ であることは過程の指定なしに言える。
+\end{remark}
 
 \begin{remark}[$I \approx d\,r$ の仮定を置かない]
 \label{rem:no-steady-investment}
@@ -1325,6 +1626,25 @@ $\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の前後関係が�
 需要や効率についての情報を持たない。
 \end{corollary}
 
+\begin{corollary}[集計は $r$ 加重平均になる]
+\label{cor:ccc-weighted}
+命題\ref{prop:kappa-additive}の並置において、部分ごとの売上速度を $r_k$ とすると
+\begin{equation}
+\CCC = \sum_k w_k\,\CCC_k, \qquad w_k = \frac{r_k}{\sum_j r_j}
+\label{eq:ccc-weighted}
+\end{equation}
+であり、$\CCC$ は加法的でない。
+\end{corollary}
+
+\begin{proof}
+$W=\sum_k W_k$（命題\ref{prop:kappa-additive}）と $W_k=\CCC_k r_k$ より
+$\CCC=\sum_k \CCC_k r_k/\sum_j r_j$ を得る。
+\end{proof}
+
+式\eqref{eq:ccc-weighted}は、異なる族の $\Phi$ を並行して運用する企業について
+$\CCC$ を計算すると異符号の加重平均を観測することを意味する。
+観測単位を企業ではなく $\Phi$ に置く根拠がここにある。
+
 \begin{corollary}[変化の分解]
 \label{cor:ccc-change}
 式\eqref{eq:ccc-tau}の差分は
@@ -1333,9 +1653,79 @@ $\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の前後関係が�
  + \underbrace{\Delta\tau_{\mathrm{inv}}}_{\text{運用の変化}}
 \label{eq:ccc-change}
 \end{equation}
-と分かれる。$\Delta\tau_i\neq 0$ は契約条件の変更を意味し、
+と分かれる。式\eqref{eq:ccc-change}において $\Delta\tau_i\neq 0$ は契約条件の変更を意味し、
 $\Delta\tau_{\mathrm{inv}}$ は契約と独立に生じる。
 \end{corollary}
+
+\section{経路制約と尖頭}
+\label{sec:peak}
+
+式\eqref{eq:constraint}はすべての $t$ と $\omega$ について課される。
+一方、注\ref{rem:kappa-tau-average}のとおり $\bar\kappa_i=r\tau_i$ は時間平均である。
+\textbf{拘束するのは平均ではなく尖頭である。}
+
+\begin{proposition}[尖頭の運転資本]
+\label{prop:peak}
+売上速度が一定、締め期間 $T_b$、支払サイト $\tau_i$ のとき、
+$\kappa_i(t)$ の時間平均は $r(\tau_i+T_b/2)$、最大値は $r(\tau_i+T_b)$ である。
+したがって式\eqref{eq:fundamental}は
+\begin{equation}
+r \ \leq\ \frac{E-A}{\CCC + T_b/2}
+\label{eq:rmax-peak}
+\end{equation}
+となる。
+\end{proposition}
+
+\begin{proof}
+締め時点 $kT_b$ に $[(k-1)T_b,kT_b)$ の履行が請求され、$kT_b+\tau_i$ に決済される。
+未決済の累積は請求前の経過分と請求済み未決済分の和であり、
+締め直後に最小 $r\tau_i$、締め直前に最大 $r(\tau_i+T_b)$ をとる鋸歯となる。
+一周期にわたる平均は $r(\tau_i+T_b/2)$ である。
+平均で測った $\CCC$ に対し尖頭は $T_b/2$ だけ大きいから、
+式\eqref{eq:fundamental}の左辺を尖頭で評価すれば式\eqref{eq:rmax-peak}を得る。
+\end{proof}
+
+月次締めであれば $T_b/2$ は約15日である。
+\textbf{平均から計算した $\CCC$ で必要な資本を見積もると、半月分だけ過小になる。}
+第\ref{part:results}部の測定は期末残高または期中平均に基づいており、この差を含まない。
+
+\section{比較静学}
+\label{sec:comparative-statics}
+
+本章の量はいずれもパラメータの関数である。
+微分を並べると、$\Phi$ の設計者が何をどれだけ動かせばよいかが読める。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+量 & 微分 & 内容 \\
+\midrule
+$g^\star$ & $\partial\ln g^\star/\partial\tau_i = -1/\CCC$ & $i$ に依存しない \\
+$g^\star$ & $\partial g^\star/\partial m = 1/\CCC$ & 利益率の改善は $\CCC$ が小さいほど効く \\
+式\eqref{eq:rmax} & $\partial\ln r^{\max}/\partial\tau_i = -1/\CCC$ & $g^\star$ と同一の係数 \\
+式\eqref{eq:rmax} & $\partial\ln r^{\max}/\partial E = 1/(E-A)$ & 増資の効果は $A$ が大きいほど強い \\
+$\operatorname{Var}[M]$ & $\partial\operatorname{Var}[M]/\partial\CCC = 2\CCC\operatorname{Var}[r]$ & 注\ref{rem:ccc-amplifier} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{本章の量の比較静学。}
+\label{tab:comparative-statics}
+\end{center}
+
+\begin{proposition}[遅れ時間は限界で完全代替である]
+\label{prop:tau-substitution}
+式\eqref{eq:ccc-tau}より、任意の $i$ について
+$\partial\ln g^\star/\partial\tau_i = -1/\CCC$ であり、$i$ に依存しない。
+\end{proposition}
+
+\begin{proof}
+$g^\star=(m+d-I/r)/\CCC$ と $\CCC=\sum_j\tau_j+\tau_{\mathrm{inv}}$ より
+$\partial\CCC/\partial\tau_i=1$、したがって
+$\partial\ln g^\star/\partial\tau_i = -\partial\ln\CCC/\partial\tau_i = -1/\CCC$ を得る。
+\end{proof}
+
+\textbf{回収を一日早めることと、支払を一日延ばすことは、$g^\star$ に対して等価である。}
+表\ref{tab:comparative-statics}の第三行より、$r^{\max}$ についても同じ係数が現れる。
+水準と変化のどちらを見ても、$\Phi$ の設計指針は変わらない。
 
 系\ref{cor:no-cross-comparison}は、
 注\ref{rem:level-vs-change}で述べた制約に演繹的な根拠を与える。
@@ -1439,8 +1829,13 @@ $\phi_{\mathrm{prod}}$ と $\phi_{\mathrm{barg}}$ の未分離な和である。
 
 したがって $\phi_{\mathrm{prod}}$ と $\phi_{\mathrm{barg}}$ の分離には、
 $p^{\ast}$ を特定する追加の仮定が要る。
-第\ref{sec:platform-fee}章で両者を数値的に分離するが、
-それは同一プラットフォーム内で機能のみが異なる比較が得られる例外的な事例による。
+
+要る仮定は一つである。\textbf{支配力以外の条件が等しい対照が観測できること。}
+これがあれば対照の価格を $p^{\ast}$ と読み、差を $\phi_{\mathrm{barg}}$ に帰せる。
+第\ref{sec:platform-fee}章はこの仮定を、
+同一プラットフォーム内で機能のみが異なる二つの料率という形で満たす。
+仮定が満たされない場合、本稿は $\phi_{\mathrm{prod}}+\phi_{\mathrm{barg}}$ の
+和までしか述べない。
 \end{remark}
 
 認知余剰の減衰を、取引頻度 $\nu$ の関数として
@@ -1478,6 +1873,72 @@ $\lambda$ が年間取引回数に比例し、$\lambda = 0.02\nu$ とする。
 \captionof{table}{取引頻度 $\nu$ と認知余剰の半減期（数値例）。}
 \label{tab:decay-halflife-example}
 \end{center}
+
+\section{余剰と現金の関係}
+\label{sec:surplus-cash}
+
+$\phi$ は式\eqref{eq:equity}を通じてのみ現金に効く。三成分の効き方は同じではない。
+
+\begin{proposition}[認知余剰の認識は現金を動かさない]
+\label{prop:cog-cash-neutral}
+前払い契約で $p\,\dbar$ を受領し、履行が $\delta<\dbar$ で終わったとする。
+期限到来により残債務が消滅して $\phi_{\mathrm{cog}}$ が認識されるとき、
+式\eqref{eq:cash-net}の $M$ は変化しない。
+\end{proposition}
+
+\begin{proof}
+評価を $v(\delta)=p\,\delta$ とすると、認識前の信用ポジションは
+$\kappa_C = p\delta - p\dbar = -p(\dbar-\delta) = -\phi_{\mathrm{cog}}$ である。
+認識により $\kappa_C$ は $0$ になり、$W$ は $\phi_{\mathrm{cog}}$ だけ増える。
+同時に式\eqref{eq:equity}より $E$ が同額だけ増える。
+式\eqref{eq:cash-net}において両者は打ち消し合う。
+\end{proof}
+
+\textbf{認知余剰は、認識の時点では現金を生まない。}
+現金は前払いを受け取った時点で既に入っており、
+そこでの効果は $\phi_{\mathrm{cog}}$ ではなく $\kappa_C<0$ として現れていた。
+式\eqref{eq:cog}の $\phi_{\mathrm{cog}}$ と、
+第\ref{sec:kappa}章の未履行残高は、同じ取引の別の断面である。
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+成分 & 現金が動く時点 \\
+\midrule
+$\phi_{\mathrm{prod}}$、$\phi_{\mathrm{barg}}$ & 決済時点。$\tau_C$ だけ遅れる \\
+$\phi_{\mathrm{cog}}$ & 契約時点。認識時点ではない \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{式\eqref{eq:surplus}の三成分と現金が動く時点。}
+\label{tab:surplus-cash-timing}
+\end{center}
+
+\begin{remark}[会計上の扱いと一致する]
+命題\ref{prop:cog-cash-neutral}は、収益認識基準における
+契約負債からの振替（breakage）と同じ内容である。
+本稿における意味は、この振替が式\eqref{eq:cash-net}の $E$ と $W$ の
+両方を同額動かすため相殺される、という形で $\kappa$ の言葉に翻訳される点にある。
+\end{remark}
+
+\begin{corollary}[認知余剰から積める自己資本には上限がある]
+\label{cor:cog-bounded}
+式\eqref{eq:decay}に従って減衰するとき、
+$\phi_{\mathrm{cog}}$ から蓄積できる自己資本の総額は
+\begin{equation}
+\int_0^{\infty}\phi_{\mathrm{cog}}(0)\,e^{-\lambda(\nu)s}\,ds
+= \frac{\phi_{\mathrm{cog}}(0)}{\lambda(\nu)}
+\label{eq:cog-total}
+\end{equation}
+で抑えられる。$\lambda'(\nu)>0$ より、取引頻度が高いほど上限は小さい。
+\end{corollary}
+
+式\eqref{eq:cog-total}を系\ref{cor:rmax}に代入すると、認知余剰以外の源泉がない事業について
+\begin{equation}
+r \ \leq\ \frac{E(0) + \phi_{\mathrm{cog}}(0)/\lambda(\nu) - A}{\CCC}
+\label{eq:rmax-cog}
+\end{equation}
+を得る。\textbf{式\eqref{eq:rmax-cog}は、取引頻度が到達できる事業規模の上限を決めることを示す。}
+式\eqref{eq:decay}は半減期の議論にとどまらず、第\ref{sec:growth}章の制約に接続する。
 係数の値には根拠がなく、比の構造のみを示す例示である。
 日常的に購入される財では認知余剰がほとんど残らず、
 年単位の契約には長く残るという序列が導かれる。

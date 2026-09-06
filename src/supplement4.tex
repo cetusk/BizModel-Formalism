@@ -111,6 +111,35 @@ $\omega\in\Omega\setminus\hat\Omega$ の到来から応答までに許される�
 \textbf{したがって労働量をいくら減らしても式\eqref{eq:availability}は緩まない。}
 一人事業の実務的負担がここにあるという説明が可能である。
 
+両者を同時に課すと、負担の内容がより具体的に書ける。
+
+\begin{proposition}[可用性は容量の粒度を制限する]
+\label{prop:granularity}
+式\eqref{eq:availability}の下では、履行に充てられる時間は
+長さ $T_{\rm resp}$ 以下の区間に分断される。
+したがって連続した $T_{\rm resp}$ 超の時間を要する履行は、
+式\eqref{eq:solo-capacity}の $\mathrm{Cap}$ に余裕があっても実行できない。
+\end{proposition}
+
+\begin{proof}
+$\sup u\leq T_{\rm resp}$ は、応答しない区間の長さが $T_{\rm resp}$ を超えないことを要求する。
+履行に専念している区間は応答しない区間であるから、その長さも $T_{\rm resp}$ 以下である。
+連続した $T_{\rm resp}$ 超の時間を要する履行はこの区間に収まらない。
+\end{proof}
+
+\textbf{可用性制約は容量を減らすのではなく、容量の粒度を制限する。}
+第\ref{ch:solo}章の $T_{\rm dev}$ は長い連続時間を要する一方、
+運用は短い応答の反復である。命題\ref{prop:granularity}は、
+一人事業において開発と運用が両立しにくいことを、
+二つの制約の交差として与える。
+
+\begin{remark}[緩和の方向が異なる]
+式\eqref{eq:solo-capacity}は人を増やせば緩む。
+式\eqref{eq:availability}は交代要員を置かない限り緩まず、
+一人である限り $T_{\rm resp}$ そのものを延ばすほかない。
+応答期限の延長は、契約上の合意か、$\Omega\setminus\hat\Omega$ の縮小によって得られる。
+\end{remark}
+
 \begin{remark}[$T_{\rm resp}$ の水準は成分ごとに異なる]
 \label{rem:tresp-components}
 $T_{\rm resp}$ は $\Omega\setminus\hat\Omega$ の内容に依存する。

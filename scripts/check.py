@@ -110,7 +110,8 @@ def check_log():
     for pat, name in [(r"Reference.*undefined", "未定義参照"),
                       (r"Citation.*undefined", "未定義引用"),
                       (r"multiply defined", "重複ラベル"),
-                      (r"Overfull \\hbox", "オーバーフル")]:
+                      (r"Overfull \\hbox", "オーバーフル(hbox)"),
+                      (r"Overfull \\vbox", "オーバーフル(vbox)")]:
         n = len(re.findall(pat, log))
         if n:
             err(f"{name}: {n} 件")

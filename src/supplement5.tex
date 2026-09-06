@@ -325,6 +325,16 @@ $\CCC$ が景気先行指標になる & \textbf{棄却} \\
 25年間でほぼ単調に増加している。正味与信ポジションも9.8日から18.5日へ倍増した。
 \textbf{日本の企業部門全体が、運転資本をより多く抱える方向へ動いている。}
 
+\begin{remark}[集計値が測っているもの]
+系\ref{cor:kappa-nets-out}より、法人部門の内部で閉じた信用ポジションは
+集計で相殺されて消える。したがってここでの $\CCC$ は企業間信用の指標ではなく、
+対非法人ポジションと在庫の合計を売上で割った量である。
+実際、表\ref{tab:dso-dpo-by-size}の全産業で DSO $-$ DPO は 13 日であり、
+$\CCC=37.2$ 日との差の大部分を在庫が占める。
+\textbf{集計の $\CCC$ の主成分は在庫である。}
+個別企業に現れる負の $\CCC$ が集計に現れないのも同じ理由による。
+\end{remark}
+
 \subsection{ただし成長制約は悪化していない}
 
 この観測から成長制約の悪化を結論したくなる。
@@ -413,12 +423,18 @@ $\CCC$ の長い業種の比重が上昇したためである。
 
 \subsection{シフト・シェア分解}
 
-全体の $\CCC$ を業種別の売上加重平均として書き、差分を三項に分ける。
+系\ref{cor:ccc-weighted}より、全体の $\CCC$ は業種別の売上加重平均
+$\CCC=\sum_k w_k\CCC_k$ である。この差分は二項に分かれる。
 \begin{equation}
 \Delta\CCC = \underbrace{\sum_k \bar{w}_k\,\Delta\CCC_k}_{\text{業種内効果}}
  + \underbrace{\sum_k \Delta w_k\,\bar{\CCC}_k}_{\text{構成効果}}
 \label{eq:shift-share}
 \end{equation}
+$\bar{\cdot}$ を二期の中点とすれば式\eqref{eq:shift-share}は\textbf{残差なしで厳密に成立する}。
+実際、$\bar w=(w_1+w_0)/2$、$\bar\CCC=(\CCC_1+\CCC_0)/2$ を代入すると
+右辺は $\sum_k(w_{k1}\CCC_{k1}-w_{k0}\CCC_{k0})$ に等しい。
+これは測定のために導入した近似ではなく、
+$\CCC$ が比であること（系\ref{cor:ccc-weighted}）の帰結である。
 
 \begin{center}
 \begin{tabular}{@{}lrrr@{}}
@@ -532,6 +548,16 @@ DPO の短縮6.9日はほぼこれで説明がつく。
 \end{equation}
 を推定すれば、$1-\beta$ が分母効果の寄与となる。
 
+\textbf{$\beta$ の理論値は $1$ である。}
+式\eqref{eq:ccc}より $W=\CCC\cdot r$ であり、
+$\CCC$ が一定なら $\Delta\ln W=\Delta\ln r$ となる。したがって
+\begin{equation}
+\Delta\ln\CCC = (\beta-1)\,\Delta\ln r
+\label{eq:beta-ccc}
+\end{equation}
+であり、$\beta$ の $1$ からの乖離は $\CCC$ の売上弾力性そのものである。
+系\ref{cor:ccc-change}の式\eqref{eq:ccc-change}はこの動きを契約の変化と運用の変化に分解している。
+
 \begin{quote}
 \textbf{登録した含意}：$\Delta\ln W$ と $\Delta\ln r$ は正の相関を持つ。
 すなわち売上が減れば運転資本も減る。
@@ -557,6 +583,13 @@ DPO の短縮6.9日はほぼこれで説明がつく。
 \textbf{この含意は支持される。} 運転資本は売上にほぼ比例して動き、
 分母効果に帰せられるのは17\%程度である。
 第\ref{sec:e-verification}節の同期負相関は、大部分が需要側の情報を含む。
+
+式\eqref{eq:beta-ccc}に $\beta=0.830$ を入れると、$\CCC$ の売上弾力性は $-0.170$ である。
+すなわち\textbf{売上が落ちる局面で $\CCC$ は上がる}。
+注\ref{rem:ccc-amplifier}の増幅係数はこのとき大きくなるから、
+需要の下振れが現金に伝わる度合いは不況期に強まる。
+$1-\beta$ を「分母効果」と呼ぶのは計算上の呼称であって、
+$\CCC$ が動いていないという意味ではない。
 
 \subsection{遅れ構造}
 \label{sec:lag-test}

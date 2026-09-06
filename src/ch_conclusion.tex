@@ -5,39 +5,66 @@
 
 \subsection{理論として導いたもの}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{理論として導出した主張とその状態。}\label{tab:theory-achievements}\\
 \toprule
 主張 & 内容 & 状態 \\
 \midrule
+\endfirsthead
+\toprule
+主張 & 内容 & 状態 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 $\Phi$ による記述 & 履行と決済の写像として書ける & 有効に機能した \\
 $\kappa$ の統合性 & 売掛金・前受金・買掛金が単一の量になる & 有効 \\
 $\kappa_i$ による統合 & 四分野の理論が同一の和に入る & 本稿の中心的な寄与（注\ref{rem:disjoint-literatures}） \\
-$g^\star = (m+d-I/r)/\CCC$ & 自己金融可能成長率 & 導出済（系\ref{cor:gstar}） \\
+$\CCC\cdot r\leq E-A$ & 現金制約は運転資本の制約である & 基本不等式（命題\ref{prop:fundamental}） \\
+$r^{\max}=(E-A)/\CCC$ & 規模の上限。$g^\star$ とは別の制約 & 導出済（系\ref{cor:rmax}） \\
+$g^\star = (m+d-I/r)/\CCC$ & 自己金融可能成長率。$\dot M\geq 0$ の境界 & 導出済（系\ref{cor:gstar}） \\
+現金の枯渇時刻 & $g>g^\star$ が効くまでの時間 & 閉形式（命題\ref{prop:depletion}、例\ref{ex:depletion}） \\
 $\CCC=\sum\tau_i+\tau_{\mathrm{inv}}$ & $\CCC$ は遅れ時間の和 & 導出済（命題\ref{prop:ccc-structure}） \\
+$\tau_i$ の完全代替 & 回収の短縮と支払の延長は等価 & 導出済（命題\ref{prop:tau-substitution}） \\
+$\kappa$ の反対称性 & 企業間信用は集計で消える & 導出済（命題\ref{prop:kappa-antisym}） \\
+尖頭と平均の差 & 必要資本は $\CCC+T_b/2$ で決まる & 導出済（命題\ref{prop:peak}） \\
+認知余剰の現金中立性 & 認識時点では現金が動かない & 導出済（命題\ref{prop:cog-cash-neutral}） \\
+認知余剰の蓄積上限 & 取引頻度が規模の上限を決める & 導出済（系\ref{cor:cog-bounded}） \\
+拘束の入れ替わり & $\CCC^{\dagger}$ を境に現金から容量へ & 導出済（命題\ref{prop:binding-switch}） \\
+可用性と粒度 & 容量が余っても実行できない履行 & 導出済（命題\ref{prop:granularity}） \\
 容量制約下の会員制 & 低稼働が実行可能性の条件 & 導出済（命題\ref{prop:capacity}） \\
+一人事業の配分 & 受託は制約が要求する最小限 & 導出済（命題\ref{prop:allocation}） \\
 $E$ と $\phi$ の接続 & 内部留保は何の累積か & 定義\ref{def:equity}により $\phi$ の累積 \\
 $\kappa_K$ の主体依存性 & 出資は他の $\kappa$ と同じか & 測度に依存し恒等式に入らない（命題\ref{prop:kappa-K-excluded}） \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{理論として導出した主張とその状態。}
-\label{tab:theory-achievements}
-\end{center}
+\end{longtable}
 
 \subsection{実証で判定したもの}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{実証で判定した主張とその状態。棄却・未検証を含む。}\label{tab:empirical-judgments}\\
 \toprule
 主張 & 内容 & 状態 \\
 \midrule
+\endfirsthead
+\toprule
+主張 & 内容 & 状態 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 $\CCC$ の符号 & 業種・媒体で二桁の水準差 & 実証で確認（第\ref{part:results}部） \\
 $g^\star$ の推移 & 25年間の変化 & 低下していない（命題\ref{prop:gstar-flat}） \\
 $g^\star$ の分子 & $m$ のみか投資も要るか & $I$ を含めると水準が大きく動く \\
 小規模層の $m$ & 規模別の利益率格差 & 役員報酬で説明される（命題\ref{prop:officer}） \\
 個人企業との比較 & 会計区分か経済実態か & 別統計で命題\ref{prop:officer}を支持（第\ref{sec:individual-firms}節） \\
 $\CCC$ 上昇の要因 & 構成変化か業種内変化か & 業種内が83\%。手形の消滅が主因 \\
-分母効果の寄与 & $\CCC=W/r$ の機械的変動 & 17\%程度。支配的ではない \\
+分母効果の寄与 & $\CCC=W/r$ の機械的変動 & 17\%程度。$\CCC$ の売上弾力性は $-0.17$ \\
 外部化の対価 & 手数料は吸収した機能に対応 & 部分的に支持（第\ref{sec:platform-fee}章） \\
 制度層の作用形態 & 上限賦課か競争条件の操作か & 後者が近年の主流（注\ref{rem:institution-shift}） \\
 \midrule
@@ -52,11 +79,7 @@ $\phi_{\rm cog}$ の測定 & 認知余剰の実測 & 本稿では\textbf{未達}
 \midrule
 無人継続期間 & $1/\lambda_{\rm novel}$ の水準 & 20 年より短い（注\ref{rem:lambda-upper}） \\
 手続きの継続期間 & 全数での測定 & 停止 8.3\%、中央値 1.62 年（第\ref{sec:protocol-byproducts}節） \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{実証で判定した主張とその状態。棄却・未検証を含む。}
-\label{tab:empirical-judgments}
-\end{center}
+\end{longtable}
 
 記述の道具としての枠組みは機能した。予測の道具としては機能しなかった。
 この二つは別の性質であり、本稿は前者のみを主張する。

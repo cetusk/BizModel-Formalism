@@ -30,7 +30,7 @@ $E,\ A,\ \mathrm{Inv}$ & 式\eqref{eq:cash} & 前提により 0 とおく \\
 $\kappa_i$ & 式\eqref{eq:kappa} & 符号が設計変数となる \\
 $\mathrm{Cap}$ & 式\eqref{eq:solo-capacity} & 一人分の時間。\textbf{未測定} \\
 $M(t)$ & 式\eqref{eq:cash} & 経路制約の対象。\textbf{未測定} \\
-$\tau$ & 第\ref{sec:objective}節 & 期限として $E(0)/c$ で上から抑えられる \\
+$\Tins$ & 第\ref{sec:objective}節 & 期限として $E(0)/c$ で上から抑えられる \\
 $T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格は第\ref{ch:platformfee}章で測定 \\
 \bottomrule
 \end{tabularx}
@@ -44,15 +44,18 @@ $T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格�
 
 前提(2)(3)から $E(0)\approx 0$、$A\approx 0$ とおく。
 ソフトウェアであれば $\mathrm{Inv}\approx 0$ である。
-これを式\eqref{eq:cash}に代入すると、
+これは系\ref{cor:zero-equity}の条件であり、$\CCC\leq 0$、
+すなわち $\sum_i\kappa_i\leq 0$ が要求される。総額の形で書けば
 
 \begin{equation}
 \sum_{i} \max\{-\kappa_i,0\} \;\geq\; \sum_{i} \max\{\kappa_i,0\}
 \label{eq:solo-finance}
 \end{equation}
 
-式\eqref{eq:solo-finance}は、\textbf{引き出した与信が与えた与信を常に上回っていなければならない}
-ことを述べている。命題\ref{prop:substitution}の代替関係が、$E=0$ の端点で現れた形である。
+である。式\eqref{eq:solo-finance}は、\textbf{引き出した与信が与えた与信を常に上回っていなければならない}
+ことを述べている。これは仮定ではなく、式\eqref{eq:fundamental}の基本不等式に
+$E=A=0$ を代入した特例である。命題\ref{prop:substitution}の代替関係が
+$E=0$ の端点で現れた形でもある。
 なお $A\approx 0$ という仮定は、個人企業の設備投資の実データと整合する（注\ref{rem:individual-capex}）。自己資本という緩衝がないため、
 第\ref{sec:objective}節の経路制約により毎時点で成立する必要がある。
 
@@ -68,6 +71,36 @@ $T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格�
 $\mathrm{Cap}$ は命題\ref{prop:capacity}で会員制の実行可能性を規定した量と同じものである。
 そこでは供給側の設備容量であったが、ここでは運営者の可処分時間になる。
 なお $\mathrm{Cap}$ の値は事業者ごとに異なり開示もされないため、本稿では測定していない。
+
+\subsection{どちらが拘束するか}
+\label{sec:which-binds}
+
+式\eqref{eq:solo-finance}と式\eqref{eq:solo-capacity}は別々に導入したが、
+同時に課される。両者を規模 $r$ についての上限に直すと比較できる。
+
+\begin{proposition}[拘束の入れ替わり]
+\label{prop:binding-switch}
+系\ref{cor:rmax}より、$\CCC>0$ のとき現金制約は $r\leq(E-A)/\CCC$ を与える。
+式\eqref{eq:solo-capacity}を価値に直すと容量制約は $r\leq v(\mathrm{Cap})$ を与える。
+したがって
+\begin{equation}
+\CCC^{\dagger} = \frac{E-A}{v(\mathrm{Cap})}
+\label{eq:ccc-dagger}
+\end{equation}
+を境として、式\eqref{eq:ccc-dagger}の $\CCC>\CCC^{\dagger}$ では現金制約が、
+$\CCC<\CCC^{\dagger}$ では容量制約が拘束する。
+\end{proposition}
+
+\begin{proof}
+二つの上限のうち小さいほうが拘束する。
+$(E-A)/\CCC \leq v(\mathrm{Cap})$ となるのは $\CCC\geq(E-A)/v(\mathrm{Cap})$ のときである。
+\end{proof}
+
+\textbf{$\CCC$ を下げる努力が規模を増やすのは $\CCC>\CCC^{\dagger}$ の範囲だけである。}
+それより下では容量が拘束しており、契約条件を変えても $r$ は増えない。
+$E\approx 0$ の一人事業では $\CCC^{\dagger}\approx 0$ であるから、
+$\CCC$ を負にした時点で拘束は容量へ移る。
+\textbf{本章が前受型を選んだ先で容量制約に突き当たるのは、この移動による。}
 
 \subsection{拘束する制約の入れ替わり}
 
@@ -162,7 +195,7 @@ $\kappa_S<0$ が生じる。すなわちインフラ事業者からの与信で�
 \item \textbf{金額を小さくする。} 前受の絶対額が相手にとって無視できる水準なら、
 信用は不要である。\textbf{少額多数が構造的に要求される}という帰結が出る。
 これは第\ref{sec:objective}節の経路制約とも整合する。大口一社への依存は、
-その一社の遅延で $\tau$ に到達する。
+その一社の遅延で $\Tins$ に到達する。
 
 \item \textbf{信用を借りる。} 決済プラットフォームがエスクローと返金保証を提供すれば、
 顧客は事業者ではなくプラットフォームを信用する。族6-2 を自ら行うことは
@@ -238,7 +271,7 @@ $E(0)>0$ の効果は、財務制約の緩和として片付けられない。
 退職者にとっては\textbf{期限}になる。収益がなければ倒産時刻は
 
 \begin{equation}
-\tau \;\leq\; \frac{E(0)}{c}
+\Tins \;\leq\; \frac{E(0)}{c}
 \label{eq:deadline}
 \end{equation}
 
@@ -635,7 +668,7 @@ $\kappa<0$ への効き方はむしろ公開型より直接的である。
 \textbf{この層に限れば、受託と公開の対立は生じない。}
 対立が構造的問題となるのは $\phi$ を最大化する必要がある層、すなわち右上を目指す層である。
 
-\subsection{部分変換と内点解}
+\subsection{部分変換と最適な配分}
 
 右上を目指す場合でも、代替は完全な一対一ではない。
 式\eqref{eq:solo-capacity}の $\mathrm{Cap}$ を
@@ -652,7 +685,33 @@ $a$（受託）と $\mathrm{Cap}-a$（公開）に配分すると、
 そこで直面した一般的な技術問題は書ける。しかも思考は既に済んでいるため、
 書く限界費用が低い。
 
-したがって式\eqref{eq:leakage}には内点解が存在し、
+式\eqref{eq:leakage}は $a$ について線形であり、$0<\theta<\gamma$ より狭義単調減少である。
+これだけでは最適な配分は $a=0$、すなわち受託をまったく行わないことになる。
+配分が内点で決まるのは、受託が現金をもたらすからである。
+
+\begin{proposition}[受託は制約が要求する最小限にとどまる]
+\label{prop:allocation}
+受託の時間あたり報酬を $w$、生活費の速度を $c$ とする。
+式\eqref{eq:fundamental}の基本不等式が要求する現金は $w\,a\geq c$ であり、
+式\eqref{eq:leakage}を最大化する配分は
+\begin{equation}
+a^{\ast} = \frac{c}{w}
+\label{eq:allocation}
+\end{equation}
+である。
+\end{proposition}
+
+\begin{proof}
+目的は $a$ の狭義減少関数であり、実行可能集合は $a\geq c/w$ である。
+したがって最小の実行可能な $a$ が最適となる。
+\end{proof}
+
+\textbf{最適解は目的関数の内点ではなく、制約の縁である。}
+$E(0)>0$ であれば制約が $w\,a\geq c - E(0)/T$ に緩み、$a^\ast$ は下がる。
+第\ref{sec:retiree}節の「資本は信用を積む期間を買う」は、
+式\eqref{eq:allocation}の右辺が下がることとして書ける。
+
+配分そのものとは別に、$\theta$ を上げる余地がある。
 \textbf{案件選択の基準が報酬額から $\theta$ に移る}。
 同単価であれば、一般化可能な問題を含む案件を選ぶ。
 守秘義務の壁は、案件そのものではなく抽象化の水準で越えられる。
