@@ -1,1 +1,435 @@
-% TODO: translation of src/supplement4b.tex
+\chapter{The Price of Externalization: Platform Fees}
+\label{ch:platformfee}
+\label{sec:platform-fee}
+\section{The implication tested}
+
+The claim of the previous section --- that the price of externalization is a transfer of
+$\phi_{\rm barg}$ --- can be tested directly. Following the discipline of
+Part~\ref{part:method}, the implication was fixed before the survey.
+
+\begin{quote}
+\textbf{Registered implication}: a platform's fee rate increases monotonically in the number
+of terms the platform absorbs.
+\end{quote}
+
+The alternative is stated explicitly: fee rates are set by market power rather than by the
+functions absorbed. That is, the very decomposition of Chapter~\ref{sec:surplus} into
+$\phi_{\rm prod}$ and $\phi_{\rm barg}$ is at issue.
+
+Two comparisons were specified in advance for identification.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Same function, different scale. If the rates are close, the function account holds; if
+they differ greatly, the market-power account does.
+\item Differences in rate within one operator. Whether there is a difference the function
+account cannot explain.
+\end{enumerate}
+
+This survey falls under none of the obstacles of Section~\ref{sec:obstacle-taxonomy}: the
+price lists are public, and neither per-firm data nor confidentiality is involved.
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities in this chapter}}\\
+\midrule
+$\phi_{\rm prod}$ & Eq.~\eqref{eq:surplus} & the price of function; 20.0 points \\
+$\phi_{\rm barg}$ & Eq.~\eqref{eq:surplus} & rent from market power; 15.0 points \\
+$T_{\rm inst},T_{\rm dev},T_{\rm acq}$ & Eq.~\eqref{eq:E-required-2} & measured as prices of externalization \\
+$\lambda_{\rm novel}$ & Chapter~\ref{part:unmanned} & 48{,}185 CVEs a year, 245 a year effective \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities in this chapter.}
+\label{tab:platformfee-quantities}
+\end{center}
+
+\section{Result: a ladder of rates}
+
+Effective rates were computed for a \$50 transaction. Where payment processing is charged
+separately, 2.9\%${}+{}$\$0.30 is added.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lrX@{}}
+\toprule
+Platform & Effective rate & Terms absorbed \\
+\midrule
+Stripe (domestic cards) & 3.6\% & payment \\
+Polar Starter & 5.0\% & payment + tax (merchant of record) \\
+Paddle / Lemon Squeezy & 6.0\% & payment + tax (merchant of record) \\
+Gumroad direct & 14.5\% & payment + tax + delivery and hosting \\
+App Store small business & 15.0\% & payment + tax + delivery + review + distribution \\
+App Store standard & 30.0\% & as above \\
+Gumroad Discover & 34.5\% & the above + customer acquisition \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Effective rates on a \$50 transaction, by platform.}
+\label{tab:fee-ladder}
+\end{center}
+
+The same ordering is shown in Figure~\ref{fig:platform-ladder}.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{fee-ladder}
+\caption{Effective rate on a \$50 transaction. It rises with the number of terms absorbed.}
+\label{fig:platform-ladder}
+\end{figure}
+
+\begin{remark}[The ladder is a price list for $C_{\mathrm{admin}}$]
+\label{rem:ladder-is-cadmin}
+What appears here is the price of the outsourced part of the $C_{\mathrm{admin}}$ of
+Definition~\ref{def:cost}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Increment & Corresponding kind of $C_{\mathrm{admin}}$ & Price \\
+\midrule
+Stripe & payment processing (operation) & 3.6\% \\
+$\to$ merchant of record & tax compliance (securing performance, setup) & +1.4--2.4 points \\
+$\to$ sales platform & delivery and rights management (operation) & +8--9 points \\
+$\to$ marketplace & customer acquisition (not $C_{\mathrm{admin}}$ but $T_{\rm acq}$) & +20 points \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The increments of Table~\ref{tab:fee-ladder} and the corresponding kinds of $C_{\mathrm{admin}}$, with prices.}
+\label{tab:cadmin-breakdown}
+\end{center}
+
+Only the last term differs in character. Customer acquisition is not the operation of a
+contract but the winning of customers, and belongs not to $C_{\mathrm{admin}}$ but to the
+$T_{\rm acq}$ of~\eqref{eq:E-required-2}.
+\textbf{The externalization price of $C_{\mathrm{admin}}$ is about 11 points; $T_{\rm acq}$
+alone is 20.}
+\end{remark}
+
+The ladder is broadly monotone. Stripe absorbs payment only, at a flat 3.6\% for domestic
+cards, debit, wallets and convenience-store payment. The merchant-of-record providers Paddle
+and Lemon Squeezy charge 5\%${}+{}$50¢ and collect and remit sales tax in more than 200
+jurisdictions. The increment from Stripe to a merchant of record can be read as the price of
+$T_{\rm inst}$. For an individual selling into Europe, the alternative is registering for VAT
+in each country or paying an accountant monthly, so a price of 1.4--2.4 points is consistent
+with a return to function.
+
+\section{A natural experiment within one platform}
+
+This is the most important observation. Gumroad's 30\% Discover fee applies only when the
+customer arrived through Gumroad's marketplace; purchases through one's own link or an
+external route are charged the standard 10\%. Discover can also be switched off.
+
+\textbf{The same platform, the same market power, the same other functions. The only
+difference is whether $T_{\rm acq}$ was supplied.}
+
+\begin{equation}
+\text{price of } T_{\rm acq} = 20.0\ \text{points}
+\label{eq:tacq-price}
+\end{equation}
+
+The market-power account cannot explain this difference: one and the same firm charges the
+same customer different rates according only to whether it performed the acquisition.
+Equation~\eqref{eq:tacq-price} is the strongest evidence for the implication.
+
+Moreover the standalone price of $T_{\rm acq}$, 20 points, exceeds the sum of all the other
+items (about 11 points, from 3.6\% to 14.5\%).
+\textbf{Customer acquisition is the most expensive item to externalize.} The judgment in
+family 6-4 that $T_{\rm acq}$ is the dominant component is supported in direction.
+
+\section{A counterexample: price discrimination by size}
+
+At the same time, a case the function account cannot explain was obtained.
+
+The App Store Small Business Program cuts the fee from 30\% to 15\% for developers earning
+under one million dollars a year. Paid apps, in-app purchases and subscriptions are all
+covered.
+
+\textbf{The functions supplied are exactly the same and only the rate differs, by a factor of
+two.} A 15-point difference cannot be a return to function; it is price discrimination by
+size.
+
+The circumstances of its introduction are also suggestive. The programme was announced in
+2020, when antitrust actions by the US Department of Justice and the European Commission
+coincided with the dispute with Epic Games.
+\textbf{Pressure from the institutional layer moved the rate.}
+
+\section{Verdict}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xl@{}}
+\toprule
+Claim & Verdict \\
+\midrule
+The rate rises with the number of terms absorbed & supported (the ladder is monotone) \\
+Differences in rate are a return to function & partly supported (\eqref{eq:tacq-price}) \\
+Rates are fully explained by function & \textbf{rejected} (the App Store's 15-point gap) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Verdicts on three claims about the price of externalization.}
+\label{tab:predC-verdict}
+\end{center}
+
+In the decomposition of~\eqref{eq:surplus}, the level of platform fees can therefore be
+written
+\begin{equation}
+\phi_{\text{fee}} = \underbrace{\phi_{\rm prod}}_{20.0\ \text{pt}} + \underbrace{\phi_{\rm barg}}_{15.0\ \text{pt}}
+\label{eq:fee-decomp}
+\end{equation}
+the first from the within-platform comparison on Gumroad and the second from the App Store's
+two size tiers.
+\textbf{This is the only case in this text where two of the three components were separated
+numerically for a single transaction.}
+
+\begin{remark}[\eqref{eq:fee-decomp} is incomplete]
+\label{rem:fee-incomplete}
+The two firms above are intermediaries operating at uniform rates from a published price
+list. Where an intermediary sets rates by individual screening, a third term is added
+to~\eqref{eq:fee-decomp}.
+
+Merchant fees for payment processing vary with the form of transaction, volume, the goods
+sold, and the incidence of fraud and chargebacks; for domestic card payments 3--6\% is the
+usual guide. That variation is not rent from market power but the price of the
+\emph{transfer} and \emph{pooling} of Section~\ref{sec:three-ops}. From the merchant's side
+the index $i$ is moved and risk handed over; the intermediary bundles many merchants along
+$\omega$.
+
+Properly, then,
+\begin{equation}
+\phi_{\text{fee}} = \phi_{\rm prod} + \underbrace{\phi_{\rm risk}}_{\text{price of transfer and pooling}} + \phi_{\rm barg}
+\label{eq:fee-decomp3}
+\end{equation}
+where $\phi_{\rm risk}$ is not a new component but, as Remark~\ref{rem:phi-risk} states, the
+undivided sum of $\phi_{\rm prod}$ and $\phi_{\rm barg}$. For the two firms in this section
+$\phi_{\rm risk}\approx 0$, which is why it reduced to two terms.
+\end{remark}
+
+\subsection{The risk component: untested}
+\label{sec:pred-J}
+
+For the second term of~\eqref{eq:fee-decomp3}, an implication follows from
+Proposition~\ref{prop:pooling}.
+
+As Remark~\ref{rem:independence-finite} states, the limit of~\eqref{eq:pooling} bottoms out at
+$\rho\sigma^2$. An intermediary can pool away risks that are independent within an industry
+but cannot remove the part correlated through a common factor.
+
+Proposition~\ref{prop:pooling} assumes $\rho$ does not depend on $n$
+(Remark~\ref{rem:rho-endogenous}). If an intermediary takes on industries with higher
+correlation as it adds merchants, $\rho$ rises and the effect appears more strongly than
+stated here. \textbf{Dropping the assumption does not change the sign.}
+
+\begin{quote}
+\textbf{Registered implication}: differences in payment-processing rates across industries
+correspond not to the mean chargeback rate $\mu$ of the industry but to
+\textbf{the within-industry correlation $\rho$}. An industry with a merely high mean can pass
+the cost through, whereas an industry structured so that the whole of it deteriorates at once
+requires an additional premium.
+\end{quote}
+
+This splits the explanation ``the rate is high because the risk is high'' in two. Whether the
+high rates for information products or travel are due to an average incident rate or to the
+whole industry deteriorating together has different implications for the design of $\Phi$:
+the former can be passed through in price, the latter cannot.
+
+Testability is constrained as set out in Remark~\ref{rem:predJ-infeasible}.
+
+\begin{remark}[Why this implication cannot be tested]
+\label{rem:predJ-infeasible}
+Estimating $\rho$ requires time series of chargeback rates by industry, which are internal
+data of intermediaries and the card networks and are not published. Even $\mu$ is not
+published.
+
+Furthermore, \textbf{industries with high $\rho$ are screened out at merchant onboarding}.
+The rates observed are a distribution after industries with high $\rho$ have been excluded,
+so the conditioning on survival of Section~\ref{sec:survivorship} operates here too. The
+obstacle is double, and in the taxonomy of Section~\ref{sec:obstacle-taxonomy} it is a
+combination of (iii), not identified, and (iv), access constraint.
+
+The proposition that correlation fixes the limit of pooling is itself not new. Solvency
+regulation for insurers and capital regulation for banks compute capital requirements with
+explicit correlations between risk categories, implementing the same structure
+as~\eqref{eq:pooling}. This text's contribution is only the perspective of applying it to the
+setting of rates for a $\Phi$.
+\end{remark}
+In the three-way decomposition of Chapter~\ref{sec:surplus}, a fee contains both
+$\phi_{\rm prod}$ (the functions actually performed) and $\phi_{\rm barg}$ (transfer), and
+Gumroad's design gave the means of separating them.
+
+This is consistent with the durability claim of Section~\ref{sec:layers}:
+\textbf{the part deriving from market power is eroded by the institutional layer}.
+The App Store's cut from 30\% to 15\% was a product of regulatory pressure, whereas the part
+deriving from function (Gumroad's 20 points for acquisition) has not been eroded.
+
+\section{Practical implications}
+
+Prices now enter the launch strategy of Chapter~\ref{part:solo}.
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Term externalized & Additional cost \\
+\midrule
+Payment only & 3.6\% \\
++ tax & +1.4--2.4 points \\
++ delivery and hosting & +8--9 points \\
++ customer acquisition & +20 points \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Externalization cost for each term of~\eqref{eq:E-required-2}.}
+\label{tab:externalization-cost}
+\end{center}
+
+Each term of~\eqref{eq:E-required-2} now carries a price. Only acquisition is an order of
+magnitude more expensive: $T_{\rm acq}$ alone at 20 points exceeds the sum of all other items
+(about 11 points). The guidance follows that
+\textbf{$T_{\rm acq}$ is often better done in-house}. Placing the ``publish and build credit''
+stage first in the transition across families in the previous chapter was an investment of
+time in doing $T_{\rm credit}$ and $T_{\rm acq}$ oneself. Against a price of 20 points, that
+investment of time is readily justified.
+
+\section{Limits of the measurement}
+
+The rates cover only major platforms in Japan and the United States, and no population was
+declared. By the discipline of Section~\ref{sec:frame} this is a comparison of cases, not an
+estimate. The within-platform comparison on Gumroad is an identification that does not depend
+on the population, however, and that part alone is robust.
+
+Effective rates also depend on transaction size. Because of the fixed components (50¢, 30¢),
+the effective rate of merchant-of-record models rises at low transaction values. The table is
+computed at \$50.
+
+\section{How the institutional layer acts}
+\label{sec:institution-mode}
+
+Section~\ref{sec:layers} stated that the $\phi_{\rm barg}$ deriving from market power is
+eroded by the institutional layer. This section checks how it acts, in four cases.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Domain & Action of the institutional layer & Current state \\
+\midrule
+Property brokerage & statutory cap on commission (1970 notification, 3\% + 60{,}000 yen) & in force; the cap was raised in 2024 \\
+Fee-charging placement & capped fee (about 11\% of wages) & in force but used in 0.18\% of cases \\
+Securities commissions & fixed commissions under exchange rules & \textbf{abolished entirely in 1999} \\
+App distribution & pressure through antitrust litigation & the rate cut from 30\% to 15\% \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Four forms in which the institutional layer acts on fee rates, and their current state.}
+\label{tab:fee-institution-modes}
+\end{center}
+
+\textbf{Capping a rate is rare, and the trend is towards abolition.} Securities commissions
+were liberalized above 1bn yen in 1994, above 50m in 1998, and entirely in October 1999. The
+United States did the same in 1975 and the United Kingdom in 1986.
+
+In property brokerage the cap can be seen to bind. The July 2024 amendment raised the cap for
+properties up to 8m yen from 180{,}000 to 300{,}000 yen, and the stated background was that
+247 municipalities --- 14\% of the total --- had no licensed brokerage at all, and that the
+business was not viable at the existing commission.
+\textbf{Supply disappeared because the cap was too low}, which is direct evidence that the
+cap binds.
+
+\begin{remark}[From imposing caps to manipulating competitive conditions]
+\label{rem:institution-shift}
+Of the four cases, only the first two regulate the rate directly. In securities commissions,
+the \emph{abolition} of fixed commissions cut rates to between one seventh and one tenth of
+their pre-liberalization level. In app distribution, litigation pressure prompted a voluntary
+reduction.
+
+All four cases here concern rates, so of the three forms of
+Remark~\ref{rem:institution-modes} they fall under price regulation and manipulation of
+competitive conditions; entry requirements do not appear.
+\textbf{The latter dominates in recent years.} Forms that regulate rates directly are in
+decline and are being replaced by manipulation of competitive conditions.
+\end{remark}
+
+\section{Assessing feasibility of further investigation}
+
+The result of applying the taxonomy of Section~\ref{sec:obstacle-taxonomy} to the other
+questions of this chapter is recorded here.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Candidate & Principal obstacle & Verdict \\
+\midrule
+The price of externalization & none & done (Chapter~\ref{sec:platform-fee}) \\
+Decomposing $\lambda_{\rm novel}$ & volume of linking work & runner-up \\
+Transitions between families & no frame; conditioning on success & weak \\
+Direct measurement of unmanned duration & no population frame & abandoned \\
+The rate of unmannedness itself & (i) + (ii) & abandoned \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Applying the taxonomy of verification obstacles (Section~\ref{sec:obstacle-taxonomy}) to the other questions of this chapter.}
+\label{tab:platformfee-obstacle-assignment}
+\end{center}
+
+\subsection{Runner-up: decomposing \texorpdfstring{$\lambda_{\rm novel}$}{lambda}}
+
+$\lambda_{\rm novel}$ can be decomposed, and its components map onto the layers of
+Section~\ref{sec:layers}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+Component & Origin & Data source & Layer \\
+\midrule
+$\lambda_{\rm sec}$ & discovery of vulnerabilities & vulnerability databases & physical \\
+$\lambda_{\rm dep}$ & breaking changes in dependencies & version histories in package registries & physical \\
+$\lambda_{\rm inst}$ & legal change, changes of terms & the official gazette, providers' change notices & institutional \\
+$\lambda_{\rm dem}$ & change in demand & not measured & cognitive \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Four components of $\lambda_{\rm novel}$, their origins, data sources and layers.}
+\label{tab:lambda-novel-decomposition}
+\end{center}
+
+Public data exist for three of the four, and an implication follows.
+
+\begin{quote}
+\textbf{Registered implication}: the fewer the dependencies in a configuration, the smaller
+$\lambda_{\rm dep}$ and the longer unmanned operation can run.
+\end{quote}
+
+This bears directly on design decisions: if unmanned operation is the aim, few dependencies
+should be preferred to rich functionality. Connecting a measurement of $\lambda$ to cessation
+events must be built oneself, however, and that is where the work concentrates.
+
+\subsection{Questions abandoned}
+
+Direct measurement of the unmanned operating period lacks a population frame for this
+chapter's objects. No list of solo-developed services exists, and collecting those that
+stopped after the fact reproduces the conditioning on survival of
+Section~\ref{sec:survivorship} exactly.
+
+\textbf{The abandonment is specific to the objects, however.} In the ``inside'' partition of
+Chapter~\ref{ch:protocol}, the protocol record is itself the population, and duration and
+cessation rates can be measured on the full population
+(Section~\ref{sec:protocol-byproducts}). What cannot be measured is solo-developed services,
+not the unmanned operating period as such.
+
+Transitions between families are similar. Cases that transitioned can be collected, but cases
+that did not and cases that failed cannot be observed, so nothing can be said about the
+effectiveness of the route.
+
+The rate of unmannedness itself is an ill-posed proposition. Defining what fraction of
+$\delta$ is automated requires a unit for $\delta$, and none exists. The defect has the same
+form as that of the measurability hypothesis in Section~\ref{sec:predB-illposed}.
+
+\section{Limits of this chapter}
+
+\begin{enumerate}[label=(\arabic*)]
+\item $\lambda_{\rm novel}$ was not measured. Estimating the unmanned operating period
+depends on that value, and there is no basis for it.
+
+\item Chapter~\ref{sec:platform-fee} is a comparison of cases with no declared population.
+Apart from the within-platform identification, it must not be treated as an estimate.
+
+\item The implication registered in this chapter states the same relation as one registered
+in Chapter~\ref{ch:protocol}. This was not noticed at the time of registration. The test of
+$\Phi$1 \textbf{rejected} it (Section~\ref{sec:protocol-results}). It was not tested on this
+chapter's objects.
+
+\item $\lambda_{\rm novel}$ was not decomposed into its four components. What
+Section~\ref{sec:protocol-byproducts} measured is the rate of response, not a breakdown by
+component.
+\end{enumerate}
