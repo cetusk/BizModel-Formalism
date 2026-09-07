@@ -34,6 +34,7 @@ esac
 pdf
 if [ "$MODE" = "all" ] || [ "$MODE" = "all-en" ]; then
   bash build-figures.sh >/dev/null 2>&1
+  bash build-figures.sh en >/dev/null 2>&1
   html_env
   make4ht -l -f html5+dvisvgm_hashes -d "$ROOT/docs/book" book.tex "mathml,2" >/tmp/mk.log 2>&1
   echo "make4ht(ja) exit=$?  Unbalanced=$(grep -c 'Unbalanced' /tmp/mk.log)"
@@ -43,8 +44,12 @@ fi
 
 if [ "$MODE" = "all-en" ]; then
   html_env
+  [ -d "$ROOT/docs/book-en/figures" ] && mv "$ROOT/docs/book-en/figures" /tmp/figs-en
+  rm -rf "$ROOT/docs/book-en"
   make4ht -l -f html5+dvisvgm_hashes -d "$ROOT/docs/book-en" book-en.tex "mathml,2" >/tmp/mk-en.log 2>&1
-  echo "make4ht(en) exit=$?  Unbalanced=$(grep -c 'Unbalanced' /tmp/mk-en.log)"
+  RC=$?
+  [ -d /tmp/figs-en ] && mv /tmp/figs-en "$ROOT/docs/book-en/figures"
+  echo "make4ht(en) exit=$RC  Unbalanced=$(grep -c 'Unbalanced' /tmp/mk-en.log)"
   python3 inject-sidebar.py "$ROOT/docs/book-en" "$VER" en 2>&1 | tail -1
 fi
 

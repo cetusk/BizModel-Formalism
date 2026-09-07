@@ -4,7 +4,7 @@
 
 🌐 **English** ・ [日本語](README.md)
 
-> **v0.28.8** (7 September 2026) — **This text is under construction.**
+> **v0.28.9** (7 September 2026) — **This text is under construction.**
 > The structure of the theory, the propositions, and the empirical conclusions may all change.
 > Please cite the version.
 
@@ -13,11 +13,10 @@ settlements, from which the credit position κ, the self-financeable growth rate
 three-way decomposition of surplus are derived.
 
 📖 **[Read in HTML](https://cetusk.github.io/BizModel-Formalism/book-en/book-en.html)** ・
-📄 **[PDF](https://cetusk.github.io/BizModel-Formalism/book-en.pdf)**
+📄 **[PDF](https://cetusk.github.io/BizModel-Formalism/book-en.pdf)** (241 pages)
 
-> **The English edition is being translated.** Part I (theory), the catalogue of types, and
-> Part III (method) are done; the empirical chapters and the appendices are still in
-> progress. The Japanese edition is complete:
+> The English edition is a complete translation of the Japanese one and is kept in step with
+> it. The Japanese edition:
 > [HTML](https://cetusk.github.io/BizModel-Formalism/book/book.html) ・
 > [PDF](https://cetusk.github.io/BizModel-Formalism/book.pdf) (205 pages).
 
@@ -53,9 +52,9 @@ lualatex book.tex && lualatex book.tex && lualatex book.tex        # Japanese PD
 lualatex book-en.tex && lualatex book-en.tex && lualatex book-en.tex  # English PDF
 ./build-figures.sh                                                 # figures to SVG
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book v0.28.8 ja
+python3 inject-sidebar.py ../docs/book v0.28.9 ja
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book-en book-en.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book-en v0.28.8 en
+python3 inject-sidebar.py ../docs/book-en v0.28.9 en
 ```
 
 Requirements: TeX Live (luatexja, unicode-math), Noto CJK, Latin Modern, make4ht, dvisvgm,
@@ -108,7 +107,7 @@ Version numbers correspond to the stages in Appendix E.
 | Second digit | structural change, a proposition added or withdrawn, new empirical work |
 | Third digit | typographical corrections, formatting, consistency of references |
 
-Currently v0.28.8 (stage 28 of Appendix E).
+Currently v0.28.9 (stage 28 of Appendix E).
 
 ## Licence
 

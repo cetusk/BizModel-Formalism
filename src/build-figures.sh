@@ -4,14 +4,24 @@
 # tex4ht は DVI 経路を通るため和文 OpenType フォントを解決できず、
 # TikZ 内の日本語が脱落する。そこで LuaLaTeX で図を個別に組版し、
 # PDF を経由して SVG に変換する。HTML 版はこの SVG を読み込む。
+#
+# 図の描画そのものは figures.js が行い、この SVG は JS 無効環境の
+# <noscript> フォールバックである。英語版は figures-en/ から作る。
+#   bash build-figures.sh            日本語（figures/ → docs/book/figures/）
+#   bash build-figures.sh en         英語  （figures-en/ → docs/book-en/figures/）
 set -euo pipefail
 
 cd "$(dirname "$0")"
-OUT="../docs/book/figures"
+LANG_ARG="${1:-ja}"
+if [ "$LANG_ARG" = "en" ]; then
+  SRCDIR="figures-en"; OUT="../docs/book-en/figures"
+else
+  SRCDIR="figures";    OUT="../docs/book/figures"
+fi
 mkdir -p "$OUT" build
 
 # 各図を preview で 1 図 1 ページに切り出す
-for f in figures/*.tex; do
+for f in "$SRCDIR"/*.tex; do
   name=$(basename "$f" .tex)
   cat > "build/$name.tex" <<EOF
 \\documentclass[a4paper,11pt]{ltjsbook}

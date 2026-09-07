@@ -156,7 +156,13 @@ lualatex -interaction=nonstopmode book.tex   # 3 回実行する
 cd src
 bash build-figures.sh                        # TikZ 図を SVG 化
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book v0.8.0
+python3 inject-sidebar.py ../docs/book v0.8.0 ja
+```
+
+### まとめて作る
+
+```bash
+bash scripts/build.sh all-en    # 日英の PDF・図・HTML・サイドバー・ページ数・検査
 ```
 
 `make4ht` の実行には環境変数が要る。
@@ -187,6 +193,34 @@ TikZ 内の日本語がすべて脱落する。`luatexja-fontspec` を使うと 
 そのため図は `src/figures/*.tex` に切り出し、`build-figures.sh` が
 `preview` パッケージで個別に組版して PDF 化し、`dvisvgm --pdf` で SVG に変換する。
 `book.tex` の `\insertfig` マクロが PDF と HTML で切り替える。
+
+---
+
+## 英語版
+
+`src/book-en.tex` が英語版。本文は `src/en/*.tex`、図は `src/figures-en/*.tex`。
+**日本語版と一対一で対応させる。**片方だけに節や命題を足さない。
+
+| | 日本語 | 英語 |
+|---|---|---|
+| 本文 | `src/*.tex` | `src/en/*.tex`（同名） |
+| 図（PDF） | `src/figures/*.tex` | `src/figures-en/*.tex`（同名） |
+| 図（HTML） | `.github/assets/figures.js` | 同じファイル。`EN` 表で訳語を引く |
+| 出力 | `docs/book/`, `docs/book.pdf` | `docs/book-en/`, `docs/book-en.pdf` |
+
+### 英語版だけに要る配慮
+
+- **`ltjsbook` は見出しを「第N章」と組む。** `book-en.tex` で
+  `\prechaptername` `\prepartname` 等を上書きしてある
+- **英語は和文ほど揃わない。** `\emergencystretch` と `\tolerance` を緩め、
+  `tabularx`/`longtable` を `\RaggedRight` にしてある。
+  それでも `l` 列に長い語が入ると溢れるので、**日本語で `l` だった列は
+  `P{0.24\textwidth}`（`\newcolumntype{P}`）か `X` にする**
+- **章題・節題が長いと目次行が溢れる。** `\chapter[短縮形]{...}` を使う
+- **行が高くなり表がページに収まらなくなる**（`Overfull \vbox`）。
+  `\small` にするか `longtable` にする
+- 図中ラベルの言語は `inject-sidebar.py` が書き換える `<html lang>` を
+  `figures.js` が読んで切り替える。**訳語は `figures-en/*.tex` と揃える**
 
 ---
 
@@ -235,13 +269,15 @@ grep -c "Overfull \\\\vbox" book.log       # 表がページ高を超えてい�
 | 第二桁 | 構成の変更、命題の追加・撤回、新たな実証 |
 | 第三桁 | 誤記の修正、体裁の調整、参照の整合 |
 
-版を上げるときは**5箇所**を更新する。
+版を上げるときは**7箇所**を更新する。
 
 ```
 src/book.tex               \date{v0.x.y\quad ...}
+src/book-en.tex            \date{v0.x.y\quad ...}
 .github/assets/index.html  バナー2箇所とフッター、**PDFのページ数**
 .github/workflows/build.yml  env: VERSION
 README.md                  冒頭の引用、「現在は」の行、**PDFのページ数**
+README.en.md               同上（英語版のページ数も）
 src/app_revisions.tex      版の履歴（第二桁のときのみ行を追加）
 ```
 

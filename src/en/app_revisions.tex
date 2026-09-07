@@ -1,1 +1,920 @@
-% TODO: translation of src/app_revisions.tex
+\chapter{Revision history}
+\label{app:revisions}
+
+\section{History of versions}
+\label{sec:version-history}
+
+This is a theory under construction, and its structure and content have been remade several
+times. The principal stages are recorded here. The names given to the versions are matters of
+convenience.
+
+The version number corresponds to the stage: stage $n$ is \texttt{v0.$n$.0}. A change of
+structure, the addition or withdrawal of a proposition, or new empirical work raises the stage;
+corrections of slips and adjustments of format are handled in the third digit (\texttt{v0.8.1},
+for instance).
+
+\begin{longtable}{@{}ll>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.48\textwidth}@{}}
+\caption{History of versions: the version number, change of structure, and principal content of each stage.}
+\label{tab:version-stages}\\
+\toprule
+Stage & Version & Structure & Principal content \\
+\midrule
+\endfirsthead
+\toprule
+Stage & Version & Structure & Principal content \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r@{}}{\footnotesize (continued on the next page)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Stage 1 & \texttt{v0.1.0} & chronological & the definition of $\Phi$, 27 types, the four-way classification of method \\
+Stage 2 & \texttt{v0.2.0} & reordered logically & five parts: theory, catalogue, method, empirics, conclusion. Proofs and numerical examples added \\
+Stage 3 & \texttt{v0.3.0} & change of parts & deductions under constraints moved from ``applications'' to ``the space of maps and constraints'' \\
+Stage 4 & \texttt{v0.4.0} & empirics added & $\CCC$ and $g^\star$ measured from the Financial Statements Statistics \\
+Stage 5 & \texttt{v0.5.0} & weaknesses classified & independence, exogeneity, and level versus change organized as three types \\
+Stage 6 & \texttt{v0.6.0} & $\tau$ introduced & differences in level deduced from $\CCC=\sum\tau_i+\tau_{\mathrm{inv}}$ \\
+Stage 7 & \texttt{v0.7.0} & existing theory integrated & existing theory matched to each term of $\kappa_i$; Appendix~\ref{app:priorwork} made three-layered \\
+Stage 8 & \texttt{v0.8.0} & definitions filled in & the split of costs, $E$, $\kappa_K$, and the introduction of $d$ and $I$ into $g^\star$ \\
+Stage 9 & \texttt{v0.9.0} & applied chapter added & deductions for replacing the supplier of the information structure (Chapter~\ref{ch:protocol}); the catalogue corrected to 28 entries \\
+Stage 10 & \texttt{v0.10.0} & propositions filled in & simultaneity, identification of the beneficiary, and growth through prepayment added to Chapter~\ref{ch:protocol}; indivisibility imposed in Definition~\ref{def:protocol} \\
+Stage 11 & \texttt{v0.11.0} & method filled in & revision requests recorded in the empirical chapters reflected into Chapter~\ref{ch:method}; failure of identification and the choice of variables added as sections \\
+Stage 12 & \texttt{v0.12.0} & empirical design placed first & the five stages connecting theory to observation placed as Chapter~\ref{ch:design} at the head of Part~\ref{part:method}; the distinction of comparison from testing stated as a discipline \\
+Stage 13 & \texttt{v0.13.0} & operationalization filled in & availability written as an equation and rules for assignment to types laid down; open problems reorganized into 21 items \\
+Stage 14 & \texttt{v0.14.0} & measurement corrected & the effect of the scope of inventories on $\CCC$ and on the elasticity measured for ten industries (Section~\ref{sec:inventory-scope}) \\
+Stage 15 & \texttt{v0.15.0} & further registrations & the correlation of size with turnover read as a proxy for B1, and implications Y and Z registered (Section~\ref{sec:b1-proxy}) \\
+Stage 16 & \texttt{v0.16.0} & a route to testing Part~II & implications $\Phi$1--$\Phi$4 registered for the procedural records (Section~\ref{sec:protocol-predictions}) \\
+Stage 17 & \texttt{v0.17.0} & implication Y tested & a national sample retrieved and tested on the part excluding Tokyo; partial support (Section~\ref{sec:predY-result}) \\
+Stage 18 & \texttt{v0.18.0} & descriptions removed, format & a description resting on a single observation and an $n=2$ table removed; theorem-type body text unified in roman \\
+Stage 19 & \texttt{v0.19.0} & means of reproduction included & data and processing placed in the repository, and the description in Appendix~\ref{app:data} brought into line with the fact \\
+Stage 20 & \texttt{v0.20.0} & open problems reorganized & completed items dropped and errors of classification corrected, leaving 19 items \\
+Stage 21 & \texttt{v0.21.0} & measurement extended, handling stated & the scope of inventories extended to 62 industries, weakening the verdict of stage 14 (Section~\ref{sec:inventory-scope}); the handling of per-firm data stated in Appendix~\ref{app:data} \\
+Stage 22 & \texttt{v0.22.0} & grounds for selection, consistency of references & the reason for choosing families 2 and 5 derived from the three-way decomposition and the degrees of freedom (Section~\ref{ch:next}); a contradiction in the description of $\phi_{\rm cog}$ resolved (Section~\ref{sec:phicog-measurable}) \\
+Stage 23 & \texttt{v0.23.0} & implication Z tested & 907 refund documents read, strength measured, and implication Z rejected (Section~\ref{sec:predZ-result}); registrations reached 18 and open problems 18 \\
+Stage 24 & \texttt{v0.24.0} & implications $\Phi$1--$\Phi$4 tested & the deductions of Part~\ref{part:catalog} tested for the first time using the records of a public distributed ledger (Section~\ref{sec:protocol-results}); only $\Phi$2 supported; registrations reached 22 \\
+Stage 25 & \texttt{v0.25.0} & quantities measured incidentally & $\lambda$ and the duration of procedures measured, giving an upper bound in Proposition~\ref{prop:unmanned-period} (Section~\ref{sec:protocol-byproducts}); implication D found identical to $\Phi$1 and its verdict changed to rejected \\
+Stage 26 & \texttt{v0.26.0} & organized as a book & 22 chapters merged into 20 and the symbols of the implications cleared from the body; the wording of the registrations and their verdicts gathered into Appendix~\ref{app:prereg}, and the empirics of the procedure moved to the empirical part as Chapter~\ref{ch:protocol-emp}; verification obstacles presented as six classes from the outset \\
+Stage 27 & \texttt{v0.27.2} & Part~I systematized & the chain of derivations starting from $\Phi$ carried through. Chapters 2 and 4 merged, reducing seven chapters to six; $\Delta$ and $\Pi$ defined from the primitives and $X=\Phi(\delta)$ adopted. The degrees of freedom of $\Phi$ organized into three groups and matched to the three ways of operating on risk \\
+Stage 28 & \texttt{v0.28.0} & deductions gathered under the fundamental inequality & the cash constraint arranged as $\CCC\cdot r\leq E-A$ (Proposition~\ref{prop:fundamental}), from which the bound on scale, the time of depletion, the peak, the comparative statics and the switching of the binding constraint are derived. Antisymmetry and additivity of $\kappa$ added, and what the aggregate $\CCC$ measures identified. The funding constraint and the deadline of Chapter~\ref{ch:solo}, previously introduced separately, recast as special cases of the fundamental inequality \\
+\end{longtable}
+
+
+\section{Claims withdrawn}
+
+Claims have been withdrawn several times in the course of this work. What was withdrawn and why is
+recorded here. Since the body retains only the corrected description, which claims were once
+thought to hold appears in this appendix alone.
+
+So that a reader partway through is not misled, the body is kept consistent with the corrected
+content. What follows is a record of how this work erred, and is not needed to understand the
+body.
+
+\section{Corrections deriving from measurement}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+\toprule
+Original description & After correction & Occasion \\
+\midrule
+The rise in $\CCC$ lowered $g^\star$ by a third over a quarter-century
+& $m$ rose 91\%, exceeding the 49\% deterioration of the denominator, and $m/\CCC$ rose from $38.5\%$ to $49.2\%$
+& obtaining $m$ (Proposition~\ref{prop:gstar-flat}) \\
+\addlinespace
+The constraint on small firms is credit ($\kappa$)
+& what actually binds is $m$; the $\CCC$ of small firms is shorter than that of large firms
+& measurement by size stratum (Proposition~\ref{prop:small-margin}) \\
+\addlinespace
+$\phi_{\rm cog}$ has been measured nowhere in the world
+& instances of measurement exist, and the method is established
+& checking prior work (Section~\ref{sec:phicog-measurable}) \\
+\addlinespace
+The low $m$ of small firms is due to insufficient spreading of fixed costs
+& officers' remuneration is the main cause; adding it back erases the ordering by size
+& obtaining the breakdown of personnel costs (Proposition~\ref{prop:officer}) \\
+\addlinespace
+In R2, $\phi$ is demoted from the objective to a constraint
+& withdrawn; the change is explicable by $H$ and $\beta$, and the demotion has no content
+& checking prior work (Remark~\ref{rem:phi-demotion-retracted}) \\
+\addlinespace
+Time dependence of the capacity constraint should be taken into the theory
+& withdrawn; it would rewrite the generating set of 27 types from an $n=1$ observation
+& recognizing the asymmetry of the abstract and the concrete (Remark~\ref{rem:no-generalization}) \\
+\addlinespace
+The ill-posedness of implication B is a failure of the author's design
+& it is the risk--incentive trade-off dispute, unresolved for a quarter-century
+& checking prior work (Section~\ref{sec:predB-illposed}) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Corrections deriving from measurement: the original description, the corrected content, and the occasion.}
+\label{tab:measurement-corrections}
+\end{center}
+
+The first of these is the weightiest. Having observed only the deterioration of $\CCC$, the work
+came close to concluding that $g^\star$ had fallen; but Corollary~\ref{cor:gstar} is a ratio, and
+no conclusion follows from a change in the denominator alone. The error would have been avoided by
+obtaining $m$, and in fact the work had halted with the note that ``interpretation is reserved
+because the change in $m$ has not been measured''. \textbf{Reserving judgement turned out to be
+right.}
+
+\section{Corrections deriving from reasoning}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+Original description & After correction \\
+\midrule
+Credit was ``being sold continuously'' during employment
+& original attribution, as with works made for hire: it does not arise in the individual and then transfer \\
+\addlinespace
+The credit asset is greatest immediately after leaving employment
+& what is greatest is not credit but the resource for conversion (contacts, technical knowledge); credit remains zero \\
+\addlinespace
+$\lambda_{\rm novel}$ is the sum of its components
+& it is not additive: with a lock file, $\lambda_{\rm dep}$ is conditional on $\lambda_{\rm sec}$ \\
+\addlinespace
+Family 5 has favourable data conditions
+& at the aggregate layer it is weaker than family 2; the claim holds only on descending to the per-firm layer \\
+\addlinespace
+Difficulty of access to real data is the principal obstacle to verification
+& the principal obstacle for family 5 is (ii) ill-posedness of the hypothesis; family 2 is (iv) access constraint, but in the peculiar form that the required granularity is never published \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Corrections deriving from reasoning: the original description and the corrected content.}
+\label{tab:reasoning-corrections}
+\end{center}
+
+\section{A record of pre-registration at work}
+
+The following are places where, had the implication not been fixed in writing beforehand, the work
+would likely have drifted into retrospective interpretation.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The disappearance of capped-scheme fees.}
+That 99.7\% of the capped scheme has disappeared in family 5 could have been read as
+circumstantial support for the measurability hypothesis. In fact the price level of the capped
+scheme is simply an order of magnitude lower, and it has nothing to do with measurability.
+
+\item \textbf{The contemporaneous negative correlation of $\CCC$ with sales.}
+A negative correlation was obtained in 31 of 45 industries ($p=0.008$). This could have been read
+as ``$\CCC$ works as a business-cycle indicator'', but it is not distinguished from the
+denominator effect.
+
+\item \textbf{The credit position of large firms.}
+That $\mathrm{DSO}-\mathrm{DPO}$ is large for large firms could have been interpreted as ``large
+firms support their counterparties''. In fact it is the result of implication~F being rejected,
+sign and all.
+\end{enumerate}
+
+The retrospective narrativization described in Section~\ref{sec:narrative} of others' accounts
+arises equally in the author's own interpretation.
+
+\section{Making assumptions explicit}
+
+Several propositions here were originally stated without making their independence assumptions
+explicit. In the course of verification it emerged that quantities in fact determined jointly were
+being treated as independent, and the assumptions were written into each proposition.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Proposition & Assumption added & Occasion \\
+\midrule
+\ref{prop:pooling} & $\rho$ does not depend on $n$ & examining implication J \\
+\ref{prop:breakage} & $\dbar$ is given exogenously & testing implication K (tiered menus) \\
+\ref{prop:capacity} & $m$ and $\E[\delta]$ are independent & ibid. \\
+\ref{prop:fcf} & $m$ and $\CCC$ are independent & obtaining $m$ (Proposition~\ref{prop:gstar-flat}) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Independence assumptions added to each proposition, and the occasion for adding them.}
+\label{tab:assumption-additions}
+\end{center}
+
+The endogeneity of $\mathcal{G}$ (Remark~\ref{rem:G-endogenous}) was added at the same time. None
+of the proofs was changed: \textbf{only the range of application was narrowed}.
+
+A passage using the undefined symbol $\mathcal{X}$ as the domain of the production function was
+rewritten without naming a domain. Since this work does not treat the internal structure of $f$,
+no space of inputs need be introduced. $\mathcal{D}$, $\mathcal{F}$, $H$ and $\phi_{\rm risk}$
+were added to the notation list.
+
+\section{Introducing the lag}
+
+The $\tau_i$ of Section~\ref{sec:tau} did not exist in the original version. It was introduced in
+the course of working on weakness (C) organized in
+Section~\ref{sec:level-change-gap}, the failure to separate level from change.
+
+The decision to introduce it was made after first confirming that it would be used in several
+places: the explanation of differences in level (Corollary~\ref{cor:ccc-level}), the impossibility
+of cross-sectional comparison (Corollary~\ref{cor:no-cross-comparison}), and the decomposition of
+change (Corollary~\ref{cor:ccc-change}).
+
+Distortion of $\CCC$ during growth and a reinterpretation of the $\beta$ estimate were originally
+also expected as uses, but the rejection of implications O and P showed that these cannot be
+detected in annual data (Section~\ref{sec:lag-test}). That use was removed from the grounds for
+introduction.
+
+At the same time, Example~\ref{ex:insolvency} was corrected where it used $\CCC$ and $W$ before
+their definitions, and rewritten in terms of $\kappa$ alone.
+
+\section{Re-evaluating the relation to existing theory}
+
+In the draft of this work, some of the terms of $\kappa_i$ were expected to be territory specific
+to it, without checking whether existing theory covered them. On checking the literature, theory
+existed for every one.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Original expectation & Existing theory found & Field \\
+\midrule
+Treating prepayment as trade credit is unexplored & reverse trade credit \cite{mateut2014,daripa2011} & corporate finance \\
+There is no theory of $\kappa$ for deferred labour & the bonding argument \cite{akerlof1986} & labour economics \\
+Accumulation of a public record is specific to this work & labour-market signalling \cite{spence1973} & economics of information \\
+$\phi_{\rm cog}$ in family 2-4 is unmeasured & empirical work on breakage of prepaid balances \cite{nber2026pnbl} & consumer behaviour \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{For each term of $\kappa_i$: the original expectation, the existing theory found, and the field.}
+\label{tab:prior-theory-check}
+\end{center}
+
+This check moved where the contribution lies. What was originally sought was \emph{territory
+without existing theory}; in fact the contribution is \textbf{introducing existing theory as the
+explanation of each term and treating them as a sum}
+(Remark~\ref{rem:disjoint-literatures}). This is why Appendix~\ref{app:priorwork} was recast in
+three layers.
+
+The same failure has recurred. When implication B was set out in
+Section~\ref{sec:predB-illposed}, the existence of the risk--incentive trade-off dispute had not
+been checked.
+
+\section{Filling in definitions}
+
+The following are not corrections of errors but additions where the definitions were thin.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Subject & What was added & Occasion \\
+\midrule
+The technology side & costs split into $C_{\mathrm{prod}}+C_{\mathrm{admin}}$ (Definition~\ref{def:cost}) & the source of $\phi_{\mathrm{prod}}$ was undefined \\
+$\phi_{\mathrm{prod}}$ & defined by marginal cost and a counterfactual price (Definition~\ref{def:phi-prod}) & ibid. \\
+Equity $E$ & defined as paid-in capital plus accumulated $\phi$ (equation~\eqref{eq:equity}) & it was implicit as a residual \\
+$\kappa_K$ & defined as a residual claim (Definition~\ref{def:kappa-K}) & equity was being treated identically to debt \\
+$g^\star$ & recast to include depreciation $d$ and investment $I$ (Corollary~\ref{cor:gstar}) & $I\approx d\,r$ was implicitly assumed \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{What was added where definitions were thin, and the occasion.}
+\label{tab:definition-supplements}
+\end{center}
+
+The revision of $g^\star$ changes the measured values. In the stratum below \textyen 10 million,
+against a value of 20.9\% from $m$ alone, the nine-year average including $I$ is 3.1\%. The
+conclusion of Proposition~\ref{prop:small-margin} is maintained, but the burden of investment is
+added to the cause.
+
+As to the split of costs, ``$C$ does not depend on $\Phi$'' was originally proved as a
+proposition. But that $\Phi$ does not appear once $C(\delta)$ has been defined is a consequence of
+the definition, and the proof was circular. It was withdrawn, rewritten as the definition of the
+split, and the eight routes by which $\Phi$ generates costs enumerated.
+
+Defining $\kappa_K$ revealed that subjectivity divides into three stages
+(Remark~\ref{rem:subjectivity}). The subjectivity of the valuation map $v$ is asymmetry of
+information; the subjectivity of the value $V_j$ of the residual claim is disagreement of
+probability measures. The former can be resolved by disclosure; the latter cannot.
+
+\section{Examining reversibility, and a correction}
+
+The framework was reviewed from the standpoint of irreversibility and checked against existing
+theory. One correction and two additions resulted.
+
+\textbf{Correction.} In Remark~\ref{rem:rho-endogenous}, the mechanism making $\rho$ endogenous was
+described as ``objects with low correlation are exhausted''. According to \cite{wagner2010} the
+correct mechanism is different: it is not that the objects of pooling run out, but that
+\textbf{the act of pooling itself creates correlation among those who pool}.
+If two agents each hold half of two risks, each becomes individually safer while the two become
+perfectly correlated.
+
+\textbf{Additions.} The switching cost of $\Phi$ (Remark~\ref{rem:switching-cost}) and the social
+optimality of pooling (Remark~\ref{rem:pooling-social}) were recorded. The former corresponds to
+the theory of irreversible investment, the latter to research on systemic risk.
+
+The framework of classifying reversibility by the size of a cost is itself already held by the
+theory of irreversible investment and is not a contribution of this work. The formulation that a
+decision is irreversible not because it cannot physically be undone but because undoing it is
+costly belongs to the line of \cite{dixit1994}.
+
+\section{Examination from the worker's viewpoint}
+\label{sec:worker-predictions}
+
+Whether to treat workers as an independent subject was examined, and the conclusion was not to.
+
+The organization initially attempted was ``a worker is a special case of the one-person business'':
+a one-person business whose $\Phi$ is given and whose customers concentrate in a single firm. It
+emerged, however, that the constraints differ in both $\Phi$ and $\phi$, and this organization was
+withdrawn (Remark~\ref{rem:worker-constraints}). The Labour Standards Act constrains five of the
+six degrees of freedom of Section~\ref{sec:dof}, and $\phi_{\mathrm{prod}}$ and
+$\phi_{\mathrm{cog}}$ have no counterparts.
+
+Four implications were registered in the course of this examination.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Implication & Content & Result \\
+\midrule
+Q & workers with fewer assets have shorter payment cycles & untested \\
+R & workers hold a higher $M_{\rm floor}$ than firms & untested \\
+S & the paucity of types of employment contract is due to statutory constraint & untested \\
+T & the new freelance statute shifts the allocation of $\kappa$ & \textbf{untestable} \\
+U & the operating margin of individual enterprises is close to the corporate value with officers' remuneration added back & \textbf{supported} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Implications registered in the examination from the worker's viewpoint, and the results.}
+\label{tab:worker-predictions}
+\end{center}
+
+Implication T is untestable because $\kappa$ for sole proprietors is not published. In this
+process an obstacle was found that does not fit the four classes of
+Section~\ref{sec:obstacle-taxonomy}: the form in which \textbf{a survey is taken but not
+tabulated} (Remark~\ref{rem:tabulation-choice}).
+
+\section{Extending the taxonomy of obstacles}
+
+The four classes of Section~\ref{sec:obstacle-taxonomy} were constructed from the initial
+experience of investigation. Later investigation produced two obstacles that do not fit them.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Class & Occasion of discovery & Record \\
+\midrule
+(v) choice of tabulation & seeking $\kappa$ for sole proprietors: the questionnaire exists but the tables do not & Section~\ref{sec:not-tabulated} \\
+(vi) non-operation of the adjustment & in testing implication X, the regressor does not move although data for 307 firms exist & Remark~\ref{rem:no-adjustment} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The obstacles that did not fit the four classes: class, occasion of discovery, and where recorded.}
+\label{tab:obstacle-extension}
+\end{center}
+
+(vi) in particular carries large implications for the method of this work. Part~\ref{part:method}
+attributed the failure to verify to four causes: measurement, theory, identification and access.
+The case in which \textbf{reality does not behave as the theory posits} had not been anticipated.
+
+At the stage of setting out implication B for the measurability hypothesis, it was written that
+$b$ could be obtained only as a binary. Later investigation revealed that the realized fee rate is
+published as a continuous quantity, making the test possible. The obstacle was not the granularity
+of the data.
+
+\section{Extending the taxonomy of biases}
+
+The selection biases of Part~\ref{part:method} originally consisted only of those concerning the
+selection of the sample. Two distortions that the selection of the sample cannot explain emerged
+in the course of the investigation.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Class & Occasion of discovery & Record \\
+\midrule
+Mistaking the unit & rows of a listing are offices while the values are replicated at firm level & Remark~\ref{rem:jinzai-dedup} \\
+Selection of variables & in family 5, the fields of greatest theoretical interest are those whose aggregates cannot yield the required quantity & Remark~\ref{rem:data-gap-relevance} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Two distortions the selection of the sample cannot explain, and the occasions of discovery.}
+\label{tab:bias-extension}
+\end{center}
+
+Both were added as sections of Chapter~\ref{ch:method}
+(Sections~\ref{sec:misidentification} and \ref{sec:variable-selection}), and the opening of that
+chapter was changed from ``six kinds'' to ``eight kinds''.
+
+The former concerns \textbf{the unit of observation rather than the selection of the sample}, the
+latter \textbf{variables rather than samples}. Both lay outside the range Chapter~\ref{ch:method}
+originally treated.
+
+\textbf{The grounds for the former were replaced at stage 17.} They originally rested on the
+behaviour that, in retrieval specifying a licence number directly, a number that failed to resolve
+returned the immediately preceding result. This admits interpretation as a measure limiting
+automated retrieval, and erecting a general obstacle from a single observation was a leap of the
+same form as in Section~\ref{sec:cap-observation}. The grounds were changed to the fact that in
+Section~\ref{sec:predY-result} the presence or absence of consolidation reversed the sign of the
+correlation. The description of that behaviour and the accompanying $n=2$ table were removed.
+
+At the same time, the point that a complete frame does not yield power if the population is small
+was added to Section~\ref{sec:frame}. Section~\ref{sec:nintei-small} had referred to that section
+with ``as stated'', but the statement referred to did not exist there.
+
+\section{Reorganizing the list of open problems}
+
+The list, extended from 12 items to 21 at stage 13, was reorganized into 19 at stage 20.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{A completed item remained.} Geographical extension of the sample was completed when
+the national sample was retrieved for the test of Section~\ref{sec:predY-result}. It nevertheless
+remained first among the items that could be started.
+
+\item \textbf{One task was split in two.} Testing implication Z and collecting the refund rates and
+periods that are its regressor were listed as separate items. A test and the data missing for it
+are two faces of the same task; they were merged.
+
+\item \textbf{A classification was wrong.} The curvature of the age effect was placed under ``items
+with no obstacle'', but \textbf{pursuing it requires a sample carrying firm age}. The Financial
+Statements Statistics used here has three axes — industry, size and year — and does not include
+the year of founding. It was moved to (iv) access constraint.
+\end{enumerate}
+
+Items with no obstacle thereby fell from six to three. \textbf{A list drifts from the actual state
+not when items are added but when finished items are left undeleted.}
+
+\section{The means of reproduction were not included}
+
+Appendix~\ref{app:data} stated that the processing used in the calculations was ``attached''.
+\textbf{Not one file was in the repository.} A claim of the body was not satisfied by what was
+published.
+
+Data and processing were included at stage 19, and three defects were fixed at the same time.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The \texttt{parse.py} that Appendix~\ref{app:data} named did not run.} Its inputs
+were still absolute paths from an old environment, and running it failed with files not found. It
+was rewritten to read \texttt{raw/hojin/}.
+
+\item \textbf{Some intermediate data had no means of regeneration.} No script existed to build the
+series for officers' remuneration and depreciation, and they could not be restored from a fresh
+clone. \texttt{parse.py} was extended to all six series, and the regenerated values were confirmed
+to agree throughout with the previous ones.
+
+\item A collision of output paths was resolved: the results of the test of implication E were
+being written under the same name as intermediate data.
+\end{enumerate}
+
+After inclusion, it was confirmed from a state with \texttt{derived/} deleted that
+\texttt{parse.py} and all 14 analyses run.
+
+\section{Removing a description resting on a single observation}
+
+Chapter~\ref{part:obstacles} recorded the behaviour that, in retrieval specifying a licence number
+directly, a number that failed to resolve returned the immediately preceding result, and
+generalized this into the obstacle ``retrieval succeeds but the object is mistaken''.
+
+\textbf{It admits interpretation as a measure limiting automated retrieval, and other explanations
+were not excluded.} Erecting a general obstacle from a single observation is a leap of the same
+form as the one Remark~\ref{rem:no-generalization} warns against. The description and the
+accompanying $n=2$ table were removed at stage 18.
+
+The section of Chapter~\ref{ch:method} itself was retained. Its grounds were changed to the fact
+that in Section~\ref{sec:predY-result} the presence or absence of consolidation reversed the sign
+of the correlation, and its subject changed from ``mistaking'' to \textbf{the mismatch between what
+a row denotes and what its values denote}. That appears at a magnitude sufficient to reverse the
+conclusion in a sample of 1,402 firm rows across four occupations (1,130 distinct firms), and is
+not a single observation.
+
+\section{Setting theorem-type body text in roman}
+
+Propositions and corollaries were being set in the \texttt{plain} style, which italicizes the body
+text. Japanese has no italic form, so it stayed upright, and \textbf{only the Latin letters and
+digits became italic, mixed in among it}. In places even the figures in tables placed inside
+propositions were italicized.
+
+They were unified in the same roman as definitions, remarks and examples. The headings remain bold
+and numbered. Emphasis by \verb|\emph| in the body that contained Latin letters and became italic
+was likewise changed to bold.
+
+The heading of proofs was also changed. The default in amsthm is the English \texttt{Proof}, which
+does not suit a Japanese document; \verb|\proofname| was set accordingly.
+
+Italics thereby remain only in the punctuation attached to the proof heading and in journal names
+in the bibliography.
+
+\section{Testing implication Y, and a defect in the registration}
+
+At stage 17 a national sample was retrieved from the Jinzai Service General Site and implication Y
+tested on the part excluding Tokyo (Section~\ref{sec:predY-result}). The verdict is partial
+support.
+
+\textbf{The registration was defective.} Table~\ref{tab:predYZ-registration} laid down that offices
+with amount-displayed fees would be used for implication Y, but the reference values of
+Table~\ref{tab:b1-proxy-order} against which the comparison was made had been computed on a sample
+excluding them (Remark~\ref{rem:predY-registration-error}). \textbf{The composition of the
+reference values had not been checked at the time of registration.} Both rules are reported, and
+the matter handled by showing that the verdict does not depend on the rule.
+
+Three points emerged during retrieval.
+
+First, \textbf{rows of the search results are offices while the values are at firm level}
+(Remark~\ref{rem:jinzai-dedup}). Taking correlations without consolidating gives, among
+physicians, a single company 134 times the weight, and the sign of the correlation turns from
+positive to negative. Consolidation was not preprocessing but a procedure determining the
+conclusion.
+
+Second, \textbf{the displayed turnover rate cannot be computed from the placements and separations
+in the same row}. For physicians the two agree in only 115 of 479 rows. The composition matches
+Section~\ref{sec:predX-result} and does not impede comparison, but it was recorded that size and
+turnover are not quantities over the same period (Remark~\ref{rem:predY-limits}).
+
+Third, \textbf{the initial tabulation dropped part of the sample}. Extraction was restricted to the
+licence-number letters Yu and Fu, so 200 Mu (free placement office) and 7 Toku records were
+missed. This was wrongly described as loss during copying, and up to 11.2\% was reported as lost.
+\textbf{The number of data rows agrees with the search results; nothing was lost.}
+
+The error changed the verdict. With the dropped sample, the ordering excluding Tokyo did not agree
+with the reference values, and it had been recorded that the ordering is not preserved. After
+correction the ordering agrees perfectly under the registered rule. The verdict was set to partial
+support not because the ordering is not preserved but because \textbf{the agreement of the
+ordering depends on the rule of tabulation, and that rule had not been aligned with the
+composition of the reference values at the time of registration}.
+
+The reference values of Table~\ref{tab:b1-proxy-order} agree, on the Tokyo portion of the corrected
+sample under the same composition, to within 0.02 in correlation; nurses agree to three decimal
+places.
+
+\section{A route for testing the deductions of Part~II}
+
+The deductions of Part~\ref{part:catalog} \textbf{had almost no pre-registered implications} up to
+stage 15. Of the 16 implications then registered, only D and T clearly targeted that part; D was
+supported as to direction only, and T is untestable.
+
+At stage 16, implications $\Phi$1--$\Phi$4 were registered for the ``inside'' partition of
+Chapter~\ref{ch:protocol} (Section~\ref{sec:protocol-predictions}). In that partition the record of
+the procedure is itself the population, and halted procedures remain, so the survival conditioning
+of Chapter~\ref{ch:method} does not arise. The reason for abandonment given in
+Chapter~\ref{ch:platformfee} — ``no population frame'' — disappears here.
+
+Three points were distinguished before registering (Table~\ref{tab:protocol-testability}).
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Quantities the procedure enforces are not objects of verification.} The collateral
+constraint of Proposition~\ref{prop:collateral} is such a quantity: observing that collateral is
+posted is merely reading the rules. Only quantities appearing as the result of an operator's choice
+are objects of verification.
+
+\item \textbf{The population differs} (Remark~\ref{rem:protocol-population}). What can be verified
+is the correctness of the deduction, not whether the deduction applies to real one-person
+businesses.
+
+\item \textbf{Quantities at the level of agents cannot be recovered}
+(Remark~\ref{rem:additivity}). What can be measured is only the distribution at the level of
+identifiers.
+\end{enumerate}
+
+For $\Phi$1 it was noted that, because the number of dependencies may correlate with usage, the
+alternative is hard to reject (Remark~\ref{rem:dep-usage-confound}).
+
+\section{Registering implications Y and Z}
+
+The observation of Remark~\ref{rem:scale-turnover} — that the correlation of size with turnover
+differs greatly by occupation — \textbf{remained recorded as a secondary observation with no use}
+up to stage 14.
+
+At stage 15 a route was set out for reading it as a proxy for the B1 side, the informativeness of
+effort that Table~\ref{tab:bstar-requirements} records as lacking a proxy, and implications Y and Z
+were registered (Section~\ref{sec:b1-proxy}).
+
+Two points were fixed at registration.
+
+First, \textbf{the test must not use the same sample}
+(Remark~\ref{rem:no-same-sample-test}). The correlation was observed after the fact in the 307-firm
+sample, and testing on the same sample would be an error of the same form as retrospective
+narrativization. What is required is reproduction out of sample.
+
+Second, \textbf{the mechanism is not identified}
+(Remark~\ref{rem:b1-proxy-assumption}). Thinning of input and looser screening give the same sign,
+so the variable can be used as a proxy but no claim about the mechanism can be made.
+
+There is a literature in labour economics on the relation between size and the quality of
+placements which this work has not surveyed; it was added to ``theory that should be connected but
+is not'' in Appendix~\ref{app:priorwork}.
+
+\section{Checking the scope of inventories}
+
+Chapter~\ref{part:industry} computed $\mathrm{DIO}$ from ``finished goods or merchandise'' alone,
+excluding work in process and raw materials. The limitation was recorded as ``the effect on
+analyses of differences and correlations is small, but the absolute level cannot be interpreted'',
+\textbf{with no grounds given}.
+
+At stage 14 the difference was measured against ``inventories (end of period)'' in the Financial
+Statements Statistics (Section~\ref{sec:inventory-scope}). The result supports that statement: the
+level moves by more than 30\% in some industries, but the correlation of $\Delta\CCC$ is 0.976.
+
+Incidentally, the elasticity $\beta$ rose from 0.900 to 0.960 and the coefficient of determination
+improved from 0.092 to 0.213. \textbf{Working capital is more nearly proportional to sales when
+work in process and raw materials are included.} The contribution of the denominator effect moves
+smaller, and the conclusion of Section~\ref{sec:denominator-effect} is strengthened.
+
+During estimation it emerged that, because the observations with $W>0$ differ by definition, the
+sign comes out reversed unless the sample is aligned (Remark~\ref{rem:common-sample}). Without
+alignment the values are 0.894 and 0.787, giving the opposite conclusion that the denominator
+effect increases.
+
+\section{Filling in operationalization and reorganizing the list of open problems}
+
+Classifying each item against the five stages of Chapter~\ref{ch:design} revealed that
+\textbf{items halted at stage 1 (operationalization) were not registered in the list of open
+problems}. Although a defect at stage 1 requires no data retrieval and is filled by definition, the
+list was skewed towards problems of measurement and access.
+
+The following were done at stage 13.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Availability was written as an equation} (Definition~\ref{def:availability}).
+Previously it was stated only as ``consuming the constraint'' and had no form as an inequality.
+Whereas the capacity constraint bounds the total volume of delivery, availability bounds the length
+of an interval during which no response can be made. Both have the dimension of time.
+
+\item \textbf{The reason the degree of automation cannot be defined was identified}
+(Remark~\ref{rem:automation-rate-illposed}). It had been recorded that ``$\delta$ has no unit'',
+but $\delta$ carries monetary units through the valuation map. Correctly, what $v$ measures is
+value, not effort; and measuring on the response side leaves no measure defined on
+$\Omega\setminus\hat\Omega$. \textbf{The obstacle is the absence of a measure, not of a unit, and
+is not resolved by refining the definition.}
+
+\item \textbf{Rules for assignment to types were laid down}
+(Section~\ref{sec:type-assignment}). Using the catalogue empirically requires a rule for assigning
+an observed $\Phi$ to a type, and none existed. Since the conditions identifying families are not
+exclusive, an order was fixed. The choice of order has no deductive grounds and is a convention, so
+it must be fixed in advance (Remark~\ref{rem:assignment-order-dependence}).
+
+\item \textbf{A limitations section was placed in Chapter~\ref{part:unmanned}}
+(Section~\ref{sec:unmanned-limits}). Of the deductive chapters it alone had none, and its
+limitations were written in Chapter~\ref{ch:platformfee}. The theoretical limitations were moved to
+that chapter and the empirical ones left in Chapter~\ref{ch:platformfee}.
+
+\item \textbf{Open problems were reorganized from 12 items to 21.} Nine items in the limitations
+sections and records of abandonment across the chapters were not reflected in the list. Six of them
+\textbf{fell under no obstacle at all and had simply not been started}, so a subsection was
+separated out for ``items with no obstacle''. The table of priorities was likewise split into what
+can be started and what will not advance.
+\end{enumerate}
+
+This changed the close of Chapter~\ref{ch:conclusion}. It had read ``no item remains that can be
+advanced by retrieving public data alone''; six items have no obstacle.
+
+\section{Placing the empirical design first}
+
+Chapter~\ref{part:obstacles} recorded that the four-way classification should be placed ahead of
+the design of an investigation, because Part~\ref{part:method} treated selection bias in samples
+while having no procedure for judging ``is verification possible at all?''.
+
+This was carried out at stage 12 as Chapter~\ref{ch:design}. The four-way classification itself is
+not placed first, however. The classification was extended to six through the empirical work, and
+placing it first would put findings not yet obtained ahead of their derivation. \textbf{What was
+brought forward is only the stages to be checked; the classification of causes for failing to pass
+them was left in Chapter~\ref{part:obstacles}} (Remark~\ref{rem:taxonomy-placement}).
+
+The distinction between comparison and testing was also stated as a discipline
+(Section~\ref{sec:comparison-vs-test}). This work contains several consistency checks not resting
+on pre-registration, such as the family-3 comparison of Chapter~\ref{ch:solo}, but no passage
+stated their standing; each chapter merely noted individually that ``this is a retrospective
+comparison and does not establish causation''. The discipline is needed because a comparison
+requires no declaration of a population and so can be carried out while skipping stages 2 and 3
+(Remark~\ref{rem:comparison-skips-stages}).
+
+\section{Implication Z tested}
+
+Up to stage 22, implication Z was left untested as ``the sample is already retrieved; what is
+missing is only the strength of the refund scheme''. It was tested at stage 23 and
+\textbf{rejected}.
+
+\subsection{Implications \texorpdfstring{$\Phi$}{Phi}1--\texorpdfstring{$\Phi$}{Phi}4: three different failures}
+
+Registered at stage 16 and tested at stage 24. Of the four, only $\Phi$2 is supported, and the
+forms of failure all differ.
+
+\textbf{$\Phi$1: an error in the design of the estimate.} At registration it was thought that
+keeping the identifier as the unit of observation and using standard errors robust to clustering by
+implementing address would handle the concentration of replicates. This is wrong. Robust standard
+errors correct for within-cluster correlation but not for bias in the point estimate when one
+cluster accounts for 95\% of the exposure. Only on reporting an estimate excluding the dominant
+cluster did it emerge that the sign of the coefficient reverses and becomes insignificant
+(Remark~\ref{rem:clone-concentration}).
+
+\textbf{$\Phi$3: an error in the choice of control.} ``The distribution of $\CCC$ is skewed
+non-negative'' was designed as a contrast with the corporate sector, but the corporate sector's
+$\CCC$ is also non-negative throughout at the level of industry aggregates. Negative $\CCC$ appears
+in individual firms and cancels out in aggregation. The implication and its alternative say the
+same thing, and observation cannot tell them apart. This is ill-posedness of the same form as
+implication B in Section~\ref{sec:predB-illposed} (Remark~\ref{rem:phi3-illposed}).
+
+\textbf{$\Phi$4: mistaking the implication.} Proposition~\ref{prop:beneficiary} states that a
+$\Phi$ requiring identification of the beneficiary cannot be implemented. From this ``only 7-4
+survives among family 7'' was derived, but the proposition speaks of implementability, not
+frequency of appearance. The quantitative part — that family 7 is rare — was right; the part about
+the surviving type was wrong (Remark~\ref{rem:implementable-not-observed}).
+
+\textbf{What the three have in common is that each was noticeable at the time of registration.}
+All are problems of design that could have been examined before measurement; the data were not
+lacking.
+
+\subsection{Dropping the symbol for the production function}
+\label{sec:drop-f}
+
+Up to stage 26 the technology side was called a production function $f$. But \textbf{no functional
+form was ever given}, and the notation list recorded that ``the domain is not stated''. There were
+five mentions in the body, none of which used $f$ itself; it appeared only through
+$C_{\mathrm{prod}}$.
+
+At stage 27, $f$ was dropped and the technology side unified into $C_{\mathrm{prod}}$ (the
+correspondence from delivery to cost). The definition of production surplus
+(Definition~\ref{def:phi-prod}) already referred to $c(\delta)=dC_{\mathrm{prod}}/d\delta$ and
+holds without $f$.
+
+\textbf{A symbol with a name and no substance had been left in place.}
+
+\subsection{Defining the relation between classes of agents and individuals}
+
+The primitives merely listed customers $C$, suppliers $S$ and so on as ``the breakdown of
+agents'', without giving the relation between an individual customer and the $\kappa_C$ denoting
+customers as a whole. $\kappa_C$ occurs frequently in the body, and in
+Example~\ref{ex:triple-index} the writing wavered between classes and individuals.
+
+It was added to the definitions that a class is a subset of $N$, that an individual agent is
+written as $i\in C$ and as an element of $N$, and that a class as a subscript denotes the sum
+$\kappa_C=\sum_{i\in C}\kappa_i$. The index $j$ is used for identifiers in
+Chapter~\ref{ch:protocol} and is therefore not used for individual agents.
+
+\subsection{Revising the verdict on implication D}
+
+Implication D was registered at stage 13 as ``the fewer the dependencies of a configuration, the
+smaller $\lambda_{\rm dep}$ and the longer the period of unattended operation''. Implication $\Phi$1,
+registered at stage 16, reads ``the fewer the other procedures a procedure calls, the longer the
+period before it is repaired'' — \textbf{the same relation}. The duplication went unnoticed at
+registration.
+
+Up to stage 24 the table of verdicts recorded D as ``partial support''. But no section of the body
+supported that verdict, and Chapter~\ref{ch:platformfee} recorded that ``implication D has not been
+tested''. \textbf{The table and the body contradicted each other.}
+
+The test of $\Phi$1 at stage 24 is also a test of D. The verdict was changed to \textbf{rejected}.
+
+Registering the same relation twice is itself a failure in operating the pre-registration. The
+cause was keeping the register by chapter and never reconciling it as a whole.
+
+How strength was to be measured had not been laid down at registration. Deciding after reading the
+documents would be fitting after the fact, so it was fixed as
+equation~\eqref{eq:henreikin-strength} before they were read.
+
+\textbf{Extraction by regular expression was abandoned.} Checking 8 documents produced errors in 3,
+and the errors were biased towards overstating strength. Not being random error, they do not vanish
+on averaging. All 907 were read by a person, and the 132 carrying no text layer were put through
+OCR. None was illegible.
+
+The reading brought several facts about publication practice to light. Some documents paste the
+rate table as an image alone, so the body is legible while the content is not. Some offices have a
+refund-field link pointing to a fee schedule. Some display the scheme as ``yes'' while filing a
+rate of 0\%. \textbf{Filing a document and having its content legible are different things.}
+
+\section{Giving deductive grounds for choosing families 2 and 5}
+
+Section~\ref{ch:next} said only that ``families 2 and 5 contain the theoretical issues most
+clearly'' and \textbf{did not show why those two}. What could be derived from the framework was
+left underived.
+
+It was rewritten in four steps. Since $\phi_{\mathrm{prod}}$ in equation~\eqref{eq:surplus} does
+not depend on $\Phi$, the shape of $\Phi$ bears only on the remaining two terms.
+$\phi_{\mathrm{cog}}$ requires degrees of freedom (5) and (6) and $\phi_{\mathrm{barg}}$ requires
+(4), and the order of family assignment maps these onto families 2 and 5 respectively. The two
+families sit on the diagonal of Figure~\ref{fig:quadrant}, spanned by the two dominant axes.
+
+The reason for \emph{placing them side by side} was also set out first, as a difference of
+institutional grounding. It does not anticipate the conclusion of Part~\ref{part:results}
+(completeness and richness are independent) and is confined to the design-level reason that the two
+need separating.
+
+\section{Removing references to places that do not exist}
+
+Part~\ref{part:results} contained ``at the end of Part~\ref{part:catalog} it was expected that
+family 5 had the better conditions'', but \textbf{no such statement exists in
+Part~\ref{part:catalog} or in Section~\ref{ch:next}}. A sentence from an earlier version had been
+deleted, leaving only the sentence that answered it. The conclusion was kept and only the reference
+to the premise dropped.
+
+Also, the conditions for divergence were changed from a proposition to a remark at stage 2, but
+\textbf{two places still referred to it as a proposition}. Both were corrected.
+
+\section{Resolving a contradiction in the description of \texorpdfstring{$\phi_{\rm cog}$}{phi-cog}}
+
+Immediately before Section~\ref{sec:phicog-measurable} it was stated that ``the only corresponding
+measurement is the recovery figure for family 2'', while the section went on to say that ``prior
+work contains direct instances of measurement''. \textbf{Of the same quantity it was written both
+that no measurement exists and that measurements exist.}
+
+Correctly, it is measurable and measurements exist; what this work obtained on its own is only an
+upper bound. The family-2 recovery figure was folded in as one of the instances, and the passage
+recast to list four.
+
+\section{Extending the scope of inventories to 62 industries}
+
+Stage 14 measured only ten industries and eleven size strata, and \textbf{recorded that ``the
+elasticity improves on correcting the definition''}. Extending to 62 industries and all sizes
+reverses the direction: the denominator effect rises slightly from 0.160 to 0.172.
+
+The two are not error. Variation between size strata and variation between industries identify
+different things. The estimate of that chapter is identified by variation between industries and
+years, so it is the 62-industry figure that applies (Remark~\ref{rem:inventory-cut}).
+
+\textbf{The range covered by the sample had been mistaken for the range reached by the conclusion.}
+There was never any guarantee that a direction obtained on ten industries could be applied to a
+45-industry estimate. All three verdicts remain ``supported'', but each is weaker than at stage 14.
+
+\section{Stating the handling of per-firm data}
+
+The Jinzai Service General Site publishes the filings of individual offices rather than aggregates.
+These were included in the repository at stage 19, but \textbf{using them as input to analysis and
+redistributing the collection are different things}.
+
+The policy was written into Appendix~\ref{app:data} and the per-firm data removed from the
+repository. What remains is only the list of licence and filing-receipt numbers, containing none of
+the filed values. Re-retrieving with that as a seed reproduces the realized fee rates, turnover
+rates and placement counts. What had already been published was removed from the history.
+
+\section{Multiple definitions of a symbol}
+\label{sec:rev-symbols}
+
+At stage 28 the whole text was swept and six places where the same letter carried different
+meanings were fixed.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Letter & Meaning retained & Side changed \\
+\midrule
+$c$ & marginal cost $c(\delta)$ & flat fee $\to F$, living expenses $\to c_{\rm liv}$ \\
+$m$ & gross or operating margin & number of members $\to n$ \\
+$r$ & sales velocity & risk aversion $\to \gamma$ \\
+$\tau$ & settlement lag $\tau_i$ & time of insolvency $\to \Tins$ \\
+$A$ & fixed assets & the set of responses $\to \mathcal{A}$, agents $\to i,j$ \\
+$a$ & response; age (APC) & allocation to commissioned work $\to \Ccl$ \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Multiple definitions of symbols resolved at stage 28.}
+\label{tab:symbol-collisions}
+\end{center}
+
+$c$ had four meanings. Only the cohort $c$ of age--period--cohort was retained, following the
+notation of that literature, with a note to that effect in the body.
+
+The three forms of degree of freedom (2) were also gathered into
+equation~\eqref{eq:two-part}, $\pi=F+p\delta$: $p=0$ is flat, $F=0$ is usage-based, and both
+non-zero is a two-part tariff. What had stood as three forms became one family.
+
+\section{Correcting a count}
+
+The catalogue of Part~\ref{part:catalog} was described consistently from stage 1 as ``27 types'',
+but the counts by family are 4, 5, 3, 3, 5, 4, 4, totalling 28. Eleven places in the body were
+corrected at stage 9. The composition of the families and the content of each type are unchanged.
+
+\subsection{Calling the types a ``basis''}
+\label{sec:rev-basis}
+
+Up to stage 27 it was recorded of the catalogue of Chapter~\ref{ch:catalog} that ``the fact that a
+$\Phi$ cannot be reduced to a single type means the types function as a basis''. But no addition
+was defined on the space of $\Phi$, so the word had no meaning.
+
+At stage 28 the additivity of $\kappa$ was laid down as
+Proposition~\ref{prop:kappa-additive} and, at the same time, the non-uniqueness of the
+decomposition shown (Remark~\ref{rem:decomposition-not-unique}). Without uniqueness the types are a
+generating set, not a basis. The word in the body was changed.
+
+\section{Considered but not adopted in the body}
+
+In writing Chapter~\ref{ch:protocol} at stage 9, a structure presenting it as a novel contribution
+was initially considered. On checking the literature it emerged that the restriction of funding by
+a collateral constraint, the exclusion of agents holding no assets, and the divergence of
+identifier from agent all have existing counterparts, so it was recast to claim no novelty and a
+table of correspondences added to Appendix~\ref{app:priorwork}
+(Remark~\ref{rem:collateral-priorwork}).
+
+The chapter was retained because, in the position of showing how the theory of
+Part~\ref{part:theory} functions under concrete conditions, an example varying the $\mathcal{G}$ of
+Chapter~\ref{sec:info} was missing. Its role is the same as that of Chapter~\ref{ch:solo} and
+Chapter~\ref{part:unmanned}.
+
+\subsection{Describing an allocation that is not an interior solution as one}
+\label{sec:rev-interior}
+
+Up to stage 27 it was recorded of equation~\eqref{eq:leakage} in Chapter~\ref{ch:solo} that ``an
+interior solution exists''. The equation is linear in the allocation $\Ccl$ and, under
+$0<\theta<\gamma$, strictly decreasing, so taken alone it is maximized at the corner $\Ccl=0$. The
+error arose from putting the cash that commissioned work brings in neither into the objective nor
+into the constraints.
+
+At stage 28 the cash the fundamental inequality demands was made explicit as a constraint, and the
+optimal allocation re-derived as the edge of the constraint,
+$\Ccl^\ast=c_{\rm liv}/w$ (Proposition~\ref{prop:allocation}). The direction of the conclusion —
+that the criterion for selecting engagements moves from the fee to $\theta$ — is unchanged.
+
+\section{Changes of structure}
+
+Apart from corrections of content, the structure was changed twice.
+
+\begin{enumerate}[label=(\arabic*)]
+\item From the chronological order of the examination to the logical order of theory, catalogue,
+method, empirics and conclusion.
+\item The deductions under constraints (Chapters~\ref{ch:solo} and \ref{part:unmanned}) moved from
+a separate part on ``applications'' into Part~\ref{part:catalog}. Applications are justified only
+after a theory has passed through empirical work, and the empirical work here is not complete.
+\end{enumerate}
+
+The second change was accompanied by fixing 64 inconsistent references (parts confused with
+chapters) and two logical inversions (a later chapter referred to in the past tense).

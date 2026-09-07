@@ -1,1 +1,800 @@
-% TODO: translation of src/appendix.tex
+\appendix
+\part{Appendices}
+
+\chapter{Supplement: proofs concerning method}
+\label{app:proofs}
+
+Those claims about method made in the body that call for proof are gathered here. Each section
+also states why the formalization takes the form it does, which implications were not treated in
+the body, and the limits within which the proof applies.
+
+The implications developed here are: the relation between the strength of conditioning and the
+distortion (Remark~\ref{rem:collider-strength}); that collecting only failures does not remove
+the distortion (Remark~\ref{rem:collider-reverse}); that curvature is identified in the APC
+problem (Remark~\ref{rem:apc-identified}); that the APC problem is latent in the $\CCC$ series of
+this work (Remark~\ref{rem:apc-in-this-work}); that the objective becomes discontinuous under a
+deadline constraint (Remark~\ref{rem:deadline-objective}); and that substitutability is confined
+to a static constraint (Remarks~\ref{rem:substitution-limit} and \ref{rem:substitution-boundary}).
+
+Limits of application are recorded in Remarks~\ref{rem:collider-limit} and
+\ref{rem:deadline-limit}.
+
+\section{Correlation induced by conditioning on a collider}
+
+\subsection{The choice of formalization}
+
+Section~\ref{sec:survivorship} treats the problem that observed firms are conditioned on
+survival. To formalize this one must decide what survival is a function of.
+
+This work adopts a \textbf{linear additive threshold} $S = \Ind\{a\Phi + b\varepsilon > \theta\}$,
+where $\Phi$ is the advantage deriving from the contractual form and $\varepsilon$ an exogenous
+shock. There are three reasons for this form.
+
+First, \textbf{additivity} is essential. The structure in which a disadvantage in $\Phi$ can be
+compensated by an advantage in $\varepsilon$ is the source of the correlation induced by
+conditioning. A multiplicative form $S=\Ind\{\Phi\varepsilon>\theta\}$ yields results of the same
+kind, but loses the reading in terms of compensation.
+
+Second, it must be a \textbf{threshold}. Survival is a binary event rather than a continuous
+quantity, so what is conditioned on is a set. Were $S$ continuous, this would be a problem of
+regression, not of conditioning.
+
+Third, the sign restriction $a,b>0$ states that \textbf{both contribute positively to survival}.
+If one were negative the result would reverse. The statement in
+Section~\ref{sec:survivorship} that ``the direction of the distortion reverses with what is
+conditioned on'' depends on these signs.
+
+\begin{proposition}[Collider bias]
+\label{prop:collider}
+Let $\Phi$ and $\varepsilon$ be independent random variables, and for $a,b>0$ and a threshold
+$\theta$ define the survival indicator $S = \Ind\{a\Phi + b\varepsilon > \theta\}$.
+Then conditioning on $S=1$ makes $\Phi$ and $\varepsilon$ negatively correlated:
+\[
+\operatorname{Cov}\bigl[\Phi,\varepsilon \mid S=1\bigr] < 0 .
+\]
+\end{proposition}
+
+\begin{proof}
+Fix a realization $x$ of $\Phi$. The condition $S=1$ is equivalent to
+$\varepsilon > (\theta - a x)/b$. The right-hand side is decreasing in $x$, so the conditional
+distribution $\varepsilon \mid (\Phi=x, S=1)$ is stochastically decreasing in $x$. Hence
+\[
+\E[\varepsilon \mid \Phi=x,\ S=1]
+\]
+is decreasing in $x$. If the joint distribution of $\Phi$ and $\varepsilon$ is non-degenerate the
+decrease is strict, and in the definition of the covariance
+\[
+\operatorname{Cov}[\Phi,\varepsilon\mid S=1]
+= \E\bigl[(\Phi-\E\Phi)\,(\E[\varepsilon\mid\Phi,S=1]-\E\varepsilon)\bigm| S=1\bigr]
+\]
+the two factors inside the bracket move in opposite directions, so the covariance is negative.
+\end{proof}
+
+\begin{corollary}[Understatement of the structural effect]
+In a surviving sample, a disadvantage in $\Phi$ is partly offset by an advantage in
+$\varepsilon$. Estimators of the effect of $\Phi$ on outcomes are therefore biased towards zero.
+\end{corollary}
+
+\subsection{Implications not treated in the body}
+
+\begin{remark}[Strength of conditioning and size of the distortion]
+\label{rem:collider-strength}
+The smaller $\Prob(S=1)$, the larger the absolute conditional correlation. Raising the threshold
+$\theta$ requires ever more extreme combinations of $\Phi$ and $\varepsilon$ for survival, which
+strengthens the compensating relation between them.
+
+This has a practical implication: \textbf{the more severely the sample is narrowed, the larger
+the distortion}. The listed firms treated in Section~\ref{sec:frame} (0.11\% of the whole) are
+subject to a double conditioning — listing as well as survival — so the distortion exceeds that
+of simple survival conditioning.
+\end{remark}
+
+\begin{remark}[Conditioning in the other direction]
+\label{rem:collider-reverse}
+The same mechanism operates when only \emph{exited} firms are observed, that is $S=0$. Since
+$\Prob(\varepsilon<(\theta-ax)/b)$ is increasing in $x$, $\Phi$ and $\varepsilon$ are negatively
+correlated under $S=0$ as well.
+
+Hence \textbf{collecting only failures does not remove the distortion}. Only a sample containing
+both successes and failures — that is, an unconditioned sample — is unbiased. This explains the
+importance of the fact that in Part~\ref{part:results} the media panel for family 2 contained
+growing and shrinking segments at the same time.
+\end{remark}
+
+\begin{remark}[Limits of the proof]
+\label{rem:collider-limit}
+Proposition~\ref{prop:collider} assumes \textbf{unconditional independence} of $\Phi$ and
+$\varepsilon$. If the two are correlated to begin with, the negative contribution of conditioning
+mixes with the original correlation and the sign is indeterminate.
+
+In reality contractual form and exogenous shocks may not be independent. A firm that chooses a
+$\Phi$ robust to the business cycle has, in effect, chosen an environment with small variance of
+$\varepsilon$. In that case the proposition does not apply.
+\end{remark}
+
+\begin{example}[Numerical confirmation]
+Let $\Phi,\varepsilon\sim N(0,1)$ be independent and $S=\Ind\{\Phi+\varepsilon>0\}$. Then
+$\Phi+\varepsilon\sim N(0,2)$ and $\Prob(S=1)=1/2$. It is a known result that under $S=1$,
+$\operatorname{Corr}[\Phi,\varepsilon\mid S=1] \approx -0.57$. A correlation that is $0$
+unconditionally swings sharply negative merely by conditioning on survival.
+\end{example}
+
+\section{Non-identification of age, period and cohort}
+
+\subsection{Why the argument is made in a linear model}
+
+The claim of Section~\ref{sec:apc} is stated here in the language of linear algebra. The linear
+setting is adopted \textbf{not because non-identification arises from linearity, but because it
+appears most clearly in the linear case}.
+
+In a non-linear model $(\alpha,\pi,\gamma)$ can sometimes be identified: if, for instance, the age
+effect is quadratic and the period effect linear, the two can be distinguished. But such
+identification \textbf{depends entirely on the assumed functional form}. When changing the
+assumption changes the conclusion, one can hardly say the parameters are identified.
+
+The linear case is presented to make clear that the \emph{core} of the non-identification lies in
+the identity $a=p-c$ and cannot be evaded by contrivances of functional form.
+
+\begin{proposition}[Non-identification in APC]
+\label{prop:apc}
+This proposition follows the notation of the age--period--cohort literature. Within this section
+$a,p,c,\pi,y$ denote age, period, cohort, the period effect and the observation, and bear no
+relation to their use elsewhere in this work (allocation received, unit price, marginal cost,
+settlement, outcome).
+
+Consider the model explaining an observation $y$ as a linear sum of age $a$, period $p$ and
+cohort $c$,
+\[
+y = \mu + \alpha\,a + \pi\,p + \gamma\,c + \epsilon .
+\]
+When the identity
+\begin{equation}
+a = p - c \tag{\ref{eq:apc-main}}
+\end{equation}
+holds, $(\alpha,\pi,\gamma)$ is not identified.
+\end{proposition}
+
+\begin{proof}
+For any $\eta\in\R$ set $(\alpha',\pi',\gamma') = (\alpha+\eta,\ \pi-\eta,\ \gamma+\eta)$.
+By \eqref{eq:apc-main},
+\[
+\alpha' a + \pi' p + \gamma' c
+= \alpha a + \pi p + \gamma c + \eta(a - p + c)
+= \alpha a + \pi p + \gamma c .
+\]
+That is, the fitted values agree for every $\eta$. The columns $(a,p,c)$ of the design matrix are
+linearly dependent, the rank falling short by one, so the least-squares solution is not unique.
+\end{proof}
+
+\subsection{Implications not treated in the body}
+
+\begin{remark}[What is identified and what is not]
+\label{rem:apc-identified}
+What is unidentified is the \emph{level} of the three coefficients; not everything is unknown.
+
+Any quantity left invariant by the transformation $(\alpha+\eta,\ \pi-\eta,\ \gamma+\eta)$ of
+Proposition~\ref{prop:apc} is identified. For instance $\alpha+\gamma$, and the \textbf{second
+differences} of the coefficients — that is, curvature — do not depend on $\eta$.
+
+Hence ``does $\CCC$ rise monotonically with age?'' is not identified, but ``is there curvature in
+the age effect?'' is. Abandoning the separation of the three variables in Section~\ref{sec:apc}
+\textbf{does not mean abandoning curvature as well}. This work does not pursue that direction.
+\end{remark}
+
+\begin{remark}[A constraint for identification]
+Identification requires adding one exogenous constraint. Typically one imposes $\alpha=0$,
+$\pi=0$ or $\gamma=0$, or assumes two adjacent coefficients equal. Every such constraint is
+untestable, and the conclusion depends on the assumption. This work imposes no constraint and
+adopts the policy of stating the non-identification explicitly (Section~\ref{sec:apc}).
+\end{remark}
+
+\begin{remark}[How it appears in this work]
+\label{rem:apc-in-this-work}
+The APC problem is latently at work in several places here.
+
+Chapter~\ref{part:industry} treats the time series of $\CCC$; if the age distribution of firms
+changes over time, the observed rise in $\CCC$ is a mixture of period and age effects. The
+shift-share decomposition of Section~\ref{sec:ccc-decomposition} separates industrial composition
+but \textbf{does not separate the age composition}.
+
+If younger firms have shorter $\CCC$, a rising share of older firms could account for the rise in
+$\CCC$. This work has not tested that.
+\end{remark}
+
+\section{Preference for variance under a deadline}
+
+The proposition of Section~\ref{sec:retiree} is proved here.
+
+\begin{proposition}[Under a deadline, minimizing variance is not optimal]
+\label{prop:deadline-variance}
+Let $\Theta>0$ be the time required to arrive, $T_{\max}$ the deadline, and define success as
+$\{\Theta \leq T_{\max}\}$. When $\E[\Theta] > T_{\max}$, an increase in variance holding
+$\E[\Theta]$ fixed can increase the probability of success. In particular the probability of
+success converges to $0$ in the limit $\operatorname{Var}[\Theta]\to 0$.
+\end{proposition}
+
+\begin{proof}
+If $\operatorname{Var}[\Theta]=0$ then $\Theta = \E[\Theta] > T_{\max}$ with probability one, so
+$\Prob(\Theta\leq T_{\max})=0$. On the other hand, giving the variable variance while preserving
+the mean — say a two-point distribution with $\Theta=T_1<T_{\max}$ with probability $q$ and
+$\Theta=T_2$ with probability $1-q$, chosen so that $qT_1+(1-q)T_2=\E[\Theta]$ — gives a success
+probability of $q>0$. The increase in variance thus improves the probability of success.
+\end{proof}
+
+\begin{remark}[Contrast with the floor constraint]
+This proposition does not contradict the conclusion of Section~\ref{sec:bootstrap}, ``lower the
+variance with many small amounts''. The latter holds under the floor constraint $M\geq 0$, the
+former under the deadline constraint $\Tins \leq E(0)/c_{\rm liv}$. \textbf{Change the type of
+constraint and the optimal attitude to variance changes.}
+\end{remark}
+
+\begin{remark}[Implications of taking the probability of success as the objective]
+\label{rem:deadline-objective}
+Proposition~\ref{prop:deadline-variance} takes the objective to be
+$\Prob(\Theta\leq T_{\max})$, which differs from $\E[\sum\beta^t\phi_t]$ in
+Section~\ref{sec:objective}.
+
+The two diverge because \textbf{the loss from exceeding the deadline does not depend on by how
+much it is exceeded}. Missing $T_{\max}$ by a day and by a year give the same result, so the
+objective is binary. This discontinuity reverses the attitude to variance.
+
+The insolvency time $\tau$ of Section~\ref{sec:objective} is likewise an absorbing state with the
+same property. That is, \textbf{the framework of this work contains regions in which the
+objective is not smooth}. The pathwise constraint of Proposition~\ref{prop:pathwise} is a
+manifestation of this.
+\end{remark}
+
+\begin{remark}[Limits of the proof]
+\label{rem:deadline-limit}
+The proposition shows that an increase in variance \emph{can} improve the probability of success,
+not that it always does. If $\E[\Theta]<T_{\max}$, an increase in variance lowers it instead.
+
+The boundary is the comparison of $\E[\Theta]$ with $T_{\max}$. In practice this becomes the
+judgement \textbf{play safe if the prospect suffices, gamble if it does not}, but $\E[\Theta]$ is
+not usually knowable in advance. This work does not treat that estimation problem.
+\end{remark}
+
+\section{Substitutability of capital and credit}
+
+\begin{proposition}[The substitution relation]
+\label{prop:substitution}
+When $A=\mathrm{Inv}=0$, the constraint $M\geq 0$ is equivalent to
+\begin{equation}
+E \;+\; \sum_i \max\{-\kappa_i,0\} \;\geq\; \sum_i \max\{\kappa_i,0\} .
+\end{equation}
+That is, $E$ and negative $\kappa$ are perfect substitutes in the constraint.
+\end{proposition}
+
+\begin{proof}
+Substitute $A=\mathrm{Inv}=0$ into equation~\eqref{eq:cash} of Proposition~\ref{prop:cash} and
+rearrange $M\geq 0$; the claim follows immediately. The two terms on the left enter with the same
+coefficient $1$, so a decrease in one is exactly compensated by an equal increase in the other.
+\end{proof}
+
+\begin{corollary}[Implications in both directions]
+If $E\approx 0$ then $\kappa<0$ is required (Section~\ref{sec:bootstrap}). Conversely, if $E>0$
+is large, $\kappa>0$ can be held (Part~\ref{part:results}, the result on implication~F).
+\end{corollary}
+
+\subsection{The meaning and the limits of ``perfect substitution''}
+
+\begin{remark}[The substitution holds only in the constraint]
+\label{rem:substitution-limit}
+Proposition~\ref{prop:substitution} states that $E$ and $-\kappa$ are equivalent
+\textbf{only within the single inequality \eqref{eq:cash}}. It does not mean the two are
+economically equivalent.
+
+They differ in three respects.
+
+First, \textbf{there is a deadline}. $\kappa<0$ carries an obligation to deliver, and if the
+$\tau_i$ of Section~\ref{sec:tau} is finite, delivery equivalent to repayment occurs on the due
+date. $E$ has no deadline.
+
+Second, \textbf{availability differs}. $E$ is raised from the capital market, $\kappa<0$ from a
+counterparty. As Section~\ref{sec:kappa-literature} sets out, the two are explained by different
+theories and become available under different conditions.
+
+Third, \textbf{the claim on $\phi$ differs}. The provider of $E$ holds a residual claim
+(Definition~\ref{def:kappa-K}); the provider of $\kappa<0$ does not.
+\end{remark}
+
+\begin{remark}[Where the limits of substitution appear]
+\label{rem:substitution-boundary}
+The one-person business of Chapter~\ref{ch:solo} presupposes $E\approx 0$ and therefore treats
+only one endpoint of the substitution.
+
+When $E>0$ was introduced in Section~\ref{sec:retiree}, \textbf{the type of constraint changed
+from a floor to a deadline}. This is a manifestation of the asymmetry between $E$ and $\kappa<0$:
+$E$ is consumed as living expenses and declines, whereas $\kappa<0$ is not consumed but
+extinguished by delivery.
+
+Proposition~\ref{prop:substitution} is thus a claim about a \emph{static} constraint; behaviour
+through time differs.
+\end{remark}
+
+\chapter{Notation}
+\label{app:notation}
+
+\subsection*{Basic quantities and maps}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}@{}}
+\caption{Notation: basic quantities and maps.}\label{tab:notation-basic}\\
+\toprule
+Symbol & Name & Definition or first appearance \\
+\midrule
+\endfirsthead
+\toprule
+Symbol & Name & Definition or first appearance \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize (continued on the next page)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+$X(i,t,\omega)$ & cash flow & equation~\eqref{eq:X} \\
+$\delta_i,\ \pi_i$ & delivery, settlement & Chapter~\ref{sec:phi} \\
+$\dbar$ & contractual entitlement & Section~\ref{sec:breakage} \\
+$D_i,\ P_i$ & cumulative delivery, cumulative settlement & Chapter~\ref{sec:phi} \\
+$\kappa_i$ & credit position & equation~\eqref{eq:kappa} \\
+$\tau_i$ & average lag from delivery to settlement & Section~\ref{sec:tau} \\
+$\tau_{\mathrm{inv}}$ & residence time of inventory, $\mathrm{Inv}/r$ & equation~\eqref{eq:ccc-tau} \\
+$W$ & working capital, $\sum_i\kappa_i+\mathrm{Inv}$ & Definition~\ref{def:wc} \\
+$M(t)$ & cash balance; $M=E-W-A$ & equation~\eqref{eq:cash}, Proposition~\ref{prop:cash-net} \\
+$A,\ \mathrm{Inv}$ & fixed assets, inventories & Proposition~\ref{prop:cash} \\
+$\Phi$ & business model & equation~\eqref{eq:phi} \\
+$C(\delta),\ c(\delta)$ & total cost, marginal cost; $c$ always carries its argument & Definition~\ref{def:cost} \\
+$F,\ p$ & fixed part of the fee, unit price & equation~\eqref{eq:two-part} \\
+$h,\ y$ & outcome-contingent map, outcome & ibid. \\
+$E$ & equity; paid-in capital plus retained earnings & equation~\eqref{eq:equity} \\
+$\kappa_K^{i}$ & credit position with capital providers; agent-dependent & Definition~\ref{def:kappa-K} \\
+$V_i$ & value of the residual claim under agent $i$'s measure & ibid. \\
+$d,\ I$ & depreciation as a rate on sales, capital expenditure & Corollary~\ref{cor:gstar} \\
+$\mathcal{D}$ & the space of deliveries & Part~\ref{part:theory}, primitives \\
+$\mathcal{F},\ \mathcal{F}_t$ & the $\sigma$-field of events and the filtration & ibid. \\
+\end{longtable}
+
+\subsection*{Derived quantities and notation of the method}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}@{}}
+\caption{Notation: derived quantities and notation of the method.}\label{tab:notation-derived}\\
+\toprule
+Symbol & Name & Definition or first appearance \\
+\midrule
+\endfirsthead
+\toprule
+Symbol & Name & Definition or first appearance \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize (continued on the next page)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+$\mathcal{G}$ & verifiable shared information & Chapter~\ref{sec:info} \\
+$H$ & horizon (planning period) & ibid., primitives \\
+$\Tins$ & time of insolvency; distinguish from $\tau_i$ & Proposition~\ref{prop:pathwise}, equation~\eqref{eq:depletion} \\
+$\beta_i$ & discount factor of agent $i$ & Section~\ref{sec:objective} \\
+$r,\ m$ & sales velocity, gross or operating margin & Chapter~\ref{sec:growth} \\
+$\CCC$ & cash conversion cycle & equation~\eqref{eq:ccc} \\
+$r^{\max}$ & upper bound on scale, $(E-A)/\CCC$ & equation~\eqref{eq:rmax} \\
+$g^\star$ & self-financeable growth rate & equation~\eqref{eq:gstar} \\
+$\phi_{\mathrm{prod}},\phi_{\mathrm{barg}},\phi_{\mathrm{cog}}$ & three-way decomposition of surplus & equation~\eqref{eq:surplus} \\
+$\phi_{\mathrm{risk}}$ & payment for transfer and pooling; an unseparated sum of $\phi_{\mathrm{prod}}$ and $\phi_{\mathrm{barg}}$ & Remark~\ref{rem:phi-risk} \\
+$\nu,\ \lambda(\nu)$ & transaction frequency, decay rate & equation~\eqref{eq:decay} \\
+$\varepsilon$ & exogenous shock & Section~\ref{sec:survivorship} \\
+$S$ & indicator of survival or disclosure & Section~\ref{sec:survivorship} \\
+$a,p,c$ & age, period, cohort; within that section only & equation~\eqref{eq:apc-main} \\
+$\mathrm{Cap}$ & capacity limit & equation~\eqref{eq:solo-capacity} \\
+$\Ccl$ & the part of capacity allocated to commissioned work & equation~\eqref{eq:leakage} \\
+$c_{\rm liv}$ & rate of living expenses & equation~\eqref{eq:E-required-2} \\
+$\mathcal{A}$ & the set of responses; distinguish from fixed assets $A$ & Definition~\ref{def:availability} \\
+$T_{\rm resp},\ u$ & response deadline, length of an interval of unavailability & equation~\eqref{eq:availability} \\
+$T_{\rm dev},T_{\rm acq},T_{\rm credit},T_{\rm inst}$ & the terms of the start-up cost & equation~\eqref{eq:E-required-2} \\
+$\lambda_{\rm novel}$ & arrival rate of unanticipated states & Chapter~\ref{part:unmanned} \\
+$\hat\Omega$ & the state space anticipated at design time & Chapter~\ref{part:unmanned} \\
+$\mathrm{DSO},\mathrm{DIO},\mathrm{DPO}$ & days sales outstanding, days inventory outstanding, days payable outstanding & Chapter~\ref{part:industry} \\
+\end{longtable}
+
+\chapter{Correspondences with existing theory}
+\label{app:priorwork}
+
+Those components of this work that have counterparts in existing theory are set out here. The
+contribution specific to this work is confined to the lower tier.
+
+The work divides into three layers. The first is the existing theory explaining each term of
+$\kappa_i$, introduced as a foundation. The second connects those theories within a single
+framework, and is where the contribution of this work lies. The third is the organization
+specific to this work.
+
+\subsection*{Layer one: existing theory explaining each term}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Term & Theory & Field \\
+\midrule
+$\kappa_C>0$, inter-firm & the four types of trade credit \cite{petersen1997,schwartz1974} & corporate finance \\
+$\kappa_C<0$, inter-firm & reverse trade credit \cite{mateut2014,daripa2011} & corporate finance \\
+$\kappa_C<0$, to consumers & prepaid contracts and breakage \cite{dellavigna2006,einav2025,nber2026pnbl} & consumer behaviour \\
+$\kappa_L<0$ & the bonding argument \cite{akerlof1986} & labour economics \\
+accumulation of a public record & labour-market signalling \cite{spence1973} & economics of information \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Correspondences, layer one: existing theory explaining each term of $\kappa_i$.}
+\label{tab:priorwork-layer1}
+\end{center}
+
+These literatures do not cite one another (Remark~\ref{rem:disjoint-literatures}).
+
+\subsection*{Layer two: the contribution as connection}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Connection & Content \\
+\midrule
+Unification through $\kappa_i$ & the objects of four fields enter the same sum in \eqref{eq:cash} \\
+Explaining the level through $\tau_i$ & Proposition~\ref{prop:ccc-structure}, Corollary~\ref{cor:ccc-level} \\
+A typology of $\Phi$ & Part~\ref{part:catalog}; existing theory has no classification of contractual forms \\
+The three-way decomposition of $\phi$ & equation~\eqref{eq:surplus}; durability by source \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Correspondences, layer two: the contribution of this work as connection.}
+\label{tab:priorwork-layer2}
+\end{center}
+
+\subsection*{Layer three: individual correspondences with existing theory}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.52\textwidth}@{}}
+\caption{Correspondences, layer three (a): individual correspondences.}\label{tab:priorwork-layer3}\\
+\toprule
+Content of this work & Corresponding existing theory \\
+\midrule
+\endfirsthead
+\toprule
+Content of this work & Corresponding existing theory \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\footnotesize (continued on the next page)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+The measurability condition for contracts (Chapter~\ref{sec:info}) & contract theory, the informativeness principle \cite{holmstrom1979} \\
+The empirical difficulty of the risk--incentive trade-off (Section~\ref{sec:predB-illposed}) & \cite{prendergast1999,prendergast2002} \\
+Measurement of $\phi_{\rm cog}$ (Section~\ref{sec:phicog-measurable}) & \cite{dellavigna2006,einav2025} \\
+Switching costs of $\Phi$ and the value of waiting (Remark~\ref{rem:switching-cost}) & irreversible investment and real options \cite{dixit1994} \\
+The mechanism by which pooling creates correlation (Remark~\ref{rem:rho-endogenous}) & diversification and systemic risk \cite{wagner2010,ibragimov2011} \\
+Change of goals with the time horizon (Section~\ref{sec:r2-sst}) & socioemotional selectivity theory \cite{carstensen1999} \\
+The optimal strength of outcome contingency (Example~\ref{ex:bstar}) & linear contracts and multitasking \cite{holmstrom1991} \\
+The $g^\star$ of equation~\eqref{eq:gstar} & the self-financeable growth rate \cite{churchill2001}; distinct from the Higgins-type sustainable growth rate, which fixes the payout ratio and leverage \\
+Equation~\eqref{eq:cash-net} ($M=E-W-A$) & a standard identity of financial analysis: cash $=$ equity $-$ net operating assets \\
+Proposition~\ref{prop:fundamental} and Corollary~\ref{cor:rmax} (the bound on scale) & a formalization of overtrading; the structure in which working capital is bounded by net worth is isomorphic to \cite{kiyotaki1997} \\
+Proposition~\ref{prop:cog-cash-neutral} (cash neutrality of cognitive surplus) & transfer from contract liabilities in revenue recognition; standard accounting treatment \\
+Proposition~\ref{prop:peak} (the gap between peak and average) & the peak funding requirement of practice; a standard topic of working-capital management \\
+Corollary~\ref{cor:ccc-weighted} (non-additivity of $\CCC$) & a general property of aggregating ratios; the shift-share decomposition \eqref{eq:shift-share} is its difference form \\
+Conditioning on a collider (Proposition~\ref{prop:collider}) & Berkson's paradox \cite{berkson1946}, the framework of causal inference \cite{pearl2009}, the causal-graph representation of selection bias \cite{hernan2004} \\
+Non-identification in equation~\eqref{eq:apc-main} & the age--period--cohort problem \cite{mason1985} \\
+Equation~\eqref{eq:pooling} & the pooling of variance; a standard result of actuarial science \\
+Heterogeneity of discount factors (Proposition~\ref{prop:discount}) & time preference, hyperbolic discounting \cite{laibson1997} \\
+The distinction between risk and uncertainty in automation (Chapter~\ref{part:unmanned}) & \cite{knight1921} \\
+Organizations absorbing measurability (Section~\ref{sec:credit-formation}) & the boundary of the firm \cite{coase1937}, property-rights theory \cite{grossman1986} \\
+The separation of payer and beneficiary (family 7) & two-sided markets \cite{rochet2003} \\
+Proposition~\ref{prop:substitution} (substitution of capital and credit) & collateral constraints and net worth \cite{kiyotaki1997,rampini2010,rampini2013} \\
+The bootstrapping problem for credit (Section~\ref{sec:bootstrap}) & ibid.; corresponds to the result that agents with lower net worth face tighter constraints \\
+Enlargement of the contract space by a protocol (premises (1) and (2) of Chapter~\ref{ch:protocol}) & distributed consensus and contractibility \cite{cong2019} \\
+The divergence of identifier and agent (Section~\ref{sec:identifier}) & the Sybil attack \cite{douceur2002} \\
+Corollary~\ref{cor:exclusion} (exclusion of agents holding no assets) & collateral requirements and the limits of financial inclusion \cite{oecd2024} \\
+Remark~\ref{rem:oracle} (intermediation ``outside'' the partition) & importing external states and their verifiability \cite{pasdar2023} \\
+Proposition~\ref{prop:beneficiary} (identifying the beneficiary) & free generation of identifiers and false-name-proofness \cite{yokoo2004} \\
+\end{longtable}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+Theory that should be connected but is not & Corresponding existing theory \\
+\midrule
+Joint determination of $\bar\delta$ and $\delta$ (Section~\ref{sec:independence-assumption}) & mechanism design, self-selection and quantity discounts \\
+The screening effect of contracts (ibid.) & the part of contract theory treating adverse selection \\
+Joint determination of DSO and DPO (ibid.) & the theory of trade credit \\
+The relation of size to the quality of placements (Section~\ref{sec:b1-proxy}) & intermediation and match quality in labour markets \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Correspondences, layer three (b): theory that should be connected but is not.}
+\label{tab:priorwork-layer3b}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+\toprule
+Organization specific to this work & Correspondence \\
+\midrule
+The correspondence of three indices with three operations (Section~\ref{sec:three-ops}) & this work \\
+The definition through $\Phi$ (Chapter~\ref{sec:phi}) & this work \\
+The three-way decomposition of surplus (equation~\eqref{eq:surplus}) & this work \\
+The layer structure (Section~\ref{sec:layers}) & this work \\
+The catalogue of types of $\Phi$ (Part~\ref{part:catalog}) & this work \\
+The six-way taxonomy of verification obstacles (Section~\ref{sec:obstacle-taxonomy}) & this work \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Correspondences, layer three (c): organization specific to this work.}
+\label{tab:priorwork-layer3c}
+\end{center}
+
+\input{en/app_prereg.tex}
+\input{en/app_revisions.tex}
+
+\chapter{Data sources}
+\label{app:data}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Subject & Statistic or source & Where used \\
+\midrule
+Family 2 & Japan Payment Service Association, 27th Survey of Issuing Businesses \cite{jpsa2025} & Part~\ref{part:results} \\
+Family 2 & Payment Services Act; FSA register of issuers of prepaid payment instruments & Part~\ref{part:results} \\
+Family 5 & MHLW, Tabulation of Employment Placement Business Reports, FY2024 \cite{mhlw2025} & Part~\ref{part:results} \\
+Family 5 & Jinzai Service General Site: office details and refund-scheme filings & Section~\ref{sec:predZ-result} \\
+Fees & published fee schedules of each platform & Chapter~\ref{sec:platform-fee} \\
+Industry classification & MOF, Financial Statements Statistics of Corporations by Industry, time series \cite{mof2025} & Chapter~\ref{part:industry} \\
+Age at founding & White Paper on Small and Medium Enterprises 2014; Teikoku Databank survey of newly established corporations & Section~\ref{sec:retiree} \\
+Comparison with sole proprietorships & SME Agency, Basic Survey of Small and Medium Enterprises, FY2020--2025 final reports & Section~\ref{sec:individual-firms} \\
+Regulation of payment dates & Act on Ensuring Proper Transactions Involving Specified Entrusted Business Operators (in force November 2024) & Section~\ref{sec:not-tabulated} \\
+Vulnerabilities & published CVE counts, CISA KEV catalogue & Chapter~\ref{part:unmanned} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Data sources used in the empirical work.}
+\label{tab:data-sources}
+\end{center}
+
+\paragraph{On reproduction.}
+The data obtained and the processing are placed under \texttt{data/}: \texttt{raw/} holds the
+inputs as obtained and \texttt{scripts/} the analysis. \texttt{derived/} is intermediate data,
+regenerated by \texttt{scripts/parse.py}.
+
+The calculations of Chapter~\ref{part:industry} use \texttt{ccc.py}, \texttt{e1.py},
+\texttt{elast.py} and others; the tests of Section~\ref{sec:predY-result} use
+\texttt{parse\_jinzai.py} and \texttt{predY.py}. The correspondence is listed in
+\texttt{data/README.md}.
+
+\paragraph{On handling.}
+All statistics used are public. The Jinzai Service General Site alone, however, publishes
+\textbf{the filings of individual offices} rather than aggregates, and this work uses them as
+input to statistical analysis.
+
+\textbf{What this work presents is the result of the analysis, not the collection of per-firm data
+that was gathered.} That collection is not reproduced, published or redistributed. The repository
+contains the processing of the analysis and the aggregates obtained from it. Per-firm data
+retrieved from that site — the search-result listings, the office detail pages and the
+refund-scheme filings alike — are not included.
+
+What remains is only \textbf{the list of licence and filing-receipt numbers}
+(\texttt{data/raw/jinzai/permits.tsv}), which contains none of the filed values. Using it as a
+seed, running \texttt{data/scripts/fetch\_jinzai\_detail.py} reproduces the realized fee rates,
+turnover rates and placement counts. Retrieval was carried out at six-second intervals per record
+and spread across separate days.
+
+\begin{thebibliography}{99}
+
+\biblink{https://www.nber.org/papers/w2025}\bibitem{akerlof1986}
+G.~A. Akerlof and J.~L. Yellen,
+\newblock Do deferred wages dominate involuntary unemployment as a worker discipline device?,
+\newblock NBER Working Paper No.~2025, 1986.
+\weblink{https://www.nber.org/papers/w2025}{nber.org/papers/w2025}
+
+\biblink{https://doi.org/10.2307/3002000}\bibitem{berkson1946}
+J.~Berkson,
+\newblock Limitations of the application of fourfold table analysis to hospital data,
+\newblock \emph{Biometrics Bulletin}, 2(3):47--53, 1946.
+\doilink{10.2307/3002000}
+
+\biblink{https://doi.org/10.1037/0003-066x.54.3.165}\bibitem{carstensen1999}
+L.~L. Carstensen, D.~M. Isaacowitz, and S.~T. Charles,
+\newblock Taking time seriously: A theory of socioemotional selectivity,
+\newblock \emph{American Psychologist}, 54(3):165--181, 1999.
+\doilink{10.1037/0003-066x.54.3.165}
+
+\biblink{https://hbr.org/2001/05/how-fast-can-your-company-afford-to-grow}\bibitem{churchill2001}
+N.~C. Churchill and J.~W. Mullins,
+\newblock How fast can your company afford to grow?,
+\newblock \emph{Harvard Business Review}, 79(5):135--143, 2001.
+\weblink{https://hbr.org/2001/05/how-fast-can-your-company-afford-to-grow}{hbr.org/2001/05/how-fast-can-your-company-afford-to-grow}
+
+\biblink{https://doi.org/10.1111/j.1468-0335.1937.tb00002.x}\bibitem{coase1937}
+R.~H. Coase,
+\newblock The nature of the firm,
+\newblock \emph{Economica}, 4(16):386--405, 1937.
+\doilink{10.1111/j.1468-0335.1937.tb00002.x}
+
+\biblink{https://doi.org/10.1257/aer.96.3.694}\bibitem{dellavigna2006}
+S.~DellaVigna and U.~Malmendier,
+\newblock Paying not to go to the gym,
+\newblock \emph{American Economic Review}, 96(3):694--719, 2006.
+\doilink{10.1257/aer.96.3.694}
+
+\biblink{https://doi.org/10.1257/mic.3.1.245}\bibitem{daripa2011}
+A.~Daripa and J.~Nilsen,
+\newblock Ensuring sales: A theory of inter-firm credit,
+\newblock \emph{American Economic Journal: Microeconomics}, 3(1):245--279, 2011.
+\doilink{10.1257/mic.3.1.245}
+
+\biblink{https://doi.org/10.2307/j.ctt7sncv}\bibitem{dixit1994}
+A.~K. Dixit and R.~S. Pindyck,
+\newblock \emph{Investment under Uncertainty},
+\newblock Princeton University Press, 1994.
+\doilink{10.2307/j.ctt7sncv}
+
+\biblink{https://doi.org/10.1257/aer.20231612}\bibitem{einav2025}
+L.~Einav, B.~Klopack, and N.~Mahoney,
+\newblock Selling subscriptions,
+\newblock \emph{American Economic Review}, 115(5):1650--1671, 2025.
+\doilink{10.1257/aer.20231612}
+
+\biblink{https://doi.org/10.1086/261404}\bibitem{grossman1986}
+S.~J. Grossman and O.~D. Hart,
+\newblock The costs and benefits of ownership: A theory of vertical and lateral integration,
+\newblock \emph{Journal of Political Economy}, 94(4):691--719, 1986.
+\doilink{10.1086/261404}
+
+\biblink{https://doi.org/10.1097/01.ede.0000135174.63482.43}\bibitem{hernan2004}
+M.~A. Hern\'an, S.~Hern\'andez-D\'iaz, and J.~M. Robins,
+\newblock A structural approach to selection bias,
+\newblock \emph{Epidemiology}, 15(5):615--625, 2004.
+\doilink{10.1097/01.ede.0000135174.63482.43}
+
+\biblink{https://doi.org/10.1016/j.jcorpfin.2014.09.009}\bibitem{mateut2014}
+S.~Mateut,
+\newblock Reverse trade credit or default risk? Explaining the use of prepayments by firms,
+\newblock \emph{Journal of Corporate Finance}, 29:303--326, 2014.
+\doilink{10.1016/j.jcorpfin.2014.09.009}
+
+\biblink{https://www.nber.org/papers/w34918}\bibitem{nber2026pnbl}
+Pay now, buy never: The economics of consumer prepayment schemes,
+\newblock NBER Working Paper No.~34918, 2026.
+\weblink{https://www.nber.org/papers/w34918}{nber.org/papers/w34918}
+
+\biblink{https://doi.org/10.1093/rfs/10.3.661}\bibitem{petersen1997}
+M.~A. Petersen and R.~G. Rajan,
+\newblock Trade credit: Theories and evidence,
+\newblock \emph{Review of Financial Studies}, 10(3):661--691, 1997.
+\doilink{10.1093/rfs/10.3.661}
+
+\biblink{https://doi.org/10.2307/2329765}\bibitem{schwartz1974}
+R.~A. Schwartz,
+\newblock An economic model of trade credit,
+\newblock \emph{Journal of Financial and Quantitative Analysis}, 9(4):643--657, 1974.
+\doilink{10.2307/2329765}
+
+\biblink{https://doi.org/10.2307/1882010}\bibitem{spence1973}
+M.~Spence,
+\newblock Job market signaling,
+\newblock \emph{Quarterly Journal of Economics}, 87(3):355--374, 1973.
+\doilink{10.2307/1882010}
+
+\biblink{https://doi.org/10.2307/3003320}\bibitem{holmstrom1979}
+B.~Holmstr\"om,
+\newblock Moral hazard and observability,
+\newblock \emph{Bell Journal of Economics}, 10(1):74--91, 1979.
+\doilink{10.2307/3003320}
+
+\biblink{https://doi.org/10.1093/jleo/7.special_issue.24}\bibitem{holmstrom1991}
+B.~Holmstr\"om and P.~Milgrom,
+\newblock Multitask principal-agent analyses: Incentive contracts, asset ownership, and job design,
+\newblock \emph{Journal of Law, Economics, and Organization}, 7:24--52, 1991.
+\doilink{10.1093/jleo/7.special_issue.24}
+
+\biblink{https://doi.org/10.1016/j.jfineco.2010.08.015}\bibitem{ibragimov2011}
+R.~Ibragimov, D.~Jaffee, and J.~Walden,
+\newblock Diversification disasters,
+\newblock \emph{Journal of Financial Economics}, 99(2):333--348, 2011.
+\doilink{10.1016/j.jfineco.2010.08.015}
+
+\biblink{https://archive.org/details/riskuncertaintyp00knig}\bibitem{knight1921}
+F.~H. Knight,
+\newblock \emph{Risk, Uncertainty and Profit},
+\newblock Houghton Mifflin, Boston, 1921.
+\weblink{https://archive.org/details/riskuncertaintyp00knig}{archive.org/details/riskuncertaintyp00knig}
+
+\biblink{https://doi.org/10.1162/003355397555253}\bibitem{laibson1997}
+D.~Laibson,
+\newblock Golden eggs and hyperbolic discounting,
+\newblock \emph{Quarterly Journal of Economics}, 112(2):443--477, 1997.
+\doilink{10.1162/003355397555253}
+
+\biblink{https://doi.org/10.1007/978-1-4613-8536-3}\bibitem{mason1985}
+W.~M. Mason and S.~E. Fienberg (eds.),
+\newblock \emph{Cohort Analysis in Social Research: Beyond the Identification Problem},
+\newblock Springer, New York, 1985.
+\doilink{10.1007/978-1-4613-8536-3}
+
+\biblink{https://doi.org/10.1017/CBO9780511803161}\bibitem{pearl2009}
+J.~Pearl,
+\newblock \emph{Causality: Models, Reasoning, and Inference}, 2nd ed.,
+\newblock Cambridge University Press, 2009.
+\doilink{10.1017/CBO9780511803161}
+
+\biblink{https://doi.org/10.1257/jel.37.1.7}\bibitem{prendergast1999}
+C.~Prendergast,
+\newblock The provision of incentives in firms,
+\newblock \emph{Journal of Economic Literature}, 37(1):7--63, 1999.
+\doilink{10.1257/jel.37.1.7}
+
+\biblink{https://doi.org/10.1086/341874}\bibitem{prendergast2002}
+C.~Prendergast,
+\newblock The tenuous trade-off between risk and incentives,
+\newblock \emph{Journal of Political Economy}, 110(5):1071--1102, 2002.
+\doilink{10.1086/341874}
+
+\biblink{https://doi.org/10.1162/154247603322493212}\bibitem{rochet2003}
+J.-C. Rochet and J.~Tirole,
+\newblock Platform competition in two-sided markets,
+\newblock \emph{Journal of the European Economic Association}, 1(4):990--1029, 2003.
+\doilink{10.1162/154247603322493212}
+
+\biblink{https://www.s-kessai.jp/info/document/}\bibitem{jpsa2025}
+Japan Payment Service Association,
+\newblock The 27th Survey of the Actual State of Issuing Businesses (FY2024 edition), 2025.
+
+\biblink{https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/haken-shoukai/shoukaishukei.html}\bibitem{mhlw2025}
+Ministry of Health, Labour and Welfare,
+\newblock Tabulation of Employment Placement Business Reports, FY2024, 2025.
+
+\biblink{https://www.e-stat.go.jp/dbview?sid=0003060791}\bibitem{mof2025}
+Policy Research Institute, Ministry of Finance,
+\newblock Financial Statements Statistics of Corporations by Industry, time series,
+\newblock e-Stat table ID 0003060791.
+
+\biblink{https://doi.org/10.1016/j.jfi.2009.07.002}\bibitem{wagner2010}
+W.~Wagner,
+\newblock Diversification at financial institutions and systemic crises,
+\newblock \emph{Journal of Financial Intermediation}, 19(3):373--386, 2010.
+\doilink{10.1016/j.jfi.2009.07.002}
+\biblink{https://doi.org/10.1093/rfs/hhz007}\bibitem{cong2019}
+L.~W. Cong and Z.~He,
+\newblock Blockchain disruption and smart contracts,
+\newblock \emph{The Review of Financial Studies}, 32(5):1754--1797, 2019.
+\doilink{10.1093/rfs/hhz007}
+
+\biblink{https://doi.org/10.1007/3-540-45748-8_24}\bibitem{douceur2002}
+J.~R. Douceur,
+\newblock The Sybil attack,
+\newblock in \emph{Peer-to-Peer Systems}, Lecture Notes in Computer Science 2429, pages 251--260, 2002.
+\doilink{10.1007/3-540-45748-8_24}
+
+\biblink{https://doi.org/10.1086/262072}\bibitem{kiyotaki1997}
+N.~Kiyotaki and J.~Moore,
+\newblock Credit cycles,
+\newblock \emph{Journal of Political Economy}, 105(2):211--248, 1997.
+\doilink{10.1086/262072}
+
+\biblink{https://doi.org/10.1787/f00a0c7f-en}\bibitem{oecd2024}
+OECD,
+\newblock The limits of DeFi for financial inclusion,
+\newblock OECD Business and Finance Policy Papers, 2024.
+\doilink{10.1787/f00a0c7f-en}
+
+\biblink{https://doi.org/10.1145/3567582}\bibitem{pasdar2023}
+A.~Pasdar, Y.~C. Lee and Z.~Dong,
+\newblock Connect API with blockchain: a survey on blockchain oracle implementation,
+\newblock \emph{ACM Computing Surveys}, 55(10):1--39, 2023.
+\doilink{10.1145/3567582}
+
+\biblink{https://doi.org/10.1111/j.1540-6261.2010.01616.x}\bibitem{rampini2010}
+A.~A. Rampini and S.~Viswanathan,
+\newblock Collateral, risk management, and the distribution of debt capacity,
+\newblock \emph{The Journal of Finance}, 65(6):2293--2322, 2010.
+\doilink{10.1111/j.1540-6261.2010.01616.x}
+
+\biblink{https://doi.org/10.1016/j.jfineco.2013.03.002}\bibitem{rampini2013}
+A.~A. Rampini and S.~Viswanathan,
+\newblock Collateral and capital structure,
+\newblock \emph{Journal of Financial Economics}, 109(2):466--492, 2013.
+\doilink{10.1016/j.jfineco.2013.03.002}
+\biblink{https://doi.org/10.1016/S0899-8256(03)00045-9}\bibitem{yokoo2004}
+M.~Yokoo, Y.~Sakurai and S.~Matsubara,
+\newblock The effect of false-name bids in combinatorial auctions: new fraud in Internet auctions,
+\newblock \emph{Games and Economic Behavior}, 46(1):174--188, 2004.
+\doilink{10.1016/S0899-8256(03)00045-9}
+\end{thebibliography}

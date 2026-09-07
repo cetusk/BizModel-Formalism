@@ -1,1 +1,1351 @@
-% TODO: translation of src/supplement.tex
+%============================================================
+\chapter{Empirics of families 2 and 5: prepayment and outcome-contingent forms}
+
+%============================================================
+
+\section{The propositions tested in this chapter}
+
+Among the types enumerated in Part~\ref{part:catalog}, families 2 (continuing access) and 5
+(outcome- or state-contingent) are taken as subjects, and Remark~\ref{prop:breakage} (conditions
+for divergence) together with the measurability condition of Chapter~\ref{sec:info} is tested.
+\textbf{The reason for choosing these two families is given in Section~\ref{ch:next}}: each
+contains, singly, one of the two terms of the three-way decomposition of surplus that depend on
+the shape of $\Phi$, and they sit on the diagonal of Figure~\ref{fig:quadrant}. Following the
+policy of Part~\ref{part:method}, the implications were fixed before the investigation, and
+whether they were supported is recorded as it stands, including the parts that failed.
+
+The two implications fixed in advance are as follows.
+
+\begin{quote}
+\textbf{Registered implication (family 2)}: the lower the transaction frequency $\nu$ of a
+product, the larger the divergence between entitlement and exercise. Concretely, gift vouchers
+show a larger divergence than payment instruments used daily.
+
+\textbf{Registered implication (family 5)}: the harder the ex post verification of the outcome in
+an occupation, the stronger the refund scheme (a higher refund rate, or a longer covered period).
+\end{quote}
+
+The conclusions first. The family-2 implication was supported as to level, but what could be
+measured was $\kappa$, not $\phi_{\mathrm{cog}}$. The family-5 implication could not be tested:
+the necessary variable does not exist in the aggregate statistics.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities treated in this chapter}}\\
+\midrule
+$D,\ P,\ \kappa_C$ & equation~\eqref{eq:kappa} & directly observed as issuance, redemption and unused balance \\
+$\CCC = W/r$ & equation~\eqref{eq:ccc} & computed by medium and by industry; 15--1{,}904 days \\
+$\dbar-\delta$ & Section~\ref{sec:breakage} & the portion reaching expiry; an upper bound only \\
+$\nu$ & equation~\eqref{eq:decay} & proxied by the reason for purchase (share bought as gifts) \\
+$\mathcal{G}$ & Chapter~\ref{sec:info} & observed in family 5 as the set of published items \\
+$y$ & Chapter~\ref{sec:info} & number separating within six months \\
+$b$ & Example~\ref{ex:bstar} & presence of a refund scheme; rates and periods are not standardized \\
+Realized fee rate & Section~\ref{sec:predX-result} & a proxy on the price side; continuous \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities treated in this chapter (families 2 and 5) and the measurements corresponding to them.}
+\label{tab:family2-5-theory-quantities}
+\end{center}
+
+\section{Family 2: prepaid payment instruments}
+
+\subsection{Data source and population}
+
+The 27th Survey of the Actual State of Issuing Businesses (FY2024 edition) of the Japan Payment
+Service Association was used. As set out in Section~\ref{sec:frame}, it is a complete frame
+covering listed and unlisted issuers alike.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Item & Content \\
+\midrule
+Population & 2,034 registered or notified issuers at the end of FY2024 (829 third-party type, 1,205 own-use type) \\
+Responses & 812 issuers, a response rate of 39.9\%; on an issuance basis, however, about 90\% of all issuance is covered \\
+Scale & issuance \textyen 28.2 trillion, unused balance \textyen 2.90 trillion \\
+Caveat & the association states explicitly that ``because respondents differ from survey to survey, the figures are not continuous'' \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Data source and population for family 2 (prepaid payment instruments), FY2024.}
+\label{tab:family2-data-source}
+\end{center}
+
+\subsection{Measuring the residence period}
+
+The quantities of this section correspond to the notation of the theory as follows: issuance is
+cumulative settlement $P$, redemption is cumulative delivery $D$, and the unused balance is
+$-\kappa_C$ in equation~\eqref{eq:kappa}. The FY2024 values are
+\begin{equation}
+P = 28{,}150{,}350,\quad D = 28{,}241{,}983,\quad \kappa_C = -2{,}895{,}327
+\qquad\text{(millions of yen)}
+\end{equation}
+so $\kappa_C<0$: the customer extends credit to the issuer. Taking working capital as
+$W=-\kappa_C$ and sales velocity as $r=P$, equation~\eqref{eq:ccc} gives
+\[
+\CCC = \frac{W}{r} = \frac{2{,}895{,}327}{28{,}150{,}350}\times 365 = 37.5\ \text{days},
+\]
+which converted to days is called the residence period. The results by industry are given in
+Table~\ref{tab:family2-industry-durations}.
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Industry & Issuance (\textyen mn) & Residence days \\
+\midrule
+Hotels and inns & 652 & 2,111 \\
+Travel & 42,603 & 1,948 \\
+Department stores & 72,890 & 1,223 \\
+Real estate & 1,230 & 650 \\
+Telecommunications & 237,299 & 463 \\
+Cooperatives, chambers of commerce, etc. & 187,364 & 140 \\
+Sports and leisure & 12,361 & 115 \\
+Food services & 142,327 & 107 \\
+Credit and instalment sales & 4,301,983 & 59 \\
+Transport & 3,123,308 & 26 \\
+Supermarkets & 2,198,404 & 17 \\
+\midrule
+Total & 28,150,350 & 38 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Issuance and residence days by industry (family 2, FY2024).}
+\label{tab:family2-industry-durations}
+\end{center}
+
+The ordering is consistent with the registered implication. Transport (transit IC cards, daily
+use) and supermarkets (everyday shopping) are around 20 days, whereas accommodation vouchers,
+travel vouchers and department-store gift certificates run from 1,200 to 2,100 days.
+
+As corroboration, the tabulation of reasons for purchase serves as a proxy for the transaction
+frequency $\nu$ of equation~\eqref{eq:decay}. For paper instruments, 41.5\% are for the
+purchaser's own use and 30.1\% are gifts; for IC instruments, 95.5\% are for own use and 0.0\%
+gifts. In a gift the agent holding $\bar\delta$ and the agent performing $\delta$ are separated,
+so $\nu$ is structurally low.
+
+\subsection{Separating the alternative}
+
+There is a strong alternative. If the contraction of the paper-voucher market reduces issuance
+(a flow) while the unused balance (a stock) remains as an accumulation from the past, the ratio
+rises mechanically. This is precisely the period effect of Section~\ref{sec:apc}.
+
+A cross-section by industry cannot separate the two. But a panel by medium
+\textbf{contains growing and contracting media at the same time}, which makes identification
+possible.
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Medium & FY20 & FY21 & FY22 & FY23 & FY24 & Issuance, FY20$\to$FY24 \\
+\midrule
+Magnetic & 1,307 & 1,630 & 1,338 & 1,916 & 1,904 & \textminus 32.2\% \\
+Paper & 775 & 758 & 668 & 764 & 845 & \textminus 6.0\% \\
+Server & 16 & 15 & 17 & 16 & 17 & +45.3\% \\
+IC & 15 & 14 & 16 & 15 & 15 & +23.5\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Residence days by medium and the change in issuance (FY2020--FY2024, family 2).}
+\label{tab:family2-media-panel}
+\end{center}
+\begin{center}
+\footnotesize (Figures are residence days; the rightmost column alone is the change in issuance.)
+\end{center}
+
+The verdict splits in two.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The difference in levels cannot be explained by market contraction.}
+Paper instruments lost only 6.0\% of issuance over five years, yet already showed a residence of
+775 days in FY2020 — about fifty times the 15 days of IC instruments. Since the difference exists
+at a starting point where contraction had not proceeded, the level derives from structure.
+Moreover the residence of the two growing media (IC and server) is almost immobile over five
+years: no mechanical rise in the ratio occurs.
+
+\item \textbf{Part of the variation can be explained by market contraction.}
+Magnetic instruments lost 32.2\% of issuance and their residence rose from 1,307 to 1,904 days.
+Paper instruments have also returned from 668 days in FY2022 to 845. Here the alternative bites.
+\end{enumerate}
+
+The path of the levels is shown in Figure~\ref{fig:media-panel}.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{media-panel}
+\caption{Residence days by medium (logarithmic scale). A two-order-of-magnitude difference in level exists from the starting point.}
+\label{fig:media-panel}
+\end{figure}
+
+The separation is thus \textbf{level from $\nu$, part of the variation from a period effect}.
+Against the problem described as generally unidentified in Section~\ref{sec:apc}, the simultaneous
+presence of a growing segment permitted partial identification. This is not a general solution
+but a piece of luck specific to this subject matter.
+
+As an auxiliary observation, the share with no expiry date set is 71.2\% for paper, 52.0\% for
+magnetic, 37.9\% for IC and 19.0\% for server (physical stores), which apart from magnetic orders
+the same way as residence days. The direction of causation cannot be pinned down, however: is it
+that no expiry is set and so the balance sits, or that products whose balance sits — gifts, for
+instance — are the ones given no expiry? Probably the same $\nu$ determines both, but these data
+cannot settle it.
+
+\subsection{What could not be tested}
+
+\begin{proposition}[The limits of what was measured]
+What this section measures is the size of the credit position $\kappa$, not the cognitive surplus
+$\phi_{\mathrm{cog}}$ of equation~\eqref{eq:cog}.
+\end{proposition}
+
+A long residence does not imply that the entitlement is ultimately never exercised. The only
+figure corresponding to $\phi_{\mathrm{cog}}$ is \textyen 20,634 million recovered through expiry
+and the like — 0.71\% of the unused balance and 0.073\% of issuance. The association further
+notes that this amount is thought to include recoveries through refunds, so it is not a pure
+non-exercise figure.
+
+The conclusion for family 2 is therefore confined to the following.
+
+\begin{quote}
+In a prepayment $\Phi$, the lower the transaction frequency $\nu$ of a product, the larger
+$|\kappa|$, and the difference reaches two orders of magnitude. Whether this residence converts
+into cognitive surplus, however, cannot be judged from public data.
+\end{quote}
+
+Chapter~\ref{sec:growth} ($\kappa$ and residence) is supported, while
+Section~\ref{sec:breakage} (cognitive surplus) remains untested. The former is only a necessary
+condition for the latter.
+
+\subsection{The absence of per-firm data}
+
+The association states explicitly that officials of the Local Finance Bureaux and other
+administrative bodies are under a statutory duty of confidentiality and cannot pass matters
+reported by issuers to the association as a third party. The Financial Services Agency publishes
+a list of registered and notified issuers, but it does not include unused balances. In addition,
+issuers themselves have asked that the state of non-redemption (expiry and the like) also be
+disclosed — that is, the breakage rate is not currently tabulated.
+
+As a result, no dispersion within an industry or within a medium can be observed at all. Only
+means are visible.
+
+\subsection{The nature of the remaining obstacle}
+
+$\phi_{\mathrm{cog}}$ cannot be measured in this domain because the breakage rate is not
+tabulated. Issuers themselves have requested of the association's statistics that ``the state of
+non-redemption (expiry and the like) also be disclosed'', so measurement is not being carried out
+within the frame of this statistic.
+
+This looks like (i) absence of measurement. But the obstacle is more narrowly located. Of the
+three conditions of Proposition~\ref{prop:phicog-requirements}, what is missing in this domain is
+(2) realized use at the individual-record level and (3) an exogenous event that forces attention;
+(1) the contractual entitlement is observable as the expiry date by medium. That is, \textbf{the
+method of measurement is established, and what is missing is the granularity of the data}.
+
+Under the classification of Section~\ref{sec:obstacle-taxonomy}, then, $\phi_{\mathrm{cog}}$ for
+family 2 belongs to (iv) access constraint. Unlike an ordinary access constraint, however, data
+of the required granularity exist only inside the issuer, and there is no route by which
+publication can be awaited.
+
+That per-firm unused balances are confidential is secondary. Even if per-firm data were obtained,
+$\phi_{\mathrm{cog}}$ could not be estimated so long as the reported items contain no record of
+individual usage.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Principal obstacle for family 2 & (iv) access constraint; individual records and an exogenous shock are lacking \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Verdict on the principal obstacle for family 2.}
+\label{tab:family2-obstacle}
+\end{center}
+
+
+\section{Family 5: fee-charging employment placement}
+
+\subsection{Data source and population}
+
+The Ministry of Health, Labour and Welfare's ``Tabulation of Employment Placement Business
+Reports, FY2024 (preliminary)'' was used. It is a complete enumeration of all operators under the
+Employment Security Act and, like family 2, escapes listing bias.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Item & Content \\
+\midrule
+Population & 30,561 fee-charging placement offices filing a business report; 13,946 of them recorded placements \\
+Scale & 888,993 regular placements (fee-charging), fee income about \textyen 983.5 billion \\
+Unit price & about \textyen 1.03 million in fees per regular placement \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Data source and population for family 5 (fee-charging employment placement), FY2024.}
+\label{tab:family5-data-source}
+\end{center}
+
+\subsection{The choice of contractual regime}
+
+The Employment Security Act provides two methods of charging fees: the capped scheme and the
+notified scheme. The capped scheme is a formula-based contract fixed at a set rate of the wage;
+the notified scheme is a contract the operator sets freely and files.
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Type of fee & Amount (\textyen thousand) & Share \\
+\midrule
+Notified-scheme fees & 980,821,781 & 99.73\% \\
+Capped-scheme fees & 1,804,568 & 0.18\% \\
+Other (application fees, etc.) & 827,808 & 0.08\% \\
+\midrule
+Total & 983,454,157 & 100\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Breakdown by method of charging fees (family 5, FY2024).}
+\label{tab:family5-fee-type-breakdown}
+\end{center}
+
+The capped scheme has all but disappeared.
+
+\begin{remark}[This fact is not evidence about measurability]
+The capped scheme is fixed at about 11\% of the wage (six months' worth), which converts to only
+about 5\% of annual income. The prevailing notified-scheme level of around 30\% of annual income
+is an order of magnitude different. The market did not reject formula-based contracts; the price
+the formula sets is simply too low. This is a phenomenon in which the institutional layer
+prescribed a price and the option consequently fell out of use, and it has nothing to do with the
+measurability of Chapter~\ref{sec:info}. The disappearance of the capped scheme is a consequence
+of the price level and provides no material for the measurability hypothesis.
+\end{remark}
+
+\subsection{Fees per placement by occupation}
+
+Fees mix in temporary and day work. Nationally, fees relating to regular placements account for
+\textyen 913.6 billion, about 93\% of the whole, but the breakdown by occupation does not separate
+the two. Defining the degree of contamination as the number of temporary and day placements
+(person-days) per regular placement, the calculation is restricted to occupations where this is
+below one.
+
+\begin{center}
+\begin{tabular}{@{}P{0.44\textwidth}rrr@{}}
+\toprule
+Occupation & Placements & Contamination & \textyen 10k/pl. \\
+\midrule
+Corporate and organizational officers & 1,392 & 0.42 & 437 \\
+Corporate and organizational managers & 16,007 & 0.16 & 288 \\
+Professionals in management, finance and insurance & 11,346 & 0.09 & 268 \\
+Legal occupations & 2,217 & 0.05 & 225 \\
+Researchers & 3,167 & 0.27 & 188 \\
+General affairs, HR and planning & 25,716 & 0.38 & 183 \\
+Development engineers & 19,339 & 0.40 & 165 \\
+IT and communications engineers (software development) & 39,780 & 0.20 & 150 \\
+Sales occupations & 89,563 & 0.28 & 142 \\
+Architecture, civil engineering and surveying & 26,230 & 0.12 & 139 \\
+Designers & 3,969 & 0.38 & 116 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Fees per placement by occupation (occupations with contamination below one, family 5).}
+\label{tab:family5-fee-per-placement}
+\end{center}
+
+The ordering corresponds to seniority, and if the fee rate is roughly constant this merely
+reflects annual income. \textbf{Without a denominator of annual income, the table has no power to
+identify the measurability hypothesis.} Whether officers' fees are high because outcomes are hard
+to observe or simply because incomes are high cannot be distinguished from these data.
+
+\subsection{Why the measurability hypothesis cannot be tested}
+
+Data on refund schemes do not exist in this tabulation. They appear only firm by firm on the
+Jinzai Service General Site. The measurability hypothesis is therefore untested.
+
+There is a more serious problem.
+
+\begin{remark}[The gap in the data coincides with the interest]
+\label{rem:data-gap-relevance}
+Medicine, care and childcare are the fields into which regulation, refund schemes included, has
+been concentrated. The very fact that the institutional layer intervened is evidence that the
+authorities judged the measurability problem to be serious there. Yet these occupations are
+heavily contaminated by temporary and day work (spot shifts), and fees per placement cannot be
+computed from the aggregates. The degree of contamination is 35 for physicians, 12 for nurses and
+assistant nurses, 5 for institutional care and 4 for childcare workers.
+
+That is, \textbf{the domain of greatest theoretical interest is precisely the gap in the data}.
+This may not be a coincidence: fields in which spot work develops are fields in which employment
+relations shorten, which is exactly where ex post verification of outcomes is hard.
+\end{remark}
+
+\subsection{Fees and turnover}
+
+\subsubsection{Data source}
+\label{sec:jinzai-structure}
+
+On checking the office detail pages of the Jinzai Service General Site, the problem of
+unstructured data feared in Part~\ref{part:results} did not arise, except for the content of
+refund schemes.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Variable & Published form & Verdict \\
+\midrule
+Placements (open-ended / fixed-term / day) & numeric, six years FY2020--FY2025 & structured \\
+Separations within six months (open-ended) & numeric, same six years & structured \\
+Separation not ascertained (open-ended) & numeric, same six years & structured \\
+Realized fee rate by occupation & percentage, from FY2025 & structured \\
+Presence of a refund scheme & yes / no & structured \\
+Refund rate and period & a PDF attached by the operator in a free format & unstructured \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Variables published on the Jinzai Service General Site and their degree of structure.}
+\label{tab:jinzai-variables}
+\end{center}
+
+Moreover \textbf{the detailed search allows occupation, realized fee rate and turnover rate to be
+specified as conditions, and displays all three together in the results}. This removes the need to
+open offices one at a time and made the retrieval of the 307 firms of
+Section~\ref{sec:predX-result} possible. The occupations that can be specified as conditions,
+however, are limited to nine in medicine, care and childcare.
+
+The source is favourable in three respects.
+
+First, \textbf{regular and temporary or day work are separated}. The contamination that made the
+aggregates for physicians and nurses unusable in Part~\ref{part:results} does not arise at the
+level of the individual firm.
+
+Second, \textbf{fees are published as rates (percentages)}. The problem stated in
+Part~\ref{part:results} — that without a denominator of annual income there is no identifying
+power — does not arise, since the figures are published already divided, and no external income
+data need be procured. In one office, for instance, the FY2025 realized rates were published by
+occupation as 40.1\% for software development, 37.4\% for designers and 37.7\% for sales.
+
+Third, \textbf{there is a column for ``separation not ascertained''}. This is a figure showing
+whether the operator can observe what becomes of those placed, and is very nearly a direct
+observation — not a proxy — of the breadth of $\mathcal{G}$ (verifiable shared information) of
+Chapter~\ref{sec:info}. It may answer the problem recorded in Part~\ref{part:results} as ``the
+greatest weakness of the design is the failure to construct a proxy on the B1 side''. It is
+self-reported, however, and the possibility that operators who do not follow up enter zero cannot
+be excluded.
+
+The individual pages of certified operators also carry a field for ``MHLW Jinzai Service General
+Site URL / licence number'', confirming that a join key exists from the list of certifications to
+the office detail pages.
+
+\subsubsection{The extent to which the regressor is prescribed by regulation}
+\label{sec:regulated-regressor}
+
+The regressor to be used in the test is \textbf{the strength $b$ of the refund scheme}, concretely
+the refund rate and the covered period. Of these, the \emph{covered period} is subject to a
+regulatory floor in some fields.
+
+Under the certification scheme for medicine, care and childcare, certification from FY2024
+requires that a refund on early separation cover the case in which the jobseeker separates within
+at least six months of placement.
+
+\textbf{For certified operators in this field alone, the floor on the covered period is a product
+of regulation rather than of market choice.} Keeping certified operators in the sample while
+using the covered period as a regressor measures compliance with regulation, not the choice of a
+contract. The reach of this point is limited, however (Remark~\ref{rem:regulated-scope}).
+
+\begin{remark}[The limits of application]
+\label{rem:regulated-scope}
+The reach of this point is limited.
+
+First, it applies only to \emph{certified} operators in medicine, care and childcare. Certified
+operators number roughly 60--70 actual firms, a very small part of the 30,561 offices.
+
+Second, only the \emph{floor} on the covered period is prescribed; the level of the refund rate,
+and the setting of a period beyond the floor, are unregulated.
+
+Third, certification is voluntary and may be declined. In August 2026, however, use of a certified
+operator was included among the requirements for the special treatment relaxing staffing
+standards, so economic value has been attached to certification. Pressure to comply is
+strengthening.
+
+The claim that ``regulation prescribes the regressor'' therefore applies \textbf{to part of the
+sample, and only to the floor of one component of the variable}. It cannot be extended to the
+field as a whole, or to refund schemes in general.
+\end{remark}
+
+This belongs to (iii) non-identification, but it is at the same time an opportunity for
+identification. Because the regulation bears on one field only, a three-group comparison can be
+constructed.
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Group & Field & Certified & What determines the refund \\
+\midrule
+A & medicine, care, childcare & yes & regulation (six months as a floor) \\
+B & medicine, care, childcare & no & market choice \\
+C & other fields & --- & market choice \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Three groups (A/B/C) by what determines the refund scheme.}
+\label{tab:predB-groups}
+\end{center}
+
+B against C is the hypothesis test proper. A against B answers a different question:
+\textbf{how far did the regulation move the market?} If most of group B also offers six months,
+the regulation is non-binding and merely ratifies what the market had already chosen. If group B
+centres on one to three months, the regulation is binding and has imposed a level away from the
+market equilibrium.
+
+A against B is distinct from the measurability hypothesis, but it is a direct measurement of how
+far the institutional layer can rewrite $\Phi$, and thus a test of the claim of
+Section~\ref{sec:layers}.
+
+\subsubsection{The two sources record at different granularities}
+\label{sec:unit-mismatch}
+
+There is a more practical but serious problem. The refund scheme and the fee rate must be taken
+from different sources, and the two record at different granularities.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Source & Content & Granularity \\
+\midrule
+List of certified operators & the roster of certified operators, published by MHLW & firm $\times$ field \\
+Jinzai Service General Site & placements, separations, fee rates by occupation & office \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The refund scheme and the fee rate: their sources and granularities.}
+\label{tab:record-granularity}
+\end{center}
+
+In the list of certified operators, one firm is registered as separate records for the three
+fields of medicine, care and childcare, and the certification number differs by field. The
+licence number on the Jinzai Service General Site, by contrast, denotes a particular office.
+
+For a firm with several offices it is therefore unclear whether the licence number tied to the
+certification covers the firm's performance as a whole. One large operator is certified for nine
+occupations in care and six in medicine, but there is no guarantee that office-level fee rates by
+occupation cover that granularity (the office checked in Section~\ref{sec:jinzai-structure} had
+only five occupations).
+
+\textbf{This error correlates with size}: the larger the operator, the greater the mismatch, and
+certified operators are disproportionately large. It is a systematic bias.
+
+\subsubsection{The three-way split of occupational classifications}
+
+Three classifications must be joined, and no correspondence table exists.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+System & Division & Example \\
+\midrule
+Employment Placement Business Report & about 110 occupations & nurse, assistant nurse \\
+Jinzai Service General Site & numeric codes & 009, 010, 017, 033, 048 \\
+Certification scheme & fine divisions by field & nursing occupations, rehabilitation professionals \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The three systems of occupational classification and how each divides.}
+\label{tab:occupation-classification-systems}
+\end{center}
+
+The certification scheme notes that ``nursing occupations'' includes nurses, assistant nurses,
+public health nurses and midwives, but the others are unclear. The system of numeric codes does
+not match the ordering of occupations in the Employment Placement Business Report. Building a
+correspondence table is within the range of what labour can solve.
+
+\subsubsection{Constraints on an analysis restricted to certified operators}
+\label{sec:nintei-small}
+
+The list of certified operators runs to about 100 entries. Since certification is by firm
+$\times$ field and one firm may appear in several fields, the number of actual firms is estimated
+at 60 to 70.
+
+\textbf{An analysis using certification as a regressor cannot be carried out at this scale.} Only
+part of the 307-firm sample of Section~\ref{sec:predX-result} is certified, and no power for a
+between-group test is obtained. As stated in Section~\ref{sec:frame}, the completeness of a frame
+does not guarantee the size of a sample.
+
+This is, however, \textbf{a constraint only on analyses using certification as a variable}. The
+relation between the realized fee rate and the turnover rate can be measured for all operators
+irrespective of certification, and was in fact measured across 307 firms.
+
+\subsubsection{The sign is not uniquely determined}
+\label{sec:predB-illposed}
+
+What family 5 sets out to test is the claim that the measurability of Chapter~\ref{sec:info}
+determines the contractual form. Put naively, it becomes ``the harder the ex post verification of
+the outcome in an occupation, the stronger the refund scheme'', but this form ignores a force
+running the other way.
+
+Two forces follow from the optimal strength $b^\star \propto 1/(1+r\sigma^2 k)$ of
+Example~\ref{ex:bstar}.
+
+\begin{itemize}
+\item \textbf{B1 (numerator, the incentive side)}: the more the operator's effort bears on
+retention in an occupation, the more valuable it is to load $\pi$ onto $y$. The refund becomes
+\emph{stronger}.
+\item \textbf{B2 (denominator, the risk side)}: the more separation is determined by factors
+outside the operator's control, the more loading it onto $y$ merely transfers risk. The refund
+becomes \emph{weaker}.
+\end{itemize}
+
+The naive formulation sees only B1. In many occupations the two covary in the same direction, so
+\textbf{the sign is not uniquely determined}.
+
+\begin{remark}[This is an unresolved problem of the field as a whole]
+The indeterminacy of the sign is not a defect of setup specific to this work.
+
+\textbf{The risk--incentive trade-off (RIT) has been the subject of a quarter-century of dispute
+and is not empirically supported.} \cite{prendergast1999,prendergast2002} examine 26 empirical
+studies and find that only four report the negative relation the theory predicts; rather, a
+\emph{positive} correlation between uncertainty and outcome contingency is observed. Prendergast's
+own explanation is that in uncertain situations the firm cannot ascertain how workers spend their
+time, so it delegates authority and uses output-based pay to constrain that discretion. The force
+called B1 in this section thus already exists as a formalized rival theory.
+
+The dispute continues. Supporting results are beginning to be reported in the laboratory, and it
+has been argued that RIT holds robustly once expected-utility theory is abandoned for
+rank-dependent utility.
+
+This hypothesis therefore belongs to (ii) ill-posedness of the hypothesis under the
+classification of Section~\ref{sec:obstacle-taxonomy}. To put it in testable form, B1 and B2 must
+be separated and operationalized.
+\end{remark}
+
+\subsubsection{A test from the price side}
+\label{sec:what-to-measure}
+
+The formula for $b^\star$ cannot itself be tested, since the required quantities are not
+available.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Required quantity & Symbol & State \\
+\midrule
+Strength of outcome contingency & $b$ & the refund rate and period; the format differs by operator \\
+Noise in the outcome & $\sigma^2$ & only uncontrollable variation must be extracted \\
+Informativeness of effort & numerator & no proxy could be constructed \\
+Risk aversion & $r$ & requires experimental methods \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Quantities required to test $b^\star$, and their state.}
+\label{tab:bstar-requirements}
+\end{center}
+
+$\sigma^2$ is not something aggregation suffices for. What is needed is \textbf{the variance of
+the part the operator's effort cannot control}. The variance of turnover by occupation mixes in
+the operator's screening and its skill at supporting retention: controllable and uncontrollable
+variation are not separated.
+
+Instead, \textbf{the response on the price side} is examined. If the measurability hypothesis is
+correct, then in occupations where the outcome is more uncertain the operator should be forced to
+set a lower fee.
+
+\begin{quote}
+\textbf{Registered implication}: the realized fee rate by occupation is negatively correlated with
+the turnover rate of that occupation.
+
+\textbf{Alternative}: the fee rate is determined by the income level of the occupation and by
+commercial custom, and is unrelated to turnover.
+\end{quote}
+
+\subsubsection{Result of the test}
+\label{sec:predX-result}
+
+Using the detailed search of the Jinzai Service General Site, occupation, realized fee rate and
+turnover rate were retrieved together. The sample is Tokyo, licence numbers 13-Yu, four
+occupations.
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrrl@{}}
+\toprule
+Occupation & $n$ & Fee rate & Median & SD & Turnover & $r$ & Share at custom \\
+\midrule
+Nurses & 82 & 23.0\% & 21.9 & 6.9 & 12.8\% & \textminus 0.171 & 40\% \\
+Physicians & 101 & 22.9\% & 20.0 & 6.2 & 2.3\% & +0.015 & 64\% \\
+Institutional care & 67 & 22.2\% & 22.1 & 5.3 & 6.4\% & \textminus 0.103 & 45\% \\
+Childcare workers & 57 & 25.6\% & 25.0 & 5.3 & 5.8\% & +0.025 & 54\% \\
+\midrule
+Total & 307 & 23.3\% & 22.2 & 6.1 & 6.7\% & \textminus 0.095 & --- \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Realized fee rates and turnover rates by occupation, and the result of the test (307 firms).}
+\label{tab:predX-result}
+\end{center}
+\begin{center}\footnotesize The last column is the share of operators whose fee rate is exactly 20/25/30\%.\end{center}
+
+The coverage of the sample is recorded in Remark~\ref{rem:predX-scope}, and a secondary
+observation in Remark~\ref{rem:scale-turnover}.
+
+\textbf{The implication is not supported.} \textbf{The regressor does not move.} This is case (vi)
+of Section~\ref{sec:obstacle-taxonomy} (Remark~\ref{rem:vi-is-observation}). In all four
+occupations the correlation is insignificant ($|t|\leq 1.55$) and the sign is not consistent.
+Pooling the 307 firms gives $r=-0.095$, $t=-1.67$.
+
+Controlling for size does not change this. The partial correlation controlling for the log of
+open-ended placements is $-0.084$ ($t=-1.19$), and on residuals after removing occupation means,
+$-0.055$ ($t=-0.78$).
+
+\subsubsection{The asymmetry across occupations}
+\label{sec:fee-rigidity}
+
+The contrast across occupations matters more.
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & Range & Ratio \\
+\midrule
+Fee rate (occupation means) & 22.2 -- 25.6\% & 1.16$\times$ \\
+Turnover rate (occupation means) & 2.3 -- 12.8\% & \textbf{5.49$\times$} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Dispersion across occupations: fee rate against turnover rate.}
+\label{tab:fee-turnover-asymmetry}
+\end{center}
+
+\textbf{Although turnover differs by a factor of 5.5, the fee rate differs by only 1.16.} The
+correlation at the level of occupations is $r=-0.102$, essentially zero.
+
+Fee rates also concentrate on a few values. Operators at exactly 20\%, 25\% or 30\% make up 40 to
+64\% of the whole, and 90\% fall within 15--35\%. Concentration is highest (64\%) for physicians,
+where retention is most stable.
+
+\begin{remark}[The adjustment the theory posits is not operating]
+\label{rem:no-adjustment}
+The $b^\star=1/(1+r\sigma^2 k)$ of Example~\ref{ex:bstar} predicts that the strength of outcome
+contingency is adjusted to the noise in the outcome. The observation of this section shows that
+\textbf{this adjustment does not appear in prices}.
+
+This differs from every one of (i)--(iv) in Section~\ref{sec:obstacle-taxonomy}; it is case (vi).
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+(i) absence of measurement & does not apply; figures for 307 firms are published \\
+(ii) ill-posedness of the hypothesis & applies separately, but the observation here is independent of it \\
+(iii) non-identification & does not apply; confounders are controlled \\
+(iv) access constraint & does not apply; the data were reached \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The observation against the taxonomy of verification obstacles (none of (i)--(iv) applies).}
+\label{tab:predX-taxonomy-check}
+\end{center}
+
+The regressor does not vary within the range the theory posits. If price is set by custom, then
+however precisely $\sigma^2$ is measured, $b$ does not respond. In being soluble
+\textbf{neither by refining the theory nor by adding data}, this obstacle differs in kind from
+all the preceding ones.
+
+It is at the same time a descriptive finding. In placement for medicine, care and childcare, the
+fee rate is not adjusted to the risk in the outcome and concentrates on the customary values of
+20--30\%.
+\end{remark}
+
+\begin{remark}[Limits of the sample in this section]
+\label{rem:predX-scope}
+The sample is confined to \textbf{Tokyo, licence numbers 13-Yu, four occupations}. It does not
+represent the country.
+
+First, the head offices of nationwide operators concentrate in Tokyo, so large operators are
+over-represented; several have more than 1,000 open-ended placements.
+
+Second, Tokyo offices of operators licensed by other prefectural labour bureaux are excluded.
+
+Third, \textbf{the detailed search allows occupations to be specified only for medicine, care and
+childcare}. The same test cannot be constructed for other fields such as information and
+communications or sales.
+
+Fourth, operators that display fees as amounts rather than rates are excluded; across the four
+occupations this is about a quarter of the 307 firms.
+
+That the sample is Tokyo, however, is unlikely to weaken the conclusion. It is the region with the
+highest density of operators in the country, so \textbf{concentration on customary values is
+observed even in the most competitive market}.
+\end{remark}
+
+\begin{remark}[A secondary observation: size and turnover]
+\label{rem:scale-turnover}
+The correlation between size (the log of open-ended placements) and the turnover rate differs
+greatly by occupation.
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Occupation & $r$ (size, turnover) \\
+\midrule
+Nurses & \textminus 0.009 \\
+Physicians & +0.191 \\
+Institutional care & +0.431 \\
+Childcare workers & +0.331 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Correlation of size (log of open-ended placements) with turnover, by occupation.}
+\label{tab:scale-turnover-corr}
+\end{center}
+
+Care and childcare show a strong positive correlation: the larger the operator, the higher the
+turnover. Both fields fall under the certification scheme (Section~\ref{sec:regulated-regressor}),
+which suggests a structure in which placing in volume and achieving retention are hard to combine.
+This work has not tested that.
+\end{remark}
+
+\subsubsection{A candidate proxy for B1: size and turnover}
+\label{sec:b1-proxy}
+
+Table~\ref{tab:bstar-requirements} records that no proxy for the informativeness of effort — the
+B1 side — could be constructed. The observation of Remark~\ref{rem:scale-turnover} is a candidate.
+
+\paragraph{Mechanism.}
+If growth in size thins the input per placement, then \textbf{turnover rises only in occupations
+where the operator's effort bears on retention}. Where effort does not bear, turnover is unchanged
+even as input thins. The occupation-level ``correlation of size with turnover'' therefore gives an
+ordering of the magnitude of B1.
+
+The observed ordering is as follows (Remark~\ref{rem:scale-turnover}).
+
+\begin{center}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Occupation & $r$ (size, turnover) & Implication for B1 \\
+\midrule
+Institutional care & +0.431 & effort bears \\
+Childcare workers & +0.331 & the same \\
+Physicians & +0.191 & intermediate \\
+Nurses & \textminus 0.009 & effort does not bear \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The ordering of occupations if the correlation of size with turnover is read as a proxy for B1.}
+\label{tab:b1-proxy-order}
+\end{center}
+
+\begin{remark}[The mechanism is not identified]
+\label{rem:b1-proxy-assumption}
+The reading above depends on \textbf{the assumption that growth in size thins the input per
+placement}. If capacity expands in proportion to size, input does not thin and no correlation
+arises. This work has not tested that assumption.
+
+The same sign can also arise from looser screening: a larger operator pushes through more
+jobseekers, and the check on fit per placement becomes coarser. \textbf{Thinning of input and
+looser screening cannot be distinguished by this observation.} Both work in the same direction as
+B1, so the variable can be used as a proxy, but no claim about the mechanism can be made.
+
+There is a literature in labour economics on the relation between size and the quality of
+placements, which this work has not surveyed. The point here is not novelty but whether an
+observation already in hand can serve as a proxy for B1.
+\end{remark}
+
+\paragraph{Registration of the implications.}
+Following the procedure of Section~\ref{ch:next}, the following are fixed before testing.
+
+\begin{quote}
+\textbf{Registered implication (1)}: the occupation-level ``correlation of size with turnover''
+preserves the ordering of Table~\ref{tab:b1-proxy-order} in samples from other prefectures — that
+is, positive for institutional care and childcare workers, near zero for nurses.
+
+\textbf{Alternative}: the correlation is an artefact of circumstances specific to Tokyo, in
+particular the concentration there of the head offices of nationwide operators, and does not
+appear in other prefectures.
+\end{quote}
+
+\begin{quote}
+\textbf{Registered implication (2)}: the stronger the correlation of size with turnover in an
+occupation, the stronger its refund scheme, because in occupations with large B1 it is more
+valuable to load $\pi$ onto $y$.
+
+\textbf{Alternative}: the strength of the refund corresponds to the level of turnover; that is,
+B2 (the risk side) dominates, and occupations with higher turnover have weaker refunds.
+\end{quote}
+
+If (2) holds, a route is obtained for separating B1 from B2 in the measurability hypothesis, whose
+sign Section~\ref{sec:predB-illposed} found indeterminate. (1) is a precondition, confirming that
+the correlation is not an artefact of the sample.
+
+\paragraph{Matters fixed in advance.}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Item & Content \\
+\midrule
+Population & offices publishing a business report on the Jinzai Service General Site; a prefecture is specified and identified by the prefix of the licence number \\
+Occupations & the medicine, care and childcare fields specifiable in the detailed search, including at least the four occupations of Table~\ref{tab:predX-result} \\
+Definition of size & the log of open-ended placements, as in Section~\ref{sec:predX-result} \\
+Floor & offices with zero open-ended placements are excluded, the turnover rate being undefined \\
+Exclusion & offices displaying fees as amounts are excluded for (2) only; they are used in (1) \\
+Identification & records are consolidated by licence number, taking the firm rather than the office row as the unit (Remark~\ref{rem:jinzai-dedup}) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Matters fixed in advance for the two implications.}
+\label{tab:predYZ-registration}
+\end{center}
+
+(1) is tested in Section~\ref{sec:predY-result} and (2) in Section~\ref{sec:predZ-result}.
+
+\begin{remark}[The test must not use the same sample]
+\label{rem:no-same-sample-test}
+The correlations of Table~\ref{tab:b1-proxy-order} were observed \emph{after the fact} in the
+307-firm sample. Testing (1) on the same sample would be an error of the same form as the
+retrospective narrativization of Chapter~\ref{ch:method}. What (1) demands is reproduction out of
+sample; until that is met, the correlation remains a comparison
+(Section~\ref{sec:comparison-vs-test}).
+\end{remark}
+
+\subsubsection{The ordering of occupations by the correlation of size with turnover}
+\label{sec:predY-result}
+
+The detailed search of the Jinzai Service General Site was run with the prefecture set to the
+whole country for the four occupations. Since the sample of Section~\ref{sec:predX-result} was
+confined to Tokyo, \textbf{the part excluding Tokyo is out of sample}.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Occupation & Search results & Rows extracted & After consolidation \\
+\midrule
+Institutional care & 1,075 & 1,075 & 464 \\
+Childcare workers & 552 & 552 & 200 \\
+Physicians & 479 & 479 & 269 \\
+Nurses and assistant nurses & 1,322 & 1,322 & 469 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The sample used for (1). The unit is office rows; after consolidation, firms.}
+\label{tab:predY-sample}
+\end{center}
+
+The rows extracted agree with the search results. The licence-number letters are three: Yu
+(fee-charging) 3,221, Mu (free placement office) 200, and Toku 7.
+
+The total of 1,402 after consolidation is a count of firm--occupation pairs, not of firms. Distinct
+firms number 1,130, with 226 appearing in more than one occupation. The duplication does not
+affect the correlations, which are taken by occupation, but \textbf{the figure must not be cited
+as a number of firms}.
+
+\begin{remark}[Rows are offices; values are firms]
+\label{rem:jinzai-dedup}
+Each row of the search results denotes an office, but \textbf{placements, turnover rates and fees
+are values at the level of the licence number, that is the firm, replicated across all of that
+firm's offices}.
+
+Among physicians, a single company accounts for 134 of the 479 rows. Taking correlations without
+consolidating gives that company 134 times the weight: the median of open-ended placements moves
+from 14 to 6,430 and the sign of the correlation turns from positive to negative.
+\textbf{Consolidation by licence number is not preprocessing but a procedure that determines the
+conclusion.}
+\end{remark}
+
+\paragraph{Comparison with the reference values.}
+The reference values of Table~\ref{tab:b1-proxy-order} were computed on a composition excluding
+amount-displayed fees. On the Tokyo portion under the same composition, all four occupations agree
+to within 0.02 in correlation and 2 in sample size. \textbf{Under the registered rule (including
+amount-displayed fees), however, institutional care gives $+0.079$, which does not agree with the
+reference value of $+0.431$} (Remark~\ref{rem:predY-registration-error}).
+
+\paragraph{Results.}
+Both the sample excluding Tokyo and the nationwide sample including it are computed. The former is
+the pre-registered out-of-sample test; the latter is the best estimate of the ordering.
+
+\begin{center}\small
+\begin{tabular}{@{}P{0.22\textwidth}rrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{Excluding Tokyo} & \multicolumn{3}{c}{Nationwide} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Occupation & $n$ & $r$ & $t$ & $n$ & $r$ & $t$ \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{As registered (amount-displayed fees included)}} \\
+Institutional care & 176 & +0.246 & \textbf{+3.34} & 244 & +0.187 & \textbf{+2.97} \\
+Childcare workers & 59 & +0.163 & +1.25 & 109 & +0.265 & \textbf{+2.85} \\
+Physicians & 54 & +0.159 & +1.16 & 114 & +0.139 & +1.48 \\
+Nurses & 150 & +0.067 & +0.81 & 242 & +0.029 & +0.44 \\
+Order & \multicolumn{3}{l}{care\,$>$\,child.\,$>$\,phys.\,$>$\,nurse} & \multicolumn{3}{l}{child.\,$>$\,care\,$>$\,phys.\,$>$\,nurse} \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{Excluding amount-displayed fees (the composition of the reference values)}} \\
+Institutional care & 122 & +0.221 & \textbf{+2.48} & 169 & +0.228 & \textbf{+3.03} \\
+Childcare workers & 42 & +0.645 & \textbf{+5.34} & 82 & +0.484 & \textbf{+4.94} \\
+Physicians & 43 & +0.126 & +0.81 & 93 & +0.146 & +1.41 \\
+Nurses & 116 & +0.070 & +0.75 & 186 & +0.045 & +0.61 \\
+Order & \multicolumn{3}{l}{child.\,$>$\,care\,$>$\,phys.\,$>$\,nurse} & \multicolumn{3}{l}{child.\,$>$\,care\,$>$\,phys.\,$>$\,nurse} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The correlation of size with turnover, under four combinations of sample and exclusion rule.}
+\label{tab:predY-result}
+\end{center}
+
+\paragraph{Verdict.}
+The facts are stated separately.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The ordering agrees with the reference values in only one of the four
+combinations.} There are four combinations of sample (excluding Tokyo / nationwide) and exclusion
+rule (including / excluding amount-displayed fees), and the reference ordering is reproduced only
+under ``excluding Tokyo'' with ``including amount-displayed fees''. In the other three the top two
+swap.
+
+\item \textbf{The ordering is not reproduced nationally.} The best estimate of the ordering is the
+nationwide sample including Tokyo, where childcare workers exceed institutional care under both
+rules.
+
+\item \textbf{The qualitative division depends on neither sample nor rule.} That institutional
+care and childcare workers are positive and nurses near zero holds in all four combinations.
+Nationally both institutional care and childcare are significant ($|t|>2.8$) and nurses have
+$|t|<0.7$.
+\end{enumerate}
+
+\textbf{The verdict is partial support.} What is supported is (3): \textbf{the qualitative
+division of positive, positive and near-zero alone}. The ordering itself is not reproduced.
+
+As recorded in Remark~\ref{rem:predY-registration-error}, the registered rule did not match the
+composition of the reference values, so it cannot be said that the one combination agreeing in (1)
+was chosen in advance.
+
+\begin{remark}[The registered exclusion rule did not match the composition of the reference values]
+\label{rem:predY-registration-error}
+Table~\ref{tab:predYZ-registration} laid down that offices with amount-displayed fees would be
+used in (1). But the reference values of Table~\ref{tab:b1-proxy-order} were computed on a sample
+excluding them (Remark~\ref{rem:predX-scope}). \textbf{The registered rule was not the composition
+that produced the reference values being compared against.}
+
+This is why both are reported and the verdict confined to the part independent of the rule.
+\textbf{The defect would not have arisen had the composition of the reference values been checked
+at the time of registration.}
+\end{remark}
+
+\begin{remark}[Limits of the sample]
+\label{rem:predY-limits}
+Two points are recorded.
+
+First, the displayed turnover rate cannot be computed from the placements and separations in the
+same row. For physicians the two agree in only 115 of 479 rows, the periods differing. The
+turnover rate is used as the site's own aggregate. This matches the composition of
+Section~\ref{sec:predX-result} and does not impede comparison, but \textbf{it is recorded that
+size and turnover are not quantities over the same period}.
+
+Second, the distribution of size differs between Tokyo and the rest. The median of open-ended
+placements is 23 in Tokyo and 5 elsewhere. The national estimate combines the two, and the
+distribution of size is bimodal.
+\end{remark}
+
+
+\subsubsection{The strength of the refund}
+\label{sec:predZ-result}
+
+\paragraph{How strength is measured was fixed first.}
+
+At registration (Table~\ref{tab:predYZ-registration}) the regressor was written only as ``the
+refund scheme is strong (a higher refund rate, or a longer covered period)'', with no measurement
+laid down. Deciding after reading the documents would be fitting after the fact, so the following
+was fixed before reading them.
+
+Let $t$ be the number of days to separation and $r(t)$ the refund rate at that point, and take as
+strength
+\begin{equation}
+\text{strength} \;=\; \frac{1}{180}\int_{0}^{180} r(t)\,\mathrm{d}t .
+\label{eq:henreikin-strength}
+\end{equation}
+The window is 180 days because \textbf{the site's turnover rate is defined over six months from
+placement}, aligning the observation windows of regressor and regressand. Where a rate is written
+as a range the lower bound is taken, and where intervals overlap the higher rate is taken. The
+details are recorded in \texttt{data/raw/jinzai/henreikin/README.md}.
+
+\paragraph{Reading the documents.}
+
+The 907 PDFs referenced from the refund field of the office detail pages were read. The 132
+carrying no text layer were put through OCR, and places OCR could not settle were checked by eye.
+No document was illegible.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lrX@{}}
+\toprule
+Category & Count & Content \\
+\midrule
+Tiers legible & 839 & strength computed \\
+No scheme, stated explicitly & 11 & strength 0 \\
+Scheme declared, rate 0\% & 4 & strength 0 \\
+Not disclosed, ``as set out in the contract'' & 46 & \textbf{missing} \\
+Link does not mention refunds & 7 & \textbf{missing} \\
+\midrule
+Total & 907 & 854 with a computable strength \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Result of reading the 907 refund documents.}
+\label{tab:henreikin-read}
+\end{center}
+
+\begin{remark}[Not disclosing is not not refunding]
+\label{rem:undisclosed-not-zero}
+The 46 that say ``details are set out in the contract'' and the 7 whose link points to a fee
+schedule mean \textbf{that the strength is unknown, not that it is 0}. Setting them to 0 would
+understate strength. By contrast the 11 that state ``no scheme'' and the 4 that declare a scheme
+while filing a rate of 0\% are \emph{observations} of strength 0. The two are counted separately.
+
+Everything below was tested both excluding the missing values and setting them to 0; the verdict
+did not change.
+\end{remark}
+
+\paragraph{Results.}
+
+The 854 with a computable strength are tabulated by occupation. The treatment of the 53 missing
+values is as in Remark~\ref{rem:undisclosed-not-zero}.
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Occupation & $n$ & Median & Mean & B1 \\
+\midrule
+Institutional care & 359 & 26.2 & 27.8 & \textbf{+0.246} \\
+Childcare workers & 155 & 25.0 & 23.9 & +0.163 \\
+Physicians & 199 & \textbf{33.3} & \textbf{33.4} & +0.159 \\
+Nurses & 367 & 25.8 & 28.0 & +0.067 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The strength of refunds by occupation (median and mean), and the B1 measured in (1).}
+\label{tab:predZ-result}
+\end{center}
+
+\textbf{Implication (2) is rejected.} The ordering by B1 is institutional care, childcare
+workers, physicians, nurses; the ordering by strength is physicians, institutional care, nurses,
+childcare workers. The rank correlation is $\rho=0.000$.
+
+\textbf{The alternative is not supported either.} The correlation of strength with turnover is
+$r=-0.037$ (1{,}080 observations) and with size (the log of open-ended placements) $r=-0.079$
+(571 observations), both near zero. Neither B1 (thinning of input) nor B2 (the risk side).
+
+The difference across occupations appears only for physicians, and is not explained here
+(Remark~\ref{rem:doctor-outlier}).
+The difference is also visible only once strength is measured; the presence or absence of a scheme
+cannot detect it (Remark~\ref{rem:henreikin-binary}).
+
+\begin{remark}[On physicians alone standing out]
+\label{rem:doctor-outlier}
+In Table~\ref{tab:predZ-result} the strength for physicians is about 30\% higher than for the
+other three occupations. Since physicians rank third of four on B1, this cannot be explained by
+B1.
+
+\textbf{This work does not explain it.} It is an observation that was not registered in advance,
+and supplying an explanation would be of the same form as the retrospective narrative listed in
+Section~\ref{sec:prereg-worked}. Only the fact of the observation is recorded.
+\end{remark}
+
+\begin{remark}[Presence is no proxy for strength]
+\label{rem:henreikin-binary}
+Looking only at presence, among the 904 single-occupation firms, 84.3\% of physicians, 84.0\% of
+nurses, 86.5\% of institutional care and 87.0\% of childcare report ``yes'', with
+$\chi^2(3)=1.13$: no difference by occupation. \textbf{Having a scheme is the norm, and as a
+binary the variable has almost no variance.}
+
+Only on measuring strength does the difference across occupations
+(Table~\ref{tab:predZ-result}) appear. That difference is likewise unrelated to B1, but
+\textbf{proxying by presence cannot even detect whether a difference exists}. That four offices
+file a rate of 0\% while displaying the scheme as ``yes'' is direct evidence that the two are
+independent.
+\end{remark}
+
+
+\subsection{Assignment of obstacles}
+\label{sec:family-assignment}
+
+\begin{quote}
+The principal obstacle for family 2 is (iv) access constraint: data of the required granularity
+cannot be reached. For family 5 it is (ii) ill-posedness of the hypothesis as regards the formula
+for $b^\star$, and (vi) non-operation of the adjustment as regards the test on the price side.
+\end{quote}
+
+For family 5 the data source proved favourable once the route was checked
+(Section~\ref{sec:jinzai-structure}). Indeed the test from the price side was carried out on 307
+firms (Section~\ref{sec:predX-result}). Verification nevertheless fails to advance because, for
+the formula for $b^\star$, the proposition does not determine the sign uniquely, and on the price
+side the regressor does not vary within the range the theory posits.
+
+This distinction has a practical implication. Where the obstacle is (iii), (iv) or (v), investing
+labour produces progress; where it is (i), (ii) or (vi), the same labour produces nothing.
+\textbf{Unless which one it is is determined first, labour is misallocated.}
+
+
+\section{Comparison of the two families and its methodological implications}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+ & Family 2 & Family 5 \\
+\midrule
+Implication & supported as to level & untested \\
+What the aggregate layer shows & a two-order-of-magnitude difference in $\kappa$ & almost nothing \\
+Alternative & partly separable & not begun \\
+Per-firm data & unavailable (confidentiality) & available (Jinzai Service General Site) \\
+Remaining task & measuring $\phi_{\mathrm{cog}}$ & sampling design and retrieval of per-firm data \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Families 2 and 5 compared: state of verification, availability of per-firm data, remaining tasks.}
+\label{tab:family2-5-comparison}
+\end{center}
+
+Family 5 is in a good position if per-firm data can be reached, but at present, with only the
+aggregate layer examined, it yields a weaker conclusion than family 2. \textbf{The completeness of
+a frame and the richness of its variables are independent, and the prospects of an investigation
+cannot be assessed without checking both.}
+
+One further structure common to both families was observed.
+
+\begin{proposition}[A trade-off between the aggregate and per-firm layers]
+In the two domains treated here, a complete frame founded on regulation supplies the structural
+variables ($\kappa$, contractual form) only as aggregates, while the surplus variables
+($\phi_{\mathrm{cog}}$, $\phi_{\mathrm{barg}}$) can be observed only in a selected subsample.
+\end{proposition}
+
+To reach $\phi_{\mathrm{cog}}$ in family 2 one must descend to the annual securities reports of
+listed firms that disclose breakage income separately; but that means returning to the 0.1\%
+sample of Section~\ref{sec:frame}, and the disclosure-selection bias of
+Section~\ref{sec:disclosure} revives. The constraint that \textbf{structure is visible in the
+complete frame while surplus is visible only in a selected sample} holds at least in these two
+domains.
+
+\section{The structure of the data source}
+\label{sec:pilot}
+
+\subsection{The detailed search}
+\label{sec:search-route}
+
+The site's detailed search allows occupation, realized fee rate and turnover rate to be given as
+search conditions, and displays them in the result listing when they are given. The samples of
+Sections~\ref{sec:predX-result} and \ref{sec:predY-result} come from this route.
+
+\textbf{The occupations specifiable as search conditions are limited to nine in medicine, care and
+childcare.} The same retrieval is impossible in other fields such as information and
+communications or sales. The restriction of this work to four occupations follows from this
+constraint.
+
+The detail page of each office carries more than the listing: placements and separations by fiscal
+year, all occupations the office has filed, and a reference to the refund-scheme filing. The
+refund data of Section~\ref{sec:predZ-result} came from there.
+
+\subsection{Outcomes of the three routes}
+
+The outcomes of the three routes listed in the investigation plan (Part~\ref{part:method}) are
+recorded.
+
+\paragraph{Measuring the publication rate.}
+In the search results for the four occupations, about three quarters of operators display fees as
+rates and about a quarter as amounts. Publication itself is carried out by nearly all operators —
+good progress for the first year of the requirement.
+
+\paragraph{Describing turnover by field.}
+\textbf{Achieved.} As in Section~\ref{sec:predX-result}, turnover rates for the four occupations
+were obtained at the level of the operator. The occupation means are 2.3\% for physicians, 5.8\%
+for childcare workers, 6.4\% for institutional care and 12.8\% for nurses — \textbf{a spread of a
+factor of 5.5}.
+
+\paragraph{Measuring how binding the regulation is.}
+\textbf{Achieved.} The strength of refunds was measured for 907 documents and implication (2)
+tested in Section~\ref{sec:predZ-result}. As to fee rates, the standard deviation among certified
+operators is 2.2, smaller than the 7.0 of the uncertified (Section~\ref{sec:predX-result}). Since
+the certification conditions say nothing about fee rates, this is an indirect effect.
+
+\subsection{The mismatch of recording granularity}
+
+The mismatch between firm and office granularity noted in Section~\ref{sec:unit-mismatch} appears
+in stark form in the national sample of Section~\ref{sec:predY-result}
+(Remark~\ref{rem:jinzai-dedup}). Rows of the search results denote offices, but placements,
+turnover rates and fees are values at the level of the firm, replicated across all of that firm's
+offices.
+
+
+\section{What was reached and what was abandoned}
+
+\subsection{Subjects abandoned}
+
+\begin{enumerate}[label=(\arabic*)]
+\item Measuring $\phi_{\mathrm{cog}}$ for family 2 \textbf{with the data of this work}. Lacking
+(2) and (3) of Proposition~\ref{prop:phicog-requirements}, it cannot be estimated without reaching
+data carrying individual usage records and an exogenous shock. Quantities of the same kind have
+been measured by others (Section~\ref{sec:phicog-measurable}); what is abandoned is
+\emph{measurement from published statistics}, not measurement as such.
+
+\item Testing the formula for $b^\star$ in family 5. Obtaining $b$ as a continuous quantity, and
+extracting from $\sigma^2$ only the uncontrollable part, are both impossible ((ii) ill-posedness
+of the hypothesis).
+
+\item Continuing the test from the price side. Section~\ref{sec:predX-result} established the
+absence of correlation. Since the regressor concentrates on customary values and does not vary,
+enlarging the sample will not change the result ((vi) non-operation of the adjustment).
+
+\end{enumerate}
+
+\subsection{Subjects possible under conditions}
+
+\begin{enumerate}[label=(\arabic*)]
+\setcounter{enumi}{4}
+\item Extension to other prefectures. The sample of Section~\ref{sec:predX-result} is confined to
+Tokyo (Remark~\ref{rem:predX-scope}). Since the detailed search takes a prefecture, reproduction
+elsewhere is possible by the same procedure.
+
+\item Testing the relation between size and turnover. Two implications were registered in
+Section~\ref{sec:b1-proxy}; the test requires samples from other prefectures.
+
+\item Collecting refund rates and periods. Since the published format differs by operator, this is
+a matter of a person reading them one at a time. Restricted to the 60--70 certified operators it
+is of workable scale.
+\end{enumerate}
+
+\subsection{What families 2 and 5 reached}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+ & Family 2 & Family 5 \\
+\midrule
+Verified & a two-order-of-magnitude difference in $\kappa$; the alternative partly separated
+ & fee rate and turnover uncorrelated; concentration on customary values \\
+Not verified & $\phi_{\mathrm{cog}}$ (with the data of this work) & the formula for $b^\star$ \\
+Principal obstacle & (iv) access constraint & (ii) ill-posedness and (vi) non-operation of the adjustment \\
+Secondary obstacles & confidentiality of per-firm data & recording granularity, small population, failure of identification \\
+Condition for resuming & reaching individual-record data & none; (vi) is not solved by labour \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Summary of what families 2 and 5 reached.}
+\label{tab:family2-5-summary}
+\end{center}
+
+For family 2, the part of the registered implication concerning levels was supported.
+
+For family 5, the formula for $b^\star$ was not reached, but \textbf{the test on the price side
+yielded a descriptive result}. In placement for medicine, care and childcare, although occupation
+means of turnover differ by a factor of 5.5, fee rates differ by only 1.16 and concentrate on the
+customary values of 20--30\%.
+
+Beyond identifying the structural defect of the hypothesis in
+Section~\ref{sec:predB-illposed}, showing in Section~\ref{sec:predX-result} that \textbf{the
+adjustment the theory posits does not operate in reality} is a result that could not have been
+reached by adding data.
+
+
+\section{A quantity that is not tabulated: the credit position of sole proprietors}
+\label{sec:not-tabulated}
+
+In attempting to measure $\kappa$ for sole proprietors, two statistics were consulted.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Statistic & State & Verdict \\
+\midrule
+Survey of the Economy of Individual Enterprises & surveyed assets and liabilities, but discontinued in FY2019 & \emph{loss} of measurement \\
+Basic Survey of Small and Medium Enterprises & a questionnaire for sole proprietors exists, but the tables of assets and liabilities cover corporations only & surveyed but \emph{not tabulated} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The state of the two statistics bearing on $\kappa$ for sole proprietors.}
+\label{tab:individual-kappa-stats}
+\end{center}
+
+The first is (i) absence of measurement, but differs from the usual case in that \textbf{it was
+measured in the past}. Data through FY2018 exist, so the past can be analysed.
+
+The second is more peculiar. Since a questionnaire exists, responses are very likely collected;
+but they do not appear in the published tables. This is neither (i) nor (iv) but a fifth
+obstacle: \textbf{the choice of what to tabulate}.
+
+\begin{remark}[The choice of tabulation determines what is observed]
+\label{rem:tabulation-choice}
+The selection bias treated in Part~\ref{part:method} concerned the selection of the sample and the
+measurement of variables. What this section shows is \textbf{selection at the stage of
+tabulation}.
+
+Which cross-sections are published is decided by the compiler of the statistic. The judgement to
+tabulate assets and liabilities for corporations and not for individual enterprises is presumably
+grounded in the needs of SME policy, but the result is that \textbf{the credit position of sole
+proprietors is not observed}.
+
+To ``the completeness of a frame does not guarantee the size of a sample'' of
+Section~\ref{sec:frame} must be added: \textbf{being in the sample does not guarantee being
+tabulated}.
+\end{remark}

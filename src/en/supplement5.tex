@@ -1,1 +1,961 @@
-% TODO: translation of src/supplement5.tex
+%============================================================
+\chapter{Evidence From the Corporate Statistics: \texorpdfstring{$\kappa$}{kappa} and \texorpdfstring{$\CCC$}{CCC} Across Firms}
+\label{part:industry}
+%============================================================
+
+\section{Position of this chapter}
+
+The $\kappa$ and $\CCC$ defined in Part~\ref{part:theory} are applied to the industry and size
+tabulations of the Financial Statements Statistics of Corporations by Industry. Two
+cross-sections are taken.
+
+\textbf{The cross-section by size} examines how the direction of credit corresponds to size
+class. Section~\ref{sec:layers} writes the credit layer as an image of bargaining power; if
+so, smaller firms should be the providers of credit.
+
+\textbf{The cross-section over time} examines whether change in $\CCC$ indicates the state of
+an industry --- \textbf{whether demand is tight}. But ``the industry is hot'' is not
+one-dimensional, and $\CCC$ touches only one of its axes. That is settled in the next section.
+
+To state the conclusion first, \textbf{both implications failed}: the direction of credit has
+the opposite sign, and the leading property vanished entirely.
+
+\section{Hot and cold are not one-dimensional}
+
+Before measuring, what is to be judged must be settled. The
+$g^\star=(m+d-I/r)/\CCC$ of~\eqref{eq:gstar} consists of two separate axes, a numerator
+expressing profitability and a denominator expressing liquidity. Likewise,
+\textbf{an industry being hot and entering it being profitable are different things}.
+
+Even where demand is tight, if an intermediary controls access to that demand, the surplus
+does not remain with the entrant. Chapter~\ref{sec:platform-fee} finds the price of
+$T_{\rm acq}$ reaching 20 points. Two axes are therefore needed.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Axis & Indicator & Measurability \\
+\midrule
+Tightness of demand & change in $\kappa$, growth rate & measurable in the corporate statistics \\
+Ease of taking surplus & the price of $T_{\rm acq}$, concentration of $\phi_{\rm barg}$ & no cross-industry indicator exists \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Two axes for judging hot and cold, and their measurability.}
+\label{tab:hotcold-axes}
+\end{center}
+
+Only the former can be handled here. Of the four quadrants, up and down can be distinguished
+but not left and right.
+
+\begin{remark}[Why the horizontal axis cannot be measured, structurally]
+\label{rem:no-horizontal}
+This is not a shortage of sources but an asymmetry of classification.
+
+Industry classifications are cut from the entrant's point of view: a firm in information and
+communications is tabulated there. But \textbf{intermediaries span industries}. A payment
+platform belongs to information and communications while intermediating for retail, food
+service, travel and education alike.
+
+Summing $\phi_{\rm barg}^{\text{intermediary}}$ by industry therefore only books the
+intermediary's take in one industry, and \textbf{which industry it was taken from cannot be
+recovered}. In the notation of Section~\ref{sec:three-ops}, an intermediary is one of the
+party indices $i$; it is neither a type of $\Phi$ nor an industry.
+
+The entrant's margin already reflects the leakage to intermediaries, but whether it is due to
+that leakage or to something else cannot be separated from industry aggregates. Separating it
+needs a cross-section seen from the intermediary side, and why that is unavailable is set out
+in Section~\ref{sec:pred-J}.
+\end{remark}
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities in this chapter}}\\
+\midrule
+$\kappa_C$ & Eq.~\eqref{eq:kappa} & DSO; 35--71 days by size \\
+$\kappa_S$ & Eq.~\eqref{eq:kappa} & \textminus DPO; DPO is 21--44 days by size \\
+$W,\ r$ & Chapter~\ref{sec:growth} & working capital, sales \\
+$\CCC$ & Eq.~\eqref{eq:ccc} & 37 days for all industries; 5--210 days by industry \\
+$g^\star$ & Eq.~\eqref{eq:gstar} & illustrated with assumed values, $m$ not obtained here \\
+$m$ & Chapter~\ref{sec:growth} & \textbf{not obtained} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities in this chapter.}
+\label{tab:industry-quantities}
+\end{center}
+
+\section{Data source}
+
+The time-series data of the Financial Statements Statistics of Corporations by Industry
+(e-Stat table 0003060791) were used. It is a designated statistical survey under the
+Statistics Act, and the annual survey covers all profit-making corporations. Capital classes
+extend down to below two million yen, so the bias towards listed companies raised in
+Section~\ref{sec:frame} does not arise.
+
+Six items were obtained: notes receivable, accounts receivable, finished goods and
+merchandise, notes payable, accounts payable and sales. Section~\ref{sec:inventory-scope}
+adds inventory (period end) for a reconciliation. Raw figures rather than ready-made turnover
+indicators were obtained so that the definitions of Chapter~\ref{sec:growth} could be applied
+directly, without depending on whether the statistic's own denominator is sales or cost of
+sales.
+
+\begin{align}
+\mathrm{DSO} &= \frac{\text{notes receivable}+\text{accounts receivable}}{\text{sales}}\times 365 \\
+\mathrm{DPO} &= \frac{\text{notes payable}+\text{accounts payable}}{\text{sales}}\times 365 \\
+\CCC &= \mathrm{DSO} + \mathrm{DIO} - \mathrm{DPO}
+\end{align}
+
+These express the credit positions of~\eqref{eq:kappa} in days. That is,
+\begin{equation}
+\kappa_C \;\leftrightarrow\; \mathrm{DSO},\qquad
+\kappa_S \;\leftrightarrow\; -\mathrm{DPO},\qquad
+\sum_i \kappa_i \;\leftrightarrow\; \mathrm{DSO}-\mathrm{DPO}
+\end{equation}
+A firm with $\sum_i\kappa_i>0$ is a provider of credit. The working capital of~\eqref{eq:ccc}
+is $W = (\text{DSO}+\text{DIO}-\text{DPO})\times r/365$.
+
+\section{Size and the direction of credit}
+
+\subsection{The implication tested}
+
+\begin{quote}
+\textbf{Registered implication}: the smaller the size class, the larger
+$\mathrm{DSO}-\mathrm{DPO}$; that is, smaller firms are the providers of credit.
+\end{quote}
+
+The ground was the claim of Section~\ref{sec:layers} that the credit layer is an image of
+bargaining power: small firms without bargaining power should be the ones kept waiting for
+payment.
+
+\subsection{Result}
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Size (capital) & DSO & DIO & DPO & DSO\textminus DPO \\
+\midrule
+1bn yen and over & 71 & 20 & 44 & \textbf{27} \\
+100m -- 1bn & 61 & 20 & 47 & 15 \\
+50m -- 100m & 47 & 20 & 37 & 10 \\
+20m -- 50m & 49 & 15 & 39 & 10 \\
+10m -- 20m & 53 & 18 & 35 & 18 \\
+Under 10m & 35 & 12 & 21 & \textbf{14} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{DSO, DIO, DPO and DSO\textminus DPO by capital class.}
+\label{tab:dso-dpo-by-size}
+\end{center}
+\begin{center}\footnotesize All industries excluding finance and insurance, FY2024, in days\end{center}
+
+\begin{figure}[htbp]
+\centering
+\insertfig{ccc-trend}
+\caption{DSO and DPO by capital class (all industries, FY2024). Both are short for the small classes.}
+\label{fig:size-dso-dpo}
+\end{figure}
+
+\textbf{The implication is rejected; the sign is the opposite.} Firms of 1bn yen and over sit
+at 27 days and those under 10m at 14, so large firms are the providers of credit. The ordering
+is consistent over the ten years 2015--2024, and the large-firm figure has in fact widened
+from 19 to 27 days.
+
+\subsection{The error in the reasoning}
+
+The error can be located. \textbf{It was overlooked that DSO and DPO both move.}
+
+Small firms are kept waiting on receivables (DSO works against them). But at the same time
+they are not trusted by suppliers either and cannot stretch payables. As
+Figure~\ref{fig:size-dso-dpo} shows, the DPO of the under-10m class is 21 days, less than half
+the 44 of firms of 1bn and over.
+
+A lack of bargaining power acts on both sides: collection is slow but payment is fast. On
+balance, \textbf{weak bargaining power does not appear in the net credit position}.
+
+\begin{proposition}[Extending credit requires capital]
+\label{prop:credit-needs-equity}
+A net provider of credit, that is a party with $\sum_i\kappa_i>0$, satisfies $E > A$.
+\end{proposition}
+
+\begin{proof}
+By the fundamental inequality of Proposition~\ref{prop:fundamental}, $W\leq E-A$. Since
+$W=\sum_i\kappa_i+\mathrm{Inv}$ with $\mathrm{Inv}\geq 0$, $\sum_i\kappa_i>0$ implies $W>0$
+and hence $E-A>0$.
+\end{proof}
+
+Under the $E\approx 0$ of Chapter~\ref{part:solo}, the requirement was the reverse,
+$\kappa<0$ (Corollary~\ref{cor:zero-equity}). Tolerating collection as long as a DSO of 71
+days is possible because there is capital behind it.
+
+\subsection{The sign splits by industry}
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Industry & 1bn and over & Under 10m & Difference \\
+\midrule
+Information and communications & 64 & 15 & +49 \\
+Construction & 67 & 19 & +48 \\
+All industries & 27 & 14 & +13 \\
+Manufacturing & 26 & 24 & +2 \\
+Employment placement and dispatch & 24 & 25 & \textminus 1 \\
+Retail & \textminus 16 & 6 & \textbf{\textminus 22} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{DSO\textminus DPO by industry, comparing capital of 1bn yen and over with under 10m. Only retail reverses sign.}
+\label{tab:dso-dpo-by-industry}
+\end{center}
+\begin{center}\footnotesize DSO\textminus DPO, FY2024, in days\end{center}
+
+\textbf{Only retail reverses sign.} The $-16$ days of large retailers is exactly the negative
+credit position described in Part~\ref{part:theory}: cash collected immediately and purchases
+paid in arrears. Here large firms are the recipients of credit and small retailers the
+providers.
+
+The $+49$ days of information and communications and construction shows large firms bearing
+long advances in the position of contractor --- the territory of families 1-3 (one-off
+arrears) and 5-3 (cost plus) of Part~\ref{part:catalog}.
+
+The claim that ``larger firms are the providers of credit'' is therefore itself only an
+average across industries. What decides is not size but \textbf{the $\Phi$ dominant in that
+industry}. The lesson recorded in Part~\ref{part:results} --- that levels of $\kappa$ differ
+structurally across industries so cross-sectional comparison is meaningless --- holds on the
+size axis too.
+
+\subsection{Implication for Chapter~\texorpdfstring{\ref{part:solo}}{VII}}
+
+Chapter~\ref{part:solo} deduced that a solo business without assets requires $\kappa_C<0$.
+The data show that requirement is not met: the under-10m class has DSO of 35 days and DPO of
+21, a net 14 days as a provider.
+
+The form differs from what was envisaged at registration, however. The small classes are not
+extremely $\kappa>0$; rather \textbf{both DSO and DPO are short}. The transactions themselves
+are small and short. Rather than lying outside the feasible region, they appear to sit at
+different coordinates.
+
+\section{Is $\CCC$ a leading indicator of the cycle?}
+\label{sec:e-verification}
+
+\subsection{The implication tested}
+
+\begin{quote}
+\textbf{Registered implication}: the rate of change of $\CCC$ \emph{leads or is synchronous
+with} the rate of change of sales. In particular, a worsening receivables turnover
+\emph{leads} a slowdown in sales.
+\end{quote}
+
+Correlations between the annual change $\Delta\CCC(t)$ and the sales growth rate $g(t+k)$
+were computed by industry and aggregated over 45 industries, excluding aggregate and
+short series.
+
+\subsection{Result}
+
+\begin{center}
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Lag & Mean correlation & Median & Share negative & Sign test \\
+\midrule
+Leading $k=-1$ & 0.036 & 0.058 & 47\% & $p=0.72$ \\
+Synchronous $k=0$ & \textminus 0.159 & \textminus 0.228 & 69\% & $p=0.008$ \\
+Lagging $k=+1$ & 0.072 & 0.118 & 31\% & --- \\
+Lagging $k=+2$ & 0.085 & 0.035 & 44\% & --- \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Correlation between $\Delta\CCC(t)$ and sales growth $g(t+k)$ by lag, over 45 industries.}
+\label{tab:ccc-sales-lag-corr}
+\end{center}
+
+\textbf{Synchrony is supported.} A worsening $\CCC$ and a slowdown in sales occur in the same
+fiscal year: 31 of 45 industries show a negative correlation, with $p=0.008$ on a sign test.
+
+\textbf{Leading is rejected outright.} 47\% negative is no information at all ($p=0.72$).
+Change in $\CCC$ carries nothing about the following year's sales.
+
+\subsection{The synchronous negative correlation may be a denominator effect}
+
+The mechanism is likely the reverse of what was assumed. $\CCC = W/r$ has sales in the
+denominator. If sales fall, then unless inventory and receivables fall at the same rate,
+$\CCC$ worsens \emph{by definition}.
+
+When the panel by medium for family 2 was treated in Part~\ref{part:results}, this was stated
+explicitly as the alternative: issuance shrinks and the ratio rises mechanically.
+Section~\ref{sec:denominator-effect} separates it here and shows that
+\textbf{the denominator effect contributes about 17\%}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xl@{}}
+\toprule
+Claim & Verdict \\
+\midrule
+Change in $\CCC$ is synchronous with change in sales & supported; the denominator effect contributes 17\% (Section~\ref{sec:denominator-effect}) \\
+Change in $\CCC$ leads change in sales & \textbf{rejected} ($p=0.72$) \\
+$\CCC$ is a leading indicator of the cycle & \textbf{rejected} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Verdicts on three claims about the leading property.}
+\label{tab:predE-verdict}
+\end{center}
+
+\subsection{That the sign splits by industry is a finding}
+
+Thirteen of the 45 industries have $|r|>0.4$ in the synchronous correlation.
+
+\begin{center}
+\begin{tabular}{@{}lrlr@{}}
+\toprule
+Strongly negative & $r$ & Strongly positive & $r$ \\
+\midrule
+Pulp, paper and paper products & \textminus 0.78 & Agriculture and forestry & +0.80 \\
+Fabricated metal products & \textminus 0.67 & Other transport equipment & +0.69 \\
+Information and communications & \textminus 0.58 & Accommodation and food services & +0.54 \\
+Production machinery & \textminus 0.53 & Agriculture, forestry and fisheries & +0.52 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Industries with $|r|>0.4$ in the synchronous correlation (four strongly negative, four strongly positive).}
+\label{tab:sync-corr-extremes}
+\end{center}
+
+The strongly negative industries are all make-to-order with large inventories and
+receivables, matching the conditions under which the denominator effect is strong.
+
+What matters is that positive industries exist.
+\textbf{A pure denominator effect would make every industry negative.} The positive
+industries have a structure in which $\CCC$ grows as sales grow --- they build working capital
+in order to grow --- which is the region where the $g^\star$ of~\eqref{eq:gstar} binds.
+
+Change in $\CCC$ therefore contains components other than the denominator effect. They cannot
+be separated in these data.
+
+\section{An observation not anticipated: the long-run rise in \texorpdfstring{$\CCC$}{CCC}}
+
+Separately from the tests, a fact not envisaged in advance was observed.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{lag-corr}
+\caption{$\CCC$ and the net credit position, all industries excluding finance and insurance.}
+\label{fig:ccc-trend}
+\end{figure}
+
+As Figure~\ref{fig:ccc-trend} shows, the $\CCC$ of all industries rose from 24.9 days in
+FY2000 to 37.2 in FY2024, almost monotonically over 25 years. The net credit position also
+doubled, from 9.8 to 18.5 days.
+\textbf{The Japanese corporate sector as a whole is moving towards holding more working
+capital.}
+
+\begin{remark}[What the aggregate measures]
+By Corollary~\ref{cor:kappa-nets-out}, credit positions closed within the corporate sector
+cancel on aggregation. The $\CCC$ here is therefore not an indicator of inter-firm credit but
+the sum of the position against the non-corporate sector and inventory, divided by sales.
+Indeed, DSO $-$ DPO for all industries in Table~\ref{tab:dso-dpo-by-size} is 13 days, and
+most of the gap to $\CCC=37.2$ days is inventory.
+\textbf{The dominant component of the aggregate $\CCC$ is inventory.}
+The same reason explains why negative $\CCC$ in individual firms does not appear in
+aggregate.
+\end{remark}
+
+\subsection{The growth constraint has not worsened, however}
+
+It is tempting to conclude from this that the growth constraint has worsened, since the
+denominator of~\eqref{eq:gstar} has risen by half. \textbf{That inference is wrong.}
+
+Over the same period the operating margin $m$ improved by 91\%, from 2.62\% to 5.01\%,
+outrunning the worsening denominator. The ratio $m/\CCC$ consequently rose from 38.5\% to
+49.2\% (Proposition~\ref{prop:gstar-flat}).
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+ & FY2000 & FY2024 & Change \\
+\midrule
+$\CCC$ & 24.9 days & 37.2 days & +49\% \\
+$m$ & 2.62\% & 5.01\% & +91\% \\
+$m/\CCC$ & 38.5\% & 49.2\% & +28\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Change in $\CCC$, $m$ and $m/\CCC$ from FY2000 to FY2024.}
+\label{tab:ccc-m-ratio-2000-2024}
+\end{center}
+
+What is used here is $m/\CCC$, not the $g^\star=(m+d-I/r)/\CCC$ of
+Corollary~\ref{cor:gstar} (Remark~\ref{rem:gstar-flat-caveat}), because $d$ and $I$ were not
+obtained far enough back.
+
+\begin{remark}[Discipline in handling ratios]
+$\CCC$ is the denominator of a ratio and says nothing on its own about the growth constraint.
+Drawing a conclusion from a rise in $\CCC$ alone is looking at one half of a ratio.
+\textbf{Concluding from one half of a ratio is the same kind of error as the retrospective
+narrative that Section~\ref{sec:narrative} warns against.}
+The difference is that the latter is an interpretation added after the fact, whereas this is
+filling a shortfall in measurement with inference.
+\end{remark}
+
+The cause of the rise in $\CCC$ itself remains untested. Which of industrial composition,
+regulation of payment terms, the decline of trade bills, or the level of interest rates
+contributes is not separated here. The importance of the question is limited, however, since
+$g^\star$ has not worsened.
+
+\section{Levels by industry (for reference)}
+\label{sec:ccc-extremes-by-industry}
+
+As the lesson of Part~\ref{part:results} has it, cross-sectional comparison of levels cannot
+be interpreted; the figures are recorded as a reference on the distribution of $\Phi$.
+
+\begin{center}
+\begin{tabular}{@{}lrlr@{}}
+\toprule
+Long $\CCC$ & Days & Short $\CCC$ & Days \\
+\midrule
+Leasing & 210 & Food services & 5 \\
+Real estate & 89 & Water transport & 7 \\
+Chemicals & 80 & Other transport & 9 \\
+Textiles & 78 & Entertainment & 9 \\
+General-purpose machinery & 77 & Motor vehicles and parts & 9 \\
+Production machinery & 64 & Electricity & 10 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Industries with the longest and shortest $\CCC$ (top six each).}
+\label{tab:ccc-extremes-by-industry}
+\end{center}
+\begin{center}\footnotesize FY2024, excluding aggregate series\end{center}
+
+The ordering agrees with the types of Part~\ref{part:catalog}. Leasing (family 3-1) and real
+estate acquire an asset first and recover it over time; food services (family 1-1, immediate
+exchange) sits at $\kappa\approx 0$. The structure of the differences by industry described
+earlier appears directly.
+
+\section{Decomposing the rise in \texorpdfstring{$\CCC$}{CCC}}
+\label{sec:ccc-decomposition}
+
+The rise in $\CCC$ is decomposed into its causes. The following implication was fixed in
+advance.
+
+\begin{quote}
+\textbf{Registered implication}: the rise in $\CCC$ owes more to the composition effect than
+to within-industry change, because industries with long $\CCC$ have gained weight.
+
+\textbf{Alternative}: if the within-industry effect dominates, working capital has increased
+in each industry irrespective of composition.
+\end{quote}
+
+\subsection{Shift-share decomposition}
+
+By Corollary~\ref{cor:ccc-weighted}, the overall $\CCC$ is a sales-weighted mean of industry
+figures, $\CCC=\sum_k w_k\CCC_k$. Its difference splits in two.
+\begin{equation}
+\Delta\CCC = \underbrace{\sum_k \bar{w}_k\,\Delta\CCC_k}_{\text{within-industry}}
+ + \underbrace{\sum_k \Delta w_k\,\bar{\CCC}_k}_{\text{composition}}
+\label{eq:shift-share}
+\end{equation}
+Taking $\bar{\cdot}$ to be the midpoint of the two periods,
+\eqref{eq:shift-share} \textbf{holds exactly with no residual}. Substituting
+$\bar w=(w_1+w_0)/2$ and $\bar\CCC=(\CCC_1+\CCC_0)/2$, the right-hand side equals
+$\sum_k(w_{k1}\CCC_{k1}-w_{k0}\CCC_{k0})$. This is not an approximation introduced for
+measurement but a consequence of $\CCC$ being a ratio
+(Corollary~\ref{cor:ccc-weighted}).
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Period & $\Delta\CCC$ & Within-industry & Composition \\
+\midrule
+2000$\to$2024 (33 common industries) & +11.4 days & +9.5 days (82.9\%) & +1.9 days (17.1\%) \\
+2010$\to$2024 (45 common industries) & +10.1 days & +9.9 days (98.1\%) & +0.2 days (1.9\%) \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Shift-share decomposition of $\Delta\CCC$ into within-industry and composition effects.}
+\label{tab:shift-share-decomposition}
+\end{center}
+
+\textbf{The implication is rejected.} The within-industry effect accounts for 83\% to 98\%.
+Since 2010, where the classification is stable, the composition effect is nearly zero. An
+explanation by the shift towards services does not hold.
+
+The reason the composition effect is small is also clear. Information and communications rose
+in weight from 0.2\% to 5.8\%, pushing $\CCC$ up by $+3.05$ days, while electrical machinery
+shrank from 6.3\% to 2.1\% ($-1.62$ days) and advertising from 5.6\% to 0.8\% ($-1.59$ days):
+\textbf{the pushes up and down nearly cancel}.
+
+\subsection{Components of the within-industry effect}
+
+The within-industry effect splits into $\mathrm{DSO}$, $\mathrm{DIO}$ and $\mathrm{DPO}$.
+
+\begin{center}
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Period & DSO & DIO & DPO & Main cause \\
+\midrule
+2000$\to$2024 & \textminus 0.93 & +3.49 & \textbf{+6.90} & shortening DPO \\
+2010$\to$2024 & \textbf{+5.26} & +4.02 & +0.62 & lengthening DSO \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The within-industry effect split into DSO, DIO and DPO.}
+\label{tab:within-industry-decomposition}
+\end{center}
+\begin{center}\footnotesize In days of contribution to $\CCC$\end{center}
+
+Against Corollary~\ref{cor:ccc-change}, DSO and DPO correspond to $\tau_C$ and $\tau_S$ and
+DIO to $\tau_{\mathrm{inv}}$. Hence:
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Period & Change in contracts $\sum\Delta\tau_i$ & Change in operations $\Delta\tau_{\mathrm{inv}}$ \\
+\midrule
+2000$\to$2024 & +5.97 days & +3.49 days \\
+2010$\to$2024 & +5.88 days & +4.02 days \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The split into change in contracts and change in operations, by Corollary~\ref{cor:ccc-change}.}
+\label{tab:contract-vs-operation-change}
+\end{center}
+
+\textbf{In both periods, change in contracts accounts for about 60\%.} The rise in $\CCC$
+originates in changes to contractual terms rather than in demand or inventory management.
+
+\textbf{The main cause differs by period}, and the path of trade bills explains it.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+ & 2000 & 2010 & 2024 \\
+\midrule
+Notes receivable & 12.1 days & 6.1 days & 4.7 days \\
+Notes payable & 15.3 days & 7.2 days & 5.1 days \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Notes receivable and payable, FY2000, FY2010 and FY2024.}
+\label{tab:tegata-trend}
+\end{center}
+
+Bills fell to below a third during the 2000s. Notes payable lost 8.1 days, from 15.3 to 7.2,
+and the 6.9-day shortening of DPO is almost entirely explained by this.
+\textbf{Bills are a device for creating $\kappa_S<0$, and their disappearance pushed $\CCC$ up.}
+
+In the 2010s the decline of bills had run its course and DSO lengthened by 5.26 days. The
+breakdown is notes receivable $-1.37$ days and accounts receivable $+6.62$ days. Although bills
+keep falling, accounts receivable grow by more than enough to offset them. By industry,
+$\mathrm{DSO}$ rose in 28 of 45 industries, with the largest contributions from wholesale
+(59$\to$70 days), retail (22$\to$28 days), information and communications (62$\to$78 days) and
+construction (65$\to$71 days).
+
+\begin{remark}[Not separable from a shift between accounts]
+\label{rem:densai}
+The growth of accounts receivable admits two readings: a genuine lengthening of the collection
+period, and a shift between accounts accompanying the move to electronically recorded monetary
+claims. Under the latter, the rise in $\CCC$ would be only apparent.
+
+Separating them requires the balance of electronically recorded claims, which is not among the
+survey items of the Financial Statements Statistics. Under the classification of
+Section~\ref{sec:obstacle-taxonomy} this belongs to (iii) non-identification.
+\end{remark}
+
+\section[Separating the contemporaneous negative correlation]{Separating the contemporaneous negative correlation: the contribution of the denominator effect}
+\label{sec:denominator-effect}
+
+For the contemporaneous negative correlation observed in Section~\ref{sec:e-verification}, we
+separate information about demand from the denominator effect inherent in the definition
+$\CCC=W/r$.
+
+In log differences, $\Delta\ln\CCC = \Delta\ln W - \Delta\ln r$. Under a pure denominator effect
+$W$ would not move. Estimating the elasticity
+\begin{equation}
+\beta = \frac{\Delta \ln W}{\Delta \ln r}
+\label{eq:wc-elasticity}
+\end{equation}
+therefore makes $1-\beta$ the contribution of the denominator effect.
+
+\textbf{The theoretical value of $\beta$ is $1$.} By \eqref{eq:ccc}, $W=\CCC\cdot r$, so if
+$\CCC$ is constant then $\Delta\ln W=\Delta\ln r$. Hence
+\begin{equation}
+\Delta\ln\CCC = (\beta-1)\,\Delta\ln r
+\label{eq:beta-ccc}
+\end{equation}
+and the departure of $\beta$ from $1$ is exactly the sales elasticity of $\CCC$.
+Equation~\eqref{eq:ccc-change} of Corollary~\ref{cor:ccc-change} decomposes this movement into
+change in contracts and change in operations.
+
+\begin{quote}
+\textbf{Registered implication}: $\Delta\ln W$ and $\Delta\ln r$ are positively correlated; that
+is, working capital falls when sales fall.
+\end{quote}
+
+\subsection{Result}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+\toprule
+Pooled estimate (44 industries, 946 observations) & $\beta = 0.830$ \\
+Coefficient of determination & $R^2 = 0.076$ \\
+Median of industry-level $\beta$ & 0.625 \\
+Standard deviation of industry-level $\beta$ & 1.161 \\
+\midrule
+Contribution of the denominator effect $1-\beta$ & 0.170 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Elasticity of $\Delta\ln W$ with respect to $\Delta\ln r$ (equation~\eqref{eq:wc-elasticity}).}
+\label{tab:wc-elasticity-result}
+\end{center}
+
+\textbf{The implication is supported.} Working capital moves almost proportionally with sales,
+and only about 17\% is attributable to the denominator effect. The contemporaneous negative
+correlation of Section~\ref{sec:e-verification} carries, for the most part, information from the
+demand side.
+
+Substituting $\beta=0.830$ into \eqref{eq:beta-ccc} gives a sales elasticity of $\CCC$ of
+$-0.170$: \textbf{$\CCC$ rises in phases where sales fall}. The amplification factor of
+Remark~\ref{rem:ccc-amplifier} is then larger, so the degree to which a downturn in demand is
+transmitted to cash strengthens in recessions. Calling $1-\beta$ the ``denominator effect'' is a
+computational label, not a claim that $\CCC$ has not moved.
+
+\subsection{Lag structure}
+\label{sec:lag-test}
+
+By Proposition~\ref{prop:kappa-tau}, $W(t)$ corresponds to the integral of $r$ over the past
+$\tau$ periods. In industries with long $\CCC$ it should also depend on the previous year's
+sales. The following was registered in advance.
+
+\begin{quote}
+\textbf{Registered implication (1)}: the coefficient $\beta_1$ on $\Delta\ln r(t-1)$ is larger the
+longer that industry's $\CCC$.
+
+\textbf{Registered implication (2)}: the total elasticity $\beta_0+\beta_1$ including the lag
+exceeds the contemporaneous-only estimate of $0.830$, so the contribution of the denominator
+effect is smaller than 17\%.
+\end{quote}
+
+The distributed-lag model
+$\Delta\ln W(t)=\beta_0\Delta\ln r(t)+\beta_1\Delta\ln r(t-1)+\varepsilon$ was estimated on 886
+observations across 43 industries.
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+$\beta_0$ (contemporaneous) & 0.836 \\
+$\beta_1$ (one-period lag) & \textminus 0.015 \\
+Total elasticity & 0.821 \\
+$R^2$ & 0.081 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Estimates of the distributed-lag model.}
+\label{tab:lag-model-result}
+\end{center}
+
+\textbf{Both implications are rejected.} $\beta_1$ is nearly zero, and its correlation with
+$\CCC$ is $-0.101$ — the sign is also reversed. In industries with $\CCC<30$ days,
+$\beta_1=+0.217$; in those with $\CCC\geq 60$ days, $-0.267$. The total elasticity falls slightly
+from $0.830$ to $0.821$, leaving the contribution of the denominator effect essentially unchanged
+at 17\% to 18\%.
+
+\begin{remark}[Proposition~\ref{prop:kappa-tau} is not rejected]
+\label{rem:lag-undetectable}
+Failure to detect a lag structure does not mean equation~\eqref{eq:kappa-tau} is wrong. The level
+of $\CCC$ is at most 210 days and mostly 30--60 days, which fits within a year at the granularity
+of annual data. For $\beta_1$ to be significant, $\CCC$ would have to exceed one year, and no such
+industry exists.
+
+Quarterly data might allow detection, but the quarterly survey rests on the provisional closings
+of sampled corporations and is therefore affected by closing adjustments.
+\end{remark}
+
+\begin{remark}[The confidence is limited]
+$R^2=0.076$ is extremely low: 92\% of the variance of $\Delta\ln W$ is unexplained by
+$\Delta\ln r$. The dispersion across industries is also large — $\beta<0.5$ in 14 industries,
+$\beta>1.0$ in 13, and negative in some (retail $-0.43$, leasing $-0.01$).
+
+Annual $\Delta\ln W$ mixes in year-end inventory adjustment, timing shifts of large transactions,
+and changes in accounting policy. \textbf{One may say that the denominator effect is not dominant,
+but this is insufficient to assert positively that the movement is information about demand.}
+\end{remark}
+
+\section{The effect of the scope of inventories on the conclusions}
+\label{sec:inventory-scope}
+
+The $\mathrm{DIO}$ of this chapter uses only ``finished goods or merchandise'' and excludes
+work in process and raw materials. Since the Financial Statements Statistics carries
+``inventories (end of period)'' as a separate item, the difference between the two measures the
+size of the understatement. This section measures that size.
+
+\textbf{This section is not a test of an implication.} It substitutes a different measurement
+definition on the same data and checks how much the conclusions move.
+
+\subsection{Two cross-sections}
+
+``Inventories (end of period)'' was obtained along two cuts. \textbf{The two identify different
+variation}, and must be read separately.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXr@{}}
+\toprule
+Cut & Coverage, and the variation identifying $\beta$ & Obs. \\
+\midrule
+Size cut & 10 industries $\times$ 11 size strata $\times$ FY2015--2024. $\beta$ is identified by variation \textbf{between size strata} & 1,100 \\
+Industry cut & 62 industries $\times$ all sizes $\times$ FY2000--2024. $\beta$ is identified by variation \textbf{between industries and years} & 1,364 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The two cuts used to obtain inventories.}
+\label{tab:inventory-cuts}
+\end{center}
+
+The estimate of this chapter (Section~\ref{sec:denominator-effect}) uses 946 observations across
+45 industries, \textbf{the same design as the industry cut}. The figures that correct this chapter
+are therefore those of the industry cut; the size cut answers a different question. Unless stated
+otherwise, the figures below are from the industry cut.
+
+\subsection{The level is understated roughly twofold}
+
+The ratio of $\mathrm{DIO}$ has a median of 1.99, and the median $\CCC$ rises from 28.0 to 43.9
+days. For all industries (excluding finance and insurance), FY2000 goes from 24.9 to 38.2 days
+and FY2024 from 37.2 to 53.5 days.
+
+The size cut gives a median ratio of 1.89 and a difference with median 4.1 days and mean 8.4 days
+— comparable in magnitude.
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Industry & DIO goods & DIO inv. & CCC goods & CCC inv. \\
+\midrule
+Manufacturing & 19.2 & 50.4 & 41.6 & \textbf{72.8} \\
+Construction & 9.7 & 33.8 & 39.8 & \textbf{63.9} \\
+All industries (excl.\ finance and insurance) & 18.7 & 35.0 & 37.2 & \textbf{53.5} \\
+Information and communications & 7.5 & 14.6 & 58.1 & 65.2 \\
+Other services & 8.0 & 12.2 & 34.4 & 38.6 \\
+Wholesale & 24.2 & 27.6 & 32.9 & 36.3 \\
+Food services & 3.4 & 6.1 & 4.9 & 7.7 \\
+Accommodation & 6.5 & 8.9 & 21.8 & 24.2 \\
+Retail & 24.4 & 25.4 & 23.3 & 24.2 \\
+Employment placement and worker dispatch & 0.2 & 0.5 & 32.8 & 33.0 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Difference in $\mathrm{DIO}$ and $\CCC$ by the scope of inventories (all sizes, FY2024, in days).}
+\label{tab:inventory-scope}
+\end{center}
+
+The difference is of a different order across industries. $\CCC$ rises by more than 30\% in
+manufacturing and construction, while retail and employment placement barely move.
+\textbf{Divergence arises only in industries that hold work in process} — an obvious structure,
+but large enough to change the ordering of the industry levels in
+Section~\ref{sec:ccc-extremes-by-industry}.
+
+\subsection{The effect on differences is small, but not negligible}
+
+Comparing the two definitions for $\Delta\CCC$, the industry cut gives a correlation of 0.882 over
+1,302 observations, with signs agreeing 86.8\% of the time. The size cut (990 observations) gives
+a correlation of 0.976 and sign agreement of 91.0\%: \textbf{agreement is lower across
+industries}. Because the weight of work in process differs by industry, including cross-industry
+variation produces a gap.
+
+\subsection{Correcting the definition worsens the elasticity slightly}
+
+Equation~\eqref{eq:wc-elasticity} is estimated on a common sample. Since the observations with
+$W>0$ differ by definition, \textbf{the comparison is restricted to observations with $W>0$ under
+both definitions}.
+
+\begin{center}
+\begin{tabular}{@{}P{0.18\textwidth}P{0.30\textwidth}rrr@{}}
+\toprule
+Cut & Definition of $\mathrm{DIO}$ & $\beta$ & $R^2$ & Denom.\ effect $1-\beta$ \\
+\midrule
+Industry cut & finished goods or merchandise only & 0.840 & 0.073 & 0.160 \\
+$n=955$ & inventories (total) & \textbf{0.828} & \textbf{0.166} & \textbf{0.172} \\
+\midrule
+Size cut & finished goods or merchandise only & 0.900 & 0.092 & 0.100 \\
+$n=733$ & inventories (total) & 0.960 & 0.213 & 0.040 \\
+\midrule
+Estimate in the text & finished goods or merchandise only & 0.830 & --- & 0.170 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Difference in the elasticity $\beta$ by the scope of inventories, on a common sample.}
+\label{tab:inventory-elasticity}
+\end{center}
+
+In both cuts, taking inventories at their total more than doubles the coefficient of
+determination. \textbf{Working capital is more nearly proportional to sales when work in process
+and raw materials are included.}
+
+\textbf{But the direction in which the denominator effect moves is opposite across the two cuts.}
+In the size cut it falls from 0.100 to 0.040, while in the industry cut it rises slightly from
+0.160 to 0.172.
+
+\begin{remark}[Change the cut and the direction changes]
+\label{rem:inventory-cut}
+Correction shrinks the denominator effect in the size cut and enlarges it in the industry cut.
+\textbf{The two are not error: they identify different variation}
+(Table~\ref{tab:inventory-cuts}). Between size strata, larger firms hold more work in process, so
+taking the total makes $W$ more nearly proportional to sales. Between industries, the weight of
+work in process itself is dispersed as a characteristic of the industry, so taking the total does
+not improve proportionality.
+
+The estimate of this chapter is identified by variation between industries and years, so
+\textbf{it is the industry cut that applies here}. A direction measured in one cut cannot be
+carried into the other. \textbf{The range a sample covers is not the same as the range a
+conclusion reaches.}
+\end{remark}
+
+\begin{remark}[Without a common sample the sign comes out reversed]
+\label{rem:common-sample}
+Since the observations with $W>0$ differ by definition, estimating without aligning the sample
+gives $\beta$ of 0.894 and 0.787 in the size cut, yielding the opposite conclusion that the
+denominator effect \emph{increases}. Restricted to the common sample the values are 0.900 and
+0.960. \textbf{When measuring the effect of a definition, note that changing the definition
+changes the composition of the sample.}
+\end{remark}
+
+\subsection{Verdict}
+
+The conclusion of Section~\ref{sec:denominator-effect} is maintained, but
+\textbf{it is merely maintained, not strengthened}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xl@{}}
+\toprule
+Claim & Verdict \\
+\midrule
+The absolute level cannot be interpreted & Supported. The median $\CCC$ moves from 28.0 to 43.9 days \\
+The effect on analyses of differences and correlations is small & Supported. But the correlation of $\Delta\CCC$ is 0.882, below the 0.976 of the size cut \\
+The denominator effect is not dominant & Supported. But correction raises it slightly from 0.160 to 0.172 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Verdicts on three claims concerning the scope of inventories, by the industry cut.}
+\label{tab:inventory-verdict}
+\end{center}
+
+All three are supported, but none strongly. That $1-\beta$ is 0.172 means 17\% of the increase in
+working capital is not proportional to sales: not dominant, but not negligible either.
+
+\section{An observation the simplified capacity constraint does not fit}
+\label{sec:cap-observation}
+
+Remark~\ref{rem:cap-simplification} introduced the simplification of treating $\mathrm{Cap}$ as a
+constant. This section records a case in which it does not fit reality. It is a record of a
+limitation, not a revision of the theory.
+
+\subsection{The observation}
+
+The price schedule of one major full-service fitness club chain was checked as of 2026. The
+company offers a weekday-daytime-only plan for those aged 60 and over alongside its ordinary
+plan. The two have identical structures — once a week (up to four visits a month), twice a week
+(up to eight), and unlimited — and differ only in price.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Facility category & Once/wk & Twice/wk & Unlimited \\
+\midrule
+I & 4.0\% & 10.3\% & 22.1\% \\
+II & 4.8\% & 9.9\% & 21.5\% \\
+III & 4.1\% & 9.6\% & 21.7\% \\
+IV & 4.6\% & 10.0\% & 21.5\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Discount rate of the 60-and-over plan, by facility category and usage tier.}
+\label{tab:senior-plan-discount}
+\end{center}
+\begin{center}\footnotesize Discount of the 60-and-over plan relative to the ordinary plan\end{center}
+
+\textbf{In all four categories the discount increases monotonically with usage.} It stays around
+4\% for once a week but reaches about 22\% on the unlimited plan. The price ratio from once a week
+to unlimited is 1.67--1.74 on the ordinary plan and 1.36--1.43 on the 60-and-over plan.
+
+\subsection{Inconsistency with the simplification}
+
+Under equation~\eqref{eq:cap-simplified}, a large discount on the unlimited plan is hard to
+explain, since it presses on the capacity constraint. Under the general form
+\eqref{eq:cap-general}, however, it is explicable: restricting the plan to weekday daytime places
+$\operatorname{supp}\delta_i$ within the idle part of $\mathrm{Cap}(t)$, so total volume can be
+increased without worsening the constraint at the peak instant.
+
+That is, \textbf{the operator manipulates the distribution over time, not the total}. The
+simplification of this work cannot express this device.
+
+\subsection{Why the theory is not revised from this observation}
+
+\begin{remark}[No generalization from a case]
+\label{rem:no-generalization}
+The observation of this section rests on one company's price list.
+Part~\ref{part:theory} is an abstraction intended to cover all $\Phi$, while
+Part~\ref{part:results} is a concrete study confined to particular industries and firms.
+\textbf{The concrete carries no claim of exhaustiveness.}
+
+Rewriting equation~\eqref{eq:cap-simplified} from an $n=1$ observation would propagate a single
+case across all 28 types. This is of the same form as the retrospective narrativization warned
+against in Section~\ref{sec:narrative}: revising the structure of a population from one sample.
+
+A revision of the theory is warranted when a deductive error is found, when the same limitation
+appears in several independent domains, or when it affects the deductions of
+Part~\ref{part:catalog}. None of these applies here. The observation is therefore recorded, and
+no revision is made.
+\end{remark}
+
+\subsection{The simplified capacity constraint}
+
+In connection with Section~\ref{sec:retiree}, the following implication was fixed in advance.
+
+\begin{quote}
+\textbf{Registered implication}: older cohorts choose pay-per-use over flat-rate contracts. This
+follows from the preference predicted by socioemotional selectivity theory — that under a limited
+time horizon one chooses the certain. A flat-rate contract is a bundle of options; pay-per-use is
+certain.
+
+\textbf{Alternative}: older cohorts have more disposable time and use the facility more often, so
+the flat rate is more advantageous. Under this account the preference for flat rates
+\emph{rises}.
+\end{quote}
+
+The signs are opposite, so the form is identifiable.
+
+However, \textbf{no data on consumer choice could be obtained, and the implication is untested}.
+What is needed is the distribution of contract-form choice by age, which operators hold but do not
+publish.
+
+Only the supply side's price design was obtained. The discount structure above rests on the
+premise that older cohorts use the facility more, which is consistent with the alternative and
+points against the registered implication. But \textbf{this is the operator's belief, not the
+consumer's choice}. It requires the premise that the firm reads demand correctly, and so remains
+indirect evidence.
+
+\section{Limitations of this chapter}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The separation of the denominator effect is of low confidence.} The elasticity
+estimate puts the contribution at about 17\%, but $R^2=0.076$, and most of the variation in
+$\Delta\ln W$ is unexplained.
+
+\item \textbf{The horizontal axis of the four quadrants is not measured.} No cross-industry
+indicator exists for the ease of capturing surplus, so the classification remains one-dimensional,
+on the demand side alone.
+
+\item \textbf{The interpretation of the growth in accounts receivable is not settled.}
+Section~\ref{sec:ccc-decomposition} excludes industrial composition and explains half by the
+disappearance of bills, but whether the growth of accounts receivable in the 2010s is a genuine
+lengthening or a shift between accounts cannot be separated (Remark~\ref{rem:densai}).
+
+\item \textbf{The contract choice of older cohorts is untested.} As in
+Section~\ref{sec:cap-observation}, no consumer-side choice data could be obtained. The supply
+side's price design is consistent with the alternative but remains indirect evidence.
+
+\item \textbf{Inventories are ``finished goods or merchandise'' only.} Work in process and raw
+materials are excluded, so $\mathrm{DIO}$ is understated and the level of $\CCC$ comes out shorter
+than it is. Section~\ref{sec:inventory-scope} measures the difference for ten industries and
+confirms that the effect on analyses of differences and correlations is small, but
+\textbf{correcting the 45-industry estimate would require obtaining that item for all
+industries}.
+\end{enumerate}
+
+\section{On both implications being rejected}
+\label{sec:two-rejections}
+
+The direction of credit had the opposite sign; the leading property vanished. Both registered
+implications failed.
+
+Part~\ref{part:results} recorded the effect of pre-registration, and it operated more clearly in
+this chapter. Had the implications not been fixed beforehand, the contemporaneous negative
+correlation would very likely have been read as ``$\CCC$ works as a business-cycle indicator'' and
+the credit position of large firms as ``large firms support their counterparties''. Both are
+retrospective narratives.
+
+The failure of the implications is not a rejection of the framework. The descriptions $\CCC$,
+$\kappa$ and $\Phi$ function effectively; what failed were \textbf{conjectures about what these
+quantities predict}. Effectiveness as a tool of description and effectiveness as a tool of
+prediction are different things.

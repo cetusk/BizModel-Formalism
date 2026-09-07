@@ -251,6 +251,10 @@ def main():
         if "id=\"toc\"" in s:
             continue
         s = rebuild_pagenav(s, os.path.basename(f), maps)
+        # tex4ht は常に lang='en-US' を書く。figures.js が図中ラベルの言語を
+        # ここから読むため、実際の言語に直す。
+        s = s.replace("lang='en-US' xml:lang='en-US'",
+                      f"lang='{LANG}' xml:lang='{LANG}'", 1)
         s = s.replace("</head>", head_extra + "</head>", 1)
         s = s.replace("<body>", "<body>" + sidebar + toggle
                       + '<div id="content">' + LANGBAR + BANNER, 1)

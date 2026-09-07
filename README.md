@@ -4,7 +4,7 @@
 
 🌐 **日本語** ・ [English](README.en.md)
 
-> **v0.28.8**（2026年9月6日）— **本稿は建設中です。**
+> **v0.28.9**（2026年9月7日）— **本稿は建設中です。**
 > 理論の構成、命題、実証の結論はいずれも変更されうるものです。
 > 引用される場合は版を明記してください。
 
@@ -14,9 +14,9 @@
 📖 **[HTML で読む](https://cetusk.github.io/BizModel-Formalism/book/book.html)** ・
 📄 **[PDF](https://cetusk.github.io/BizModel-Formalism/book.pdf)**（205ページ）
 
-English edition（翻訳中）:
+English edition（全訳）:
 [HTML](https://cetusk.github.io/BizModel-Formalism/book-en/book-en.html) ・
-[PDF](https://cetusk.github.io/BizModel-Formalism/book-en.pdf)
+[PDF](https://cetusk.github.io/BizModel-Formalism/book-en.pdf)（241 pages）
 
 ## 構成
 
@@ -53,9 +53,9 @@ lualatex book.tex && lualatex book.tex && lualatex book.tex   # 日本語 PDF
 lualatex book-en.tex && lualatex book-en.tex && lualatex book-en.tex  # 英語 PDF
 ./build-figures.sh                                            # 図を SVG 化
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book book.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book v0.28.8 ja              # 目次サイドバー
+python3 inject-sidebar.py ../docs/book v0.28.9 ja              # 目次サイドバー
 make4ht -l -f html5+dvisvgm_hashes -d ../docs/book-en book-en.tex "mathml,2"
-python3 inject-sidebar.py ../docs/book-en v0.28.8 en
+python3 inject-sidebar.py ../docs/book-en v0.28.9 en
 ```
 
 必要なもの: TeX Live（luatexja, unicode-math）、Noto CJK、Latin Modern、
@@ -108,7 +108,7 @@ python3 gstar4.py     # g* の算出
 | 第二桁 | 構成の変更、命題の追加・撤回、新たな実証 |
 | 第三桁 | 誤記の修正、体裁の調整、参照の整合 |
 
-現在は v0.28.8（付録Eの第28段階）。
+現在は v0.28.9（付録Eの第28段階）。
 
 ## ライセンス
 

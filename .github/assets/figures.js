@@ -3,6 +3,103 @@
 // 実際の描画はここで行う。JS無効環境では <noscript> 内の静的SVGにフォールバックする。
 (function () {
   'use strict';
+
+  // ---------- 言語（HTML版は日本語版・英語版で同じ figures.js を読む） ----------
+  // inject-sidebar.py が <html lang> を ja / en に書き換える。図中の文字列は
+  // 日本語を原文とし、英語版だけ EN 表から引く。PDF 側の figures-en/*.tex と同じ訳語を使う。
+  var FIGLANG = (document.documentElement.getAttribute('lang') || 'ja').slice(0, 2);
+  var EN = {
+      "10億円以上": "10bn+",
+      "1億~10億円": "1–10bn",
+      "5千万~1億円": "50m–100m",
+      "2千万~5千万": "20m–50m",
+      "1千万~2千万": "10m–20m",
+      "1千万円未満": "under 10m",
+      "DSO（売上債権）": "DSO (receivables)",
+      "DPO（仕入債務）": "DPO (payables)",
+      "日": "days",
+      " 日": " days",
+      "Gumroad直販": "Gumroad direct",
+      "App Store小": "App Store small business",
+      "App Store標準": "App Store standard",
+      "実効料率": "effective rate",
+      "年度": "fiscal year",
+      "平均 41.1": "mean 41.1",
+      "滞留日数": "days outstanding",
+      "磁気型": "magnetic",
+      "紙型": "paper",
+      "サーバ型": "server",
+      "IC型": "IC card",
+      "<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>": "<math><mi>Φ</mi><mtext>: business model</mtext></math>",
+      "調べたい構造": "the structure of interest",
+      "<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>": "<math><mi>ε</mi><mtext>: shock / luck</mtext></math>",
+      "外生的な変動": "exogenous variation",
+      "<math><mi>S</mi><mtext>：生存・開示</mtext></math>": "<math><mi>S</mi><mtext>: survival / disclosure</mtext></math>",
+      "<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>": "<math><mtext>conditioning on </mtext><mi>S</mi><mo>=</mo><mn>1</mn></math>",
+      "条件づけで生じる": "spurious correlation",
+      "見かけの相関": "induced by conditioning",
+      "時間": "time",
+      "退職": "leaving employment",
+      "競業避止の終了": "non-compete ends",
+      "利用可能な信用": "usable credit",
+      "変換原資": "stock available to convert",
+      "変換の自由度": "freedom to convert",
+      "原資は減衰を始めるが変換できない": "the stock decays but cannot be converted",
+      "資産": "assets",
+      "下限": "floor",
+      "給与所得者": "salaried",
+      "π が δ と独立": "π independent of δ",
+      "π が δ に連動": "π tied to δ",
+      "κ<0 決済が先行": "κ<0 settlement first",
+      "κ>0 決済が後行": "κ>0 settlement later",
+      "<math><mtext>権利 </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>": "<math><mtext>right </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>",
+      "<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>": "<mtext> and exercise </mtext><mi>δ</mi><mtext> may diverge</mtext></math>",
+      "δ に張り付くため乖離しない": "pinned to δ, no divergence",
+      "前受・定額型": "Advance, flat",
+      "サブスク、会費": "subscriptions, dues",
+      "保険料、ギフトカード": "premiums, gift cards",
+      "オプション・保証": "options, warranties",
+      "前受・精算型": "Advance, metered",
+      "プリペイド従量": "prepaid usage",
+      "予約＋当日精算": "booking plus settlement",
+      "受注生産の前金": "deposits on made-to-order",
+      "後払・定額型": "Arrears, flat",
+      "月額後払サブスク": "monthly subscriptions",
+      "基本料金、保守契約": "standing charges, maintenance",
+      "リース・レンタル": "leases, rentals",
+      "後払・連動型": "Arrears, linked",
+      "従量課金、成果報酬": "usage pricing, success fees",
+      "レベニューシェア": "revenue share",
+      "掛売・卸": "trade credit, wholesale",
+      "履行が人手に依存": "delivery needs a person",
+      "履行が複製可能": "delivery is replicable",
+      "κ<0 前受": "κ<0 advance",
+      "κ>0 後払": "κ>0 arrears",
+      "頭打ち": "capped",
+      "前受コンサル": "prepaid consulting",
+      "受注制作の前金": "deposits on commissioned work",
+      "容量が先に尽きる": "capacity binds first",
+      "実現可能領域": "feasible region",
+      "年払いSaaS": "annually billed SaaS",
+      "デジタル商品の売切り": "one-off digital goods",
+      "掲載課金・スポンサー": "listing fees, sponsorship",
+      "成立しない": "infeasible",
+      "成果報酬": "success fees",
+      "受託の後払い": "contract work in arrears",
+      "与信も容量も不足": "short of both credit and capacity",
+      "条件付き可": "feasible with conditions",
+      "月末後払いSaaS": "SaaS billed in arrears",
+      "広告・レベニューシェア": "advertising, revenue share",
+      "κ は小さいが正": "κ small but positive",
+      "累積額": "cumulative",
+      "<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>": "<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>: customer credits the firm</mtext></math>",
+      "<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>": "<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>: firm credits the customer</mtext></math>",
+      "<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>": "<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> advance</mtext></math>",
+      "<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>": "<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> arrears</mtext></math>"
+  };
+  function T(s) {
+    return (FIGLANG === 'en' && Object.prototype.hasOwnProperty.call(EN, s)) ? EN[s] : s;
+  }
   var SVGNS = 'http://www.w3.org/2000/svg';
   var XHTMLNS = 'http://www.w3.org/1999/xhtml';
 
@@ -399,9 +496,9 @@
 
   function figCccTrend(container) {
     var cats = [
-      { key: 't1', label: '10億円以上' }, { key: 't2', label: '1億~10億円' },
-      { key: 't3', label: '5千万~1億円' }, { key: 't4', label: '2千万~5千万' },
-      { key: 't5', label: '1千万~2千万' }, { key: 't6', label: '1千万円未満' }
+      { key: 't1', label: T('10億円以上') }, { key: 't2', label: T('1億~10億円') },
+      { key: 't3', label: T('5千万~1億円') }, { key: 't4', label: T('2千万~5千万') },
+      { key: 't5', label: T('1千万~2千万') }, { key: 't6', label: T('1千万円未満') }
     ];
     var data = {
       t1: { dso: 71, dpo: 44 }, t2: { dso: 61, dpo: 47 }, t3: { dso: 47, dpo: 37 },
@@ -410,24 +507,24 @@
     barChart(container, {
       categories: cats, data: data,
       series: [
-        { key: 'dso', label: 'DSO（売上債権）', colorClass: 'fig-c-accent' },
-        { key: 'dpo', label: 'DPO（仕入債務）', colorClass: 'fig-c-fg' }
+        { key: 'dso', label: T('DSO（売上債権）'), colorClass: 'fig-c-accent' },
+        { key: 'dpo', label: T('DPO（仕入債務）'), colorClass: 'fig-c-fg' }
       ],
       yMax: 80, yTicks: [0, 20, 40, 60, 80], yFmt: function (v) { return v; },
-      yAxisLabel: '日', fmt: function (v) { return v + ' 日'; }
+      yAxisLabel: T('日'), fmt: function (v) { return v + T(' 日'); }
     });
   }
 
   function figFeeLadder(container) {
     var cats = [
       { key: 'a', label: 'Stripe' }, { key: 'b', label: 'Polar' }, { key: 'c', label: 'Paddle' },
-      { key: 'd', label: 'Gumroad直販' }, { key: 'e', label: 'App Store小' },
-      { key: 'f', label: 'App Store標準' }, { key: 'g', label: 'Gumroad Discover' }
+      { key: 'd', label: T('Gumroad直販') }, { key: 'e', label: T('App Store小') },
+      { key: 'f', label: T('App Store標準') }, { key: 'g', label: 'Gumroad Discover' }
     ];
     var data = { a: { v: 3.6 }, b: { v: 5.0 }, c: { v: 6.0 }, d: { v: 14.5 }, e: { v: 15.0 }, f: { v: 30.0 }, g: { v: 34.5 } };
     barChart(container, {
       categories: cats, data: data,
-      series: [{ key: 'v', label: '実効料率', colorClass: 'fig-c-accent' }],
+      series: [{ key: 'v', label: T('実効料率'), colorClass: 'fig-c-accent' }],
       yMax: 40, yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
       yAxisLabel: '%', fmt: function (v) { return v + ' %'; },
       valueLabel: function (v) { return v.toFixed(1); }
@@ -440,10 +537,10 @@
   function figGstarTrend(container) {
     lineChart(container, {
       xValues: GSTAR_YEARS, xTickEvery: 4,
-      xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '%',
+      xFmt: function (y) { return y; }, xAxisLabel: T('年度'), yAxisLabel: '%',
       series: [{ key: 'g', label: 'm/CCC', colorClass: 'fig-c-accent', values: GSTAR_VALUES }],
       yDomain: [20, 60], yTicks: [20, 30, 40, 50, 60], yFmt: function (v) { return v; },
-      refLine: 41.1, refLineLabel: '平均 41.1',
+      refLine: 41.1, refLineLabel: T('平均 41.1'),
       fmt: function (v) { return v.toFixed(1) + ' %'; }
     });
   }
@@ -455,13 +552,13 @@
   function figLagCorr(container) {
     lineChart(container, {
       xValues: LAG_YEARS, xTickEvery: 4,
-      xFmt: function (y) { return y; }, xAxisLabel: '年度', yAxisLabel: '日',
+      xFmt: function (y) { return y; }, xAxisLabel: T('年度'), yAxisLabel: T('日'),
       series: [
         { key: 'ccc', label: 'CCC', colorClass: 'fig-c-accent', values: LAG_CCC },
         { key: 'net', label: 'DSO－DPO', colorClass: 'fig-c-fg fig-p-dashed', values: LAG_NET }
       ],
       yDomain: [0, 40], yTicks: [0, 10, 20, 30, 40], yFmt: function (v) { return v; },
-      fmt: function (v) { return v.toFixed(1) + ' 日'; }
+      fmt: function (v) { return v.toFixed(1) + T(' 日'); }
     });
   }
 
@@ -475,16 +572,16 @@
     lineChart(container, {
       xValues: years, xTickEvery: 1,
       xFmt: function (y) { return labels[years.indexOf(y)]; },
-      xAxisLabel: '年度', yAxisLabel: '滞留日数',
+      xAxisLabel: T('年度'), yAxisLabel: T('滞留日数'),
       log: true, leftMargin: 52,
       series: [
-        { key: 'mag', label: '磁気型', colorClass: 'fig-c-accent', values: magnetic },
-        { key: 'pap', label: '紙型', colorClass: 'fig-c-fg fig-p-dashed', values: paper },
-        { key: 'srv', label: 'サーバ型', colorClass: 'fig-c-accent fig-p-dashdot', values: server },
-        { key: 'ic', label: 'IC型', colorClass: 'fig-c-fg fig-p-dotted', values: ic }
+        { key: 'mag', label: T('磁気型'), colorClass: 'fig-c-accent', values: magnetic },
+        { key: 'pap', label: T('紙型'), colorClass: 'fig-c-fg fig-p-dashed', values: paper },
+        { key: 'srv', label: T('サーバ型'), colorClass: 'fig-c-accent fig-p-dashdot', values: server },
+        { key: 'ic', label: T('IC型'), colorClass: 'fig-c-fg fig-p-dotted', values: ic }
       ],
       yDomain: [10, 2000], yTicks: [10, 100, 1000], yFmt: function (v) { return v.toLocaleString(); },
-      fmt: function (v) { return v.toLocaleString() + ' 日'; }
+      fmt: function (v) { return v.toLocaleString() + T(' 日'); }
     });
   }
 
@@ -537,15 +634,15 @@
       svg.appendChild(r);
     });
     svg.appendChild(mathLabel(phiBox.x + phiBox.w / 2, phiBox.y + 20,
-      '<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>', 180, 20, 'fig-label'));
-    svg.appendChild(text(phiBox.x + phiBox.w / 2, phiBox.y + 42, '調べたい構造', 'fig-tick'));
+      T('<math><mi>Φ</mi><mtext>：ビジネスモデル</mtext></math>'), 180, 20, 'fig-label'));
+    svg.appendChild(text(phiBox.x + phiBox.w / 2, phiBox.y + 42, T('調べたい構造'), 'fig-tick'));
     svg.appendChild(mathLabel(epsBox.x + epsBox.w / 2, epsBox.y + 20,
-      '<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>', 180, 20, 'fig-label'));
-    svg.appendChild(text(epsBox.x + epsBox.w / 2, epsBox.y + 42, '外生的な変動', 'fig-tick'));
+      T('<math><mi>ε</mi><mtext>：衝撃・運</mtext></math>'), 180, 20, 'fig-label'));
+    svg.appendChild(text(epsBox.x + epsBox.w / 2, epsBox.y + 42, T('外生的な変動'), 'fig-tick'));
     svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 20,
-      '<math><mi>S</mi><mtext>：生存・開示</mtext></math>', 180, 20, 'fig-label'));
+      T('<math><mi>S</mi><mtext>：生存・開示</mtext></math>'), 180, 20, 'fig-label'));
     svg.appendChild(mathLabel(sBox.x + sBox.w / 2, sBox.y + 42,
-      '<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>', 180, 18, 'fig-tick'));
+      T('<math><mi>S</mi><mo>=</mo><mn>1</mn><mtext> で条件づけ</mtext></math>'), 180, 18, 'fig-tick'));
     svg.appendChild(arrow(phiBox.x + phiBox.w, phiBox.y + phiBox.h / 2, sBox.x, sBox.y + sBox.h / 2 - 10));
     svg.appendChild(arrow(epsBox.x + epsBox.w, epsBox.y + epsBox.h / 2, sBox.x, sBox.y + sBox.h / 2 + 10));
     // Φ⇔ε の湾曲した双方向矢印（見かけの相関）
@@ -559,8 +656,8 @@
     svg.appendChild(arrowheadAt(ex, ey, Math.atan2(ey - c2y, ex - c2x))); // ε側の矢じり
     // 曲線の最大ふくらみ（x≈262）と S の箱（x=380）の間に左揃えで置く
     var noteX = sBox.x - 108;
-    svg.appendChild(text(noteX, (py + ey) / 2, '条件づけで生じる', 'fig-muted', 'start'));
-    svg.appendChild(text(noteX, (py + ey) / 2 + 16, '見かけの相関', 'fig-muted', 'start'));
+    svg.appendChild(text(noteX, (py + ey) / 2, T('条件づけで生じる'), 'fig-muted', 'start'));
+    svg.appendChild(text(noteX, (py + ey) / 2 + 16, T('見かけの相関'), 'fig-muted', 'start'));
     container.appendChild(svg);
   }
 
@@ -573,7 +670,7 @@
     var x2 = x0 + (x1 - x0) * 0.56;   // 競業避止の終了
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
-    svg.appendChild(text(x1 - 4, y0 + 16, '時間', 'fig-muted', 'end'));
+    svg.appendChild(text(x1 - 4, y0 + 16, T('時間'), 'fig-muted', 'end'));
     // 退職〜競業避止の終了の網掛けと縦の目印
     // 縦の目印と網掛けはラベルの下で止める（原図も線の上端 4.3 に対しラベルは 4.35 にある）。
     // 上端まで引くと「退職」「競業避止の終了」の文字を線が貫いてしまう。
@@ -581,8 +678,8 @@
     svg.appendChild(el('rect', { x: xm, y: markTop + 4, width: x2 - xm, height: y0 - markTop - 4, fill: 'var(--line)', opacity: .35 }));
     svg.appendChild(el('line', { x1: xm, x2: xm, y1: markTop, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
     svg.appendChild(el('line', { x1: x2, x2: x2, y1: markTop, y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '4,3' }));
-    svg.appendChild(text(xm, y1 + 10, '退職', 'fig-tick'));
-    svg.appendChild(text(x2, y1 + 10, '競業避止の終了', 'fig-tick'));
+    svg.appendChild(text(xm, y1 + 10, T('退職'), 'fig-tick'));
+    svg.appendChild(text(x2, y1 + 10, T('競業避止の終了'), 'fig-tick'));
     // 利用可能な信用: 在職中は高い水準で一定→退職で急落しゼロ近くで一定（原図では両区間とも水平）
     svg.appendChild(el('path', {
       class: 'fig-line fig-c-accent',
@@ -600,16 +697,16 @@
     }));
     // 系列ラベルは原図同様、凡例ではなく各線の近くに直接置く
     (function () {
-      var l1 = text(x0 + 4, y0 - 130 - 12, '利用可能な信用', 'fig-c-accent', 'start');
+      var l1 = text(x0 + 4, y0 - 130 - 12, T('利用可能な信用'), 'fig-c-accent', 'start');
       l1.style.fontSize = '.72rem'; svg.appendChild(l1);
       // 「変換原資」は曲線の下側に置く（原図も anchor=north で曲線の下）。
       // 曲線の高さに近いところに置くと線が文字を横切る。
-      var l2 = text(x0 + (x1 - x0) * 0.30, y0 - 78, '変換原資', 'fig-c-fg', 'start');
+      var l2 = text(x0 + (x1 - x0) * 0.30, y0 - 78, T('変換原資'), 'fig-c-fg', 'start');
       l2.style.fontSize = '.72rem'; svg.appendChild(l2);
-      var l3 = text(x0 + (x1 - x0) * 0.635, y0 - 190 - 8, '変換の自由度', 'fig-c-accent', 'start');
+      var l3 = text(x0 + (x1 - x0) * 0.635, y0 - 190 - 8, T('変換の自由度'), 'fig-c-accent', 'start');
       l3.style.fontSize = '.72rem'; svg.appendChild(l3);
     })();
-    svg.appendChild(text((xm + x2) / 2, y0 + 16, '原資は減衰を始めるが変換できない', 'fig-tick'));
+    svg.appendChild(text((xm + x2) / 2, y0 + 16, T('原資は減衰を始めるが変換できない'), 'fig-tick'));
     container.appendChild(svg);
   }
 
@@ -619,19 +716,19 @@
     var x0 = m.left, x1 = W - m.right, y0 = H - m.bottom, y1 = m.top;
     svg.appendChild(el('line', { x1: x0, x2: x0, y1: y1, y2: y0, class: 'fig-baseline' }));
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: y0, y2: y0, class: 'fig-baseline' }));
-    svg.appendChild(text(x1 - 4, y0 + 16, '時間', 'fig-muted', 'end'));
-    svg.appendChild(text(m.left, y1 - 8, '資産', 'fig-muted', 'middle'));
+    svg.appendChild(text(x1 - 4, y0 + 16, T('時間'), 'fig-muted', 'end'));
+    svg.appendChild(text(m.left, y1 - 8, T('資産'), 'fig-muted', 'middle'));
     // 下限（原図: 軸最大4.6に対し1.5の高さ＝32.6%）
     var floorY = y0 - (y0 - y1) * 0.326;
     svg.appendChild(el('line', { x1: x0, x2: x1, y1: floorY, y2: floorY, stroke: 'var(--muted)', 'stroke-dasharray': '3,3' }));
-    svg.appendChild(text(x1 + 4, floorY + 4, '下限', 'fig-muted', 'start'));
+    svg.appendChild(text(x1 + 4, floorY + 4, T('下限'), 'fig-muted', 'start'));
     // 給与所得者: (0,2.3)→(8.6,4.0) と R1/R2 より低い位置から始まり右肩上がり（原図に忠実、凡例ではなく直接ラベル）
     var salStartY = y0 - (y0 - y1) * 0.5, salEndY = y0 - (y0 - y1) * 0.87;
     svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + salStartY + ' L' + x1 + ',' + salEndY }));
     // ラベルは右へ伸びる一方、線は右へ行くほど上がるので、線の傾きぶんも見込んで離す
     // （原図でも軸高の約12%ぶん上に置いている）。8pt では文字が線に乗ってしまう。
     var salLabelX = x0 + (x1 - x0) * 0.23;
-    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 26, '給与所得者', 'fig-c-accent', 'start');
+    var salLabel = text(salLabelX, salStartY + (salEndY - salStartY) * 0.23 - 26, T('給与所得者'), 'fig-c-accent', 'start');
     salLabel.style.fontSize = '.72rem';
     svg.appendChild(salLabel);
     // R1・R2 は共通の始点 (0,3.5) から分岐する（原図では給与所得者より高い位置から出発）
@@ -695,7 +792,9 @@
   // 任意で1セルの強調（accent色の薄い塗り、solo-quadrantの「実現可能領域」など）を持つ。
   function quadrantDiagram(container, opts) {
     // 左のラベル（「κ<0 前受」等）は文字数が多いため、上下より広いサイド余白を確保する。
-    var W = 760, H = 400, mTop = 46, mSide = 170, mBottom = 46;
+    // 英語版はセル内の文言が長いため、枠を広げて折り返さずに収める。
+    var W = FIGLANG === 'en' ? 880 : 760, H = 400, mTop = 46,
+        mSide = FIGLANG === 'en' ? 190 : 170, mBottom = 46;
     var cw = (W - 2 * mSide) / 2, ch = (H - mTop - mBottom) / 2;
     var svg = svgRoot(W, H);
     svg.appendChild(el('line', { x1: mSide, x2: W - mSide, y1: H / 2, y2: H / 2, class: 'fig-baseline' }));
@@ -743,33 +842,33 @@
 
   function figKappaSchedule(container) {
     quadrantDiagram(container, {
-      topCols: ['π が δ と独立', 'π が δ に連動'],
-      rowTop: 'κ<0 決済が先行', rowBottom: 'κ>0 決済が後行',
+      topCols: [T('π が δ と独立'), T('π が δ に連動')],
+      rowTop: T('κ<0 決済が先行'), rowBottom: T('κ>0 決済が後行'),
       bottomCols: [
         function (cx, cy) {
-          return mathLabel(cx, cy - 6, '<math><mtext>権利 </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>' +
-            '<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>', 220, 20, 'fig-muted');
+          return mathLabel(cx, cy - 6, T('<math><mtext>権利 </mtext><mover><mi>δ</mi><mo>&#175;</mo></mover>') +
+            T('<mtext> と行使 </mtext><mi>δ</mi><mtext> が乖離しうる</mtext></math>'), 220, 20, 'fig-muted');
         },
-        'δ に張り付くため乖離しない'
+        T('δ に張り付くため乖離しない')
       ],
       cells: [
-        { title: '前受・定額型', lines: ['サブスク、会費', '保険料、ギフトカード', 'オプション・保証'] },
-        { title: '前受・精算型', lines: ['プリペイド従量', '予約＋当日精算', '受注生産の前金'] },
-        { title: '後払・定額型', lines: ['月額後払サブスク', '基本料金、保守契約', 'リース・レンタル'] },
-        { title: '後払・連動型', lines: ['従量課金、成果報酬', 'レベニューシェア', '掛売・卸'] }
+        { title: T('前受・定額型'), lines: [T('サブスク、会費'), T('保険料、ギフトカード'), T('オプション・保証')] },
+        { title: T('前受・精算型'), lines: [T('プリペイド従量'), T('予約＋当日精算'), T('受注生産の前金')] },
+        { title: T('後払・定額型'), lines: [T('月額後払サブスク'), T('基本料金、保守契約'), T('リース・レンタル')] },
+        { title: T('後払・連動型'), lines: [T('従量課金、成果報酬'), T('レベニューシェア'), T('掛売・卸')] }
       ]
     });
   }
 
   function figSoloQuadrant(container) {
     quadrantDiagram(container, {
-      topCols: ['履行が人手に依存', '履行が複製可能'],
-      rowTop: 'κ<0 前受', rowBottom: 'κ>0 後払',
+      topCols: [T('履行が人手に依存'), T('履行が複製可能')],
+      rowTop: T('κ<0 前受'), rowBottom: T('κ>0 後払'),
       cells: [
-        { title: '頭打ち', lines: ['前受コンサル', '受注制作の前金', '容量が先に尽きる'] },
-        { title: '実現可能領域', strong: true, lines: ['年払いSaaS', 'デジタル商品の売切り', '掲載課金・スポンサー'] },
-        { title: '成立しない', lines: ['成果報酬', '受託の後払い', '与信も容量も不足'] },
-        { title: '条件付き可', lines: ['月末後払いSaaS', '広告・レベニューシェア', 'κ は小さいが正'] }
+        { title: T('頭打ち'), lines: [T('前受コンサル'), T('受注制作の前金'), T('容量が先に尽きる')] },
+        { title: T('実現可能領域'), strong: true, lines: [T('年払いSaaS'), T('デジタル商品の売切り'), T('掲載課金・スポンサー')] },
+        { title: T('成立しない'), lines: [T('成果報酬'), T('受託の後払い'), T('与信も容量も不足')] },
+        { title: T('条件付き可'), lines: [T('月末後払いSaaS'), T('広告・レベニューシェア'), T('κ は小さいが正')] }
       ]
     });
   }
@@ -797,7 +896,7 @@
       stroke: 'var(--muted)', 'stroke-width': 1.4, 'stroke-dasharray': '1.5,3', fill: 'none'
     }));
     svg.appendChild(el('path', { class: 'fig-line fig-c-accent', d: 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y1 }));
-    svg.appendChild(text(x0 - 6, y1 - 8, '累積額', 'fig-muted', 'end'));
+    svg.appendChild(text(x0 - 6, y1 - 8, T('累積額'), 'fig-muted', 'end'));
     svg.appendChild(mathLabel(x1 - 8, y0 + 16, '<math><mi>t</mi></math>', 20, 18, 'fig-label'));
     // D(t) は対角線の右下にずらす（原図の pos=0.45, below right）。線に触れないよう十分離す。
     svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.45 + 22, y0 + (y1 - y0) * 0.45 + 22,
@@ -805,13 +904,13 @@
     // κ の注記は原図の座標比（(2.5,3.2) と (4.6,0.8) / 7×4 の枠）に合わせる。
     // 中央付近に置くと対角線が文字を貫くため、上側は左寄り・下側は右寄りに離す。
     svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.357, y0 - (y0 - y1) * 0.8,
-      '<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>', 200, 20, 'fig-label'));
+      T('<math><mi>κ</mi><mo>&lt;</mo><mn>0</mn><mtext>：顧客が企業に与信</mtext></math>'), 200, 20, 'fig-label'));
     svg.appendChild(mathLabel(x0 + (x1 - x0) * 0.657, y0 - (y0 - y1) * 0.2,
-      '<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>', 200, 20, 'fig-label'));
+      T('<math><mi>κ</mi><mo>&gt;</mo><mn>0</mn><mtext>：企業が顧客に与信</mtext></math>'), 200, 20, 'fig-label'));
     // 右端の注記は原図と同じく境界線の「右外側」に置く（cx は中心なので幅の半分だけ余分にずらす）。
     // 上は上辺の高さ、下は下辺のやや上（原図の y=0.35 相当）に合わせる。
-    svg.appendChild(mathLabel(x1 + 8 + 42, y1, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>', 84, 18, 'fig-label'));
-    svg.appendChild(mathLabel(x1 + 8 + 42, y0 - (y0 - y1) * 0.0875, '<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>', 84, 18, 'fig-label'));
+    svg.appendChild(mathLabel(x1 + 8 + 42, y1, T('<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 前受</mtext></math>'), 84, 18, 'fig-label'));
+    svg.appendChild(mathLabel(x1 + 8 + 42, y0 - (y0 - y1) * 0.0875, T('<math><mi>P</mi><mo>(</mo><mi>t</mi><mo>)</mo><mtext> 後払</mtext></math>'), 84, 18, 'fig-label'));
     container.appendChild(svg);
   }
 

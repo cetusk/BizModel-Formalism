@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VERSION: v0.28.8
+  VERSION: v0.28.9
 
 jobs:
   build:
@@ -95,11 +95,13 @@ jobs:
       - name: Build figures
         working-directory: src
         run: |
-          mkdir -p ../docs/book
+          mkdir -p ../docs/book ../docs/book-en
           bash build-figures.sh
+          bash build-figures.sh en
           n=$(ls ../docs/book/figures/*.svg | wc -l)
-          echo "figures: $n"
-          if [ "$n" -lt 10 ]; then echo "::error::too few figures"; exit 1; fi
+          m=$(ls ../docs/book-en/figures/*.svg | wc -l)
+          echo "figures: $n ja, $m en"
+          if [ "$n" -lt 10 ] || [ "$m" -lt 10 ]; then echo "::error::too few figures"; exit 1; fi
           # 日本語が脱落していないことを確認する
           if ! grep -l "NotoSerifCJK" ../docs/book/figures/*.svg > /dev/null; then
             echo "::error::Japanese font not embedded in figures"
@@ -121,9 +123,10 @@ jobs:
       - name: Build English HTML
         working-directory: src
         run: |
+          mv ../docs/book-en/figures /tmp/figs-en
+          rm -rf ../docs/book-en
           make4ht -l -f html5+dvisvgm_hashes -d ../docs/book-en book-en.tex "mathml,2"
-          # 図は日本語版と同じ SVG を用いる（英語ラベルの版は PDF 側のみ）
-          cp -r ../docs/book/figures ../docs/book-en/figures
+          mv /tmp/figs-en ../docs/book-en/figures
           n=$(ls ../docs/book-en/*.html | wc -l)
           echo "generated $n English html files"
           if [ "$n" -lt 3 ]; then echo "::error::too few English HTML files"; exit 1; fi
