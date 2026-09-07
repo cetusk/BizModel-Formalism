@@ -1,0 +1,180 @@
+% English edition. Mirrors book.tex; only the language-dependent parts differ.
+% The Japanese edition is book.tex — keep the two preambles in step.
+\ifdefined\HCode
+  \documentclass[11pt]{book}
+  \usepackage{luatexja}   % a few data-source names remain in Japanese
+  \usepackage{amssymb}
+  \newenvironment{abstract}{\section*{Abstract}}{}
+  \AtBeginDocument{%
+    \let\origHat\hat   \renewcommand{\hat}[1]{\origHat{#1{}}}%
+    \let\origDot\dot   \renewcommand{\dot}[1]{\origDot{#1{}}}%
+    \let\origBar\bar   \renewcommand{\bar}[1]{\origBar{#1{}}}%
+    \let\origTilde\tilde \renewcommand{\tilde}[1]{\origTilde{#1{}}}%
+  }
+\else
+  \documentclass[a4paper,11pt,openany]{ltjsbook}
+  \usepackage{luatexja-fontspec}
+  \usepackage{unicode-math}
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}
+  \setmathfont{Latin Modern Math}
+  \setmainjfont{Noto Serif CJK JP}
+  \setsansjfont{Noto Sans CJK JP}
+  % ltjsbook composes headings as 第N章 / 第N部. Recompose them in English.
+  \renewcommand{\prepartname}{Part }
+  \renewcommand{\postpartname}{}
+  \renewcommand{\prechaptername}{Chapter }
+  \renewcommand{\postchaptername}{}
+  \renewcommand{\contentsname}{Contents}
+  \renewcommand{\bibname}{References}
+  \renewcommand{\indexname}{Index}
+  \renewcommand{\figurename}{Figure}
+  \renewcommand{\tablename}{Table}
+  \renewcommand{\appendixname}{Appendix}
+\fi
+
+\usepackage{amsmath,amsthm}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{caption}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\doilink}[1]{\newblock\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
+\newcommand{\weblink}[2]{\newblock\href{#1}{\nolinkurl{#2}}}
+
+\makeatletter
+\gdef\@currentbiburl{}
+\newcommand{\biblink}[1]{\gdef\@currentbiburl{#1}}
+\renewcommand{\@biblabel}[1]{%
+  \ifx\@currentbiburl\@empty[#1]\else[\href{\@currentbiburl}{#1}]\fi
+  \gdef\@currentbiburl{}}
+\makeatother
+
+% Figures live in figures-en/ so that the labels inside them are English.
+\ifdefined\HCode
+  \usepackage{graphicx}
+  \newcommand{\insertfig}[1]{%
+    \HCode{<div class="htmlfig" data-fig="#1"><noscript><img src="figures/#1.svg" alt="#1" class="tikzfig" /></noscript></div>}}
+\else
+  \newcommand{\insertfig}[1]{\input{figures-en/#1.tex}}
+\fi
+
+\ifdefined\HCode\else
+  \geometry{top=25mm,bottom=27mm,left=24mm,right=24mm}
+\fi
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{example}[definition]{Example}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Ind}{\mathbf{1}}
+\newcommand{\CCC}{\mathrm{CCC}}
+\newcommand{\Tins}{T_{\mathrm{ins}}}
+\newcommand{\Ccl}{\mathrm{Cap}_{\mathrm{cl}}}
+\newcommand{\FCF}{\mathrm{FCF}}
+\newcommand{\dbar}{\bar{\delta}}
+
+\setlist{itemsep=2pt,parsep=0pt,topsep=4pt}
+
+\ifdefined\HCode\else
+\makeatletter
+\@openrightfalse
+\let\clearrightpage\clearpage
+\let\cleardoublepage\clearpage
+\makeatother
+\fi
+
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\raggedbottom
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.08}
+
+\title{Business Models as Cash-Flow Structure\\[6pt]
+\large Formalization, a Catalogue of Types, and Survey Design}
+\author{}
+\date{v0.28.8\quad 7 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+\textbf{This text is under construction.} The structure of the theory, the propositions,
+and the empirical conclusions may all change. Claims that have been withdrawn, and the
+reasoning that led to each withdrawal, are recorded in Appendix~\ref{app:revisions}.
+Version numbers correspond to the stages listed there.
+
+\medskip
+This text formalizes a business model as a map $\Phi$ from a schedule of deliveries to a
+schedule of settlements, and derives from it the credit position $\kappa$, the
+self-financeable growth rate $g^\star$, and a three-way decomposition of surplus.
+Part~\ref{part:theory} builds the theory. Part~\ref{part:catalog} generates seven families
+and twenty-eight types from the degrees of freedom of $\Phi$, then deduces the subspaces
+that remain once constraints on capital and labour are imposed, the limit in which the
+operator is removed, and the subspace obtained by replacing the supplier of the information
+structure. Part~\ref{part:method} sets out the five stages that connect the theory to
+observation, together with the treatment of selection bias, the pre-registration procedure,
+and a taxonomy of verification obstacles. Part~\ref{part:results} reports the empirical work:
+families 2 and 5, the Financial Statements Statistics of Corporations by Industry, platform
+fees, and the records of a public distributed ledger; its opening chapter
+(Chapter~\ref{ch:instantiation}) tabulates which theoretical quantities could be measured and
+which could not. Twenty-two implications derived from the theory were fixed in writing before
+the observations were made; six were supported, eleven rejected, and five could not be tested,
+and the record here includes the parts that were wrong. Because the empirical work is not
+complete, the deductions about $\Phi$ under constraints (Chapters~\ref{ch:solo},
+\ref{part:unmanned} and \ref{ch:protocol}) are not presented as a separate part on
+applications but placed in Part~\ref{part:catalog}, which treats the space of $\Phi$.
+Proofs appear in the body and in Appendix~\ref{app:proofs}, notation in
+Appendix~\ref{app:notation}, and correspondences with existing theory in
+Appendix~\ref{app:priorwork}.
+\end{abstract}
+
+\tableofcontents
+
+\input{en/ch_theory.tex}
+
+%============================================================
+\part{The Space of Maps}\label{part:catalog}
+%============================================================
+\input{en/ch_catalog.tex}
+\input{en/supplement3.tex}
+\input{en/supplement4.tex}
+\input{en/supplement6.tex}
+
+%============================================================
+\part{Method}\label{part:method}
+%============================================================
+\input{en/ch_design.tex}
+\input{en/ch_method.tex}
+\input{en/ch_obstacles.tex}
+
+%============================================================
+\part{Empirics}\label{part:results}
+%============================================================
+\input{en/ch_instantiation.tex}
+\input{en/supplement.tex}
+\input{en/supplement5.tex}
+\input{en/supplement4b.tex}
+\input{en/ch_protocol_emp.tex}
+
+%============================================================
+\part{Conclusion}\label{part:conclusion}
+%============================================================
+\input{en/ch_conclusion.tex}
+
+\input{en/appendix.tex}
+
+\end{document}

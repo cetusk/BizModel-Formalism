@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=1]
+  \node[font=\small] at (2.0,5.2) {$\pi$ independent of $\delta$};
+  \node[font=\small] at (7.0,5.2) {$\pi$ tied to $\delta$};
+  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ settlement first};
+  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ settlement later};
+  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
+  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,2.6) rectangle (9.0,4.7);
+  \draw[fill=gray!14,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
+  \draw[fill=gray!5,draw=gray!60,rounded corners=3pt]  (5.0,0.2) rectangle (9.0,2.3);
+  \node[font=\small\bfseries] at (2.0,4.4) {Advance, flat};
+  \node[font=\scriptsize,align=center] at (2.0,3.5) {subscriptions, dues\\premiums, gift cards\\options, warranties};
+  \node[font=\small\bfseries] at (7.0,4.4) {Advance, metered};
+  \node[font=\scriptsize,align=center] at (7.0,3.5) {prepaid usage\\booking plus settlement\\deposits on made-to-order};
+  \node[font=\small\bfseries] at (2.0,2.0) {Arrears, flat};
+  \node[font=\scriptsize,align=center] at (2.0,1.1) {monthly subscriptions\\standing charges, maintenance\\leases, rentals};
+  \node[font=\small\bfseries] at (7.0,2.0) {Arrears, linked};
+  \node[font=\scriptsize,align=center] at (7.0,1.1) {usage pricing, success fees\\revenue share\\trade credit, wholesale};
+  \node[font=\scriptsize] at (2.0,-0.25) {right $\dbar$ and exercise $\delta$ may diverge};
+  \node[font=\scriptsize] at (7.0,-0.25) {pinned to $\delta$, no divergence};
+\end{tikzpicture}

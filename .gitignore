@@ -16,6 +16,9 @@
 
 # ビルド成果物（GitHub Actions が生成する）
 src/book.pdf
+src/book-en.pdf
+docs/book-en.pdf
+docs/book-en/
 src/build/
 docs/book/
 docs/book.pdf
@@ -25,6 +28,7 @@ docs/.nojekyll
 # make4ht を src/ から直接叩くと（-d 指定とは別に）カレントにも
 # 変換結果一式を残す。ローカル検証で src/ 直下に出た分の掃除用
 src/book.css
+src/book-en.css
 src/book*.html
 
 # データの生成物（data/scripts/parse.py などで再生成できる）

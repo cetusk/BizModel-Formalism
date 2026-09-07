@@ -1,0 +1,11 @@
+\begin{tikzpicture}[>=Stealth,node distance=1.2cm]
+  \node[draw,rounded corners,minimum width=3.4cm,minimum height=1.0cm,align=center,font=\small]
+    (phi) at (0,1.6) {$\Phi$: business model\\[-2pt]\scriptsize the structure of interest};
+  \node[draw,rounded corners,minimum width=3.4cm,minimum height=1.0cm,align=center,font=\small]
+    (eps) at (0,-1.6) {$\varepsilon$: shock / luck\\[-2pt]\scriptsize exogenous variation};
+  \node[draw,very thick,rounded corners,minimum width=3.8cm,minimum height=1.0cm,align=center,font=\small,fill=gray!15]
+    (s) at (6.2,0) {$S$: survival / disclosure\\[-2pt]\scriptsize conditioning on $S=1$};
+  \draw[->,thick] (phi) -- (s);
+  \draw[->,thick] (eps) -- (s);
+  \draw[<->,dashed] (phi) to[bend right=45] node[right,font=\scriptsize,align=left,xshift=2pt] {spurious correlation\\induced by conditioning} (eps);
+\end{tikzpicture}

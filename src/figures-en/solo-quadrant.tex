@@ -1,0 +1,18 @@
+\begin{tikzpicture}[scale=1]
+  \node[font=\small] at (2.0,5.2) {delivery needs a person};
+  \node[font=\small] at (7.0,5.2) {delivery is replicable};
+  \node[font=\small,anchor=east] at (-0.25,3.6) {$\kappa<0$ advance};
+  \node[font=\small,anchor=east] at (-0.25,1.2) {$\kappa>0$ arrears};
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,2.6) rectangle (4.0,4.7);
+  \draw[fill=gray!25,draw=gray!80,very thick,rounded corners=3pt] (5.0,2.6) rectangle (9.0,4.7);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (0,0.2) rectangle (4.0,2.3);
+  \draw[fill=gray!8,draw=gray!60,rounded corners=3pt] (5.0,0.2) rectangle (9.0,2.3);
+  \node[font=\small\bfseries] at (2.0,4.4) {capped};
+  \node[font=\scriptsize,align=center] at (2.0,3.5) {prepaid consulting\\deposits on commissioned work\\capacity binds first};
+  \node[font=\small\bfseries] at (7.0,4.4) {feasible region};
+  \node[font=\scriptsize,align=center] at (7.0,3.5) {annually billed SaaS\\one-off digital goods\\listing fees, sponsorship};
+  \node[font=\small\bfseries] at (2.0,2.0) {infeasible};
+  \node[font=\scriptsize,align=center] at (2.0,1.1) {success fees\\contract work in arrears\\short of both credit and capacity};
+  \node[font=\small\bfseries] at (7.0,2.0) {feasible with conditions};
+  \node[font=\scriptsize,align=center] at (7.0,1.1) {SaaS billed in arrears\\advertising, revenue share\\$\kappa$ small but positive};
+\end{tikzpicture}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}[scale=1,>=Stealth]
+  \fill[gray!18] (0,0) -- (7,0) -- (7,4) -- cycle;
+  \fill[gray!35] (0,0) -- (0,4) -- (7,4) -- cycle;
+  \draw[->] (0,0) -- (8.2,0) node[right] {$t$};
+  \draw[->] (0,0) -- (0,4.8) node[above] {cumulative};
+  \draw[very thick] (0,0) -- (7,4) node[pos=0.45,below right,font=\small] {$D(t)$};
+  \draw[thick,dashed] (0,0) -- (0,4) -- (7,4);
+  \draw[thick,dotted] (0,0) -- (7,0) -- (7,4);
+  \node[font=\small] at (2.5,3.2) {$\kappa<0$: customer credits the firm};
+  \node[font=\small] at (4.6,0.8) {$\kappa>0$: firm credits the customer};
+  \node[font=\small,anchor=west] at (7.15,4) {$P(t)$ advance};
+  \node[font=\small,anchor=west] at (7.15,0.35) {$P(t)$ arrears};
+\end{tikzpicture}
