@@ -1,1 +1,260 @@
-% TODO: translation of src/ch_protocol_emp.tex
+%============================================================
+\chapter{Evidence From Protocol Records: \texorpdfstring{$M(t)$}{M(t)} and the Rate of Modification}
+\label{ch:protocol-emp}
+%============================================================
+
+In the ``inside'' partition of Chapter~\ref{ch:protocol}, $M(t)$, $\kappa_j$, $\dbar-\delta$
+and $B$ are published per identifier (Section~\ref{sec:protocol-observability}). These are
+quantities that other chapters cannot measure for want of per-firm data. This chapter
+observes them.
+
+The population is every $\Phi$ operating at the reference date, and the sample was not chosen
+after the fact.
+
+\section{The implications tested}
+\label{sec:protocol-predictions}
+
+Following the procedure of Chapter~\ref{ch:next}, four implications were fixed before
+acquisition. They are numbered with $\Phi$ to distinguish them.
+
+\begin{quote}
+\textbf{Implication $\Phi$1}: the fewer other procedures a procedure calls, the longer until
+it is modified. This is the $\lambda_{\rm dep}$ side of
+Proposition~\ref{prop:unmanned-period}.
+
+\textbf{Alternative}: the frequency of modification is fixed by usage, not by the number of
+dependencies. Few dependencies but heavy use still leads to modification.
+\end{quote}
+
+\begin{quote}
+\textbf{Implication $\Phi$2}: for a $\Phi$ whose transactions cease, $M(t)$ declines
+monotonically before the cessation. This follows from $\tau=\inf\{t:M(t)<0\}$ of
+Section~\ref{sec:objective} being absorbing.
+
+\textbf{Alternative}: cessation occurs independently of $M(t)$, which does not change until
+immediately before.
+\end{quote}
+
+\begin{quote}
+\textbf{Implication $\Phi$3}: the distribution of $\CCC$ among $\Phi$ operating in the
+``inside'' partition is skewed non-negative, because by
+Corollary~\ref{cor:growth-needs-capital} realizing $\CCC<0$ requires $E>0$.
+
+\textbf{Alternative}: the distribution of $\CCC$ resembles that of the corporate sector in
+Chapter~\ref{part:industry}, with no skew specific to the ``inside'' partition.
+\end{quote}
+
+\begin{quote}
+\textbf{Implication $\Phi$4}: assigning operating $\Phi$ by the rule of
+Section~\ref{sec:type-assignment}, family 7 barely appears except for 7-4. This follows from
+Proposition~\ref{prop:beneficiary}.
+
+\textbf{Alternative}: family 7 types appear with about the same weight as other families.
+\end{quote}
+
+\subsection{What was fixed in advance}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Item & Content \\
+\midrule
+Population & every $\Phi$ operating in the protocol record at the reference date; not chosen after the fact \\
+Floor & those with fewer than a set number of transactions in the reference period are excluded; the threshold is fixed before acquisition \\
+Definition of cessation & no transaction over a set period. Because the protocol itself does not stop in the ``inside'' partition, cessation rather than stoppage is used \\
+Steady state & $\CCC$ presumes a steady state, so only periods with stable $r$ are used (Section~\ref{sec:age}) \\
+Unit of observation & the identifier. No aggregation to parties (Remark~\ref{rem:additivity}) \\
+Assignment of types & the order of Section~\ref{sec:type-assignment}, unchanged \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{What was fixed in advance for the four implications.}
+\label{tab:protocol-registration}
+\end{center}
+
+\begin{remark}[$\lambda_{\rm dep}$ and usage can be correlated]
+\label{rem:dep-usage-confound}
+The alternative to implication $\Phi$1 is hard to reject, because procedures with many
+dependencies tend to be feature-rich and also heavily used. The test must control for usage,
+and whether an effect of dependencies survives in the residual cannot be known in advance.
+\textbf{The control procedure is fixed before acquisition.}
+\end{remark}
+
+\section{Results}
+\label{sec:protocol-results}
+
+One implication was supported.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+Implication & Sample & Result & Verdict \\
+\midrule
+$\Phi$1 & 1.93m modifiable procedures & the number of dependencies does not explain time to modification & rejected \\
+$\Phi$2 & 427 with both fees and balances & declines over the 30 days before cessation ($p=3.2\times10^{-9}$) & supported \\
+$\Phi$3 & 52 operating $\Phi$ & the alternative is not identified & untestable \\
+$\Phi$4 & as above & family 7 appears once, but as 7-2; 7-4 does not appear & rejected \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Results for the four implications.}
+\label{tab:protocol-results}
+\end{center}
+
+\begin{remark}[Concentration of clones dominates the estimate]
+\label{rem:clone-concentration}
+The 1.93 million identifiers point to only 76{,}609 distinct implementations, and 1.55
+million of them --- 80\% of the population --- point to a single one. These are not
+independent $\Phi$ but copies of one $\Phi$.
+
+Over the whole sample the coefficient on the number of dependencies is positive and
+significant ($p=0.004$), but removing that one cluster reverses the sign and destroys
+significance ($p=0.45$).
+\textbf{Cluster-robust standard errors do not protect against this.} They correct the
+correlation within a cluster but not the bias in a point estimate when one cluster accounts
+for 95\% of the exposure.
+
+The loss of additivity in Remark~\ref{rem:additivity} concerned the divergence between
+parties and identifiers; the concentration of identifiers pointing to one implementation is a
+different form of divergence.
+\textbf{When assembling a sample from a ledger, the concentration of clones must be counted
+first.}
+\end{remark}
+
+\begin{remark}[The alternative is not identified]
+\label{rem:phi3-illposed}
+$\CCC<0$ means payment in advance, which by Corollary~\ref{cor:growth-needs-capital} requires
+$E>0$. But the $\CCC$ of the comparison group, the corporate sector, is non-negative in all
+58 industries of Chapter~\ref{part:industry} (minimum 4.9 days). A negative $\CCC$ appears in
+individual firms and cancels out on aggregation by industry.
+
+The implication and the alternative therefore say the same thing, and no observation
+distinguishes them. The ill-posedness has the same form as that of the measurability
+hypothesis in Section~\ref{sec:predB-illposed}. In addition, $\tau$ in the ``inside''
+partition is measured in seconds against days in the corporate sector --- five orders of
+magnitude apart.
+\end{remark}
+
+\begin{remark}[Being implementable and appearing are different]
+\label{rem:implementable-not-observed}
+Family 7 is 1 of 52, so the quantitative part --- that it is rare --- was right. But what
+appeared was 7-2 (cross-subsidy), and 7-4 appeared zero times.
+
+The implication derived ``only 7-4 remains'' from Proposition~\ref{prop:beneficiary}, but the
+proposition speaks of whether implementation is possible, not of how often something appears.
+\textbf{Deriving appearance from implementability was the error.}
+
+The single 7-2 selects its beneficiaries by signature, outside the protocol. That is
+consistent with Proposition~\ref{prop:beneficiary}, but since the wording of the implication
+missed, it is not treated as supporting evidence.
+\end{remark}
+
+\begin{remark}[A step is needed before the assignment order]
+\label{rem:is-it-phi}
+Table~\ref{tab:family-assignment-order} takes $\Phi$ as given. Applied to ledger identifiers,
+131 of a sample of 200 were not $\Phi$ at all: 74 were token ledgers (a medium of settlement
+with no pair of $\delta$ and $\pi$), 27 were infrastructure with no consideration, and
+\textbf{30 were identifiers imitating the name of a settlement medium}.
+
+The last satisfy Definition~\ref{def:protocol} but have no delivery. The unobservability of
+$\iota$ in Section~\ref{sec:identifier} appears here as misrepresentation of a name.
+\end{remark}
+
+\section{Quantities measurable from the same records}
+\label{sec:protocol-byproducts}
+
+Three quantities that other chapters could not measure can be measured from the records used
+for these tests.
+
+\subsection{The rate of response to unforeseen states}
+Proposition~\ref{prop:unmanned-period} put the unmanned operating period at
+$1/\lambda_{\rm novel}$. Two rates can be measured in the ``inside'' partition.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXll@{}}
+\toprule
+Quantity & Content & $\lambda$ (per year) & $1/\lambda$ \\
+\midrule
+Modification rate $\lambda_{\rm fix}$ & rate at which the implementation was replaced; 1.93m records, excluding the clone concentration & 0.048 & 20.6 years \\
+Cessation rate $\lambda_{\rm stop}$ & rate at which operation ceased; all 1{,}718 & 0.030 & 33.8 years \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Response rates measured in the ``inside'' partition.}
+\label{tab:lambda-measured}
+\end{center}
+
+\begin{remark}[What is measured is not $\lambda_{\rm novel}$]
+\label{rem:lambda-is-response}
+Both entries in Table~\ref{tab:lambda-measured} count \textbf{responses to arrivals}, not
+\textbf{arrivals of unforeseen states}. A modification is a case where the operator
+responded; a cessation is a case where they did not, or could not.
+
+Arrivals that required no response appear in neither. Hence
+\[
+\lambda_{\rm novel}\ \geq\ \lambda_{\rm fix}+\lambda_{\rm stop}
+\]
+and what was measured is a lower bound. The two are not additive because their populations
+differ, but an upper bound follows:
+\textbf{the $1/\lambda_{\rm novel}$ of Proposition~\ref{prop:unmanned-period} is shorter than
+20 years}.
+
+The distribution of time to modification is extremely skewed. The median of the 20{,}732 that
+were modified is 42 days; the median of the 1.9 million that ended the observation without
+modification is 4.6 years.
+\textbf{What gets touched is touched at once; what does not goes untouched for years.}
+A mean $1/\lambda$ conceals this bimodality.
+\end{remark}
+
+\subsection{Duration of the procedures}
+Chapter~\ref{ch:platformfee} abandoned direct measurement of the unmanned operating period
+for want of a population frame. As Section~\ref{sec:protocol-frame} notes, that reason
+disappears in the ``inside'' partition.
+
+Of all 1{,}718 that operated, 143 (8.3\%) ceased and 1{,}575 continue. Among those that
+ceased, the median duration was 1.62 years, the quartiles 0.64--2.82 years, and the maximum
+6.0 years. Those continuing have a median of 2.75 years. Because the ceased were counted from
+the full population rather than collected after the fact, no conditioning on survival
+(Section~\ref{sec:survivorship}) arises.
+
+Cessation rates are ordered by kind: services $1/\lambda=11.1$ years, high-leverage operation
+11.5, issuance support 15.3, indices 18.1, bridging 20.1, insurance 22.3, lending 22.6, and
+yield 22.7. \textbf{The direction --- kinds with lighter dependence on other procedures last
+longer} --- can be read off, but since implication $\Phi$1 was rejected, this ordering is not
+explained by the number of dependencies.
+
+\subsection{Locked state $B$}
+Table~\ref{tab:protocol-quantities} recorded that this text has no quantity corresponding to
+$B$. In the ``inside'' partition it is directly observable as assets placed on the protocol,
+and daily series for 1{,}718 records are available. This is what served as the proxy for
+$M(t)$ in implication $\Phi$2.
+
+\subsection{Rates}
+Once $B$ is measurable, a rate can be defined as annual fees divided by $B$. But
+\textbf{the denominator differs by family}. For family 3 (renting assets) $B$ is the right
+denominator, whereas for family 6 (intermediation) the denominator is transaction value and
+$B$ is merely inventory. Mixing them makes the ratio diverge.
+
+Restricting to family 3 types with $B$ of at least one million dollars, 144 records give the
+following.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}Xrrr@{}}
+\toprule
+Kind & $n$ & Median & Quartiles \\
+\midrule
+Arbitrage & 7 & 4.97\% & 2.00--9.31\% \\
+Real assets & 20 & 3.85\% & 2.35--5.84\% \\
+Collateralized debt & 15 & 3.53\% & 0.99--11.86\% \\
+Liquid staking & 19 & 3.12\% & 2.58--4.21\% \\
+Lending & 30 & 2.97\% & 1.77--4.68\% \\
+Risk management & 21 & 2.83\% & 2.02--4.47\% \\
+Yield & 15 & 2.72\% & 0.76--8.01\% \\
+Yield aggregation & 14 & 1.69\% & 0.90--4.19\% \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Rates for family 3 types (annual fees $\div$ locked state).}
+\label{tab:protocol-fee-ladder}
+\end{center}
+
+The overall median is 3.07\% with quartiles of 1.77--5.84\%. The ordering has the same form
+as the ladder of rates in Chapter~\ref{ch:platformfee}, but
+\textbf{the two cannot be compared}: the rates there are on transaction value, the rates here
+on balances. The dimensions differ.
