@@ -1,1 +1,253 @@
-% TODO: translation of src/ch_method.tex
+\chapter{Selection Bias: Decomposing the Distortions That Enter Observation}
+\label{ch:method}
+%============================================================
+
+\section{The problem}
+
+Applying the framework of Part~\ref{part:theory} to real firms introduces systematic
+distortion at the very start of any comparison. The distortion is not a single ``bias'' but
+a mixture of at least eight problems of different kinds. They are decomposed below, and
+those that can be handled are separated from those that cannot be, in principle.
+
+\section{Conditioning on survival: a circularity in the framework}
+\label{sec:survivorship}
+
+An observable firm is the realization of a path that did not violate the
+constraint~\eqref{eq:constraint}. Writing the insolvency time as
+$\tau=\inf\{t:M(t)<0\}$, what is observed is
+\begin{equation}
+\Prob(X \mid \tau > t)
+\end{equation}
+and not $\Prob(X)$. And what fixes $\tau$ is precisely $\Phi$, the object of estimation.
+The structure is shown in Figure~\ref{fig:dag}.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{collider}
+\caption{Survival $S$ is a common consequence of $\Phi$ and $\varepsilon$ --- a collider. Conditioning on $S$ induces a spurious correlation between them.}
+\label{fig:dag}
+\end{figure}
+
+$S$ is a common consequence of $\Phi$ and the exogenous shock $\varepsilon$, that is, a
+collider. Conditioning on a collider induces correlation between two causes that are
+independent (Berkson's paradox).
+
+\subsection{The direction of the distortion reverses with what is conditioned on}
+
+The distinction matters in practice.
+
+\paragraph{Conditioning on survival.}
+Among surviving firms, those that persisted despite an unfavourable $\Phi$ are those whose
+$\varepsilon$ was favourable. In a surviving sample the disadvantage of $\Phi$ therefore
+appears offset by an advantage in $\varepsilon$, and \textbf{the effect of structure is
+understated}. The disadvantage of $\CCC>0$ looks smaller than it is when only survivors are
+examined.
+
+\paragraph{Conditioning on success (fame).}
+Here the situation differs. Collecting only successful firms removes from the sample every
+firm that failed with the same $\Phi$, so there is no control group. The problem is not
+understatement but that \textbf{estimation is impossible at all}: the sample contains no
+information that separates $\Phi$ from $\varepsilon$.
+
+Treating both as one and the same ``survivorship bias'' hides this difference.
+
+\section{Selection into disclosure: correlated with the axis of interest}
+\label{sec:disclosure}
+
+Listing and disclosure are not random selections. By~\eqref{eq:gstar}, a firm with $\CCC<0$
+has no $g^\star$ and can finance growth internally, so in principle it has little need to go
+to outside capital markets. Conversely a firm with a large positive $\CCC$ needs outside
+capital and is pushed towards listing.
+
+That is, \textbf{the probability of selection is itself a function of the object of
+estimation}. The selection probability $\Prob(S_{\mathrm{disc}}=1 \mid \CCC)$ tends to be
+increasing in $\CCC$. The distribution of $\CCC$ observed in a database of listed companies
+is therefore displaced from the population distribution systematically and in a predictable
+direction.
+
+\section{Age: a problem of domain, not of bias}
+\label{sec:age}
+
+That a firm on its first day cannot be compared with one several years old is a problem of a
+different kind. Equation~\eqref{eq:ccc} was derived assuming a steady state and is undefined
+at $r\approx 0$, where it divides by zero.
+
+This is therefore not a bias but \textbf{a question of the framework's range of application}.
+The remedy differs accordingly: a bias is corrected, whereas a question of domain can only be
+declared. Concretely, one of the following is taken.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Restrict the objects to a region where $r$ is stable, and state the threshold.
+\item Model the transient explicitly with a separate system of variables.
+\item Lower the unit of analysis from the firm to $\Phi$ and judge maturity per $\Phi$ (Section~\ref{sec:unit}).
+\end{enumerate}
+
+Introducing a correction factor and forcing the steady-state formula onto the data is the
+remedy most to be avoided.
+
+\section{Age, period and cohort are not identified}
+\label{sec:apc}
+
+Three clocks act on an observed firm at once. Writing $c$ for the founding cohort, $p$ for
+the year of observation and $a$ for age (this section follows the notation of the
+Age--Period--Cohort literature; $a,p,c$ have these meanings in this section only and are
+unrelated to their use elsewhere),
+\begin{equation}
+a = p - c
+\label{eq:apc-main}
+\end{equation}
+holds identically. By~\eqref{eq:apc-main} the three variables are linearly dependent, and
+\textbf{identifying the three effects simultaneously is impossible without adding an
+exogenous restriction}. This has been discussed at length in demography and epidemiology as
+the Age--Period--Cohort problem, and no general solution exists.
+
+Hence the question ``is a given industry's favourable $\CCC$ in a given period due to
+$\Phi$, to youth, or to the financial environment of the time?'' cannot be answered from data
+alone. All one can do is state an identifying assumption --- setting one of the effects to
+zero, say --- and show how much the conclusion depends on it.
+
+\section{Retrospective narrative}
+\label{sec:narrative}
+
+The description of a successful firm's $\Phi$ is itself contaminated. The structure is
+retold so as to explain the success, so bias enters the \emph{measurement} of the
+explanatory variable $\Phi$. No correction on the dependent-variable side removes it.
+
+As Part~\ref{part:theory} stated, most $\Phi$ are not products of design but arise as
+properties of a line of business, their financial function recognized after the fact.
+Distinguishing primary sources --- contemporaneous disclosures, contracts, reporting ---
+from retrospective accounts is the minimum remedy.
+
+\section{Mistaking the unit: what a row denotes versus what its values denote}
+\label{sec:misidentification}
+
+The preceding sections concerned distortions in the \emph{selection} of the sample. Failures
+of a different kind occur at the stage of acquisition.
+
+\textbf{What a row denotes and what the values in that row denote need not coincide.}
+When a published list has rows at a lower unit while the figures are reported at a higher
+unit, the value is replicated across every row belonging to the same higher unit. Treating
+the list as observations lets an object with many lower units count as many times over.
+
+\textbf{Missing values can be detected in the output; this mistake cannot.} The values are
+complete, so it passes any post-collection check. Section~\ref{sec:predY-result} records a
+case in which it reversed the conclusion.
+
+There is only one remedy: \textbf{confirm the unit at which the values are reported and
+consolidate at that unit}. Consolidation is not preprocessing; it is a step that decides the
+conclusion.
+
+\section{Selection of variables: the gaps are not random}
+\label{sec:variable-selection}
+
+The foregoing concerned distortions in the sample and in identification. The same kind of
+problem arises for \emph{which variables are observable}.
+
+There can be a correlation whereby the areas of greatest theoretical interest are the hardest
+to measure. A field in which institutions have intervened heavily is evidence that the
+authorities judged there to be a problem there, and theoretical interest is drawn to the same
+place. Yet in a field whose transaction forms are unstable enough to require intervention,
+that very instability can make the required quantity impossible to compute from published
+aggregates (Remark~\ref{rem:data-gap-relevance}).
+
+\textbf{Treating gaps in the data as random systematically removes from the sample the area
+one most wants to know about.} The other sections of this chapter treat selection of the
+sample; this is selection of variables, and no correction on the sample side addresses it.
+All one can do is describe where the gaps are concentrated.
+
+\section{The observation frame in practice}
+\label{sec:frame}
+
+Some orders of magnitude for Japan.
+
+\begin{center}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Population & Size & Source and notes \\
+\midrule
+Firms (SME Agency basis) & about 3.6 million & recompiled from the Economic Census; excludes primary industries \\
+Firms (National Tax Agency basis) & about 6.4 million & includes about 3.79 million sole proprietors \\
+Listed companies & 3{,}975 & as of 27 August 2026 \\
+Firms mentioned routinely & a few hundred & of order $10^{-4}$ of the whole \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The size of the corporate population in Japan. The order of magnitude changes with each stage of definition.}
+\label{tab:population-frame}
+\end{center}
+
+Listed companies are about 0.1\% of the whole, well-known firms less than 0.01\%. When one
+says ``a variety of firms'', which population is meant decides everything.
+
+But \textbf{exhaustiveness does not guarantee size}. Even with a complete frame, if the
+population itself is small there is no power. Section~\ref{sec:nintei-small} treats a
+population that can be obtained exhaustively yet numbers only 60 to 70 entities.
+\textbf{Exhaustiveness and size are independent requirements, and both must be checked
+before a survey's prospects can be assessed.}
+
+\section{How to proceed}
+
+What can be handled is listed separately from what cannot.
+
+\subsection{Declare the frame in advance and track forward}
+
+Rather than ``collect well-known firms'', define ``all operators in a given industry
+existing at a reference date $t_0$'' and track forward from there. Survival then becomes an
+observed dependent variable rather than a hidden filter, and the collider conditioning of
+Section~\ref{sec:survivorship} is avoided.
+
+Available frames in Japan include the Economic Census and the databases of Teikoku Databank
+and Tokyo Shoko Research. In Europe, Orbis covers unlisted firms broadly. Disclosure
+obligations in the United States are looser, so its unlisted data are relatively weak; in
+this respect Japan and Europe are better placed.
+
+\subsection{Collect the failure side explicitly}
+
+Insolvencies are observable through the official gazette and the tabulations of credit
+research firms. If a denominator can be constructed, survivorship bias becomes an estimable
+selection model.
+
+\subsection{Lower the unit of analysis from the firm to \texorpdfstring{$\Phi$}{Phi}}
+\label{sec:unit}
+
+This is the most effective remedy. By the definitions of Chapter~\ref{sec:phi}, $\Phi$ is an
+object at the level of a contract and a firm is a bundle of them. A large firm normally runs
+several $\Phi$ in parallel whose $\kappa$ differ even in sign. Computing $\CCC$ at the level
+of the firm is looking at an average that mixes them.
+
+Lowering the unit of analysis to $\Phi$
+\begin{itemize}
+\item partially resolves the age problem (a new $\Phi$ inside a mature firm can be handled)
+\item increases the number of observations
+\item reduces the influence of the institutional artefact called ``the firm''
+\end{itemize}
+
+\subsection{Group by the shape of the constraint, not by industry classification}
+
+Industry classifications fix a particular era's view of industry and differ by country.
+Grouping instead by the structural features the framework of Part~\ref{part:theory} names ---
+\begin{itemize}
+\item presence of a capacity constraint (Section~\ref{sec:breakage})
+\item transaction frequency $\nu$ (\eqref{eq:decay})
+\item observability of effort (Chapter~\ref{sec:info})
+\item capital intensity (the weight of $A$ in~\eqref{eq:cash})
+\end{itemize}
+makes comparison meaningful across industries and eras. This is the return on having
+constructed the theory.
+
+\subsection{Where a distortion cannot be removed, state its sign}
+
+The non-identification of Section~\ref{sec:apc} and the retrospective narrative of
+Section~\ref{sec:narrative} cannot be removed. Their direction can still be stated. Saying
+``this estimate understates the effect of structure'' or ``this description of $\Phi$ likely
+contains after-the-fact rationalization'' makes the robustness of a conclusion assessable.
+
+\subsection{A rule for using well-known firms}
+
+Hence the following rule.
+\begin{quote}
+\textbf{Well-known firms are used for illustration, not for inference.}
+\end{quote}
+Citing an individual firm to explain a structure is permitted. Concluding that a structure is
+superior from the existence of a successful example is not.
+
+%============================================================

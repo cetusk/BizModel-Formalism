@@ -1,1 +1,328 @@
-% TODO: translation of src/ch_design.tex
+%============================================================
+\chapter{Design of the Empirical Work: Connecting to Observation}
+\label{ch:design}
+%============================================================
+
+\section{What is to be tested}
+
+Part~\ref{part:theory} defined quantities and propositions, and Part~\ref{part:catalog}
+deduced the subspaces that remain under constraints. Neither used observation. From this
+part onwards they are connected to observation.
+
+What is connected divides in two.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Object & Content & Question \\
+\midrule
+Quantities of Part~\ref{part:theory} & $\kappa$, $\CCC$, $g^\star$, $\phi$, $M(t)$, $\mathcal{G}$, and others & what values do they take \\
+Deductions of Part~\ref{part:catalog} & the sieve of types, substitution, unmanned operation, collateral constraints & do they hold under the premises \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The two objects the empirical work connects to.}
+\label{tab:empirical-targets}
+\end{center}
+
+The first is measurement, the second verification. Because they need different preparation,
+they are treated in stages below.
+
+\section{Five stages to pass}
+\label{sec:five-stages}
+
+Connecting one quantity, or one proposition, to observation passes through five stages.
+The organization is this text's own.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\toprule
+ & Stage & Question & What is needed if it fails \\
+\midrule
+1 & Operationalization & does the quantity have a unit and an object of observation & sharpening the definition \\
+2 & Population & what set is to be enumerated & reselecting the object \\
+3 & Measurement & can values be obtained at the granularity required & opening a route of acquisition \\
+\midrule
+4 & Reconciliation & does it agree with existing aggregates & --- \\
+5 & Verification & are the implications fixed in advance supported & --- \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Five stages from theory to observation.}
+\label{tab:five-stages}
+\end{center}
+
+\textbf{The first three are prerequisites in series}: failing any one blocks the stages that
+follow. \textbf{The last two are ways of using the values obtained, not a continuation of the
+sequence.} They are separated by whether pre-registration has taken place.
+
+The benefit of separating the stages is that the work required differs by where the process
+stalls. A gap at stage 1 is not filled by collecting any amount of data, and a gap at stage 3
+is not filled by refining any number of definitions.
+\textbf{Without first judging where the process is stuck, effort is misallocated.}
+
+\section{What to check at each stage}
+
+\subsection{Stage 1: operationalization}
+
+Three checks.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Does the quantity have a \textbf{unit}?
+\item Is the \textbf{object of observation} fixed --- the firm, a $\Phi$, or an identifier?
+\item For a proposition, is the \textbf{sign uniquely fixed}?
+\end{enumerate}
+
+Some quantities of Part~\ref{part:theory} are operationalized by their definitions and some
+are not. For the former, Chapter~\ref{ch:next} lists the variables to be recorded for each
+$\Phi$.
+
+For the latter --- quantities that are defined but whose unit or object of observation is
+not fixed --- that has to be settled before proceeding to measurement.
+\textbf{A defect at this stage cannot be detected by adding data.} Values do come out, so a
+result appears without it being clear what was measured.
+
+Item (3) is specific to propositions. If the theory does not fix the sign, either result is
+consistent with it and no test is possible.
+
+\subsection{Stage 2: population}
+
+Three checks.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Have the reference date, the scope and the lower bound been fixed?
+\item What falls outside the sample, and is it correlated with the axis of interest?
+\item Do objects that have stopped or exited remain in the sample?
+\end{enumerate}
+
+Items (2) and (3) are the central theme of this part and are treated in
+Chapter~\ref{ch:method}. In this framework (3) weighs particularly heavily: the insolvency
+time of Section~\ref{sec:objective} depends on $\Phi$, so an attempt to estimate $\Phi$
+makes the composition of the sample itself a function of the object of estimation.
+
+\subsection{Stage 3: measurement}
+
+Three checks.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Is the quantity measured anywhere?
+\item If it is, can it be obtained at the granularity required?
+\item If it cannot, which category of obstacle applies?
+\end{enumerate}
+
+The judgment at (3) governs the design of the survey, because the category determines
+whether spending effort produces progress or nothing at all. Since the categories were
+constructed through the survey work itself, they are placed in
+Chapter~\ref{part:obstacles}.
+
+\begin{remark}[Why this chapter does not supply the taxonomy itself]
+\label{rem:taxonomy-placement}
+The judgment at stage 3 needs the taxonomy of obstacles, but that taxonomy was constructed
+through the empirical work. Placing it here would put findings not yet obtained ahead of
+their basis.
+
+\textbf{What this chapter supplies is the stages to check, not a classification of why a
+stage was not passed.} The former is a design procedure, the latter a result of the survey.
+The two can be stated independently: the stages say where the process stalled, the taxonomy
+says why.
+\end{remark}
+
+\subsection{Stages 4 and 5: how the values obtained are used}
+
+Passing stage 3 yields values. Their use divides in two, treated in the next section.
+
+\section{Reconciliation versus verification}
+\label{sec:comparison-vs-test}
+
+Comparing a deduction with existing aggregates after the fact is called \emph{reconciliation}.
+Judging an implication fixed in advance against data is called \emph{verification}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+ & Reconciliation & Verification \\
+\midrule
+When the implication is fixed & after & before \\
+Declaring the population & not required & required \\
+If they disagree & can be explained by another factor & the implication is rejected \\
+Falsifiable & \textbf{no} & yes \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Reconciliation versus verification.}
+\label{tab:comparison-vs-test}
+\end{center}
+
+\textbf{Reconciliation cannot be falsified.} If the figures disagree one can say another
+factor was at work, and nothing in the sample rules that explanation out. Reconciliation
+therefore neither supports nor refutes the theory.
+
+It still has a use. It confirms that a deduction is not wildly at odds with reality, and it
+helps in choosing what to verify next.
+\textbf{It has value as a check and none as evidence.}
+
+The danger lies elsewhere.
+
+\begin{remark}[Reconciliation can skip stages]
+\label{rem:comparison-skips-stages}
+Because reconciliation uses existing aggregates, \textbf{it works without declaring one's own
+population}: stage 4 can be reached without passing stages 2 and 3.
+
+This is the route by which reconciliation and verification are confused. An implication
+supported after passing stages 1 to 3, and a direction that happens to agree with existing
+aggregates after skipping stages 2 and 3, differ by an order of magnitude in the strength of
+the evidence obtained. Outwardly both can be written up as ``consistent with the theory''.
+\end{remark}
+
+The comparison in Chapter~\ref{ch:solo} between the revival of family 3 and the fields of
+business started by age is of this form. That section states explicitly that it is an
+after-the-fact reconciliation and shows no causation.
+
+Hence the following discipline.
+
+\begin{quote}
+\textbf{When a reconciliation is performed, say that it is one. Do not use it in place of an
+implication fixed in advance.}
+\end{quote}
+
+This has the same form as the rule in Chapter~\ref{ch:method} that well-known firms are used
+for illustration and not for inference. Both require that
+\textbf{material not be used beyond the strength of the evidence it carries}.
+
+\section{Where each stage is handled in this text}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.30\textwidth}X@{}}
+\toprule
+Stage & Where handled & Content \\
+\midrule
+1 Operationalization & Part~\ref{part:theory}, Chapter~\ref{ch:next} & the definitions, and the variables to record for each $\Phi$ \\
+2 Population & Chapter~\ref{ch:method} & decomposition of selection bias and how to handle it \\
+3 Measurement & Chapters~\ref{ch:instantiation} and~\ref{part:obstacles} & what could and could not be measured; the taxonomy of obstacles \\
+4 Reconciliation & this chapter & the discipline of Section~\ref{sec:comparison-vs-test} \\
+5 Verification & Chapter~\ref{ch:next}, Part~\ref{part:results} & the pre-registration procedure and the judgments on 22 implications \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The five stages and where this text handles them.}
+\label{tab:stage-mapping}
+\end{center}
+
+Chapter~\ref{ch:instantiation} opens Part~\ref{part:results} in order to tabulate the results
+of stage 3. Making explicit which quantities could not be measured is that chapter's main
+purpose, and that is a record of where between stages 1 and 3 the process stalled.
+
+\begin{remark}[The stage reached differs by quantity]
+\label{rem:stage-per-quantity}
+The stage reached is not a single figure for the theory as a whole; it differs by quantity
+and by proposition. Within one chapter, quantities that reached stage 5 sit alongside
+quantities stalled at stage 1.
+
+There is therefore no single answer to the question of how far the empirical work has come.
+The stage reached can only be stated quantity by quantity.
+\end{remark}
+
+%============================================================
+
+%---- Survey plan ----
+\label{ch:next}
+
+%============================================================
+
+\section{Priorities for the survey}
+
+The objects are narrowed to families 2 and 5. The selection can be derived deductively.
+
+\paragraph{$\phi_{\mathrm{prod}}$ does not depend on $\Phi$.}
+
+Of the three terms of~\eqref{eq:surplus}, $\phi_{\mathrm{prod}}=(p^{\ast}-c(\delta))\delta$
+is fixed by marginal cost and the competitive price and contains nothing about the shape of
+the map from delivery to settlement. Replacing $\Phi$ alone, holding $C_{\mathrm{prod}}$ and
+marginal cost fixed, changes the sign of $\kappa$ and the working capital required, not the
+production surplus (Table~\ref{tab:same-f-different-phi}).
+
+\textbf{The shape of $\Phi$ bears on surplus through the other two terms.} To test the
+framework, it suffices to choose $\Phi$ that isolate each of those two terms.
+
+\paragraph{The two terms arise from different degrees of freedom.}
+
+$\phi_{\mathrm{cog}}=p\cdot\E[\dbar-\delta]$ can be positive only when the contract states a
+ceiling $\dbar$, that is, when $\pi$ does not refer to $\delta$
+(Remark~\ref{prop:breakage}). That is degree of freedom (5). Relating the divergence to the
+transaction frequency $\nu$ additionally requires the repetition of degree of freedom (6):
+in a one-off, $\dbar-\delta$ is a single realization with no distribution, so no relation to
+$\nu$ can be asked. \textbf{The family in which both (5) and (6) are present is family 2},
+which Part~\ref{part:catalog} designates the principal home of cognitive surplus.
+
+$\phi_{\mathrm{barg}}=(p-p^{\ast})\delta$ is a zero-sum transfer whose allocation is fixed by
+whether the $y$ in $\pi=h(y)$ is verifiable. That is degree of freedom (4). In the order of
+Table~\ref{tab:family-assignment-order},
+\textbf{the only family decided by degree of freedom (4) is family 5}.
+
+\paragraph{The two families sit diagonally in the quadrant diagram.}
+
+Degrees of freedom (1) and (2) dominate, and those two axes give the four-way split of
+Figure~\ref{fig:quadrant}. Family 2 is advance and flat ($\pi$ independent of $\delta$,
+divergence possible), family 5 is arrears and linked ($\pi$ tied to $\delta$, no divergence):
+\textbf{both axes take opposite values}. Choosing only one family would allow only one of
+the two axes to be varied.
+
+\paragraph{What can be tested.}
+
+Family 2 permits direct tests of cognitive surplus (\eqref{eq:cog}) and of the capacity
+proposition. In particular, that one and the same flat membership divides in two according to
+whether a capacity constraint is present is the clearest instance of outwardly similar $\Phi$
+having different durability.
+
+Family 5 permits a direct test of the measurability condition (Chapter~\ref{sec:info}). The
+claim that success fees and cost plus transfer risk in opposite directions is testable as a
+correspondence between contract form and observability.
+
+\paragraph{Why they are studied together.}
+
+The two families rest on different institutional foundations, so data become available in
+different ways. Family 2 has an exhaustive frame through registration under the Payment
+Services Act; family 5 has per-firm filings published under the disclosure obligation of the
+Employment Security Act.
+\textbf{The former supplies a comprehensive frame, the latter individual variables.}
+
+Looking at one family alone, when verification fails to progress
+\textbf{one cannot tell whether to attribute it to a defect in the frame or a defect in the
+variables}. Setting side by side two families with different foundations makes it possible to
+separate which side is stuck. That is a further reason for taking both.
+
+\section{Variables to record}
+
+For each $\Phi$, at minimum the following are recorded.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Variable & Content \\
+\midrule
+$\operatorname{sgn}\kappa$ & whether settlement precedes or follows delivery \\
+$\CCC$ & only where a steady state holds; otherwise record that it does not \\
+Form of dependence & $(F,p)$ of~\eqref{eq:two-part}, or $h(y)$ \\
+Separation of $\dbar$ and $\delta$ & whether they separate, and an estimate of the divergence \\
+Capacity constraint & whether present, and whether binding \\
+$\nu$ & transaction frequency (\eqref{eq:decay}) \\
+Measurability & whether effort or outcome is verifiable \\
+Paying party & the beneficiary or a third party \\
+Estimated split of $\phi$ & a qualitative allocation across $\phi_{\mathrm{prod}}$ / $\phi_{\mathrm{barg}}$ / $\phi_{\mathrm{cog}}$ \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Minimum variables to record for each $\Phi$.}
+\label{tab:variables-to-record}
+\end{center}
+
+\section{What must be pre-registered}
+
+Following the conclusions of Part~\ref{part:method}, the following are fixed and recorded
+before the survey begins.
+
+\begin{enumerate}[label=(\arabic*)]
+\item The definition of the population (reference date, geographic scope, industry scope, size floor)
+\item The threshold for treating a state as steady (the criterion for stability of $r$)
+\item How failure cases are collected, and the range in which they cannot be
+\item Which of the APC effects is assumed zero, and on what grounds
+\item The criterion distinguishing primary sources from retrospective accounts
+\end{enumerate}
+
+Deciding these after the fact lets the choices of Sections~\ref{sec:survivorship}
+and~\ref{sec:disclosure} contaminate the conclusions.
