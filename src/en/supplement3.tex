@@ -1,1 +1,773 @@
-% TODO: translation of src/supplement3.tex
+%============================================================
+\chapter{A Subspace Under Constraints: Alone, Without Assets, Without Credit}
+\label{ch:solo}
+\label{part:solo}
+%============================================================
+
+\section{The premises imposed in this chapter}
+
+Chapter~\ref{ch:catalog} enumerated the whole space of $\Phi$. This chapter imposes
+constraints on it and derives a subspace: which $\Phi$ are feasible under given conditions,
+derived from the equations of Part~\ref{part:theory}.
+
+The object is an IT service of a scale one person can run. The premises are as follows.
+
+\begin{enumerate}[label=(\arabic*)]
+\item There is one operator, and elements requiring human coordination are kept to a minimum
+\item No outside funding is raised (including crowdfunding)
+\item Assets are few and the business starts with no commercial credit
+\end{enumerate}
+
+This chapter is deduction, not evidence. The validity of the conclusions depends on the
+validity of the premises.
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities in this chapter}}\\
+\midrule
+$E,\ A,\ \mathrm{Inv}$ & Eq.~\eqref{eq:cash} & set to 0 by the premises \\
+$\kappa_i$ & Eq.~\eqref{eq:kappa} & its sign is the design variable \\
+$\mathrm{Cap}$ & Eq.~\eqref{eq:solo-capacity} & one person's time. \textbf{not measured} \\
+$M(t)$ & Eq.~\eqref{eq:cash} & the object of the path constraint. \textbf{not measured} \\
+$\Tins$ & Section~\ref{sec:objective} & bounded above as a deadline by $E(0)/c_{\rm liv}$ \\
+$T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & Eq.~\eqref{eq:E-required-2} & priced in Chapter~\ref{ch:platformfee} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities in this chapter: the symbols relevant to a constrained solo business, and their measurement status.}
+\label{tab:solo-quantities}
+\end{center}
+
+\section{Translating the premises}
+
+\subsection{The financial constraint}
+
+From premises (2) and (3), set $E(0)\approx 0$ and $A\approx 0$. For software,
+$\mathrm{Inv}\approx 0$. These are the conditions of Corollary~\ref{cor:zero-equity}, which
+requires $\CCC\leq 0$, that is $\sum_i\kappa_i\leq 0$. Written in gross form,
+
+\begin{equation}
+\sum_{i} \max\{-\kappa_i,0\} \;\geq\; \sum_{i} \max\{\kappa_i,0\}
+\label{eq:solo-finance}
+\end{equation}
+
+Equation~\eqref{eq:solo-finance} states that \textbf{the credit drawn must always exceed the
+credit extended}. This is not an assumption but the special case of the fundamental
+inequality~\eqref{eq:fundamental} with $E=A=0$. It is also the substitution of
+Proposition~\ref{prop:substitution} seen at the corner $E=0$.
+The assumption $A\approx 0$ agrees with data on capital expenditure by sole proprietors
+(Remark~\ref{rem:individual-capex}). Because there is no cushion of equity, the path
+constraint of Section~\ref{sec:objective} must hold at every instant.
+
+\subsection{The capacity constraint}
+
+Premise (1) puts a ceiling on total delivery.
+
+\begin{equation}
+\sum_{i} \delta_i(t) \;\leq\; \mathrm{Cap}, \qquad \mathrm{Cap} = \text{one person's time}
+\label{eq:solo-capacity}
+\end{equation}
+
+$\mathrm{Cap}$ is the same quantity that governed the feasibility of memberships in
+Proposition~\ref{prop:capacity}. There it was the capacity of facilities on the supply side;
+here it is the operator's disposable time. Its value differs by operator and is not
+disclosed, so it is not measured in this text.
+
+\subsection{Which one binds}
+\label{sec:which-binds}
+
+Equations~\eqref{eq:solo-finance} and~\eqref{eq:solo-capacity} were introduced separately but
+are imposed together. Converting both into upper bounds on the scale $r$ makes them
+comparable.
+
+\begin{proposition}[The binding constraint switches]
+\label{prop:binding-switch}
+By Corollary~\ref{cor:rmax}, when $\CCC>0$ the cash constraint gives $r\leq(E-A)/\CCC$.
+Converting~\eqref{eq:solo-capacity} into value, the capacity constraint gives
+$r\leq v(\mathrm{Cap})$. Hence, with
+\begin{equation}
+\CCC^{\dagger} = \frac{E-A}{v(\mathrm{Cap})}
+\label{eq:ccc-dagger}
+\end{equation}
+as the boundary, the cash constraint binds where $\CCC>\CCC^{\dagger}$ in~\eqref{eq:ccc-dagger}
+and the capacity constraint binds where $\CCC<\CCC^{\dagger}$.
+\end{proposition}
+
+\begin{proof}
+The smaller of the two bounds binds. $(E-A)/\CCC \leq v(\mathrm{Cap})$ holds exactly when
+$\CCC\geq(E-A)/v(\mathrm{Cap})$.
+\end{proof}
+
+\textbf{Effort to reduce $\CCC$ increases scale only in the range $\CCC>\CCC^{\dagger}$.}
+Below that, capacity binds and changing contractual terms does not increase $r$.
+
+For a solo business with $E\approx 0$, $\CCC^{\dagger}\approx 0$. In Part~\ref{part:theory},
+which treated firms, the financial constraint $M(t,\omega)\geq 0$ bound; here the binding
+constraint moves to capacity as soon as $\CCC$ is made negative. As customers increase, time
+runs out before cash does.
+\textbf{That this chapter runs into a capacity constraint after choosing an advance-payment
+form is due to this move.}
+
+The design principles therefore come in two.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Constraint & Requirement & Meaning \\
+\midrule
+Eq.~\eqref{eq:solo-finance} & $\kappa_C < 0$ & choose a form paid in advance \\
+Eq.~\eqref{eq:solo-capacity} & $\partial\delta/\partial(\text{customers})\approx 0$ & choose a delivery that is replicable \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The binding constraint and the corresponding design principle.}
+\label{tab:solo-constraint-design}
+\end{center}
+
+The region satisfying both is the feasible set (Figure~\ref{fig:solo-quadrant}).
+
+\begin{figure}[htbp]
+\centering
+\insertfig{solo-quadrant}
+\caption{The feasible region of $\Phi$ under the premises of one operator, no assets and no credit.}
+\label{fig:solo-quadrant}
+\end{figure}
+
+\section{What the cloud means structurally}
+
+A by-product is the following correspondence.
+
+Before the cloud, procuring servers required capital and $A$ was large. After the cloud
+$A\approx 0$, and because usage billing is in arrears, $\kappa_S<0$ arises instead: credit
+extended by the infrastructure provider.
+
+\begin{equation}
+\text{Effect of the cloud:} \quad A \;\longrightarrow\; \kappa_S<0
+\end{equation}
+
+The requirement moved from the physical layer to the credit layer, and its magnitude fell by
+orders of magnitude --- from the purchase price of a server to one month's usage fee. That
+one person can now start an IT business is explained by this.
+
+\section{Sieving the types}
+
+The 28 types of Part~\ref{part:catalog} are passed through the sieve
+of~\eqref{eq:solo-finance} and~\eqref{eq:solo-capacity}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXXX@{}}
+\toprule
+Family & Survives & Drops out & Why it drops out \\
+\midrule
+1 one-off exchange & 1-1, 1-2 & 1-3, 1-4 & cannot extend credit \\
+2 continuing access & 2-1, 2-2, 2-3 & 2-4, 2-5 & regulation / cannot absorb variance \\
+3 renting assets & --- & all & requires $A$ \\
+4 complement recovery & 4-2 (conditionally) & 4-1, 4-3 & deliberately creates early $\kappa>0$ \\
+5 outcome-contingent & 5-5 & 5-1 to 5-4 & requires credit or pooling \\
+6 intermediation & 6-1, 6-4 & 6-2, 6-3 & regulation / inventory \\
+7 payer separation & 7-4 & 7-1, 7-2, 7-3 & scale or credit \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Sieving the 28 types: those that survive under the constraints of one operator, no assets and no credit.}
+\label{tab:solo-type-filter}
+\end{center}
+
+About ten of the 28 types remain.
+
+\begin{remark}[Removal by the institutional layer]
+Two of the reasons for dropping out are institutional. Type 2-4 (prepaid) triggers a deposit
+obligation under the Payment Services Act once unused balances exceed a threshold, and 6-2
+(escrow) requires registration as a funds-transfer business.
+\textbf{The institutional layer takes particular $\Phi$ away from small operators.}
+Part~\ref{part:results} records cases where the institutional layer regulates price and
+thereby extinguishes an option (capped fees); this section is the route by which the same
+thing happens through entry requirements.
+\end{remark}
+
+\section{The credit bootstrap problem}
+\label{sec:bootstrap}
+
+Equation~\eqref{eq:solo-finance} requires $\kappa_C<0$. But being paid in advance requires
+credit, and premise (3) says there is none. The contradiction is structural.
+
+There are only three solutions.
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Make the amount small.} If the absolute amount paid in advance is negligible to
+the counterparty, no credit is needed. The consequence is that
+\textbf{many small transactions are structurally required}. This is also consistent with the
+path constraint of Section~\ref{sec:objective}: dependence on one large customer reaches
+$\Tins$ on that customer's single delay.
+
+\item \textbf{Borrow credit.} If a payment platform provides escrow and a refund guarantee,
+the customer trusts the platform rather than the operator. Performing 6-2 oneself is
+prohibited by regulation, but riding on someone else's is possible. A $\kappa>0$ arises to
+the extent of the fee and the payout lag.
+
+\item \textbf{Complete the delivery first.} Sell a finished product. The question of what
+supports $M(t)$ during development then remains.
+\end{enumerate}
+
+A consequence follows from (c). Writing $T_{\rm dev}$ for the development period,
+$T_{\rm acq}$ for the acquisition period, and $c_{\rm liv}$ for the rate of living and
+infrastructure costs,
+
+\begin{equation}
+E_{\rm required} = c_{\rm liv}\,(T_{\rm dev} + T_{\rm acq})
+\label{eq:E-required}
+\end{equation}
+
+Under premise (3) this cannot be met, so a route is needed for injecting $E$ from outside.
+Salaried income is that route. That is, \textbf{starting while holding another job is not a
+matter of attitude but a requirement of the constraint}. Designing $\kappa$ is a question
+only after this valley has been crossed.
+
+\subsection{Cash flow of the surviving types}
+
+Annually billed SaaS is the typical case. Both $\kappa_C<0$ (annual prepayment) and
+$\kappa_S<0$ (cloud billed in arrears) are negative, so $W<0$ and hence $\CCC<0$, and the
+$g^\star$ of~\eqref{eq:gstar} does not exist. Growth generates cash.
+
+Even when financially unconstrained, however, \eqref{eq:solo-capacity} remains. In a design
+where the support load is proportional to the number of customers, the capacity constraint
+breaks first. In practice this, and not funding, is what stops a solo business.
+
+The design guidance in summary:
+
+\begin{enumerate}[label=(\arabic*)]
+\item Be paid in advance ($\kappa_C<0$)
+\item Keep amounts small and numbers large (no credit needed, and it lowers variance under the path constraint)
+\item Choose a form whose delivery is not proportional to the number of customers (capacity)
+\item Avoid $\Phi$ that the institutional layer prohibits
+\item Secure from outside the $E$ needed to cross the valley
+\end{enumerate}
+
+Item (3) is the hardest, and failure at (3) despite satisfying (1) and (2) is likely common.
+
+\section{Relaxing a premise: those who hold assets}
+\label{sec:retiree}
+
+Relax the asset part of premise (3) and set $E(0)>0$. The case in mind is people who hold
+accumulated salary assets after retirement.
+
+\subsection{The social background}
+
+The average age at founding rose from 39.7 in 1979 to 49.7 in 2012. The share of founders
+aged 60 and over rose from 19.3\% in 1992 to 35.0\% in 2012 for men, and from 7.2\% to 20.3\%
+for women. Teikoku Databank's 2024 survey of newly incorporated companies records an
+all-time high average age of 48.4 for company representatives. The premise is realistic.
+
+\subsection{The constraint does not loosen; it changes type}
+
+The effect of $E(0)>0$ is not simply a loosening of the financial constraint. What is
+decisive is \textbf{whether $E$ is a flow or a stock}.
+
+\begin{align}
+\text{Salaried:}\quad & E(t) = E(0) + (w-c_{\rm liv})\,t \qquad (\text{increasing if } w>c_{\rm liv}) \\
+\text{Retired:}\quad & E(t) = E(0) - c_{\rm liv}\,t \qquad\qquad\ \ (\text{monotonically decreasing})
+\end{align}
+
+For the salaried, the $M\geq 0$ of~\eqref{eq:constraint} is a \textbf{floor}: on approaching
+it one can pull back, and time is an ally. For the retired it is a \textbf{deadline}. With no
+revenue the insolvency time is bounded above deterministically by
+
+\begin{equation}
+\Tins \;\leq\; \frac{E(0)}{c_{\rm liv}}
+\label{eq:deadline}
+\end{equation}
+
+and arrives regardless of the choice of $\Phi$.
+
+Proposition~\ref{prop:deadline-variance} supplies this.
+
+\begin{proposition}[Preference over variance under a deadline]
+Under the deadline constraint~\eqref{eq:deadline}, a strategy that lowers variance is not
+necessarily optimal. If the expected time to completion of the safe route exceeds
+$E(0)/c_{\rm liv}$, that route's probability of success is nearly zero.
+\end{proposition}
+
+The advice ``keep amounts small and numbers large to reduce variance'' derived in
+Section~\ref{sec:bootstrap}(a) was a conclusion under a floor constraint. It can reverse when
+the type of constraint changes.
+
+\subsection{The objective bifurcates}
+
+There is a more important bifurcation.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+R1 & the business must support living costs; the deadline constraint~\eqref{eq:deadline} applies \\
+R2 & living is separately provided for by pension and savings \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The bifurcation in the objective: R1 (dependent on living costs) versus R2 (self-sufficient through pension and savings).}
+\label{tab:solo-r1-r2}
+\end{center}
+
+Under R2 the business need not cover $c_{\rm liv}$.
+
+The bifurcation is also observed across age groups. Analyses of the labour economy by the
+Ministry of Health, Labour and Welfare show that economic reasons for working among those
+aged 55--64 have declined over the long run while purpose and social participation have
+risen.
+
+\subsection{The change in the objective can be expressed through parameters}
+\label{sec:r2-sst}
+
+The observed change in motives can be written either as a change in the \emph{form} of the
+objective or as a change in its \emph{parameters}. The former is the stronger claim.
+
+Socioemotional selectivity theory (\cite{carstensen1999}) takes the latter. It holds that as
+time horizon contracts, goals shift from acquiring knowledge to emotional meaning, and that
+what drives the shift is not age itself but \textbf{perceived remaining time}. Experimentally
+inducing a limited time horizon in younger people reportedly produces preference patterns
+close to those of older people.
+
+Translated into the formulation of Section~\ref{sec:objective}, what changes is $H$ and
+$\beta$.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+$H \to$ small & fewer terms in the sum; distant future $\phi_t$ do not enter the objective \\
+$\beta \to$ small & the future is weighted less; the present state is valued relatively more \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Effect of a contracting time horizon on the objective: what changes in $H$ and $\beta$.}
+\label{tab:solo-h-beta}
+\end{center}
+
+In the limit of both, the objective approaches an evaluation of the present state itself
+rather than of accumulated future $\phi$. That is what the theory means by prioritizing
+present-oriented emotional goals over future-oriented ones.
+
+\textbf{This formulation requires no rewriting of the objective.} The framework of
+Section~\ref{sec:objective} is used unchanged.
+
+\begin{remark}[Why a formulation that changes the form of the objective is not adopted]
+\label{rem:phi-demotion-retracted}
+R2 could be written as $\max(\text{some other objective})$ subject to $\phi\geq 0$, moving
+$\phi$ from the objective into a constraint. That is not adopted here, for two reasons.
+
+First, the grounds are insufficient. What is observed is the distribution of stated motives,
+which says nothing about the \emph{form} of the objective. Deriving a structural change from
+a distribution of motives is a leap.
+
+Second, and more seriously, \textbf{$\max(\text{some other objective})$ subject to
+$\phi\geq 0$ has no content}. Unless ``some other objective'' is specified, the formulation
+can explain any behaviour and therefore predicts nothing. It has the same defect as the one
+noted for the measurability hypothesis in Section~\ref{sec:predB-illposed}.
+
+Written as changes in $H$ and $\beta$, the form of the objective is preserved, and perceived
+remaining time even has a measurement scale (Future Time Perspective).
+\textbf{Where the same observation can be explained under a weaker assumption, that is the
+one to take.}
+\end{remark}
+
+\begin{remark}[The state of the theory]
+Socioemotional selectivity theory is itself contested. There are reports that a limited
+future time horizon does not necessarily contribute to emotional well-being and can predict
+worse well-being, and the structure of the scale itself is being reconsidered.
+This text does not adopt the theory; it only notes that
+\textbf{a route exists that explains the observation without changing the form of the
+objective}.
+\end{remark}
+It has also been noted that founders in their fifties frequently cite securing income, while
+those in their sixties more often seek connection with society.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{deadline}
+\caption{Three asset trajectories. For the salaried the constraint acts as a floor, for R1 as a deadline. R2 halts at a lower bound because living costs lie outside the business.}
+\label{fig:trajectory}
+\end{figure}
+
+\subsection{Under R2 the feasible region is reversed}
+
+The upper left of Figure~\ref{fig:solo-quadrant} was assessed as ``capped'', but under R2
+being capped is not a defect.
+
+Equation~\eqref{eq:solo-capacity} binds only where expansion of scale is required. If $H$ is
+short and $\beta$ small, accumulated future $\phi$ carries less weight in the objective and
+stopping at a handful of customers causes no difficulty (Section~\ref{sec:r2-sst}). A
+delivery that takes personal effort in fact contributes directly to present emotional goals.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Solo business without assets or credit & the feasible region is the upper right (replicable $\times$ paid in advance) \\
+A retiree under R2 & the feasible region is the upper left (labour-dependent $\times$ paid in advance) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Comparison of feasible regions: a solo business without assets or credit versus a retiree under R2.}
+\label{tab:solo-quadrant-comparison}
+\end{center}
+
+\textbf{Within one and the same framework, the optimal quadrant reverses.}
+The guidance ``choose a replicable delivery'' was correct only when $\phi$ is being maximized.
+
+\subsection{Family 3 revives, and a reconciliation with data}
+
+In the sieve, family 3 (renting assets over time) dropped out entirely for requiring $A$.
+Introducing $E(0)>0$ should revive it.
+
+By field of business at founding by age in the 2014 White Paper on Small and Medium
+Enterprises, among those aged 60 and over the leading fields are services 39.1\%, real estate
+and goods rental 12.2\%, and scientific research and professional and technical services
+11.9\%, while \textbf{real estate and goods rental is only 0.2\% among those under 30}.
+
+A sixtyfold difference. The deduction that the presence of $E(0)$ decides the availability of
+family 3 agrees with the distribution by age. This is an after-the-fact reconciliation and
+shows no causation, but because the sieve was stated in advance it has value as a check.
+
+\subsection{The structural role of pensions}
+
+The following correspondence holds.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Device & Effect & Where the requirement moves \\
+\midrule
+The cloud & converts fixed assets $A$ into negative $\kappa_S$ & physical layer $\to$ credit layer \\
+Pensions & move living costs $c_{\rm liv}$ outside the business & objective $\to$ exogenous \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Devices that remove a constraint: the cloud and pensions.}
+\label{tab:solo-constraint-relief}
+\end{center}
+
+Both remove the binding constraint on a solo business.
+\textbf{Pensions generate the very option that R2 represents.} This is an instance of the
+institutional layer widening the feasible set of $\Phi$, the opposite of the removal in the
+previous section.
+
+\subsection{Restating the path constraint}
+
+The constraint of Section~\ref{sec:objective} has been written $M(t)\geq 0$, which is
+inappropriate for this group.
+
+\begin{equation}
+M(t,\omega) \;\geq\; M_{\rm floor}, \qquad M_{\rm floor} \gg 0
+\end{equation}
+
+$E(0)$ cannot be re-earned through labour. Even for an identical loss, the asymmetry of
+utility differs from that of the working-age population. In practice the design is to carve
+out in advance a business budget $B$ that may be spent and leave $E(0)-B$ untouched. The R2
+trajectory of Figure~\ref{fig:trajectory} halts at a lower bound where this discipline
+operates.
+
+Note that support services and information aimed at this group face an incentive to have
+$E$ spent beyond $B$. Fixing $M_{\rm floor}$ in advance is not a modelling device but a
+practical defence.
+
+\section{The formation of credit}
+\label{sec:credit-formation}
+
+\subsection{Why credit attributable to an individual is zero}
+
+Independently of $E$, consider whether a retiree can bring credit with them. The conclusion
+is $S_{\rm ind}\approx 0$, and this is not a rule of thumb but a consequence of the
+measurability condition of Chapter~\ref{sec:info}.
+
+Credit is the ground on which a counterparty accepts $\kappa_C<0$, that is, a verifiable
+record of performance, and it must be in $\mathcal{G}$. But \textbf{an individual's
+contribution inside an organization is by definition not measurable from outside the
+organization}. This is no accident: it is precisely because it is not measurable that a
+principal--agent problem exists inside the organization.
+
+\begin{equation}
+\text{the organization is observed as the performing party}
+\;\Rightarrow\; \text{the record of performance attaches to the organization}
+\;\Rightarrow\; \text{the individual's contribution is outside } \mathcal{G}
+\end{equation}
+
+An organization is a device that absorbs measurability from outside, and losing that on
+departure is the natural consequence of having enjoyed it.
+
+\begin{remark}[Not a sale but original attribution]
+Saying that credit is ``continuously sold'' during employment is inaccurate. A sale implies
+transferring something once held.
+
+Just as the author of a work made for hire is the legal person from the outset, credit
+\textbf{attaches originally to the organization at the moment it arises}. It does not arise
+with the individual and then transfer.
+
+The difference reaches practice. If it were a sale, one could choose to stop selling; with
+original attribution, \textbf{the terms of attribution themselves must be changed}.
+Publishing under one's own name while employed is an operation that changes where credit
+attaches.
+\end{remark}
+
+\subsection{Separating three quantities}
+
+What becomes discontinuous on leaving employment is settled once the quantities are
+separated.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Quantity & Content & On leaving \\
+\midrule
+Usable credit & the degree to which counterparties actually accept advance payment & discontinuous downwards \\
+Held credit $S_{\rm ind}$ & what is in $\mathcal{G}$ under one's own name & continuous, remains near zero \\
+Convertible stock & personal networks, technical knowledge & continuous, but decays thereafter \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Three quantities that behave differently around departure.}
+\label{tab:solo-credit-decomposition}
+\end{center}
+
+While employed, an individual \emph{borrows} the organization's credit rather than holding
+it. What falls on departure is the return of the borrowed part; the held part was zero to
+begin with and does not change.
+\textbf{It looks discontinuous, but what is lost was never one's own.}
+
+\begin{remark}[Leaving employment is an act of measurement]
+While employed, the borrowed and the held parts are bundled and cannot be separated. Leaving
+is an act of measurement that makes visible a decomposition previously outside $\mathcal{G}$.
+Nobody can tell how much credit was one's own until the organization is removed. That it
+cannot be estimated in advance is not a lack of information but the fact that it has, in
+principle, never been measured.
+\end{remark}
+
+\subsection{Two discontinuities, and a lag between them}
+
+Not everything falls on departure. During employment, non-compete and confidentiality
+obligations restrict publication, and leaving removes them:
+\textbf{the freedom to convert is discontinuous upwards}. But non-compete obligations run
+for a period and in most cases do not lift immediately.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{credit-formation}
+\caption{The three quantities around departure. The two discontinuities point in opposite directions and are separated in time.}
+\label{fig:credit-jump}
+\end{figure}
+
+\begin{remark}[What is at a maximum is not credit]
+The statement ``one's credit assets are at a maximum just after leaving'' is wrong. Credit is
+zero, and remains zero after leaving.
+
+What is at a maximum is the \textbf{convertible stock}: contacts and technical knowledge.
+That is not credit but material that can be converted into credit through the operation of
+publishing. Properly stated, what is at a maximum is not credit but the stock of
+convertibility, and it decays thereafter as $e^{-\lambda t}$.
+
+The conclusion --- move early --- is unchanged, but the reason differs. It is not that a held
+asset is depleting but that \textbf{the material for turning something into an asset is
+depleting}.
+\end{remark}
+
+The shaded region of Figure~\ref{fig:credit-jump} is the structural problem. The non-compete
+period coincides with the period in which the stock decays fastest, and conversion is
+impossible during it. The higher the decay rate $\lambda$ in a field, the greater the loss.
+
+The only remedy for this lag is to produce results under one's own name while still employed.
+Structurally, remedies after leaving arrive too late.
+
+\subsection{Capital and credit are substitutes}
+
+Restating~\eqref{eq:solo-finance}: when $E\approx 0$, one has no choice but to earn
+$\sum\max\{-\kappa_i,0\}$, and \textbf{credit is the only means of funding}. If $E>0$, the
+inequality holds even without that term.
+
+This is the substitution of Proposition~\ref{prop:substitution} seen at this chapter's corner
+$E\approx 0$. Hence \textbf{a retiree's advantage is capital, not credit}. In the dimension
+of credit they start from zero, like a young founder without assets.
+
+\begin{remark}[Confusing experience with credit]
+Popular accounts of founding a business later in life repeatedly cite experience, skills and
+contacts. But \textbf{experience and credit are different things}. Experience lowers
+$C_{\mathrm{prod}}$; what moves the sign of $\kappa$ is credit. Experience that cannot be
+verified from outside does not obtain advance payment.
+
+Confusing the two obscures the correct strategy of using capital in place of credit, and
+leads instead to the wrong question: ``why is there no work despite the experience?''
+\end{remark}
+
+\subsection{Starting with the sign reversed}
+
+The guidance of Section~\ref{sec:bootstrap} required $\kappa_C<0$, which cannot be executed
+initially under the premise of zero credit. The following trajectory is taken instead.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Early & accept $\kappa\geq 0$ (allow payment in arrears and bridge with capital) \\
+Middle & publish and accumulate each engagement in a form that enters $\mathcal{G}$ \\
+Late & shift to $\kappa<0$ (advance payment becomes obtainable) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The trajectory from zero credit to advance payment, in three stages.}
+\label{tab:solo-credit-trajectory}
+\end{center}
+
+\textbf{The role of capital is to buy the period in which credit is built.}
+Rewriting~\eqref{eq:E-required},
+
+\begin{equation}
+E_{\rm required} = c_{\rm liv}\,(T_{\rm dev} + T_{\rm acq} + T_{\rm credit})
+\label{eq:E-required-2}
+\end{equation}
+
+adds the term $T_{\rm credit}$. Without assets this term cannot be covered, which is why
+credit had to be borrowed from a platform as in Section~\ref{sec:bootstrap}(b). With capital
+it can be built without borrowing. That is the concrete content of the substitution.
+
+\section{The trade-off between contract work and publishing}
+
+\subsection{The conflict is not peculiar to individuals; the inability to parallelize is}
+
+Contract work is the efficient way to obtain assets; publishing results is what is needed to
+obtain credit efficiently. Organizations face the same conflict: development contractors and
+consulting firms alike find it hard to accumulate a public record because of confidentiality.
+
+The difference lies in the form of the capacity constraint.
+
+\begin{align}
+\text{Organization:}\quad & \sum\delta \leq \mathrm{Cap}, \quad \mathrm{Cap}\ \text{proportional to headcount} \\
+\text{Individual:}\quad & \delta_{\text{contract}} + \delta_{\text{public}} \leq \mathrm{Cap}, \quad \mathrm{Cap}\ \text{fixed}
+\end{align}
+
+An organization can run both in parallel and cross-subsidize. It performs family 7-2
+(cross-subsidy) not between external customers but between internal activities. An individual
+has no such means.
+\textbf{What is peculiar to the individual is not the conflict but the inability to
+parallelize.}
+
+\subsection{Two kinds of credit}
+
+``Contract work generates no credit'' is inaccurate. There are two kinds of credit.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+ & Referral credit & Public credit \\
+\midrule
+Where it resides & $\mathcal{G}_{\rm local}$ (the customer's private information) & $\mathcal{G}$ (verifiable public information) \\
+Cost of accumulating & simultaneous with the work, no extra cost & consumes $\mathrm{Cap}$ separately \\
+Growth & linear, slow & can be non-linear \\
+Reach & only within the network & reaches unknown counterparties \\
+Effect on $\kappa<0$ & strong & weak but broad \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Comparison of the two kinds of credit: referral and public.}
+\label{tab:solo-credit-types}
+\end{center}
+
+Contract work produces referral credit as a by-product at no extra cost, and its effect on
+$\kappa<0$ is in fact more direct than that of public credit.
+
+\subsection{Whether the conflict arises depends on the quadrant aimed at}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Aiming at the upper left & a handful of customers suffices and referral credit is enough; no conflict \\
+Aiming at the upper right & one must reach many unknown counterparties, for which referral credit is in principle insufficient; the conflict bites \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Whether the conflict arises depends on the quadrant aimed at.}
+\label{tab:solo-quadrant-tradeoff}
+\end{center}
+
+By the conclusion of Section~\ref{sec:retiree}, the optimum for a retiree under R2 was the
+upper left. \textbf{For that group, no conflict between contract work and publishing arises.}
+The conflict becomes a structural problem for those who must maximize $\phi$, that is, those
+aiming at the upper right.
+
+\subsection{Partial conversion and the optimal allocation}
+
+Even when aiming at the upper right, the substitution is not one for one. Writing $\Ccl$ for
+the part of the $\mathrm{Cap}$ of~\eqref{eq:solo-capacity} devoted to contract work and
+$\mathrm{Cap}-\Ccl$ for the part devoted to publishing,
+
+\begin{equation}
+\text{accumulation of public credit} = \gamma\,(\mathrm{Cap}-\Ccl) + \theta\,\Ccl,
+\qquad 0<\theta<\gamma
+\label{eq:leakage}
+\end{equation}
+
+The second term is the leakage. Of the problems solved on a client engagement,
+\textbf{the part that generalizes can be published}. The engagement itself cannot be written
+about, but the general technical problem encountered in it can. And because the thinking is
+already done, the marginal cost of writing is low.
+
+Equation~\eqref{eq:leakage} is linear in $\Ccl$ and, since $0<\theta<\gamma$, strictly
+decreasing. On its own this makes the optimal allocation $\Ccl=0$, that is, no contract work
+at all. The allocation is settled at an interior value only because contract work brings in
+cash.
+
+\begin{proposition}[Contract work stays at the minimum the constraint requires]
+\label{prop:allocation}
+Let $w$ be the hourly return on contract work and $c_{\rm liv}$ the rate of living costs.
+The cash required by the fundamental inequality~\eqref{eq:fundamental} is
+$w\,\Ccl\geq c_{\rm liv}$, and the allocation maximizing~\eqref{eq:leakage} is
+\begin{equation}
+\Ccl^{\ast} = \frac{c_{\rm liv}}{w}
+\label{eq:allocation}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The objective is strictly decreasing in $\Ccl$ and the feasible set is
+$\Ccl\geq c_{\rm liv}/w$, so the smallest feasible $\Ccl$ is optimal.
+\end{proof}
+
+\textbf{The optimum is not an interior point of the objective but the edge of the constraint.}
+If $E(0)>0$ the constraint loosens to $w\,\Ccl\geq c_{\rm liv} - E(0)/T$ and $\Ccl^\ast$
+falls. The statement in Section~\ref{sec:retiree} that capital buys the period in which
+credit is built can be written as a fall in the right-hand side of~\eqref{eq:allocation}.
+
+Separately from the allocation, there is room to raise $\theta$.
+\textbf{The criterion for choosing engagements moves from the fee to $\theta$.}
+At equal rates, choose the engagement containing a generalizable problem. The wall of
+confidentiality is cleared at the level of abstraction, not at the level of the engagement.
+
+\section{Employment contracts reread}
+
+From this chapter's argument, an employment contract can be written as follows.
+
+\begin{equation}
+\text{the individual supplies } \delta \;\to\; \text{credit attaches to the organization}
+\;\to\; \text{the individual receives stability of } \kappa_L
+\end{equation}
+
+\textbf{An employment contract is a trade in which stability of $\kappa$ is bought at the
+price of placing the attribution of credit with the organization.} In exchange for a certain
+monthly receipt, the credit asset accumulated does not become one's own.
+
+This has the same form as the argument about discount factors in
+Section~\ref{sec:objective}, and the same structure as the choice between families 5-1 and
+1-3 discussed in Chapter~\ref{ch:catalog}.
+
+The terms of attribution are a negotiable variable. Securing what may be produced under one's
+own name while employed --- public talks, contributions to public repositories, writing ---
+belongs to the same dimension as negotiating pay. In many cases it is granted at no cost.
+
+\section{Limits of this chapter}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{This is deduction, not evidence.}
+Apart from the reconciliation of family 3's revival with the distribution by age, the
+conclusions of this chapter are deductions from premises. If the premises are wrong, so are
+the conclusions.
+
+\item \textbf{$S_{\rm ind}\approx 0$ depends on the field.}
+In fields that are small enough that participants know one another as individuals ---
+academic disciplines, particular technical communities, small professions --- an individual's
+performance is observed without passing through an organization. There the separation of the
+borrowed from the held part is already advanced during employment, and the discontinuity on
+departure is small. The size of $S_{\rm ind}$ depends not only on individual effort but on
+\textbf{the measurability structure of the field}.
+
+\item \textbf{The objective under R2 is not identified.}
+It was shown that the change can be written through $H$ and $\beta$, but not verified that
+this is sufficient. Strictly, therefore, no claim of optimality under R2 has been made.
+
+\item \textbf{The decay rate $\lambda$ of the convertible stock is not measured.}
+How serious the lag of Figure~\ref{fig:credit-jump} is in practice depends on $\lambda$, and
+there is no basis here for its value.
+\end{enumerate}
