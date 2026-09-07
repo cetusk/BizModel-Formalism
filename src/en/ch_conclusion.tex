@@ -1,1 +1,555 @@
-% TODO: translation of src/ch_conclusion.tex
+\chapter{Where This Stands: What Was Established and What Remains Open}
+\label{ch:conclusion}
+
+\section{What was established and what was not}
+
+\subsection{Derived as theory}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Claims derived as theory, and their status.}\label{tab:theory-achievements}\\
+\toprule
+Claim & Content & Status \\
+\midrule
+\endfirsthead
+\toprule
+Claim & Content & Status \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize(continued)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Description by $\Phi$ & can be written as a map from delivery to settlement & worked \\
+Unification through $\kappa$ & receivables, advances and payables become one quantity & works \\
+Integration through $\kappa_i$ & four literatures enter the same sum & the central contribution (Remark~\ref{rem:disjoint-literatures}) \\
+$\CCC\cdot r\leq E-A$ & the cash constraint is a constraint on working capital & the fundamental inequality (Proposition~\ref{prop:fundamental}) \\
+$r^{\max}=(E-A)/\CCC$ & a bound on scale, separate from $g^\star$ & derived (Corollary~\ref{cor:rmax}) \\
+$g^\star = (m+d-I/r)/\CCC$ & self-financeable growth rate; the boundary of $\dot M\geq 0$ & derived (Corollary~\ref{cor:gstar}) \\
+Time to cash depletion & how long before $g>g^\star$ bites & closed form (Proposition~\ref{prop:depletion}, Example~\ref{ex:depletion}) \\
+$\CCC=\sum\tau_i+\tau_{\mathrm{inv}}$ & $\CCC$ is a sum of lags & derived (Proposition~\ref{prop:ccc-structure}) \\
+Perfect substitution of $\tau_i$ & collecting sooner and paying later are equivalent & derived (Proposition~\ref{prop:tau-substitution}) \\
+Antisymmetry of $\kappa$ & inter-firm credit vanishes on aggregation & derived (Proposition~\ref{prop:kappa-antisym}) \\
+Peak versus average & the capital required is fixed by $\CCC+T_b/2$ & derived (Proposition~\ref{prop:peak}) \\
+Cash neutrality of cognitive surplus & no cash moves at recognition & derived (Proposition~\ref{prop:cog-cash-neutral}) \\
+Bound on accumulated cognitive surplus & transaction frequency fixes the bound on scale & derived (Corollary~\ref{cor:cog-bounded}) \\
+Switch of the binding constraint & from cash to capacity at $\CCC^{\dagger}$ & derived (Proposition~\ref{prop:binding-switch}) \\
+Availability and granularity & deliveries that cannot be performed even with spare capacity & derived (Proposition~\ref{prop:granularity}) \\
+Membership under capacity & low utilization is the condition of feasibility & derived (Proposition~\ref{prop:capacity}) \\
+Allocation in a solo business & contract work stays at the minimum the constraint requires & derived (Proposition~\ref{prop:allocation}) \\
+Linking $E$ to $\phi$ & what retained earnings accumulate & the accumulation of $\phi$, by Definition~\ref{def:equity} \\
+Party dependence of $\kappa_K$ & is equity the same as other $\kappa$ & it depends on the measure and does not enter the identity (Proposition~\ref{prop:kappa-K-excluded}) \\
+\end{longtable}
+
+\subsection{Judged empirically}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Claims judged empirically, including those rejected and untested.}\label{tab:empirical-judgments}\\
+\toprule
+Claim & Content & Status \\
+\midrule
+\endfirsthead
+\toprule
+Claim & Content & Status \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize(continued)}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Sign of $\CCC$ & two orders of magnitude across industries and media & confirmed (Part~\ref{part:results}) \\
+Path of $g^\star$ & change over 25 years & has not declined (Proposition~\ref{prop:gstar-flat}) \\
+Numerator of $g^\star$ & $m$ alone or investment too & including $I$ moves the level substantially \\
+$m$ of small firms & the margin gap by size & explained by directors' remuneration (Proposition~\ref{prop:officer}) \\
+Comparison with unincorporated & accounting classification or economic substance & a separate statistic supports Proposition~\ref{prop:officer} (Section~\ref{sec:individual-firms}) \\
+Causes of rising $\CCC$ & composition or within-industry change & within-industry 83\%; the disappearance of trade bills is the main cause \\
+Contribution of the denominator effect & mechanical variation of $\CCC=W/r$ & about 17\%; the sales elasticity of $\CCC$ is $-0.17$ \\
+Price of externalization & fees correspond to the functions absorbed & partly supported (Chapter~\ref{sec:platform-fee}) \\
+How the institutional layer acts & caps or manipulation of competitive conditions & the latter dominates recently (Remark~\ref{rem:institution-shift}) \\
+\midrule
+Predictive power of $\CCC$ & as a leading indicator of the cycle & \textbf{rejected} (Chapter~\ref{part:industry}) \\
+Size and the direction of credit & smaller firms as providers of credit & \textbf{rejected, sign reversed} (Proposition~\ref{prop:credit-needs-equity}) \\
+Measuring $\phi_{\rm cog}$ & cognitive surplus measured & \textbf{not reached} here (Section~\ref{sec:phicog-measurable}) \\
+Measurability and contract form & observability fixes $\Phi$ & \textbf{untested} (Section~\ref{sec:predB-illposed}) \\
+Fee rate and separation rate & is outcome risk reflected in price & \textbf{rejected}; uncorrelated across 307 firms (Section~\ref{sec:predX-result}) \\
+Absorbency of the path constraint & does $M(t)$ fall before cessation & \textbf{supported} (Section~\ref{sec:protocol-results}) \\
+Dependencies and unmanned duration & do fewer dependencies mean later modification & \textbf{rejected}; the concentration of clones drives the result \\
+Implementability of family 7 & is 7-4 what remains & \textbf{rejected}; only the rarity was right \\
+\midrule
+Unmanned duration & the level of $1/\lambda_{\rm novel}$ & shorter than 20 years (Remark~\ref{rem:lambda-upper}) \\
+Duration of procedures & measured on the full population & 8.3\% ceased, median 1.62 years (Section~\ref{sec:protocol-byproducts}) \\
+\end{longtable}
+
+As a descriptive instrument the framework worked. As a predictive one it did not. These are
+different properties, and only the former is claimed here.
+
+\section{Fixing the implications in advance}
+\label{sec:prereg-worked}
+
+The implications derived from the theory were fixed in writing before the observations, so
+that support and rejection could not be chosen afterwards. Twenty-two were registered: six
+supported, eleven rejected, five untestable. The wording and the verdicts are listed in
+Appendix~\ref{app:prereg}.
+
+\textbf{The number of rejections is not a failure of the method.} Without the fixing, an
+after-the-fact account could have been given for any fact observed. Appendix~\ref{app:prereg}
+records four places where a post-hoc interpretation was nearly adopted.
+
+\section{Open problems}
+
+The open problems are organized by the six categories of
+Section~\ref{sec:obstacle-taxonomy} (Section~\ref{sec:sixth-obstacle}). Because the remedy
+differs by category, the allocation of effort depends on the distinction.
+
+\subsection{(i) No measurement exists}
+
+The quantity is not measured anywhere. Secondary data will not fill the gap; an original
+survey is required.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Is directors' remuneration a cost or an appropriation of profit?}
+The cause of the low $m$ in the small classes is directors' remuneration
+(Proposition~\ref{prop:officer}). As a fraction of sales it is fifty times that of large
+firms, and adding it back to operating profit removes the ordering by size.
+
+The remaining question is whether that remuneration is a return to labour or a discretionary
+appropriation. That the remuneration ratio does not move when profit does, and that the
+operating margin of unincorporated businesses rises in a downturn
+(Remark~\ref{rem:covid-reversal}), suggest discretion; but the labour-return account cannot
+be rejected. Deciding requires directors' hours worked, and
+\textbf{directors are not employees under the Labour Standards Act, so no official statistics
+on their hours exist} (Remark~\ref{rem:officer-undecidable}).
+
+An alternative route would identify from changes in the corporate tax rate or the thresholds
+for reduced rates as exogenous shocks, but cutting a sample at a threshold requires
+microdata.
+\end{enumerate}
+
+\subsection{(ii) Ill-posed hypothesis}
+
+The theory does not fix the sign. More data does not help; the theory must be refined.
+
+\begin{enumerate}[label=(\arabic*),start=2]
+\item \textbf{Testing the measurability hypothesis.}
+The formula for $b^\star$ itself cannot be tested because the required quantities are not
+available (Section~\ref{sec:what-to-measure}).
+
+A test on the price side was carried out. Across 307 firms, fee rates achieved and separation
+rates were uncorrelated (Section~\ref{sec:predX-result}). Separation rates differ 5.5-fold
+across occupational averages while fee rates differ only 1.16-fold, and prices cluster on the
+customary 20--30\%.
+
+The obstacle is therefore not only (ii). It belongs to (vi) of
+Section~\ref{sec:sixth-obstacle} --- \textbf{the explanatory variable does not vary over the
+range the theory assumes} --- and is resolved neither by refining the theory nor by adding
+data.
+
+\item \textbf{The objective under R2: are $H$ and $\beta$ enough?}
+A route was shown that explains the change through $H$ (time horizon) and $\beta$ (discount
+factor) without changing the form of the objective (Section~\ref{sec:r2-sst}). Whether that
+suffices is untested.
+
+Testing requires observing contract choices among older people, and no distribution of
+contract-form choice by age is available. The supply side's price design is consistent with
+the alternative, but it is not consumers' choice.
+\end{enumerate}
+
+\subsection{(iii) Not identified}
+
+The data exist but confounding cannot be separated. Better design or exogenous variation is
+required.
+
+\begin{enumerate}[label=(\arabic*),start=4]
+\item \textbf{Interpreting the lengthening of receivables.}
+The long-run rise in $\CCC$ was decomposed in Section~\ref{sec:ccc-decomposition}. Changes in
+industrial composition are excluded (the composition effect is 17\%, and 2\% since 2010), and
+the rise in the 2000s is explained by shorter DPO as trade bills disappeared.
+
+What remains is the lengthening of receivables in the 2010s ($+6.62$ days). Whether this is a
+genuine lengthening of collection or a reclassification accompanying the shift to
+electronically recorded monetary claims cannot be separated. Separating them requires
+balances of such claims, which the corporate statistics do not survey
+(Remark~\ref{rem:densai}).
+
+\item \textbf{What drives the variation in $\Delta\ln W$.}
+The contemporaneous negative correlation was separated in
+Section~\ref{sec:denominator-effect}, giving a denominator-effect contribution of about 17\%.
+That the denominator effect is not dominant could be shown.
+
+An estimate allowing for lag structure was attempted but nothing was detectable in annual
+data (Remark~\ref{rem:lag-undetectable}). The $R^2$ of the elasticity estimate is only 0.081,
+so most of the annual variation in working capital is driven by something other than sales.
+Year-end inventory adjustment, timing shifts on large transactions, and changes in accounting
+policy plausibly contaminate it, but none is separated.
+\end{enumerate}
+
+\subsection{(iv) Access constraint}
+
+It exists but cannot be obtained. A route must be opened, or the attempt abandoned.
+
+\begin{enumerate}[label=(\arabic*),start=6]
+\item \textbf{Measuring $\phi_{\rm cog}$.}
+Of the three conditions of Proposition~\ref{prop:phicog-requirements}, only (1), the
+contractual right, was reached here. (2), individual realized use, and (3), an exogenous
+event forcing attention, are missing.
+
+A detour was constructed through $\delta^{*}=F/p$, but it applies only to binary menus and
+the proxy is not uniquely determined for a stepped tariff (Remark~\ref{rem:detour-limit}).
+
+For family 2-4 (prepaid), \cite{nber2026pnbl} shows that about 40\% of prepaid value goes
+unused, so \textbf{the quantity this text could not measure for family 2 has already been
+measured}. The remaining gaps are an estimate for family 2-5 (options) and a cross-industry
+estimate of the share of $\phi_{\rm cog}$ within total $\phi$.
+
+\item \textbf{An indicator of how readily surplus is taken.}
+No indicator corresponding to the horizontal axis of the two in Chapter~\ref{part:industry}
+could be constructed. The reason is structural.
+
+\textbf{An intermediary is an entity that spans industries, not an attribute of one}
+(Remark~\ref{rem:no-horizontal}). It cannot in principle be captured by industry aggregates.
+Attempting a cross-section on the intermediary side fails because rates decided by individual
+screening are not disclosed.
+\textbf{That a rate is negotiated presupposes that nobody outside the transaction knows it.}
+Collecting only published rates biases the sample towards thin intermediaries operating from
+a price list.
+
+An implication was registered for the risk component (Section~\ref{sec:pred-J}), but the data
+needed to estimate $\rho$ lie inside intermediaries, and industries with high $\rho$ are
+screened out, so it cannot be tested.
+
+\item \textbf{Curvature of the age effect.}
+By Proposition~\ref{prop:apc} the levels of the three coefficients are not identified, but
+the second difference --- the curvature --- is (Remark~\ref{rem:apc-identified}).
+
+\textbf{Pursuing this requires a sample carrying firm age.} The corporate statistics used
+here have three axes --- industry, size and year --- and do not include the year of founding.
+As Remark~\ref{rem:apc-in-this-work} states, an age effect is latent in the $\CCC$ time
+series, and there is no means of separating it.
+\end{enumerate}
+
+\subsection{Matters of the framework's descriptive range}
+
+Items that do not fit the taxonomy of obstacles and concern the setting of the object itself.
+
+\begin{enumerate}[label=(\arabic*),start=9]
+\item \textbf{The simplification of the capacity constraint.}
+As Remark~\ref{rem:cap-simplification} states, $\mathrm{Cap}$ was treated as a constant.
+Section~\ref{sec:cap-observation} records an observation with which this does not agree, but
+with $n=1$ the theory was not amended (Remark~\ref{rem:no-generalization}). Whether the same
+limit appears in other families is unconfirmed.
+
+\item \textbf{Social optimality of pooling.}
+This text is written from the standpoint of an individual operator and does not treat the
+effect of the choice of $\Phi$ on the system (Remark~\ref{rem:pooling-social}). Families 5-4
+(underwriting) and 6-2 (escrow) make pooling their business, and pooling that is individually
+optimal may be excessive for the system.
+
+\item \textbf{The credit position of sole proprietors.}
+No published statistic measures the $\kappa$ of sole proprietors. The Survey of Unincorporated
+Enterprises dropped its assets and liabilities items in FY2019, and the Basic Survey on Small
+and Medium Enterprises has a questionnaire for sole proprietors but does not tabulate assets
+and liabilities (Section~\ref{sec:not-tabulated}).
+
+As a result, the effect of the Freelance Act (in force November 2024) setting an upper bound
+on $\tau$ cannot be tested. Against the three forms of the institutional layer organized in
+Section~\ref{sec:institution-mode}, this is \textbf{a fourth form that regulates time
+directly}, and it is of high theoretical interest as a case in which law imposes a ceiling on
+the $\tau_i$ of Section~\ref{sec:tau}.
+
+\item \textbf{Forms in which claims circulate.}
+The $\Phi:\Delta\to\Pi$ of Chapter~\ref{sec:phi} presumes that delivery and settlement
+correspond between the same counterparty. When settlement is resold to a third party, as with
+token issuance, the party receiving delivery changes after the fact and cannot be expressed
+in a setting with $N$ fixed (Section~\ref{sec:token-limit}). An extension of the domain is
+required.
+
+\item \textbf{Observation through protocol records. The tests were carried out.}
+They were carried out as reported in Chapter~\ref{ch:protocol-emp}. This was the first test of
+the deductions of Part~\ref{part:catalog}, and only $\Phi$2 was supported.
+
+\textbf{What remains is per-party quantities.} What is observable is per identifier, and
+because one party may hold several identifiers the per-party $\kappa_i$ cannot be recovered
+(Remark~\ref{rem:additivity}). The obstacle is not the absence of aggregation but
+\textbf{its impossibility}, and it differs from both forms added in
+Section~\ref{sec:sixth-obstacle}. The tests revealed a second form of this divergence: the
+concentration of identifiers pointing to one implementation
+(Remark~\ref{rem:clone-concentration}).
+
+What could be verified, moreover, is the correctness of a deduction, not whether that
+deduction applies to real solo businesses (Remark~\ref{rem:protocol-population}).
+
+This is the same place as item (12): a constraint originating in the setting of the index.
+
+\item \textbf{A quantity expressing a degree of unmannedness.}
+``How unmanned is it?'' cannot be expressed as a ratio. Measured on the delivery side, the
+valuation map $v$ measures only value; measured on the response side, no measure is defined
+on $\Omega\setminus\hat\Omega$ (Remark~\ref{rem:automation-rate-illposed}). The obstacle is
+the absence of a measure, not of a unit, and sharpening the definition does not remove it.
+
+\item \textbf{Separating $\phi_{\rm prod}$ from $\phi_{\rm barg}$.}
+Definition~\ref{def:phi-prod} requires the price $p^{\ast}$ that would obtain without market
+power, which is a counterfactual and is not observed
+(Remark~\ref{rem:counterfactual-price}). The numerical separation achieved in
+Chapter~\ref{sec:platform-fee} rests on the exceptional availability of a within-platform
+comparison differing only in function. For a general object, an additional assumption
+identifying $p^{\ast}$ is required.
+
+\item \textbf{The degree to which the third party is removed.}
+Chapter~\ref{ch:protocol} treats only the cases where the protocol bears recording and
+enforcement of settlement entirely and not at all, not the middle
+(Remark~\ref{rem:oracle}). The composition of the party writing external facts into the state
+varies, and most existing arrangements are in the middle.
+\end{enumerate}
+
+\subsection{Items with no obstacle}
+
+The following fall under none of the obstacles of Section~\ref{sec:obstacle-taxonomy}. Either
+the route of acquisition is established or the work can be done with data already obtained.
+They have simply not been started.
+
+\begin{enumerate}[label=(\arabic*),start=17]
+\item \textbf{Decomposing $\lambda_{\rm novel}$ into components.}
+Section~\ref{sec:protocol-byproducts} measured the response rates: 0.048 a year for
+modification and 0.030 for cessation, so the $1/\lambda_{\rm novel}$ of
+Proposition~\ref{prop:unmanned-period} is shorter than 20 years.
+
+\textbf{What remains is the decomposition into components.} What was measured is the total of
+responses, without separating whether they originate in vulnerabilities, dependencies,
+institutions or demand. Separating them requires reading the content of each modification,
+which is possible only where verified sources exist, so the sample is biased.
+
+\item \textbf{Correcting the scope of inventory.}
+Chapter~\ref{part:industry} uses only ``finished goods and merchandise'' and omits
+work in progress and raw materials, so $\mathrm{DIO}$ is understated.
+
+\textbf{This was carried out for 62 industries} (Section~\ref{sec:inventory-scope}). The
+median $\CCC$ moves from 28.0 to 43.9 days, but the correlation of $\Delta\CCC$ is 0.882 and
+the denominator effect moves only from 0.160 to 0.172. The chapter's conclusions stand.
+
+What remains is the cross-section with size classes. ``Inventory (period end)'' is available
+for 62 industries only for all sizes together, and by size class for only 10 industries.
+\textbf{A cross-section split by both industry and size exceeds e-Stat's 100{,}000-cell
+limit.} It is possible by splitting the retrieval, but what would be obtained is information
+linking the two cross-sections of Remark~\ref{rem:inventory-cut}, which would not move the
+chapter's conclusions.
+
+\end{enumerate}
+
+\subsection{Priorities}
+
+Assessed on feasibility, breadth of consequence and cost, separating what can be started from
+what effort will not advance.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}rXlll@{}}
+\toprule
+ & Item & Category & Feasibility & Consequence \\
+\midrule
+1 & (17) components of $\lambda_{\rm novel}$ (only the breakdown remains) & disclosure & low & medium \\
+2 & (3) $H$ and $\beta$ under R2 & (ii) & medium & medium \\
+3 & (5) what drives $\Delta\ln W$ & (iii) & medium & medium \\
+4 & (11) $\kappa$ of sole proprietors & choice in aggregation & medium & large \\
+5 & (13) per-party $\kappa_i$ & impossibility of aggregation & low & large \\
+6 & (18) scope of inventory (crossed with size) & choice in aggregation & low & small \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Priorities among the items that can be started.}
+\label{tab:unresolved-priority}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}rXll@{}}
+\toprule
+ & Item & Category & Why effort will not advance it \\
+\midrule
+7 & (6) $\phi_{\rm cog}$ & (iv) & individual records and an exogenous shock are out of reach \\
+8 & (1) directors' remuneration & (i) & no statistics on hours worked exist \\
+9 & (2) measurability hypothesis & (ii)+(vi) & the explanatory variable does not vary \\
+10 & (7) how readily surplus is taken & (iv) & an intermediary is not an attribute of an industry \\
+11 & (4) interpreting receivables growth & (iii) & balances of electronically recorded claims are not surveyed \\
+12 & (8) curvature of the age effect & (iv) & no sample carries firm age \\
+13 & (14) degree of unmannedness & --- & no measure is defined \\
+14 & (15) separating the components of $\phi$ & --- & $p^{\ast}$ is a counterfactual \\
+15 & (10) social optimality of pooling & --- & outside the object as set \\
+16 & (9) capacity constraint & --- & as above \\
+17 & (12) circulation of claims & --- & requires extending the domain \\
+18 & (16) degree of removal of the third party & --- & as above \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Items that effort will not advance.}
+\label{tab:unresolved-blocked}
+\end{center}
+
+Items in categories (i) and (ii) do not advance with effort.
+
+Among them, (11), the $\kappa$ of sole proprietors, differs in character. The obstacle is
+neither absence of measurement nor non-identification but \textbf{a choice in aggregation}:
+responses that may already have been collected are not published. As
+Section~\ref{sec:not-tabulated} notes, the Basic Survey on Small and Medium Enterprises has a
+questionnaire for sole proprietors. A request to the statistical authority for the
+tabulation, or an application to use anonymized microdata, is a possible route.
+
+Item (13), protocol records, is one where quantities this text abandoned as requiring
+per-firm data are in fact published in the ``inside'' partition of
+Chapter~\ref{ch:protocol}. But because Remark~\ref{rem:additivity} blocks aggregation to
+parties, what can be measured is confined to the distribution per identifier.
+
+\textbf{Two items have no obstacle, and both can be started with published data or an
+established acquisition procedure.} Item (18) has been done for 62 industries and what remains
+is the cross-section with size classes (Section~\ref{sec:inventory-scope}). The kind of work
+required differs from that of the items in Table~\ref{tab:unresolved-blocked}.
+
+\section{Known weaknesses of the framework}
+
+The weaknesses revealed through verification fall into three types. None is an error in an
+individual proposition; all \textbf{originate in the construction of the framework}.
+
+\subsection{(A) Excessive assumptions of independence}
+\label{sec:independence-assumption}
+
+Several propositions treat as independent quantities that are in fact determined jointly.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Proposition & Pair treated as independent & The actual relation \\
+\midrule
+\ref{prop:pooling} pooling & $n$ and $\rho$ & scale exhausts weakly correlated objects (Remark~\ref{rem:rho-endogenous}) \\
+\ref{prop:breakage} divergence & $\bar\delta$ and $\delta$ & jointly determined through menu choice \\
+\ref{prop:capacity} membership & $n$ and $\E[\delta]$ & the fee moves both \\
+\ref{prop:implementable} implementability & $\mathcal{G}$ and $\pi$ & $\mathcal{G}$ is an object of investment (Remark~\ref{rem:G-endogenous}) \\
+\ref{prop:fcf} FCF & $m$ and $\CCC$ & both rose together in the measurements (Remark~\ref{rem:m-ccc-independence}) \\
+\ref{prop:substitution} substitution & $E$ and $\kappa$ & with capital one can extend credit (a corollary of Proposition~\ref{prop:officer}) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Propositions assuming independence, and the quantities that are in fact jointly determined.}
+\label{tab:independence-assumptions}
+\end{center}
+
+Each proposition states its independence assumption explicitly, but
+\textbf{no consequence is derived for the case where the assumption is dropped}. The proofs
+are formally correct; the weakness is that their range of application is narrow.
+
+Four of the implications fixed in advance failed because of this weakness.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Implication & Pair treated as independent & Form of the error \\
+\midrule
+A & $\kappa$ and $\phi_{\rm cog}$ & identified dwell time with non-exercise \\
+B & $b$ and $\sigma^2$ & looked only at the numerator of the relation \\
+F & DSO and DPO & overlooked that bargaining power acts on both sides \\
+K & $\bar\delta$ and $\delta$ & did not anticipate the stepped structure of the menu \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Four implications that failed because of excessive assumptions of independence.}
+\label{tab:independence-failed-predictions}
+\end{center}
+
+B and F have the same form: \textbf{a variable acting on both sides was handled on one side
+only}.
+
+\subsection{(B) Excessive assumptions of exogeneity}
+
+Institutions, $\Phi$, $v$, $\mathrm{Cap}$ and $\mathcal{G}$ are all treated as exogenous.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Subjectivity of the valuation map $v$.}
+The $v$ that measures delivery in money was taken as given, but it is itself subjective, and
+the definition of $\phi_{\mathrm{cog}}$ depends on it.
+
+\item \textbf{Endogeneity of $\Phi$, and switching cost.}
+$\Phi$ was treated as a firm's choice variable, but it is in fact an equilibrium of
+bargaining between parties and cannot be chosen unilaterally. In addition the switching cost
+is set to zero (Remark~\ref{rem:switching-cost}). Where that cost is of the same order as the
+gain in surplus, waiting has value and a question of timing arises --- when to fix $\Phi$.
+This text does not treat it.
+
+\item \textbf{Exogeneity of the institutional layer.}
+Institutions were treated only as an exogenous constraint. In fact they change endogenously in
+response to firm behaviour. The correspondence between antitrust litigation and rate
+reductions in Chapter~\ref{sec:platform-fee} is an example.
+
+\item \textbf{Simplification of $\mathrm{Cap}$.}
+It was treated as a constant, but it is properly a function of time and is also a design
+variable through restrictions on hours of use (Remark~\ref{rem:cap-simplification}).
+
+\item \textbf{Endogeneity of $\mathcal{G}$.}
+The information structure was taken as given, but an operator can extend it through follow-up
+surveys (Remark~\ref{rem:G-endogenous}).
+\end{enumerate}
+
+\subsection{(C) Level and change are not separated}
+\label{sec:level-change-gap}
+
+\textbf{This is the weakness most easily missed.} (A) and (B) can be recognized as
+``the assumption is too strong'', whereas (C) has no corresponding concept in the theory and
+is hard to notice as an absence.
+
+As Remark~\ref{rem:level-vs-change} states, every quantity here is defined as a level. Yet in
+the empirical work, four times over, cross-sectional comparison of levels could not be
+interpreted and only change could be discussed.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Situation & Response \\
+\midrule
+Family 2, panel by medium & levels differ by two orders of magnitude; time effects separated using the coexistence of growing segments \\
+Chapter~\ref{part:industry}, $\CCC$ by industry & 5--210 days; stated explicitly that cross-sectional comparison is uninterpretable \\
+Shift-share decomposition & change in levels split into within-industry and composition effects \\
+Elasticity estimation & $\beta$ estimated as a relation between changes \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Situations where level and change were not separated, and the response in each.}
+\label{tab:level-change-gap-response}
+\end{center}
+
+\textbf{The theory has only levels while the empirical work can speak only of change.}
+
+Part of this mismatch was resolved by introducing the lag $\tau_i$ in
+Section~\ref{sec:tau}. Proposition~\ref{prop:ccc-structure} gives
+$\CCC=\sum_i\tau_i+\tau_{\mathrm{inv}}$, from which it is deduced that the level of $\CCC$ is
+fixed by $\Phi$ (Corollary~\ref{cor:ccc-level}) and that cross-sectional comparison is
+meaningless (Corollary~\ref{cor:no-cross-comparison}). A tool for splitting $\Delta\CCC$ into
+change in contracts and change in operations was also obtained
+(Corollary~\ref{cor:ccc-change}).
+
+That level and change are separate constraints was likewise settled at the boundary of the
+fundamental inequality of Proposition~\ref{prop:fundamental}: $M\geq 0$ bounds the level and
+$\dot M\geq 0$ bounds change (Remark~\ref{rem:level-and-change}). The two are independent,
+yet their sensitivity to $\tau_i$ carries the same coefficient $-1/\CCC$
+(Proposition~\ref{prop:tau-substitution}, Table~\ref{tab:comparative-statics}).
+
+\textbf{What remains is constructing a comparable quantity.} The candidate is the deviation
+from the contractual $\tau_i^{\mathrm{contract}}$, but contractual terms do not exist in
+published statistics (Remark~\ref{rem:no-normalization}). The theoretical problem is solved
+and the measurement problem has taken its place.
+
+\subsection{The three types, and mid-level theory}
+
+For (A) and (C), the existing theory that ought to be connected can be identified.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Weakness & Where it appears & Theory that could be connected \\
+\midrule
+(A) $\bar\delta$ and $\delta$ & Remark~\ref{prop:breakage}, family 2, gyms & mechanism design, self-selection and quantity discounts \\
+(A) $b$ and $\sigma^2$ & Proposition~\ref{prop:implementable}, family 5 & the screening effect of contracts \\
+(A) DSO and DPO & Proposition~\ref{prop:substitution}, Chapter~\ref{part:industry} & the theory of trade credit \\
+(C) level and change & all empirical chapters & --- \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Weaknesses of the framework and the existing theory that could be connected.}
+\label{tab:weakness-mid-level-theory}
+\end{center}
+
+\textbf{These were referred to but not connected systematically.} Borrowing the informativeness
+principle in Chapter~\ref{sec:info} while failing to check its contested status when framing
+an implication in Section~\ref{sec:predB-illposed} happened because the same theory was
+handled at different depths when citing it and when framing an implication.
+
+For (C), no theory to connect to has been identified.
