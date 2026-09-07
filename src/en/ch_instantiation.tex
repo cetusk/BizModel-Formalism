@@ -1,1 +1,875 @@
-% TODO: translation of src/ch_instantiation.tex
+\chapter{Measuring the Theoretical Quantities: What Could and Could Not Be Measured}
+\label{ch:instantiation}
+
+\section{Purpose of this chapter}
+
+This chapter tabulates which of the symbols introduced in Part~\ref{part:theory} could
+actually be measured, and what values they take where they could. Each chapter of
+Part~\ref{part:results} treats a separate domain, so the correspondence with the theoretical
+quantities is easily scattered. This chapter supplies the index.
+
+\textbf{Its main purpose is to make explicit what could not be measured.} Fewer than half the
+quantities the framework defines could be connected to real data.
+
+The stage reached differs by quantity (Remark~\ref{rem:stage-per-quantity}). The list here is
+a record of where between stages 1 and 3 of Section~\ref{sec:five-stages} each one stalled.
+
+\section{The primitive sets made concrete}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Symbol & Domain & The set realized, and its cardinality \\
+\midrule
+$N$ & family 2 & $\{$issuers, purchasers, merchants$\}$. 2{,}034 issuers (829 third-party, 1{,}205 own-use) \\
+$N$ & family 5 & $\{$agencies, job seekers, employers$\}$. 30{,}561 establishments, 13{,}946 with placements \\
+$N$ & industry & the population of the corporate statistics: 62 industries $\times$ 16 capital classes \\
+$T$ & family 2 & $\{$FY2020--FY2024$\}$, $|T|=5$ \\
+$T$ & family 5 & FY2024 alone; the panel covers FY2020--FY2025, $|T|=6$ \\
+$T$ & industry & FY2000--FY2024, $|T|=25$ \\
+$\mathcal{D}$ & family 2 & four media of prepaid instruments (paper, magnetic, IC, server) \\
+$\Omega$ & all domains & \textbf{not observed}. Only the arrival rate is proxied in Chapter~\ref{part:unmanned} \\
+$\mathcal{F}_t$ & all domains & \textbf{not observed} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{How the primitive sets $N$, $T$, $\mathcal{D}$, $\Omega$ and $\mathcal{F}_t$ were realized in each domain.}
+\label{tab:basic-sets}
+\end{center}
+
+\begin{remark}[Consequence of $\Omega$ being unmeasurable]
+The state space itself cannot be observed. The dependence of $\pi$ or $\delta$ on $\omega$
+therefore cannot be verified directly, and every empirical result here concerns quantities
+marginalized over $\omega$. The one exception is Chapter~\ref{part:unmanned}, where the
+arrival rate $\lambda_{\rm novel}$ of unforeseen states is proxied by counts of
+vulnerabilities.
+\end{remark}
+
+\section{The observed range of the map \texorpdfstring{$\Phi$}{Phi}}
+
+Part~\ref{part:catalog} enumerated 28 types; those that could be connected to real data are
+limited to the following (Table~\ref{tab:phi-observed-types}).
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Type & Instance & Quantities observed \\
+\midrule
+2-4 prepaid & prepaid payment instruments & $D$, $P$, $\kappa$, an upper bound on $\dbar-\delta$ \\
+5-1 success fee & fee-charging employment placement & $\pi$ per placement, $y$, the extent of $\mathcal{G}$ \\
+6-1 transaction fee & payment and distribution platforms & the price of $\phi_{\rm barg}$ \\
+6-4 charging for opportunity & marketplace customer acquisition & the price of $T_{\rm acq}$ \\
+1-3 one-off arrears & trade credit in the corporate statistics & $\kappa_C>0$ \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The five of the 28 types that could be connected to real data, and the quantities observed.}
+\label{tab:phi-observed-types}
+\end{center}
+
+That is \textbf{five of the 28 types}. Family 3 (renting assets), family 4 (complement
+recovery) and family 7 (payer separation) were not measured at all.
+
+\section{Cumulants and the credit position}
+
+\subsection{\texorpdfstring{$D$}{D}, \texorpdfstring{$P$}{P} and \texorpdfstring{$\kappa$}{kappa} in family 2}
+
+Substituting FY2024 values into the definitions of Chapter~\ref{sec:phi}, in millions of yen:
+
+\begin{align}
+P(\text{FY2024}) &= 28{,}150{,}350 \qquad \text{(issued: settlement from customers)} \\
+D(\text{FY2024}) &= 28{,}241{,}983 \qquad \text{(redeemed: delivery by the firm)} \\
+-\kappa_C(\text{FY2024}) &= 2{,}895{,}327 \qquad \text{(unused balance: customers credit the firm)}
+\end{align}
+
+Against~\eqref{eq:kappa}, $\kappa_C = -2.90$ trillion yen. Being negative, customers extend
+credit to the issuer. Applying~\eqref{eq:ccc},
+
+\[
+\CCC = \frac{W}{r} = \frac{2{,}895{,}327}{28{,}150{,}350}\times 365 = 37.5\ \text{days}.
+\]
+
+\subsection{\texorpdfstring{$\CCC$}{CCC} by medium}
+
+The same calculation by medium shows a difference of two orders of magnitude.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Medium & $-\kappa_C$ (million yen) & $r$ (million yen) & $\CCC$ (days) \\
+\midrule
+Magnetic & 562{,}980 & 107{,}925 & 1{,}904 \\
+Paper & 1{,}127{,}149 & 486{,}732 & 845 \\
+Server & 670{,}552 & 14{,}331{,}607 & 17 \\
+IC card & 534{,}645 & 13{,}224{,}087 & 15 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$-\kappa_C$, $r$ and $\CCC$ by medium.}
+\label{tab:media-ccc}
+\end{center}
+
+\subsection{\texorpdfstring{$\kappa$}{kappa} in the corporate statistics}
+
+Applying~\eqref{eq:kappa} to the corporate sector as a whole, FY2024, all industries
+excluding finance and insurance.
+
+\begin{align}
+\kappa_C &= \mathrm{DSO} = 71\ \text{days (capital 1bn yen and over)},\quad 35\ \text{days (under 10m yen)}\\
+\kappa_S &= -\mathrm{DPO} = -44\ \text{days (1bn and over)},\quad -21\ \text{days (under 10m)}\\
+\sum_i \kappa_i &= 27\ \text{days (1bn and over)},\quad 14\ \text{days (under 10m)}
+\end{align}
+
+\textbf{The sign of $\kappa$ depends on both size and industry, and the industry effect
+dominates.} In retail, $\sum_i\kappa_i = -16$ days for firms of 1bn yen and over: the sign
+reverses.
+
+\section{Measuring the growth constraint}
+\label{sec:gstar-measured}
+
+The $g^\star=(m+d-I/r)/\CCC$ of Corollary~\ref{cor:gstar} needs four quantities. The
+measurement proceeds in two stages.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Object & Quantities used & Period \\
+\midrule
+Long-run trend & $m$ and $\CCC$ only; the ratio $m/\CCC$ & FY2000--FY2024 \\
+Level & $m$, $d$, $I$, $\CCC$; $g^\star$ itself & FY2016--FY2024 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The two stages of measuring the growth constraint: object and period.}
+\label{tab:gstar-measurement-stages}
+\end{center}
+
+$d$ and $I$ are not used on the long-run side because depreciation and fixed-asset balances
+were not obtained back to the 1990s. For $m$, the operating margin is used: the $m$ of
+Chapter~\ref{sec:growth} is what funds increases in working capital, so a figure net of
+selling and administrative expenses is closer to the definition.
+
+\subsection{The corporate sector over time ($m/\CCC$)}
+
+\begin{center}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+Fiscal year & $\CCC$ (days) & $m$ & $m/\CCC$ \\
+\midrule
+2000 & 24.9 & 2.62\% & 38.5\% \\
+2005 & 24.4 & 3.16\% & 47.3\% \\
+2009 & 28.0 & 2.01\% & 26.2\% \\
+2015 & 30.6 & 3.95\% & 47.1\% \\
+2020 & 35.4 & 3.06\% & 31.5\% \\
+2024 & 37.2 & 5.01\% & 49.2\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$\CCC$, $m$ and $m/\CCC$ for the corporate sector over time (all industries).}
+\label{tab:mccc-trend}
+\end{center}
+\begin{center}\footnotesize All industries excluding finance and insurance, all sizes. $d$ and $I$ not included\end{center}
+
+The trend is shown in Figure~\ref{fig:gstar-trend}.
+
+\begin{figure}[htbp]
+\centering
+\insertfig{gstar-trend}
+\caption{$m/\CCC$ over time (all industries, on an operating-margin basis). It differs from the $g^\star$ of Corollary~\ref{cor:gstar} by $d$ and $I$.}
+\label{fig:gstar-trend}
+\end{figure}
+
+\begin{proposition}[$m/\CCC$ has not declined]
+\label{prop:gstar-flat}
+Between FY2000 and FY2024, $\CCC$ worsened by 49\%, from 24.9 to 37.2 days. But $m$ improved
+by 91\%, from 2.62\% to 5.01\%, so
+\[
+\frac{m}{\CCC} : \quad 38.5\% \;\longrightarrow\; 49.2\%
+\]
+and the ratio in fact rose. The mean over 25 years is 41.1\% with a standard deviation of 7.3
+points. Against a mean of 38.0\% over the first twelve years, the last thirteen average
+44.0\%. No declining trend is present.
+\end{proposition}
+
+\begin{remark}[This proposition is not about $g^\star$ itself]
+\label{rem:gstar-flat-caveat}
+The $g^\star$ of Corollary~\ref{cor:gstar} is $(m+d-I/r)/\CCC$.
+Proposition~\ref{prop:gstar-flat} concerns only $m/\CCC$, which excludes $d$ and $I$.
+
+The reason for using $m/\CCC$ in the long time series is given in
+Table~\ref{tab:gstar-measurement-stages}. The $g^\star$ including $d$ and $I$ is computed for
+FY2016--FY2024 in Section~\ref{sec:gstar-measured}.
+
+The proposition is therefore \textbf{a claim about the trend of a ratio}, not about the level
+of the self-financeable growth rate. If $I$ has trended, the path of $g^\star$ can differ
+from that of $m/\CCC$.
+\end{remark}
+
+\begin{remark}[Numerator and denominator must be measured separately]
+Looking at the deterioration of $\CCC$ alone suggests a worsening growth constraint. But
+Corollary~\ref{cor:gstar} is a ratio, and \textbf{no conclusion follows from a change in the
+denominator alone}. Arguing from $\CCC$ without obtaining $m$ reaches the opposite of the
+truth.
+
+What drives the movement of $m/\CCC$ is mainly $m$. The troughs are FY2008--FY2009 (around
+26\%) and FY2020 (31.5\%), both due to falling margins rather than to $\CCC$.
+\end{remark}
+
+\subsection{\texorpdfstring{$g^\star$}{g*} including depreciation and investment}
+
+Corollary~\ref{cor:gstar} needs, besides $m$, the depreciation rate $d$ and investment $I$.
+As Remark~\ref{rem:no-steady-investment} states, $I\approx d\,r$ is not assumed. $I$ is
+estimated as the change in fixed-asset balances plus depreciation. Land is excluded because
+it is not depreciated.
+\begin{equation}
+I \approx \bigl(\text{tangible}+\text{intangible}-\text{land}\bigr)_t
+ - \bigl(\text{tangible}+\text{intangible}-\text{land}\bigr)_{t-1} + \text{depreciation}_t
+\label{eq:I-estimate}
+\end{equation}
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Size (capital) & $\CCC$ & $m$ & $d$ & $I/r$ & $g^\star$ (2024) & 9-yr mean & SD \\
+\midrule
+1bn yen and over & 47 & 7.8\% & 3.1\% & 4.2\% & 52.0\% & 49.3\% & 6.0 \\
+100m -- 1bn & 35 & 4.8\% & 2.1\% & 4.3\% & 27.1\% & 39.6\% & 12.2 \\
+50m -- 100m & 30 & 3.9\% & 1.8\% & 1.9\% & 45.8\% & 33.0\% & 15.2 \\
+20m -- 50m & 25 & 3.5\% & 2.1\% & 1.2\% & 64.3\% & 35.0\% & 17.0 \\
+10m -- 20m & 37 & 1.8\% & 2.3\% & 5.5\% & \textminus 13.8\% & 15.5\% & 30.8 \\
+Under 10m & 26 & 1.5\% & 2.9\% & 2.0\% & 34.7\% & \textbf{3.1\%} & 41.4 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$\CCC$, $m$, $d$, $I/r$ and $g^\star$ by capital class (FY2024, nine-year mean, SD).}
+\label{tab:gstar-by-size}
+\end{center}
+\begin{center}\footnotesize All industries excluding finance and insurance; $\CCC$ in days; SD is the nine-year standard deviation of $g^\star$.
+Ten years of data (FY2015--FY2024) were obtained, but because the $I$ of~\eqref{eq:I-estimate} needs the previous year's fixed-asset balance, $g^\star$ can be computed only from FY2016, and the mean and SD are taken over the nine years FY2016--FY2024\end{center}
+
+\begin{remark}[Single-year values differ in reliability by size]
+\label{rem:gstar-reliability}
+The nine-year standard deviation of $I/r$ is 0.3 for firms of 1bn yen and over and 2.9 for
+those under 10m --- an order of magnitude apart. Because~\eqref{eq:I-estimate} uses changes in
+balances, retirements and disposals and \textbf{movement between capital classes} contaminate
+it. Capital changes with equity issuance irrespective of performance, so firms move between
+classes.
+
+The direction of movement is not constant. The $I/r$ of the under-10m class recorded
+$-1.6\%$ in 2016 and $+7.5\%$ in 2022, so this is not a one-directional bias. Averaging
+therefore largely cancels the effect, but single-year values are unreliable for the small
+classes.
+
+This is why the table reports both single-year and nine-year figures with standard
+deviations.
+\end{remark}
+
+Following Remark~\ref{rem:gstar-reliability}, judgments use the nine-year means.
+
+\begin{proposition}[The constraint on small firms is not $\CCC$]
+\label{prop:small-margin}
+On nine-year means, $g^\star$ for firms under 10m yen of capital is 3.1\%, more than an order
+of magnitude below the 49.3\% of firms of 1bn and over. The difference does not come from
+$\CCC$: the $\CCC$ of the small classes (26--37 days) is in fact shorter than that of large
+firms (47 days).
+
+The cause is the numerator. $m+d-I/r$ is 6.7\% for firms of 1bn and over and 2.4\% for those
+under 10m; besides a low $m$ of 1.5\%, an investment burden exceeding $d$ contributes.
+\end{proposition}
+
+In the single year, the under-10m class shows a high $34.7\%$, but with a standard deviation
+of 41.4 no meaning should be read into that value.
+
+\subsection{\texorpdfstring{$g^\star$}{g*} by industry}
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Industry & $\CCC$ & $m$ & $d$ & $I/r$ & 9-yr mean $g^\star$ & SD \\
+\midrule
+Manufacturing & 42 & 5.4\% & 2.8\% & 4.2\% & 34.8\% & 5.6 \\
+All industries & 37 & 5.0\% & 2.5\% & 3.5\% & 37.7\% & 7.5 \\
+Wholesale & 33 & 2.2\% & 0.7\% & 0.4\% & 20.9\% & 6.9 \\
+Construction & 40 & 4.5\% & 1.5\% & 1.4\% & 47.1\% & 11.3 \\
+Retail & 23 & 2.7\% & 1.5\% & 1.6\% & 29.0\% & 12.2 \\
+Employment placement and dispatch & 33 & 3.9\% & 0.6\% & \textminus 0.3\% & 42.7\% & 13.9 \\
+Information and communications & 58 & 8.2\% & 4.8\% & 5.2\% & 61.2\% & 16.5 \\
+Other services & 34 & 5.4\% & 3.0\% & 5.5\% & 47.9\% & 32.3 \\
+\midrule
+Accommodation & 22 & 6.6\% & 3.5\% & 6.3\% & \textminus 204.2\% & \textbf{872} \\
+Food services & 5 & 1.2\% & 2.4\% & \textminus 0.4\% & 266.9\% & \textbf{3334} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$\CCC$, $m$, $d$, $I/r$ and the nine-year mean $g^\star$ by industry, with standard deviations.}
+\label{tab:gstar-by-industry}
+\end{center}
+
+The bottom two industries in Table~\ref{tab:gstar-by-industry} exhibit the divergence of
+Remark~\ref{rem:gstar-divergence}. The $\CCC$ of food services is 5 days, so a one-point
+movement in the numerator moves $g^\star$ by about 73 points. The standard deviation of 3334
+is the consequence of that amplification:
+\textbf{$g^\star$ is not functioning as an indicator}.
+
+\begin{remark}[Two meanings of a short $\CCC$]
+In the types of Part~\ref{part:catalog}, food services is family 1-1 (immediate exchange) and
+$\tau_i\approx 0$ is a structural property (Corollary~\ref{cor:ccc-level}).
+A short $\CCC$ indicates sound liquidity, but
+\textbf{it simultaneously makes the ratio $g^\star$ meaningless}.
+Corollary~\ref{cor:gstar} is useful only for objects whose $\CCC$ is some tens of days or
+more.
+\end{remark}
+
+\subsection{The $m$ of small firms is decided by directors' remuneration}
+\label{sec:officer-comp}
+
+Proposition~\ref{prop:small-margin} showed that $m$ is the constraint but not why $m$ is low.
+Decompose the cost structure.
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Size (capital) & Gross margin & SG\&A ratio & Personnel ratio & $m$ \\
+\midrule
+1bn yen and over & 23.6\% & 15.8\% & 7.7\% & 7.8\% \\
+100m -- 1bn & 21.5\% & 16.8\% & 10.3\% & 4.8\% \\
+50m -- 100m & 25.9\% & 22.0\% & 12.3\% & 3.9\% \\
+20m -- 50m & 26.0\% & 22.4\% & 15.0\% & 3.5\% \\
+10m -- 20m & 33.8\% & 32.0\% & 17.7\% & 1.8\% \\
+Under 10m & \textbf{46.3\%} & \textbf{44.8\%} & 22.7\% & 1.5\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Gross margin, SG\&A ratio, personnel ratio and $m$ by capital class (FY2024).}
+\label{tab:cost-structure-by-size}
+\end{center}
+\begin{center}\footnotesize All industries excluding finance and insurance, FY2024\end{center}
+
+\textbf{Small firms have high gross margins}: 46.3\% against 23.6\% for large firms. Their
+SG\&A ratio, however, is 44.8\% against 15.8\%. As Remark~\ref{rem:cadmin-negligible} notes,
+part of that difference may be $C_{\mathrm{admin}}$: at a scale where invoicing and chasing
+are done by hand, the operating cost of contracts is booked in SG\&A. This text does not
+separate it. The low $m$ is therefore not due to a lack of pricing power; the drop occurs at
+the SG\&A stage.
+
+Moving personnel costs back into cost of sales narrows the gap in gross margin from 22.7
+points to 7.7 (15.9\% against 23.6\%). Two-thirds of the gap was a difference of accounting
+classification. Even after the adjustment, however, the small classes remain higher.
+
+Decomposing personnel costs into directors and employees identifies the cause.
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Size (capital) & Directors' remuneration & Employee wages & Directors' share & $m$ \\
+\midrule
+1bn yen and over & 0.16\% & 7.6\% & 2.0\% & 7.8\% \\
+100m -- 1bn & 0.40\% & 9.9\% & 3.9\% & 4.8\% \\
+50m -- 100m & 0.99\% & 11.3\% & 8.1\% & 3.9\% \\
+20m -- 50m & 2.35\% & 12.7\% & 15.6\% & 3.5\% \\
+10m -- 20m & 3.98\% & 13.7\% & 22.5\% & 1.8\% \\
+Under 10m & \textbf{8.04\%} & 14.6\% & \textbf{35.5\%} & 1.5\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Directors' remuneration, employee wages, directors' share and $m$ by capital class.}
+\label{tab:officer-comp-by-size}
+\end{center}
+\begin{center}\footnotesize The directors' share is directors' remuneration as a fraction of personnel costs\end{center}
+
+\begin{proposition}[Directors' remuneration explains the difference in $m$ by size]
+\label{prop:officer}
+Directors' remuneration as a fraction of sales is 0.16\% for firms with capital of 1bn yen
+and over and 8.04\% for those under 10m --- a \textbf{fiftyfold difference}. The gap in $m$
+between the largest and smallest classes is 6.3 points, while the gap in directors'
+remuneration is 7.88 points, large enough to account for it.
+
+Adding directors' remuneration back into operating profit removes the monotone ordering.
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Size & $m$ & After adding remuneration back \\
+\midrule
+1bn yen and over & 7.8\% & 8.0\% \\
+20m -- 50m & 3.5\% & 5.9\% \\
+Under 10m & 1.5\% & \textbf{9.5\%} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$m$ before and after adding directors' remuneration back into operating profit, by size.}
+\label{tab:officer-comp-adjusted}
+\end{center}
+The smallest class becomes the highest. The same holds within industries: $m$ is higher for
+the small classes in 1 of 9 industries as reported, but in 7 after remuneration is added
+back.
+\end{proposition}
+
+\begin{remark}[A discrepancy with the definition of $m$]
+Chapter~\ref{sec:growth} defined $m$ as what funds increases in working capital. If
+directors' remuneration is discretionary, what a small operator can actually use is not
+operating profit but \textbf{operating profit plus directors' remuneration}. On that basis
+the numerator for the under-10m class is not the 2.4\% of $m+d-I/r$ but 10.4\% once
+remuneration of 8.04\% is added. Dividing by $\CCC=26$ days gives 146\%, far above the 51.7\%
+of large firms (Section~\ref{sec:gstar-measured}; nine-year mean 49.3\%).
+
+That is, Proposition~\ref{prop:small-margin}'s claim that small firms are constrained by $m$
+is correct only so long as reported operating profit is taken to be $m$;
+\textbf{with an $m$ faithful to the definition, the conclusion reverses}.
+\end{remark}
+
+\subsection{Comparison with unincorporated businesses}
+\label{sec:individual-firms}
+
+Proposition~\ref{prop:officer} rests on the corporate statistics. Whether the same structure
+appears in a different statistic, with different size classes, and in a sample including
+\textbf{entities without corporate personality}, is checked here.
+
+The Basic Survey on Small and Medium Enterprises was used: a sample of about 110{,}000 firms
+in which four corporate size classes by headcount and unincorporated businesses appear in the
+same table. Unincorporated businesses have no line item for directors' remuneration, so the
+proprietor's return to labour remains in operating profit.
+
+\begin{quote}
+\textbf{Registered implication}: the operating margin of unincorporated businesses is close
+to the corporate small classes' figure ``after adding remuneration back''. The two are
+substantively the same economic agent and differ only in accounting classification.
+\end{quote}
+
+\begin{center}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+Class & 2019 & 2020 & 2021 & 2022 & 2023 & 2024 & Mean & SD \\
+\midrule
+Corporate, 5 or fewer & 2.7 & 1.1 & 2.6 & 3.0 & 2.6 & 3.0 & 2.5 & 0.7 \\
+Corporate, 6--20 & 2.4 & 1.5 & 2.5 & 2.8 & 3.0 & 3.2 & 2.6 & 0.6 \\
+Corporate, 21--50 & 2.8 & 2.1 & 3.2 & 2.8 & 3.4 & 3.7 & 3.0 & 0.6 \\
+Corporate, 51 and over & 3.4 & 2.8 & 3.2 & 3.6 & 3.6 & 4.0 & 3.4 & 0.4 \\
+Unincorporated & 17.0 & 18.5 & 18.2 & 15.8 & 15.4 & 16.3 & \textbf{16.9} & 1.3 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Operating margin by corporate size class and for unincorporated businesses (FY2019--FY2024).}
+\label{tab:individual-vs-corp-margin}
+\end{center}
+\begin{center}\footnotesize Operating margin (\%), all industries, by fiscal year\end{center}
+
+\textbf{The implication is supported.} The operating margin of unincorporated businesses is
+about five times the corporate figure in all six years, with a standard deviation of 1.3.
+This is not a single-year peculiarity. The corporate figure after adding remuneration back in
+Section~\ref{sec:officer-comp} was 9.5\%. The 16.9\% of unincorporated businesses exceeds
+that, but is far closer to it than to the 1.5--3.0\% before adding back.
+
+The personnel-cost ratio explains the difference.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Class & Operating margin & Personnel ratio & Total \\
+\midrule
+Corporate, 5 or fewer & 2.5\% & 14.7\% & 17.2\% \\
+Corporate, 6--20 & 2.6\% & 16.9\% & 19.5\% \\
+Unincorporated & 16.9\% & \textbf{9.8\%} & 26.7\% \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Operating margin and personnel ratio, corporate and unincorporated (six-year means).}
+\label{tab:individual-vs-corp-laborcost}
+\end{center}
+\begin{center}\footnotesize Six-year means. The personnel ratio is labour cost in cost of sales plus personnel cost in SG\&A\end{center}
+
+\textbf{Unincorporated businesses have the lowest personnel ratio}, because the proprietor's
+labour is not booked as a cost. What appears in personnel costs as directors' remuneration in
+a company remains in operating profit for an unincorporated business.
+
+\begin{remark}[The sign reverses during the pandemic]
+\label{rem:covid-reversal}
+In FY2020 the operating margin fell in every corporate class (2.7\% $\to$ 1.1\% for firms of
+five or fewer). \textbf{Only unincorporated businesses rose} (17.0\% $\to$ 18.5\%).
+
+This has the same form as the observation in Remark~\ref{rem:officer-undecidable}. Because
+the operating profit of an unincorporated business contains the proprietor's own take, the
+ratio does not fall when sales fall unless the proprietor reduces that take. If employee
+wages and outsourcing are cut first, it rises.
+
+That directors' remuneration in companies moves independently of profit, and that the
+operating margin of unincorporated businesses rises in a downturn, are
+\textbf{two appearances of one and the same phenomenon}.
+\end{remark}
+
+\begin{remark}[Capital expenditure by unincorporated businesses]
+\label{rem:individual-capex}
+The same survey gives $I/r$ for unincorporated businesses: a six-year mean of 1.9\% with a
+standard deviation of 1.0. That is lower and less stable than the 3.1\% (SD 0.1) of corporate
+firms with 51 or more employees. The share of firms making any capital expenditure is 8.1\%
+(FY2024): more than nine in ten invest nothing.
+
+Chapter~\ref{ch:solo} assumed $A\approx 0$ for a solo business. The assumption agrees with
+the data on unincorporated businesses.
+\end{remark}
+
+\begin{remark}[What cannot be decided]
+\label{rem:officer-undecidable}
+Whether directors' remuneration is a discretionary appropriation of profit or a return to
+labour cannot be decided here.
+
+An observation supporting discretion: the directors' remuneration ratio of the under-10m
+class stayed in the narrow band 7.6--9.1\% throughout FY2015--FY2024, while $m$ over the same
+period ranged from $-2.0\%$ to $+2.1\%$.
+\textbf{Profit moves and remuneration does not.}
+
+But the labour-return account cannot be rejected either. Directors of small firms work in
+substance as employees, and it is equally possible that the remuneration is the return to
+that. Distinguishing the two needs remuneration per director and hours worked, but
+\textbf{directors are not employees under the Labour Standards Act and no statistics on their
+hours exist}. Both the Monthly Labour Survey and the Basic Survey on Wage Structure are
+confined to employees. This belongs to category (i), no measurement exists, of
+Section~\ref{sec:obstacle-taxonomy}.
+\end{remark}
+
+\subsection{By industry (FY2024)}
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Industry & $\CCC$ (days) & $m$ & $g^\star$ \\
+\midrule
+Pure holding companies & 12 & 57.7\% & 1710\% \\
+Water transport & 7 & 4.8\% & 261\% \\
+Mining, quarrying and gravel extraction & 29 & 19.0\% & 236\% \\
+Motor vehicles and parts & 9 & 5.1\% & 201\% \\
+\midrule
+Leasing & 210 & 6.6\% & 11.4\% \\
+Petroleum and coal products & 20 & 0.6\% & 11.4\% \\
+Textiles & 78 & 2.0\% & 9.2\% \\
+Fisheries & 40 & \textminus 1.5\% & negative \\
+Agriculture and forestry & 22 & \textminus 4.0\% & negative \\
+\bottomrule
+\end{tabular}
+\captionof{table}{$\CCC$, $m$ and $g^\star$ by industry (FY2024; the extremes).}
+\label{tab:gstar-industry-extremes}
+\end{center}
+
+Where the numerator $m+d-I/r$ is negative, $g^\star<0$, and by
+Proposition~\ref{prop:fcf} \textbf{free cash flow is negative even at zero growth}.
+
+A long $\CCC$ and a small $g^\star$ do not coincide
+(Table~\ref{tab:gstar-industry-extremes}). Leasing has the longest $\CCC$ at 210 days but a
+high $m=6.6\%$, so on $m$ alone it sits at the same level as petroleum and coal products
+($\CCC=20$ days, $m=0.6\%$).
+\textbf{$\CCC$ alone cannot decide the growth constraint.}
+The $g^\star$ including $d$ and $I$ is given in Section~\ref{sec:gstar-measured}.
+
+\section{Right and exercise, and cognitive surplus}
+
+The $\phi_{\rm cog}=p\cdot\E[\dbar-\delta]$ of~\eqref{eq:cog} is a measurable quantity, and
+measurements exist. Four are given below.
+\textbf{What this text obtained itself, however, is only an upper bound; the value is
+unknown.}
+
+\subsection{\texorpdfstring{$\phi_{\rm cog}$}{phi-cog} is measurable}
+\label{sec:phicog-measurable}
+
+\paragraph{This text's measurement: family 2 recoveries on expiry.}
+
+\begin{align}
+p\cdot\E[\dbar-\delta] &\leq 20{,}634\ \text{million yen}\\
+\frac{20{,}634}{2{,}895{,}327} &= 0.71\%\quad\text{(of unused balances)}\\
+\frac{20{,}634}{28{,}150{,}350} &= 0.073\%\quad\text{(of issuance)}
+\end{align}
+
+The inequality holds because this figure also contains recoveries through refunds.
+\textbf{What was obtained is an upper bound, not $\phi_{\rm cog}$ itself.}
+The three examples below all give the value itself.
+
+\paragraph{Gym memberships.}
+
+\cite{dellavigna2006} matched the contract choices and daily attendance records of 7{,}752
+members across three US gyms, measuring the $\dbar-\delta$ of~\eqref{eq:cog} directly.
+Members predicted 9.50 visits a month and made 4.17. Members on plans above \$70 a month
+attended on average only 4.3 times, paying more than \$17 a visit where a ten-visit pass
+would cost \$10. The loss over a membership averaged \$600 against total payments of about
+\$1{,}400, so $\phi_{\rm cog}$ is about 43\% of the amount paid.
+
+\paragraph{Subscription renewals.}
+
+\cite{einav2025} covers a wider range. Using comprehensive data from a payment-card network,
+it exploits as an exogenous shock the fact that card renewal forces an active renewal
+decision. Across ten subscriptions, \textbf{inattention raises sellers' revenue by 89\% on
+average} (estimates ranging from 14\% to over 200\%). The attention parameter $\lambda$ is
+estimated at 0.18 on average, ranging from 0.04 to 0.50 across services.
+
+\paragraph{Breakage on prepaid balances.}
+
+\cite{nber2026pnbl} treats family 2-4 (prepaid) directly. Analysing transaction data on over
+four million people for a scheme adding a bonus to prepaid restaurant balances, it records
+that \textbf{about 40\% of prepaid value goes unused}. Operators earn a median of \$5.50 of
+breakage profit per dollar of bonus, and the profit from breakage exceeds the revenue from
+increased spending.
+
+\begin{proposition}[Three conditions for measuring $\phi_{\rm cog}$]
+\label{prop:phicog-requirements}
+Estimating $\phi_{\rm cog}$ requires all three of the following simultaneously.
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{The contractual right $\dbar$}: the tariff and any usage ceiling
+\item \textbf{Realized use $\delta$}: individual records for the same party; aggregates will not do
+\item \textbf{An exogenous event forcing attention}: card renewal, a change of terms, a price revision
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Grounds]
+Without (1) and (2) the difference $\dbar-\delta$ cannot be defined. Without (3), observed
+continuation cannot be distinguished between ``continued because it was worth it'' and
+``continued through inattention'', and $\lambda$ is not identified.
+\cite{dellavigna2006} satisfies (1) and (2) through contract data and attendance records;
+\cite{einav2025} satisfies (3) through card renewal.
+\end{proof}
+
+This text's family 2 measurement stopped at an upper bound \textbf{because (2) and (3) were
+missing}. Aggregate statistics contain no individual records and there is no exogenous shock.
+In the taxonomy of Section~\ref{sec:obstacle-taxonomy} this is not (i), no measurement exists,
+but (iv), access constraint: the method of measurement is established and what is needed is
+reaching the data.
+
+\subsection{A detour through the menu}
+\label{sec:phicog-detour}
+
+Condition (2) of Proposition~\ref{prop:phicog-requirements}, individual realized use, is not
+available in published statistics. But \textbf{a substitution of definitions can sometimes
+provide a detour}.
+
+When a flat rate $F$ and a per-use price $p$ coexist on the same menu, the break-even number
+of uses can be computed.
+\begin{equation}
+\delta^{*} = F / p
+\label{eq:delta-star}
+\end{equation}
+Even where $\dbar$ is ``unlimited'' and unmeasurable, \eqref{eq:delta-star} follows
+\textbf{from the menu alone}. Using it as a proxy for $\dbar$, all that is needed is the
+industry-average number of uses $\delta$.
+
+Since~\eqref{eq:delta-star} is equivalent to $p\,\delta^{*}=F$, substituting
+into~\eqref{eq:cog} gives
+\begin{equation}
+\phi_{\mathrm{cog}} \approx p\,\E[\delta^{*}-\delta] = F - p\,\E[\delta]
+\label{eq:cog-menu}
+\end{equation}
+\textbf{Under this proxy, cognitive surplus is the difference between the flat fee and the
+per-use equivalent.} The registered implication $\delta^{*}-\delta>0$ becomes the same claim
+as \eqref{eq:cog-menu} being positive, that is, the flat fee exceeding the per-use equivalent
+of average use.
+
+\begin{quote}
+\textbf{Registered implication}: for flat-rate members, $\delta^{*} - \delta > 0$; the
+average member does not reach break-even.
+\end{quote}
+
+\paragraph{Result.}
+From the Survey on Selected Service Industries, $\delta$ is 89 visits a year per individual
+member, that is 7.42 a month. $\delta^{*}$ was computed from the published prices of one
+large full-service operator (2026, tax included).
+
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Facility category & Unlimited plan & Per visit & $\delta^{*}$ & $\delta^{*}-\delta$ \\
+\midrule
+I & 12{,}680 & 2{,}530 & 5.01 & \textminus 2.40 \\
+II & 13{,}980 & 2{,}860 & 4.89 & \textminus 2.53 \\
+III & 16{,}580 & 3{,}190 & 5.20 & \textminus 2.22 \\
+IV & 19{,}080 & 3{,}630 & 5.26 & \textminus 2.16 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Unlimited and per-visit prices by facility category, and the break-even number of visits $\delta^{*}$.}
+\label{tab:predk-breakeven}
+\end{center}
+
+\textbf{The implication is rejected.} The sign is negative in all four categories
+(Table~\ref{tab:predk-breakeven}): for the average member the flat contract is rational.
+
+The effective unit price --- total dues divided by total visits --- points the same way,
+falling 29\% over 25 years from 1{,}147 yen in 2000 to 815 yen in 2023. Against a per-visit
+market rate of 2{,}530--3{,}630 yen, \textbf{members are using the facility more cheaply than
+paying per visit}.
+
+\begin{remark}[When the detour applies]
+\label{rem:detour-limit}
+Equation~\eqref{eq:delta-star} is uniquely determined only when the menu is a binary choice
+between flat and per-use. Actual tariffs are stepped: the operator above offers four visits a
+month, eight a month, and unlimited. The threshold then changes with the comparison chosen.
+Choosing the unlimited plan is rational at 5.0 visits a month against per-visit pricing, but
+requires 9.1--9.5 against the eight-visit plan.
+\textbf{Average use of 7.42 is rational on the former and irrational on the latter.}
+
+The detour therefore applies only to binary menus; with a stepped menu the proxy for $\dbar$
+is not uniquely determined.
+\end{remark}
+
+\begin{remark}[$\phi_{\rm cog}=0$ does not follow from this section]
+The rejection is a result about the mean. The findings of \cite{dellavigna2006} concern the
+distribution, and a structure in which the lower tail loses is not excluded by a mean above
+break-even. Mean and distribution are different claims.
+\end{remark}
+
+\begin{remark}[What remains unmeasured within this framework]
+The prior work concentrates on subscriptions and memberships, that is, family 2-1 of
+Part~\ref{part:catalog}. No comparable estimates were found for family 2-4 (prepaid, gift
+cards) or family 2-5 (options and warranties). Nor was any study found estimating the
+\emph{share} of $\phi_{\rm cog}$ within total $\phi$ across industries. What
+\cite{einav2025} measures is the increment to revenue, not a composition of profit.
+\end{remark}
+
+The reason for purchase by medium serves as a proxy for the transaction frequency $\nu$.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Medium & For own use & As a gift & $\CCC$ (days) \\
+\midrule
+IC card & 95.5\% & 0.0\% & 15 \\
+Server (online) & 78.1\% & 14.0\% & 17 \\
+Paper & 41.5\% & 30.1\% & 845 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Reason for purchase by medium (own use versus gift) and $\CCC$.}
+\label{tab:media-purchase-reason}
+\end{center}
+
+The higher the gift share, the lower $\nu$ and the longer $\CCC$. The $\lambda(\nu)$
+of~\eqref{eq:decay} itself was not measured.
+
+\section{The information structure \texorpdfstring{$\mathcal{G}$}{G} made concrete}
+
+The $\mathcal{G}$ of Chapter~\ref{sec:info} --- verifiable shared information --- is
+observable in family 5 as a concrete set of fields. The items published on the Employment
+Service Information Site are what $\mathcal{G}$ consists of.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Symbol & Instance & Status \\
+\midrule
+$y$ & separations within six months among those placed on open-ended contracts & numeric, six years \\
+Breadth of $\mathcal{G}$ & the count of ``separation not ascertained'' (the smaller, the wider $\mathcal{G}$) & numeric; zero in all years for both observations \\
+$b$ (outcome-contingency) & refund schemes & presence is binary; rates and periods are not in a uniform format \\
+Proxy on the price side & fee rates achieved by occupation & continuous; 307 firms (Section~\ref{sec:predX-result}) \\
+$\sigma^2$ (noise in the outcome) & baseline separation rates by occupation & \textbf{not measured} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The information structure $\mathcal{G}$ made concrete, and the observation status of each symbol (family 5).}
+\label{tab:info-structure-observed}
+\end{center}
+
+Measured values of $y$ at the two establishments that could be confirmed:
+
+\[
+\frac{y}{\text{open-ended placements}} = \frac{124}{4{,}348} = 2.85\%, \qquad
+\frac{3}{189} = 1.59\% .
+\]
+
+Testing the $b^\star=1/(1+\gamma\sigma^2 k)$ of Example~\ref{ex:bstar} requires both $b$ and
+$\sigma^2$ as continuous quantities, but refund rates and periods are not in a uniform format
+and the uncontrollable part cannot be extracted from $\sigma^2$.
+
+A test on the price side was possible, however. Fee rates achieved by occupation were
+obtained as a continuous quantity for 307 firms and correlated with separation rates
+(Section~\ref{sec:predX-result}).
+
+\section{The three-way decomposition of surplus}
+
+The three components of~\eqref{eq:surplus} can be separated only in the case of
+Chapter~\ref{sec:platform-fee}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lrX@{}}
+\toprule
+Component & Measured & Grounds \\
+\midrule
+$\phi_{\rm prod}$ (price of function) & 20.0 points & within-platform comparison on Gumroad, differing only in whether customer acquisition is included \\
+$\phi_{\rm barg}$ (rent from market power) & 15.0 points & the App Store's two size tiers; function identical \\
+$\phi_{\rm risk}$ (price of transfer and pooling) & --- & $\approx 0$ for these two firms; positive where cases are screened individually \\
+$\phi_{\rm cog}$ & --- & not measured in this domain \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Measured values of the three-way decomposition of surplus, and their grounds (platform fees).}
+\label{tab:surplus-decomposition-measured}
+\end{center}
+
+This is \textbf{the only case in which two of the three components could be separated
+numerically for a single transaction}. No procedure for separating the components exists in
+the other domains.
+
+The two firms are intermediaries operating at uniform rates published in a price list, so the
+risk component $\phi_{\rm risk}$ was negligible and separation was possible. Where an
+intermediary sets rates by individual screening, a third term is added and the separation
+fails (Remark~\ref{rem:fee-incomplete}).
+
+\section{The terms of the launch cost}
+
+For each term of~\eqref{eq:E-required-2}, the price of externalization was measured, as the
+difference in effective rate on a \$50 transaction.
+
+\begin{center}
+\begin{tabular}{@{}llr@{}}
+\toprule
+Term & Means of externalization & Price \\
+\midrule
+$T_{\rm inst}$ & payment processing & 3.6\% \\
+$T_{\rm inst}$ (tax) & merchant of record & +1.4--2.4 points \\
+$T_{\rm dev}$ (delivery) & a sales platform with hosting & +8--9 points \\
+$T_{\rm acq}$ & marketplace customer acquisition & +20 points \\
+$T_{\rm credit}$ & self-funded through a free period & the cost of $\kappa>0$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The terms of the launch cost, the means of externalization, and the price.}
+\label{tab:launch-cost-externalization}
+\end{center}
+
+\textbf{$T_{\rm acq}$ exceeds the sum of all the other items.}
+$T_{\rm dev}$ itself (the development period) and the enumeration of $\hat\Omega$ cannot be
+externalized and therefore have no price.
+
+\section{Quantities relating to selection and identification}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Symbol & Measured & Source \\
+\midrule
+$\Prob(S=1)$ (listed) & $3{,}975 / 3{,}600{,}000 = 0.11\%$ & Section~\ref{sec:frame} \\
+$\Prob(S=1)$ (mentioned) & of order $10^{-4}$ & as above \\
+$\tau$ (insolvency time) & \textbf{not observed} & outside the sample through conditioning on survival \\
+$(a,p,c)$ & \textbf{not identified} & Proposition~\ref{prop:apc} \\
+Upper bound on $\lambda_{\rm novel}$ & 48{,}185 a year (published CVEs) & Chapter~\ref{part:unmanned} \\
+Effective $\lambda_{\rm novel}$ & 245 a year (confirmed exploitation) $=0.51\%$ & as above \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Measured quantities relating to selection and identification, and their sources.}
+\label{tab:selection-identification-measures}
+\end{center}
+
+\section{Quantities that could not be measured}
+
+The following are defined by the framework but could not be connected to real data
+(Table~\ref{tab:unmeasured-quantities}).
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Symbol & Name & Why it cannot be connected \\
+\midrule
+$M(t)$ & cash balance & needs per-firm data; meaningless in aggregate \\
+$\Omega,\ \mathcal{F}_t$ & state space, filtration & not observable in principle \\
+$v$ & valuation map & subjective; the definition cannot be fixed \\
+$\beta_i$ & discount factor by party & requires experimental methods \\
+$\mathrm{Cap}$ & capacity ceiling & differs by operator and is not disclosed \\
+$\sigma^2$ & noise in the outcome & variance by occupation is not tabulated (Section~\ref{sec:what-to-measure}) \\
+$\lambda(\nu)$ & decay rate of cognitive surplus & the numerator $\phi_{\rm cog}$ is itself unmeasured \\
+$\phi_{\rm cog}$ & cognitive surplus & only an upper bound here; the method is established (Section~\ref{sec:phicog-measurable}) \\
+$\hat\Omega$ & envisaged state space & exists only inside the designer \\
+$\tau$ & insolvency time & outside the sample through conditioning on survival (Proposition~\ref{prop:pathwise}) \\
+& & \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Quantities defined by the framework that could not be connected to real data.}
+\label{tab:unmeasured-quantities}
+\end{center}
+
+$\phi_{\rm cog}$ is measurable in principle (Proposition~\ref{prop:phicog-requirements}); that
+this text could not reach it is a matter of data granularity. The rest belong to (i), no
+measurement exists, or are unobservable in principle.
+
+\begin{remark}[The framework is larger than what can be measured]
+About half the quantities defined could not be connected to real data. That is to say the
+framework describes the world more finely than the world is recorded, and it shows that
+precision of description and testability are independent. In the taxonomy of
+Section~\ref{sec:obstacle-taxonomy}, most of what cannot be connected belongs to (i), no
+measurement exists, and effort does not resolve it.
+\end{remark}
