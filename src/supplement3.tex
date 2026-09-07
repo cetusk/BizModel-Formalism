@@ -30,7 +30,7 @@ $E,\ A,\ \mathrm{Inv}$ & 式\eqref{eq:cash} & 前提により 0 とおく \\
 $\kappa_i$ & 式\eqref{eq:kappa} & 符号が設計変数となる \\
 $\mathrm{Cap}$ & 式\eqref{eq:solo-capacity} & 一人分の時間。\textbf{未測定} \\
 $M(t)$ & 式\eqref{eq:cash} & 経路制約の対象。\textbf{未測定} \\
-$\Tins$ & 第\ref{sec:objective}節 & 期限として $E(0)/c$ で上から抑えられる \\
+$\Tins$ & 第\ref{sec:objective}節 & 期限として $E(0)/c_{\rm liv}$ で上から抑えられる \\
 $T_{\rm dev},T_{\rm acq},T_{\rm credit}$ & 式\eqref{eq:E-required-2} & 価格は第\ref{ch:platformfee}章で測定 \\
 \bottomrule
 \end{tabularx}
@@ -207,10 +207,10 @@ $\kappa_S<0$ が生じる。すなわちインフラ事業者からの与信で�
 \end{enumerate}
 
 (c)から帰結が出る。開発期間 $T_{\rm dev}$、獲得期間 $T_{\rm acq}$、
-月間の生活費とインフラ費を $c$ として、
+月間の生活費とインフラ費の速度を $c_{\rm liv}$ として、
 
 \begin{equation}
-E_{\rm required} = c\,(T_{\rm dev} + T_{\rm acq})
+E_{\rm required} = c_{\rm liv}\,(T_{\rm dev} + T_{\rm acq})
 \label{eq:E-required}
 \end{equation}
 
@@ -262,8 +262,8 @@ $E(0)>0$ の効果は、財務制約の緩和として片付けられない。
 決定的なのは\textbf{$E$ が流量か在庫か}である。
 
 \begin{align}
-\text{給与所得者：}\quad & E(t) = E(0) + (w-c)\,t \qquad (w>c \text{ なら増加}) \\
-\text{退職者：}\quad & E(t) = E(0) - c\,t \qquad\qquad\ \ (\text{単調減少})
+\text{給与所得者：}\quad & E(t) = E(0) + (w-c_{\rm liv})\,t \qquad (w>c_{\rm liv} \text{ なら増加}) \\
+\text{退職者：}\quad & E(t) = E(0) - c_{\rm liv}\,t \qquad\qquad\ \ (\text{単調減少})
 \end{align}
 
 給与所得者にとって式\eqref{eq:constraint}の $M\geq 0$ は\textbf{床}である。
@@ -271,7 +271,7 @@ $E(0)>0$ の効果は、財務制約の緩和として片付けられない。
 退職者にとっては\textbf{期限}になる。収益がなければ倒産時刻は
 
 \begin{equation}
-\Tins \;\leq\; \frac{E(0)}{c}
+\Tins \;\leq\; \frac{E(0)}{c_{\rm liv}}
 \label{eq:deadline}
 \end{equation}
 
@@ -281,7 +281,7 @@ $E(0)>0$ の効果は、財務制約の緩和として片付けられない。
 
 \begin{proposition}[期限下での分散選好]
 式\eqref{eq:deadline}の期限制約の下では、分散を下げる戦略が最適とは限らない。
-安全な経路の期待所要時間が $E(0)/c$ を超える場合、その経路の成功確率はほぼゼロである。
+安全な経路の期待所要時間が $E(0)/c_{\rm liv}$ を超える場合、その経路の成功確率はほぼゼロである。
 \end{proposition}
 
 第\ref{sec:bootstrap}節(a)で導いた「少額多数で分散を下げよ」は、
@@ -302,7 +302,7 @@ R2 & 年金と貯蓄で生活が別途成立している \\
 \label{tab:solo-r1-r2}
 \end{center}
 
-R2 では事業が $c$ を賄う必要がない。
+R2 では事業が $c_{\rm liv}$ を賄う必要がない。
 
 この分岐は年齢層としても観測されている。厚生労働省の労働経済の分析によれば、
 55〜64歳層の就業理由として経済上の理由は長期的に低下し、
@@ -427,7 +427,7 @@ $E(0)>0$ を入れれば族3 は復活するはずである。
 装置 & 作用 & 移動先 \\
 \midrule
 クラウド & 固定資産 $A$ を負の $\kappa_S$ に変換 & 物理層 $\to$ 信用層 \\
-年金 & 生活費 $c$ を事業の外へ切り出す & 目的関数 $\to$ 外生 \\
+年金 & 生活費 $c_{\rm liv}$ を事業の外へ切り出す & 目的関数 $\to$ 外生 \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{制約を外す装置とその作用。クラウドと年金の対応。}
@@ -601,7 +601,7 @@ $E\approx 0$ のとき $\sum\max\{-\kappa_i,0\}$ を稼ぐほかなく、
 式\eqref{eq:E-required}を書き直すと、
 
 \begin{equation}
-E_{\rm required} = c\,(T_{\rm dev} + T_{\rm acq} + T_{\rm credit})
+E_{\rm required} = c_{\rm liv}\,(T_{\rm dev} + T_{\rm acq} + T_{\rm credit})
 \label{eq:E-required-2}
 \end{equation}
 
@@ -671,11 +671,11 @@ $\kappa<0$ への効き方はむしろ公開型より直接的である。
 \subsection{部分変換と最適な配分}
 
 右上を目指す場合でも、代替は完全な一対一ではない。
-式\eqref{eq:solo-capacity}の $\mathrm{Cap}$ を
-$a$（受託）と $\mathrm{Cap}-a$（公開）に配分すると、
+式\eqref{eq:solo-capacity}の $\mathrm{Cap}$ のうち受託に充てる分を
+$\Ccl$、公開に充てる分を $\mathrm{Cap}-\Ccl$ とすると、
 
 \begin{equation}
-\text{公開型信用の蓄積} = \gamma\,(\mathrm{Cap}-a) + \theta\,a,
+\text{公開型信用の蓄積} = \gamma\,(\mathrm{Cap}-\Ccl) + \theta\,\Ccl,
 \qquad 0<\theta<\gamma
 \label{eq:leakage}
 \end{equation}
@@ -685,29 +685,29 @@ $a$（受託）と $\mathrm{Cap}-a$（公開）に配分すると、
 そこで直面した一般的な技術問題は書ける。しかも思考は既に済んでいるため、
 書く限界費用が低い。
 
-式\eqref{eq:leakage}は $a$ について線形であり、$0<\theta<\gamma$ より狭義単調減少である。
-これだけでは最適な配分は $a=0$、すなわち受託をまったく行わないことになる。
+式\eqref{eq:leakage}は $\Ccl$ について線形であり、$0<\theta<\gamma$ より狭義単調減少である。
+これだけでは最適な配分は $\Ccl=0$、すなわち受託をまったく行わないことになる。
 配分が内点で決まるのは、受託が現金をもたらすからである。
 
 \begin{proposition}[受託は制約が要求する最小限にとどまる]
 \label{prop:allocation}
-受託の時間あたり報酬を $w$、生活費の速度を $c$ とする。
-式\eqref{eq:fundamental}の基本不等式が要求する現金は $w\,a\geq c$ であり、
+受託の時間あたり報酬を $w$、生活費の速度を $c_{\rm liv}$ とする。
+式\eqref{eq:fundamental}の基本不等式が要求する現金は $w\,\Ccl\geq c_{\rm liv}$ であり、
 式\eqref{eq:leakage}を最大化する配分は
 \begin{equation}
-a^{\ast} = \frac{c}{w}
+\Ccl^{\ast} = \frac{c_{\rm liv}}{w}
 \label{eq:allocation}
 \end{equation}
 である。
 \end{proposition}
 
 \begin{proof}
-目的は $a$ の狭義減少関数であり、実行可能集合は $a\geq c/w$ である。
-したがって最小の実行可能な $a$ が最適となる。
+目的は $\Ccl$ の狭義減少関数であり、実行可能集合は $\Ccl\geq c_{\rm liv}/w$ である。
+したがって最小の実行可能な $\Ccl$ が最適となる。
 \end{proof}
 
 \textbf{最適解は目的関数の内点ではなく、制約の縁である。}
-$E(0)>0$ であれば制約が $w\,a\geq c - E(0)/T$ に緩み、$a^\ast$ は下がる。
+$E(0)>0$ であれば制約が $w\,\Ccl\geq c_{\rm liv} - E(0)/T$ に緩み、$\Ccl^\ast$ は下がる。
 第\ref{sec:retiree}節の「資本は信用を積む期間を買う」は、
 式\eqref{eq:allocation}の右辺が下がることとして書ける。
 

@@ -262,19 +262,25 @@ $\Phi$ の設計者が自由に選べる範囲は $\mathcal{G}$ が限る
 \begin{enumerate}[label=(\arabic*)]
 \setcounter{enumi}{1}
 \item \textbf{依存形式}：$\pi$ が $\delta$ にどう依存するか。
-定額 $\pi = c$、従量 $\pi=p\,\delta$、二部 $\pi = F + p\,\delta$、成果連動 $\pi = h(y)$。
-ここで $c$ は定額料金、$p$ は単価、$F$ は基本料金、$y$ は成果、
-$h$ は成果を決済に変える関数である。
-$y$ が観測できるかは自由度(4) に属し、第\ref{sec:info}章で扱う。
+線形な形式は一つの族にまとめられる。
+\begin{equation}
+\pi = F + p\,\delta
+\label{eq:two-part}
+\end{equation}
+$F$ は履行量によらない部分、$p$ は単価である。
+$p=0$ が定額、$F=0$ が従量、いずれも $0$ でない場合が二部料金にあたる。
+線形でない形式として成果連動 $\pi = h(y)$ がある。
+$y$ は成果、$h$ は成果を決済に変える関数であり、
+$y$ が観測できるかは自由度(4) に属する（第\ref{sec:info}章）。
 \end{enumerate}
 
-\begin{remark}[$F$ と $c$ の区別]
+\begin{remark}[$F$ の書体と $c$ の用法]
 \label{rem:dof2-symbols}
-$F$ は基本料金であり、状態空間の $\sigma$ 加法族 $\mathcal{F}$ とは別の量である。
-書体で区別する。
+式\eqref{eq:two-part}の $F$ は料金の固定部分であり、
+状態空間の $\sigma$ 加法族 $\mathcal{F}$ とは別の量である。書体で区別する。
 
-$c$ は定額料金を表す。引数を伴う $c(\delta)$ は限界費用（定義\ref{def:cost}）であり、
-別の量である。以降、引数の有無で区別する。
+$c$ は本稿では限界費用を表し、つねに引数を伴って $c(\delta)$ と書く（定義\ref{def:cost}）。
+定額料金には $F$ を用いる。
 \end{remark}
 
 \paragraph{定義域 \texorpdfstring{$\Delta$}{Δ} の側の性質。}
@@ -635,8 +641,8 @@ $\dbar$ が外生に与えられることを前提とする。
 \begin{proposition}[容量制約下の会員制]
 \label{prop:capacity}
 式\eqref{eq:cap-simplified}の容量制約が存在し、
-\textbf{会員数 $n$ と平均利用 $\E[\delta]$ が独立に決まるとき}、
-定額会員制 $\pi_j=c$ が実行可能であるためには
+\textbf{会員数 $n$ と平均利用 $\E[\delta]$ が独立に決まるとき}（$m$ は粗利率に用いるため会員数は $n$ と書く）、
+定額会員制 $\pi_j=F$ が実行可能であるためには
 \begin{equation}
 \sum_{j}\E[\delta_j] \ \ll\ \sum_{j}\dbar_j
 \end{equation}
@@ -650,13 +656,12 @@ $\dbar$ が外生に与えられることを前提とする。
 一方、会員が $\dbar$ に価値を感じて加入している以上 $n\dbar > \mathrm{Cap}$ が通常成立する
 （そうでなければ容量制約が拘束していない）。
 両者を合わせると $\E[\delta] \leq \mathrm{Cap}/n < \dbar$ を得る。
-$m$ は第\ref{sec:growth}章で粗利率に用いるため、ここでは $n$ と書く。
 \end{proof}
 
 \begin{example}[二種の会員制]
 定員100名の施設が1,000名の会員を持ち、月会費8,000円を課すとする。
-$\dbar$ を「毎日利用可能」とすれば $m\dbar$ は容量を大きく超える。
-実際の平均利用率が10\%であれば $m\E[\delta]=100$ で制約はぎりぎり満たされる。
+$\dbar$ を「毎日利用可能」とすれば $n\dbar$ は容量を大きく超える。
+実際の平均利用率が10\%であれば $n\E[\delta]=100$ で制約はぎりぎり満たされる。
 \textbf{利用率が30\%に上昇すると事業は物理的に破綻する。}
 
 対照的に、会費が仕入割引の権利を与える形態では容量制約が存在せず、
@@ -796,19 +801,19 @@ bonding argument & 労働経済学 & なぜ非自発的失業が存在するか 
 
 \begin{proposition}[反対称性]
 \label{prop:kappa-antisym}
-主体 $A$ と主体 $i$ が評価写像 $v$ を共有するとき、
-$A$ の帳簿における $i$ への信用ポジションを $\kappa_i^{(A)}$ と書けば
+二つの主体 $i$ と $j$ が評価写像 $v$ を共有するとき、
+$i$ の帳簿における $j$ への信用ポジションを $\kappa_j^{(i)}$ と書けば
 \begin{equation}
-\kappa_i^{(A)} = -\,\kappa_A^{(i)}
+\kappa_j^{(i)} = -\,\kappa_i^{(j)}
 \label{eq:kappa-antisym}
 \end{equation}
 が成立する。
 \end{proposition}
 
 \begin{proof}
-$A$ が $i$ に与えた価値は $i$ が $A$ から受け取った価値であり、
-$A$ が $i$ から受け取った対価は $i$ が $A$ に与えた対価である。
-したがって $D_i^{(A)}=P_A^{(i)}$、$P_i^{(A)}=D_A^{(i)}$ であり、
+$i$ が $j$ に与えた価値は $j$ が $i$ から受け取った価値であり、
+$i$ が $j$ から受け取った対価は $j$ が $i$ に与えた対価である。
+したがって $D_j^{(i)}=P_i^{(j)}$、$P_j^{(i)}=D_i^{(j)}$ であり、
 式\eqref{eq:kappa}に代入すれば従う。
 \end{proof}
 
@@ -827,8 +832,8 @@ $A$ が $i$ から受け取った対価は $i$ が $A$ に与えた対価であ�
 法人部門に属する主体の集合を $\mathcal{N}$ とすると、
 $\mathcal{N}$ の内部で閉じた信用ポジションの総和はゼロである。したがって
 \begin{equation}
-\sum_{A\in\mathcal{N}} W^{(A)}
-= \kappa_{\text{対非法人}} + \sum_{A\in\mathcal{N}}\mathrm{Inv}^{(A)}
+\sum_{i\in\mathcal{N}} W^{(i)}
+= \kappa_{\text{対非法人}} + \sum_{i\in\mathcal{N}}\mathrm{Inv}^{(i)}
 \label{eq:aggregate-W}
 \end{equation}
 が成立する。ここで $\kappa_{\text{対非法人}}$ は法人部門と家計・政府・海外との
@@ -836,9 +841,9 @@ $\mathcal{N}$ の内部で閉じた信用ポジションの総和はゼロであ
 \end{corollary}
 
 \begin{proof}
-$\mathcal{N}$ の内部の各対 $(A,i)$ について式\eqref{eq:kappa-antisym}より
-$\kappa_i^{(A)}+\kappa_A^{(i)}=0$ である。
-$W=\sum_i\kappa_i+\mathrm{Inv}$ を $A$ について足すと内部の対は消え、
+$\mathcal{N}$ の内部の各対 $(i,j)$ について式\eqref{eq:kappa-antisym}より
+$\kappa_j^{(i)}+\kappa_i^{(j)}=0$ である。
+定義\ref{def:wc}の $W$ を $\mathcal{N}$ の全主体について足すと内部の対は消え、
 外部との対と在庫が残る。
 \end{proof}
 

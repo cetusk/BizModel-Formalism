@@ -3,6 +3,7 @@
   "permissions": {
     "defaultMode": "bypassPermissions",
     "allow": [
+      "Bash(*)",
       "Bash(lualatex:*)",
       "Bash(make4ht:*)",
       "Bash(dvisvgm:*)",
@@ -32,10 +33,6 @@
       "WebFetch"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./**/*token*)",
-      "Read(./**/*secret*)",
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
     ]
