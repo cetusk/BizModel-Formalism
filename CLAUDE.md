@@ -166,6 +166,18 @@ MK=$HOME/texmf/scripts/lua/make4ht
 export LUAINPUTS="$MK//:" TEXINPUTS="$MK//:" TEXMFHOME="$HOME/texmf"
 ```
 
+### 図のファイル名は中身と一致していない
+
+二組が入れ替わっている。**本文の `\insertfig` とキャプションの対応は正しい**ので、
+描画に誤りはない。名前だけを見て直そうとしないこと（一度誤検出した）。
+
+| ファイル名 | 実際に描いているもの | ラベル |
+|---|---|---|
+| `kappa-schedule.tex` | $\Phi$ の二軸分割（前受・定額型など） | `fig:quadrant` |
+| `phi-quadrant.tex` | $D(t)$ と $P(t)$ の累積曲線 | `fig:kappa` |
+| `ccc-trend.tex` | 資本金階層別の DSO と DPO | `fig:size-dso-dpo` |
+| `lag-corr.tex` | $\CCC$ と正味与信ポジションの推移 | `fig:ccc-trend` |
+
 ### 図を別扱いする理由
 
 **tex4ht は DVI 経路を通るため和文 OpenType フォントを解決できない。**
