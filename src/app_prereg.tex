@@ -3,19 +3,28 @@
 \label{app:prereg}
 %============================================================
 
-本稿は理論から導いた含意を、観測にあたる前に文章として固定した。
-支持・棄却の別を後から選べないようにするためである。
+第\ref{sec:prereg-worked}節で述べた事前固定の一覧である。
 本文は結果のみを述べる。ここに登録の文言と判定を一覧する。
 
 登録は22件、支持6件（うち部分的支持3件）、棄却11件、検証不能5件である。
 
 \section{一覧}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llXl@{}}
+\begin{longtable}{@{}ll>{\raggedright\arraybackslash}p{0.46\textwidth}l@{}}
+\caption{事前に固定した含意と判定の一覧。}\label{tab:prereg-list}\\
 \toprule
 記号 & 対象 & 登録した含意と結果 & 判定 \\
 \midrule
+\endfirsthead
+\toprule
+記号 & 対象 & 登録した含意と結果 & 判定 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 A & 族2 & 乖離と取引頻度。水準は支持だが測れたのは $\kappa$ & 部分的支持 \\
 B & 族5 & 返戻金と可測性。符号が一意に定まらない & 検証不能 \\
 C & 手数料 & 外部化の対価。機能で説明できない反例も発見 & 部分的支持 \\
@@ -38,11 +47,7 @@ $\Phi$1 & 手続き & 依存の数と改修までの期間。複製の集中が�
 $\Phi$2 & 手続き & $M(t)$ は途絶に先行して減少（$p=3.2\times10^{-9}$） & 支持 \\
 $\Phi$3 & 手続き & $\CCC$ の非負性。企業部門も全業種で非負であり対照が立たない & 検証不能 \\
 $\Phi$4 & 手続き & 族7 の型。稀である点は当たり、残る型が外れた & 棄却 \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{事前登録した22件の含意と判定。}
-\label{tab:prereg-all}
-\end{center}
+\end{longtable}
 
 G・H・I は制度による料率規制を対象としたが、
 母集団が3件しかないことが判明したため設計段階で取り下げた。

@@ -170,10 +170,19 @@ $m$ & 第\ref{sec:growth}章 & \textbf{未取得} \\
 差し引きすると\textbf{交渉力の弱さは正味の与信ポジションには現れない}。
 
 \begin{proposition}[与信を出すには資本が要る]
-第\ref{part:solo}章で $E$ と $\kappa<0$ が代替物であることを示した。
-逆向きも成立する。$E$ があれば $\kappa>0$ を保有できる。
-DSO 71日という長期の回収を許容できるのは、それを支える資本があるためである。
+\label{prop:credit-needs-equity}
+正味の与信の出し手、すなわち $\sum_i\kappa_i>0$ である主体は
+$E > A$ を満たす。
 \end{proposition}
+
+\begin{proof}
+命題\ref{prop:fundamental}の基本不等式より $W\leq E-A$ である。
+$W=\sum_i\kappa_i+\mathrm{Inv}$ で $\mathrm{Inv}\geq 0$ であるから、
+$\sum_i\kappa_i>0$ なら $W>0$、したがって $E-A>0$ を得る。
+\end{proof}
+
+第\ref{part:solo}章の $E\approx 0$ では逆に $\kappa<0$ が要求された（系\ref{cor:zero-equity}）。
+DSO 71日という長期の回収を許容できるのは、それを支える資本があるためである。
 
 \subsection{業種によって符号が割れる}
 

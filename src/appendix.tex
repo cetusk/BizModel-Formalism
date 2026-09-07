@@ -332,11 +332,21 @@ $\kappa<0$ は消費されず、履行によって解消される。
 
 \subsection*{基本量と写像}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
+\caption{記号一覧：基本量と写像。}\label{tab:notation-basic}\\
 \toprule
 記号 & 名称 & 定義または初出 \\
 \midrule
+\endfirsthead
+\toprule
+記号 & 名称 & 定義または初出 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 $X(i,t,\omega)$ & キャッシュフロー & 式\eqref{eq:X} \\
 $\delta_i,\ \pi_i$ & 履行、決済 & 第\ref{sec:phi}章 \\
 $\dbar$ & 契約上の権利 & 第\ref{sec:breakage}節 \\
@@ -344,51 +354,62 @@ $D_i,\ P_i$ & 累積履行、累積決済 & 第\ref{sec:phi}章 \\
 $\kappa_i$ & 信用ポジション & 式\eqref{eq:kappa} \\
 $\tau_i$ & 履行から決済までの平均的な遅れ & 第\ref{sec:tau}節 \\
 $\tau_{\mathrm{inv}}$ & 在庫の滞留時間 $\mathrm{Inv}/r$ & 式\eqref{eq:ccc-tau} \\
-$M(t)$ & 現金残高 & 式\eqref{eq:cash} \\
+$W$ & 運転資本 $\sum_i\kappa_i+\mathrm{Inv}$ & 定義\ref{def:wc} \\
+$M(t)$ & 現金残高。$M=E-W-A$ & 式\eqref{eq:cash}、命題\ref{prop:cash-net} \\
+$A,\ \mathrm{Inv}$ & 固定資産、棚卸資産 & 命題\ref{prop:cash} \\
 $\Phi$ & ビジネスモデル & 式\eqref{eq:phi} \\
-$C(\delta),\ c(\delta)$ & 総費用、限界費用 & 定義\ref{def:cost} \\
+$C(\delta),\ c(\delta)$ & 総費用、限界費用。$c$ はつねに引数を伴う & 定義\ref{def:cost} \\
+$F,\ p$ & 料金の固定部分、単価 & 式\eqref{eq:two-part} \\
+$h,\ y$ & 成果連動の写像、成果 & 同上 \\
 $E$ & 自己資本。払込資本＋内部留保 & 式\eqref{eq:equity} \\
 $\kappa_K^{i}$ & 資本提供者との信用ポジション。主体依存 & 定義\ref{def:kappa-K} \\
 $V_i$ & 資本提供者 $i$ の測度による残余請求権の価値 & 同上 \\
 $d,\ I$ & 売上高減価償却費率、設備投資 & 系\ref{cor:gstar} \\
 $\mathcal{D}$ & 履行の空間 & 第\ref{part:theory}部、基本集合 \\
 $\mathcal{F},\ \mathcal{F}_t$ & 事象の$\sigma$加法族とフィルトレーション & 同上 \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{記号一覧：基本量と写像。}
-\label{tab:notation-basic}
-\end{center}
+\end{longtable}
 
 \subsection*{派生量と方法論の記号}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
+\caption{記号一覧：派生量と方法論の記号。}\label{tab:notation-derived}\\
 \toprule
 記号 & 名称 & 定義または初出 \\
 \midrule
+\endfirsthead
+\toprule
+記号 & 名称 & 定義または初出 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize（次頁へ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
 $\mathcal{G}$ & 検証可能な共有情報 & 第\ref{sec:info}章 \\
 $H$ & 時間の上限（計画期間） & 同上、基本集合 \\
-$\tau$ & 倒産時刻 & 第\ref{sec:objective}節 \\
+$\Tins$ & 倒産時刻。$\tau_i$ と区別する & 命題\ref{prop:pathwise}、式\eqref{eq:depletion} \\
 $\beta_i$ & 主体 $i$ の割引因子 & 第\ref{sec:objective}節 \\
-$W,\ r,\ m$ & 運転資本、売上速度、粗利率 & 第\ref{sec:growth}章 \\
+$r,\ m$ & 売上速度、粗利率・営業利益率 & 第\ref{sec:growth}章 \\
 $\CCC$ & キャッシュコンバージョンサイクル & 式\eqref{eq:ccc} \\
+$r^{\max}$ & 規模の上限 $(E-A)/\CCC$ & 式\eqref{eq:rmax} \\
 $g^\star$ & 自己金融可能成長率 & 式\eqref{eq:gstar} \\
 $\phi_{\mathrm{prod}},\phi_{\mathrm{barg}},\phi_{\mathrm{cog}}$ & 余剰の三分解 & 式\eqref{eq:surplus} \\
 $\phi_{\mathrm{risk}}$ & 移転と集約の対価。$\phi_{\mathrm{prod}}$ と $\phi_{\mathrm{barg}}$ の未分離な和 & 注\ref{rem:phi-risk} \\
 $\nu,\ \lambda(\nu)$ & 取引頻度、減衰率 & 式\eqref{eq:decay} \\
 $\varepsilon$ & 外生的衝撃 & 第\ref{sec:survivorship}節 \\
 $S$ & 生存・開示の指示変数 & 第\ref{sec:survivorship}節 \\
-$a,p,c$ & 年齢、時点、コホート & 式\eqref{eq:apc-main} \\
+$a,p,c$ & 年齢、時点、コホート。本節に限る & 式\eqref{eq:apc-main} \\
 $\mathrm{Cap}$ & 容量上限 & 式\eqref{eq:solo-capacity} \\
+$\Ccl$ & 容量のうち受託に充てる分 & 式\eqref{eq:leakage} \\
+$c_{\rm liv}$ & 生活費の速度 & 式\eqref{eq:E-required-2} \\
+$\mathcal{A}$ & 応答の集合。固定資産 $A$ と区別する & 定義\ref{def:availability} \\
+$T_{\rm resp},\ u$ & 応答期限、応答できない区間の長さ & 式\eqref{eq:availability} \\
 $T_{\rm dev},T_{\rm acq},T_{\rm credit},T_{\rm inst}$ & 立ち上げ費用の各項 & 式\eqref{eq:E-required-2} \\
 $\lambda_{\rm novel}$ & 未想定状態の到来率 & 第\ref{part:unmanned}章 \\
 $\hat\Omega$ & 設計時に想定した状態空間 & 第\ref{part:unmanned}章 \\
 $\mathrm{DSO},\mathrm{DIO},\mathrm{DPO}$ & 売上債権・棚卸・仕入債務の回転日数 & 第\ref{part:industry}章 \\
-\bottomrule
-\end{tabularx}
-\captionof{table}{記号一覧：派生量と方法論の記号。}
-\label{tab:notation-derived}
-\end{center}
+\end{longtable}
 
 \chapter{既存理論との対応}
 \label{app:priorwork}

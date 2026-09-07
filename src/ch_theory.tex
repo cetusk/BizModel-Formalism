@@ -367,6 +367,7 @@ $\frac{(n-1)\rho\sigma^2}{n}\to\rho\sigma^2$ であるから極限が従う。
 \end{proof}
 
 \begin{remark}[独立性は有限の資源である]
+\label{rem:independence-finite}
 式\eqref{eq:pooling}の極限は $\rho\sigma^2$ であり、$\rho>0$ である限りゼロにならない。
 集約は独立性を消費する操作であり、独立性は有限の資源である。
 地震保険の引受制限、プラットフォームの景気感応性、
@@ -1287,10 +1288,20 @@ $\Tins$ は $\Phi$ に依存する。
 \end{proof}
 
 \begin{corollary}[黒字倒産]
+\label{cor:insolvency-with-profit}
 $\phi_t>0$ が全ての $t$ で成立していても、
 式\eqref{eq:constraint}が破れうる。すなわち黒字倒産は
 目的関数\eqref{eq:obj}の失敗ではなく制約\eqref{eq:constraint}の失敗である。
 \end{corollary}
+
+\begin{proof}
+第\ref{sec:growth}章の式\eqref{eq:cash-net}より $M=E-W-A$ である。
+$\phi>0$ は式\eqref{eq:equity}を通じて $E$ を増やすが、
+$W$ の増加がそれを上回れば $M$ は減少する。
+命題\ref{prop:depletion}はこの場合の枯渇時刻を与える。
+\end{proof}
+
+黒字倒産の条件は第\ref{sec:growth}章で $g>g^\star$ として書き直される（注\ref{rem:level-and-change}）。
 
 \begin{example}[黒字倒産の数値例]
 \label{ex:insolvency}
@@ -1510,7 +1521,8 @@ $g>g^\star$ より $a<0$ であるから $M$ は減少し、$M(\Tins)=0$ を解�
 式\eqref{eq:depletion}を得る。$g\to g^\star$ で $a\to 0$ となり対数の引数が発散する。
 \end{proof}
 
-式\eqref{eq:depletion}は、命題\ref{prop:pathwise}が記号で導入した倒産時刻に値を与える。
+式\eqref{eq:depletion}は、命題\ref{prop:pathwise}が記号で導入した倒産時刻に値を与え、
+系\ref{cor:insolvency-with-profit}の黒字倒産がいつ現実化するかを定める。
 
 \begin{example}[$g^\star$ は閾値だが崖ではない]
 \label{ex:depletion}
