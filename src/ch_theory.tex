@@ -122,7 +122,11 @@ T &= [0,H] \subset \R_{\geq 0} && \text{時間} \\
 個々の主体は $i\in C$ のように $N$ の元として書く。
 類別をそのまま添字にしたときは、その類別に属する主体についての和を表す。
 たとえば $\kappa_C=\sum_{i\in C}\kappa_i$ である。
-制度 $G$ は現金の相手方ではなく制約として扱う（第\ref{sec:layers}節）。
+$R$ は自由度(3) が支払主体を移す先であり、第\ref{sec:three-ops}節の移転にあたる。
+
+規制や商慣行は現金の相手方ではないため $N$ に含めない。
+これらは $\Phi$ が選べる範囲を外側から限る制約であり、
+第\ref{sec:layers}節の制度層で扱う。
 \end{definition}
 
 
@@ -857,7 +861,7 @@ $\kappa_j^{(i)}+\kappa_i^{(j)}=0$ である。
 
 \begin{proof}
 系\ref{cor:kappa-nets-out}より、階層をまたぐ企業間ポジションの総和はゼロである。
-すべてが同符号であれば総和は同符号となり、矛盾する。
+すべての階層で正味ポジションが狭義に正であれば総和も狭義に正となり、ゼロに矛盾する。
 \end{proof}
 
 系\ref{cor:no-uniform-direction}は、規模階層の比較に構造的な制約を課す。
@@ -1160,6 +1164,9 @@ $\kappa_i<0$ のうち、エスクローのように法的に他人に帰属す�
 \chapter{情報構造と目的関数：契約が書ける条件と経路制約}
 \label{sec:info}
 
+\section{検証可能な共有情報}
+\label{sec:verifiable}
+
 主体 $i$ が観測できる情報を $\mathcal{G}_i\subseteq\mathcal{F}$ とし、
 当事者間で検証可能な共有情報を $\mathcal{G}=\bigcap_i \mathcal{G}_i$ と書く。
 
@@ -1357,6 +1364,9 @@ $\beta_C<\beta_0$ には二つの異なる原因がありうる。
 \chapter{成長制約：\texorpdfstring{$\CCC$}{CCC} と自己金融可能成長率}
 \label{sec:growth}
 
+\section{キャッシュコンバージョンサイクル}
+\label{sec:ccc-def}
+
 売上速度を $r(t)$、運転資本を定義\ref{def:wc}の $W(t)$ とする。
 $W$ は式\eqref{eq:kappa}の $\kappa_i$ の和であるから、$\Phi$ に依存する。
 
@@ -1422,6 +1432,11 @@ $E=0$ のとき、式\eqref{eq:fundamental}は $\CCC\cdot r\leq -A\leq 0$ を要
 資本を持たない主体に残るのは、決済が履行に先行する $\Phi$ だけである。
 
 式\eqref{eq:ccc}の $\CCC$ を用いる。
+
+\section{成長とフリーキャッシュフロー}
+\label{sec:fcf}
+
+基本不等式は水準についての制約である。次に変化を扱う。
 
 \begin{proposition}[成長とフリーキャッシュフロー]
 \label{prop:fcf}
@@ -1494,6 +1509,9 @@ $\FCF/r = (m+d) - \CCC\,g - I/r$。
 $\FCF\geq 0$ を $g$ について解けば式\eqref{eq:gstar}を得る。
 $\CCC<0$ のときは左辺が全ての $g>0$ で正となる。
 \end{proof}
+
+\section{水準と変化は別の制約である}
+\label{sec:level-and-change}
 
 \begin{remark}[水準の制約と変化の制約は独立である]
 \label{rem:level-and-change}
@@ -1809,6 +1827,9 @@ $g^\star$ は比の値として報告するにとどめ、因果的な解釈を�
 \chapter{余剰とレイヤー：源泉・耐久性・可変性}
 \label{sec:surplus}
 
+\section{余剰の三分解}
+\label{sec:surplus-decomp}
+
 注\ref{rem:Phi-vs-phi}で予告した余剰 $\phi$ を、ここで定める。
 期間利益を源泉によって三分解する。この分解は本稿の整理である。
 第三項は式\eqref{eq:cog}の認知余剰であり、
@@ -1826,7 +1847,7 @@ $g^\star$ は比の値として報告するにとどめ、因果的な解釈を�
 \midrule
 $\phi_{\mathrm{prod}}$ & 限界費用 $c(\delta)$ の優位 & 技術的優位。他者の取り分を減らさない。競争で削られるが投資で再生産できる \\
 $\phi_{\mathrm{barg}}$ & 写像 $\Phi$ & 取り分の移転。$\sum_i \phi_i = 0$ のゼロサム。制度層が制約を課す \\
-$\phi_{\mathrm{cog}}$ & $\dbar$ と $\delta$ の乖離、$\hat{U}$ と $U$ の乖離 & 学習・規制・UI改善で削られ、原則として回復しない \\
+$\phi_{\mathrm{cog}}$ & $\dbar$ と $\delta$ の乖離 & 学習・規制・UI改善で削られ、原則として回復しない \\
 \bottomrule
 \end{tabularx}
 \captionof{table}{余剰 $\phi$ の三分解と、各成分の源泉・耐久性。}
@@ -1998,7 +2019,7 @@ r \ \leq\ \frac{E(0) + \phi_{\mathrm{cog}}(0)/\lambda(\nu) - A}{\CCC}
 層 & 対象 & 可変性 \\
 \midrule
 制度層 & 規制、商慣行、UI規範 & 外生的に変化し、下の四層をまとめて書き換える \\
-認知層 & $\dbar-\delta$、$\hat U - U$ & 学習と規制で単調に削られる \\
+認知層 & $\dbar-\delta$ & 学習と規制で単調に削られる \\
 信用層 & $\kappa_i$ の配分 & 交渉力に依存。制度層が制約を課す \\
 時間層 & $\operatorname{supp}(\pi)$ と $\operatorname{supp}(\delta)$ の関係 & 物理層にかなり規定される \\
 物理層 & $C_{\mathrm{prod}}$、限界費用、資産の重さ & 技術と物理法則。短期には所与 \\
