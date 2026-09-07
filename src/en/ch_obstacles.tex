@@ -1,1 +1,81 @@
-% TODO: translation of src/ch_obstacles.tex
+%============================================================
+\chapter{A Taxonomy of Verification Obstacles: Six States}
+\label{part:obstacles}
+%============================================================
+
+\section{Why a taxonomy is needed}
+
+``Cannot be verified'' covers states of different kinds. Because the remedies differ, they
+must be treated separately. This taxonomy is an organization contributed by this text.
+
+When work stalls at stage 3 of the five stages of Chapter~\ref{ch:design}, availability,
+one cannot decide whether to spend effort or abandon the attempt without being able to say
+what exactly is stuck.
+
+\section{Six categories}
+\label{sec:obstacle-taxonomy}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.30\textwidth}X@{}}
+\toprule
+Category & State & Correct remedy \\
+\midrule
+(i) No measurement exists & nobody anywhere measures the quantity & conduct an original survey; secondary data will never fill the gap \\
+(ii) Ill-posed hypothesis & the theory does not fix the sign & refine the theory; more data does not help \\
+(iii) Not identified & the data exist but confounding cannot be broken & better design; find exogenous variation or a control group \\
+(iv) Access constraint & it exists but cannot be obtained & open a route, or abandon on legal or technical grounds \\
+(v) A choice in aggregation & it is surveyed but does not appear in the published tables & request the tabulation, or apply to use anonymized microdata \\
+(vi) The adjustment does not operate & data are ample, but the explanatory variable does not vary over the range the theory assumes & \textbf{no route resolves it} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Six categories of verification obstacle: the state and the correct remedy.}
+\label{tab:obstacle-taxonomy}
+\label{sec:sixth-obstacle}
+\end{center}
+
+\textbf{The role of the taxonomy is to separate what effort can move from what it cannot.}
+
+(iii), (iv) and (v) can move with effort or ingenuity: (iii) with design, (iv) with a route,
+(v) with a change in what is published.
+
+(i), (ii) and (vi) do not move. (i) cannot be filled without bringing the measurement into
+existence; (ii) does not fix a sign however much data is added; and under (vi), so long as
+the explanatory variable does not vary, no increase in sample size makes a test possible.
+
+\begin{remark}[(vi) is not a negative result]
+\label{rem:vi-is-observation}
+(vi) is a defect neither of the theory nor of the measurement. It is
+\textbf{the fact that the adjustment mechanism the theory assumes does not operate in
+reality}.
+
+That a theoretical prediction fails to appear is itself an observation. In
+Part~\ref{part:results} the statement ``fee rates are not adjusted to the risk of the
+outcome'' is such a case (Remark~\ref{rem:no-adjustment}).
+
+In terms of the layers of Section~\ref{sec:layers}, prices being set by custom is a
+phenomenon of the institutional layer. The picture is one in which a theory premised on
+optimization fails to operate in the face of custom.
+\end{remark}
+
+\begin{remark}[Impossibility of aggregation differs from a choice in aggregation]
+\label{rem:agg-impossible}
+Under (v) the quantity is merely not tabulated; it is in the sample. By contrast, there are
+cases where the unit of observation does not correspond to a party, so a quantity per party
+cannot be recovered. The identifiers of Chapter~\ref{ch:protocol} are such a case
+(Remark~\ref{rem:additivity}).
+
+That case is not resolved by a change in what is published. It is closer to (i) than to (v),
+but differs in that the quantity is not unmeasured;
+\textbf{the unit of measurement differs from the unit of the question}.
+\end{remark}
+
+\section{The taxonomy also serves as a test before starting}
+
+The taxonomy organizes, after the fact, why a verification did not complete; it also
+\textbf{serves as a test before a survey is begun}.
+
+At stage 3 of Chapter~\ref{ch:design} it is the criterion for judging whether the quantity
+can be obtained at the granularity required. The feasibility assessment of
+Chapter~\ref{ch:platformfee} is a worked instance of this use.
+
+%============================================================
