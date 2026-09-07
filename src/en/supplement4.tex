@@ -1,1 +1,303 @@
-% TODO: translation of src/supplement4.tex
+%============================================================
+\chapter{Unmanned Operation: The Limit With the Operator Removed}
+\label{part:unmanned}
+%============================================================
+
+\section{The question}
+
+Chapter~\ref{ch:solo} treated a solo business. This chapter asks about its limit: whether a
+business with no operator at all can stand. Since it is obvious that launching requires
+people, the question of unmanned operation is confined to steady running, after which the
+launch cost itself is examined to see how far it can be reduced.
+
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities in this chapter}}\\
+\midrule
+$\Omega,\ \hat\Omega$ & Chapter~\ref{sec:info} & the state space, and the subset envisaged at design time \\
+$\lambda_{\rm novel}$ & this chapter & the arrival rate of $\Omega\setminus\hat\Omega$ \\
+$\mathcal{G}$ & Chapter~\ref{sec:info} & automation demands a stronger condition than this \\
+$\kappa_C>0$ & Eq.~\eqref{eq:kappa} & credit issued by the operator as a free period \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities in this chapter.}
+\label{tab:unmanned-quantities}
+\end{center}
+
+\section{Formalizing ``unmanned''}
+
+\subsection{Automation is a stronger condition than measurability}
+
+Chapter~\ref{sec:info} made $\mathcal{G}$-measurability the condition for a contract to be
+implementable. Automation is stronger.
+
+\begin{definition}[Automation]
+Writing the response down \emph{in advance} as a measurable function
+$a:\Omega\to\mathcal{A}$ on the state space.
+$\mathcal{A}$ is the set of available responses (a different quantity from fixed assets $A$,
+distinguished by typeface).
+\end{definition}
+
+Proposition~\ref{prop:implementable} required $\pi$ to be $\mathcal{G}$-measurable.
+Automation adds the requirement that the response be written down \emph{in advance}. A
+contract need only be verifiable after the fact; automation does not have that luxury. An
+algorithm is nothing other than a measurable function specified in advance. Thus
+\begin{equation}
+\text{implementable}\;:\;\pi\ \text{is}\ \mathcal{G}\text{-measurable}
+\qquad\subsetneq\qquad
+\text{automatable}\;:\;a\ \text{specified in advance on}\ \hat\Omega
+\end{equation}
+
+The difficulty is that $\Omega$ is not closed. Writing $\hat\Omega\subset\Omega$ for the
+state space envisaged at design time, $a$ is undefined when
+$\omega\in\Omega\setminus\hat\Omega$ arrives. Legal change, a discovered vulnerability, a
+payment provider's change of terms, and unforeseen use are such cases.
+
+\begin{proposition}[Unmanned operation is a function of duration]
+\label{prop:unmanned-period}
+Writing $\lambda_{\rm novel}$ for the arrival rate of unforeseen states, the period over
+which operation can be unmanned is about $1/\lambda_{\rm novel}$. Fully unmanned operation
+holds for a finite period but not indefinitely.
+\end{proposition}
+
+\begin{remark}[An upper bound on $\lambda_{\rm novel}$ can be measured]
+\label{rem:lambda-upper}
+In the ``inside'' partition of Chapter~\ref{ch:protocol}, \emph{responses} to unforeseen
+states leave a record. Modification runs at 0.048 and cessation at 0.030 a year, and
+arrivals requiring no response cannot be counted, so these are a lower bound on
+$\lambda_{\rm novel}$ (Section~\ref{sec:protocol-byproducts},
+Remark~\ref{rem:lambda-is-response}). The $1/\lambda_{\rm novel}$ of this proposition is
+therefore shorter than 20 years.
+
+The distribution is bimodal. Those that are touched are touched with a median of 42 days;
+those that are not go untouched for a median of 4.6 years.
+\textbf{A mean $1/\lambda$ conceals this bimodality.}
+\end{remark}
+
+\subsection{What is required is not labour but availability}
+
+Responding to $\Omega\setminus\hat\Omega$ is not steady labour. Normally nothing is done, and
+action occurs only on arrival. The structure is the same as family 2-5 (options and
+warranties) of Part~\ref{part:catalog}.
+
+\begin{equation}
+\text{the operator of an unmanned business is short an option on }\Omega
+\end{equation}
+
+Delivery $\delta$ in normal times can be made zero, but \textbf{availability cannot}.
+Labour can be reduced without limit; standing by remains. What is called ``unmanned'' is
+unmanned in labour as a flow; in availability as an option it is manned.
+
+This is a different kind of constraint from the capacity constraint of
+Chapter~\ref{part:solo}. Equation~\eqref{eq:solo-capacity} bounds the \emph{total} of
+delivery; availability bounds \textbf{the length of an interval over which one cannot
+respond}.
+
+\begin{definition}[Response deadline and the availability constraint]
+\label{def:availability}
+Write $T_{\rm resp}$ for the time allowed between the arrival of
+$\omega\in\Omega\setminus\hat\Omega$ and the response, and call it the \emph{response
+deadline}. Writing $u$ for the length of an interval over which the operator cannot respond,
+the availability constraint is
+\begin{equation}
+\sup u \;\leq\; T_{\rm resp}
+\label{eq:availability}
+\end{equation}
+\end{definition}
+
+Equations~\eqref{eq:solo-capacity} and~\eqref{eq:availability} both have the dimension of
+time, but they bind different things: the former acts on an integral, the latter on a
+supremum. \textbf{Hence no reduction in the amount of labour loosens
+\eqref{eq:availability}.} This offers an account of where the practical burden of a solo
+business lies.
+
+Imposing both together makes the content of that burden more concrete.
+
+\begin{proposition}[Availability restricts the granularity of capacity]
+\label{prop:granularity}
+Under~\eqref{eq:availability}, the time available for delivery is fragmented into intervals
+of length at most $T_{\rm resp}$. A delivery requiring an uninterrupted stretch longer than
+$T_{\rm resp}$ therefore cannot be performed even when the $\mathrm{Cap}$
+of~\eqref{eq:solo-capacity} has room to spare.
+\end{proposition}
+
+\begin{proof}
+$\sup u\leq T_{\rm resp}$ requires that no interval without response exceed $T_{\rm resp}$.
+An interval devoted to delivery is an interval without response, so its length is also at
+most $T_{\rm resp}$. A delivery requiring an uninterrupted stretch longer than
+$T_{\rm resp}$ does not fit into such an interval.
+\end{proof}
+
+\textbf{The availability constraint does not reduce capacity; it restricts its granularity.}
+The $T_{\rm dev}$ of Chapter~\ref{ch:solo} requires long uninterrupted stretches, whereas
+operation is a repetition of short responses. Proposition~\ref{prop:granularity} derives the
+difficulty of combining development with operation in a solo business as the intersection of
+two constraints.
+
+\begin{remark}[They loosen in different directions]
+Equation~\eqref{eq:solo-capacity} loosens by adding people.
+Equation~\eqref{eq:availability} does not loosen without a relief operator, and so long as
+one is alone the only route is to lengthen $T_{\rm resp}$ itself. A longer response deadline
+is obtained by contractual agreement or by shrinking $\Omega\setminus\hat\Omega$.
+\end{remark}
+
+\begin{remark}[The level of $T_{\rm resp}$ differs by component]
+\label{rem:tresp-components}
+$T_{\rm resp}$ depends on the content of $\Omega\setminus\hat\Omega$.
+Chapter~\ref{ch:platformfee} decomposes $\lambda_{\rm novel}$ into four components, and the
+grace allowed for a published vulnerability differs by orders of magnitude from that for a
+change in the law. Evaluating~\eqref{eq:availability} in practice requires $T_{\rm resp}$ by
+component, which is not measured here.
+\end{remark}
+
+\begin{remark}[Correspondence with Knight's distinction]
+\label{rem:knight}
+Variation over $\hat\Omega$ has a measure defined on it and is therefore risk; both
+automation and insurance (family 5-4) are possible. $\Omega\setminus\hat\Omega$ is
+uncertainty, and neither is.
+\end{remark}
+
+\begin{remark}[A degree of unmannedness cannot be defined]
+\label{rem:automation-rate-illposed}
+``How unmanned is it?'' cannot be expressed as a ratio.
+
+Measuring on the delivery side does not work. $\delta$ carries monetary units through the
+valuation map $v$, but $v$ measures value, not effort. The ratio of the value of automated to
+manual delivery does not express a degree of unmannedness.
+
+Measuring on the response side does not work either. Automation means that $a$ is specified
+in advance on $\hat\Omega$, so a degree would be the ratio of the sizes of $\hat\Omega$ and
+$\Omega$. But by Remark~\ref{rem:knight} no measure is defined on
+$\Omega\setminus\hat\Omega$.
+
+\textbf{The obstacle is therefore not the absence of a unit but the absence of a measure, and
+sharpening the definition does not remove it.} Unmanned operation can only be stated as a
+function of duration, not of degree (Proposition~\ref{prop:unmanned-period}).
+\end{remark}
+
+\begin{remark}[Unmanned operation and profit]
+If $\Phi$ and $C_{\mathrm{prod}}$ can be fully specified in advance, they are fully
+replicable. Competition therefore presses $\phi_{\rm prod}\to 0$. The closer to fully
+unmanned, the thinner the source of profit.
+
+One may read profit as the return to the residual that cannot be automated. Network effects
+and brand create exceptions, so this cannot be asserted flatly, but the mechanism is
+plausibly at work.
+\end{remark}
+
+\subsection{Where a free period fits}
+
+A free trial is a state in which $\delta$ is supplied with $\pi=0$, that is, the operator
+extends credit to the customer, $\kappa>0$. It works because
+\textbf{the marginal cost is zero, so the cost of extending that credit is near zero}. A free
+trial of a physical good loses inventory; a free period for software costs only
+infrastructure.
+
+\begin{equation}
+\text{free trial} = \text{credit that only a zero-marginal-cost business can issue cheaply}
+\end{equation}
+
+Section~\ref{sec:bootstrap} listed three solutions to the credit bootstrap problem, and
+this is a fourth: \textbf{extend the credit oneself in place of having credit}.
+$T_{\rm credit}$ is being purchased at the cost of $\kappa>0$.
+
+\section{Decomposing the bootstrap}
+
+\subsection{Each term and where it can be externalized}
+
+For each term of~\eqref{eq:E-required-2}, who can absorb it. The period required for
+registration with the institutional layer is added as $T_{\rm inst}$.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXXl@{}}
+\toprule
+Term & Content & Externalized to & Price \\
+\midrule
+$T_{\rm dev}$ & building the delivery system & off-the-shelf platforms, payment SDKs, hosting & usage fees \\
+$T_{\rm inst}$ & registration with the institutional layer & merchant screening by a payment processor, merchant of record & fees \\
+$T_{\rm credit}$ & accumulating credit & a platform's refund guarantee; or self-funded through a free period & fees, $\kappa>0$ \\
+$T_{\rm acq}$ & acquiring customers & distribution through stores and marketplaces & sales commission \\
+Enumerating $\hat\Omega$ & designing the envisaged states & \textbf{not possible} & --- \\
+Choosing $\Phi$ & deciding the contract form & \textbf{not possible} & --- \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The terms of the bootstrap cost, where each can be externalized, and at what price.}
+\label{tab:bootstrap-outsourcing}
+\end{center}
+
+\begin{proposition}[The irreducible residue]
+The only two things that cannot be externalized are the choice of $\Phi$ and the enumeration
+of $\hat\Omega$.
+\end{proposition}
+
+Externalization has a consistent price: \textbf{permanently giving up $\phi_{\rm barg}$}.
+A one-off launch cost is converted into a perpetual cost in the form of fees.
+
+\subsection{The dominant term by family}
+
+Among the types that survived in Chapter~\ref{part:solo}, the dominant component of the
+launch cost differs.
+
+\begin{center}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Type & $T_{\rm dev}$ & $T_{\rm credit}$ & $T_{\rm acq}$ & Dominant \\
+\midrule
+1-1 one-off digital goods & high & low & low & $T_{\rm dev}$ \\
+2-1 flat access & high & medium & medium & variance \\
+6-4 charging for opportunity & medium & low & high & $T_{\rm acq}$ (two-sided) \\
+7-4 donation and support & low & high & medium & $T_{\rm credit}$ \\
+5-5 IP licensing & medium & high & medium & $T_{\rm credit}$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The dominant component of launch cost for each surviving type.}
+\label{tab:startup-cost-by-type}
+\end{center}
+
+Noting that the dominant components of 1-1 and 7-4 are complementary suggests a design that
+splits the launch cost as a transition across families.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Stage & Content \\
+\midrule
+Publishing & accumulate $T_{\rm credit}$. No revenue. $T_{\rm dev}$ advances as a by-product \\
+7-4 support & the first $\pi$ stands on accumulated credit alone; demands almost no $T_{\rm dev}$ \\
+1-1 one-off sale & the launch is light because $T_{\rm credit}$ is done. $\kappa\approx 0$ \\
+2-1 flat access & $\kappa<0$, and growth generates cash in the sense of Chapter~\ref{sec:growth} \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Splitting the launch cost through a transition across families.}
+\label{tab:phase-transition-design}
+\end{center}
+
+The leakage term $\theta$ of Chapter~\ref{part:solo} (\eqref{eq:leakage}) here works in the
+opposite direction, as a contribution from publishing to $T_{\rm dev}$.
+\textbf{The launch cost need not be paid all at once; it can be split by moving across
+families.}
+
+\section{Limits of this chapter}
+\label{sec:unmanned-limits}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{There is no quantity expressing a degree of unmannedness.}
+As Remark~\ref{rem:automation-rate-illposed} states, the obstacle is the absence of a measure,
+not of a unit, and sharpening the definition does not remove it. This chapter states only
+what concerns duration.
+
+\item \textbf{No level is given for $T_{\rm resp}$.}
+Equation~\eqref{eq:availability} can be written, but its right-hand side differs by component
+of $\Omega\setminus\hat\Omega$ and no value is identified
+(Remark~\ref{rem:tresp-components}).
+
+\item \textbf{The inverse relation between unmannedness and profit is only a mechanism noted.}
+No verification, including the treatment of counterexamples such as network effects and
+brand, has been carried out.
+
+\item \textbf{No price is given for externalizing the launch cost.}
+Table~\ref{tab:bootstrap-outsourcing} lists where each term can be externalized but gives no
+numbers. Chapter~\ref{ch:platformfee} measures them.
+\end{enumerate}
