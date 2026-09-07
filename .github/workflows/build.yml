@@ -79,6 +79,19 @@ jobs:
           done
           exit $fail
 
+      - name: Build English PDF
+        working-directory: src
+        run: |
+          for i in 1 2 3; do
+            lualatex -interaction=nonstopmode book-en.tex > /dev/null
+          done
+          pdfinfo book-en.pdf
+          if grep -q "^!" book-en.log; then
+            echo "::error::LaTeX errors in the English edition"
+            grep -A3 "^!" book-en.log | head -40
+            exit 1
+          fi
+
       - name: Build figures
         working-directory: src
         run: |
@@ -105,17 +118,31 @@ jobs:
           echo "generated $n html files"
           if [ "$n" -lt 10 ]; then echo "::error::too few HTML files"; exit 1; fi
 
+      - name: Build English HTML
+        working-directory: src
+        run: |
+          make4ht -l -f html5+dvisvgm_hashes -d ../docs/book-en book-en.tex "mathml,2"
+          # 図は日本語版と同じ SVG を用いる（英語ラベルの版は PDF 側のみ）
+          cp -r ../docs/book/figures ../docs/book-en/figures
+          n=$(ls ../docs/book-en/*.html | wc -l)
+          echo "generated $n English html files"
+          if [ "$n" -lt 3 ]; then echo "::error::too few English HTML files"; exit 1; fi
+
       - name: Assemble site
         run: |
-          cp src/book.pdf docs/
+          cp src/book.pdf    docs/
+          cp src/book-en.pdf docs/
           cp .github/assets/index.html docs/index.html
-          cp .github/assets/style.css  docs/book/custom.css
-          cp .github/assets/toc.js     docs/book/toc.js
-          cp .github/assets/figures.js docs/book/figures.js
-          cp -r .github/assets/fonts   docs/book/fonts
-          python3 src/inject-sidebar.py docs/book "$VERSION"
+          for d in book book-en; do
+            cp .github/assets/style.css  docs/$d/custom.css
+            cp .github/assets/toc.js     docs/$d/toc.js
+            cp .github/assets/figures.js docs/$d/figures.js
+            cp -r .github/assets/fonts   docs/$d/fonts
+          done
+          python3 src/inject-sidebar.py docs/book    "$VERSION" ja
+          python3 src/inject-sidebar.py docs/book-en "$VERSION" en
           touch docs/.nojekyll
-          echo "html: $(ls docs/book/*.html | wc -l), figures: $(ls docs/book/figures/*.svg | wc -l)"
+          echo "html: $(ls docs/book/*.html | wc -l) ja, $(ls docs/book-en/*.html | wc -l) en"
           ls -la docs/
 
       - uses: actions/upload-pages-artifact@v3

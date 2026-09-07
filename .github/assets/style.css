@@ -357,3 +357,20 @@ p:has(> .keyeq-mark) + table.equation{
   background:var(--side);
 }
 .keyeq-mark{display:none}
+
+
+/* 言語切り替え。本文の先頭に置き、日本語版と英語版、および両方の PDF へ繋ぐ。 */
+.langbar{
+  display:flex; flex-wrap:wrap; align-items:center; gap:.6em;
+  margin:0 0 .9em; padding:.35em .8em;
+  font-size:.86em; line-height:1.7;
+  border:1px solid var(--rule,#d7d2c8); border-radius:6px;
+  background:var(--surface,#faf8f4);
+}
+.langbar .cur{font-weight:700}
+.langbar a{text-decoration:none}
+.langbar a:hover{text-decoration:underline}
+.langbar .sep{opacity:.45}
+@media (prefers-color-scheme: dark){
+  .langbar{border-color:#3b3b3b; background:#232323}
+}

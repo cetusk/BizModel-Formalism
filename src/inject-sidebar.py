@@ -8,12 +8,42 @@ import re, sys, os, glob, html
 
 BOOK_DIR = sys.argv[1] if len(sys.argv) > 1 else "../docs/book"
 VERSION  = sys.argv[2] if len(sys.argv) > 2 else "v0.8.0"
+# 第三引数で言語を切り替える。ja が既定、en が英語版。
+LANG     = sys.argv[3] if len(sys.argv) > 3 else "ja"
+# 目次の出所となる主ページ。英語版は book-en.html。
+ROOTPAGE = "book-en.html" if LANG == "en" else "book.html"
 
-BANNER = (
-    f'<div class="wip"><strong>{VERSION}</strong> &mdash; 本稿は建設中です。'
-    '理論の構成、命題、実証の結論はいずれも変更されうるものです。'
-    '<a href="../index.html">概要</a></div>'
-)
+if LANG == "en":
+    BANNER = (
+        f'<div class="wip"><strong>{VERSION}</strong> &mdash; This text is under construction. '
+        'The structure of the theory, the propositions, and the empirical conclusions may all change. '
+        '<a href="../index.html">Overview</a></div>'
+    )
+    # 言語切り替え。英語版から日本語版へ。PDF も両方を出す。
+    LANGBAR = (
+        '<div class="langbar">'
+        '<span class="cur">English</span>'
+        '<a href="../book/book.html">日本語</a>'
+        '<span class="sep">|</span>'
+        '<a href="../book-en.pdf">PDF (EN)</a>'
+        '<a href="../book.pdf">PDF (JA)</a>'
+        '</div>'
+    )
+else:
+    BANNER = (
+        f'<div class="wip"><strong>{VERSION}</strong> &mdash; 本稿は建設中です。'
+        '理論の構成、命題、実証の結論はいずれも変更されうるものです。'
+        '<a href="../index.html">概要</a></div>'
+    )
+    LANGBAR = (
+        '<div class="langbar">'
+        '<span class="cur">日本語</span>'
+        '<a href="../book-en/book-en.html">English</a>'
+        '<span class="sep">|</span>'
+        '<a href="../book.pdf">PDF（日本語）</a>'
+        '<a href="../book-en.pdf">PDF (EN)</a>'
+        '</div>'
+    )
 
 
 def extract_toc(path):
@@ -30,9 +60,9 @@ def extract_toc(path):
         num = re.sub(r"<[^>]+>", "", inner[: inner.find("<a")]).strip()
         label = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", a.group(2))).strip()
         href = a.group(1)
-        # book.html 内のアンカーは他ページからは解決できないため補う
+        # 主ページ内のアンカーは他ページからは解決できないため補う
         if href.startswith("#"):
-            href = "book.html" + href
+            href = ROOTPAGE + href
         items.append((kind, href, num, label))
     return items
 
@@ -189,15 +219,19 @@ def build_sidebar(items):
 
 
 def main():
-    book = os.path.join(BOOK_DIR, "book.html")
+    book = os.path.join(BOOK_DIR, ROOTPAGE)
     items = extract_toc(book)
     if len(items) < 20:
         print(f"ERROR: only {len(items)} toc entries found", file=sys.stderr)
         sys.exit(1)
     sidebar = build_sidebar(items)
     maps = build_nav_maps(items)
-    toggle = ('<button id="toc-toggle" aria-label="目次">&#9776;</button>'
-              '<div id="toc-resize" title="ドラッグで幅を変更、ダブルクリックで既定に戻す"></div>')
+    if LANG == "en":
+        toggle = ('<button id="toc-toggle" aria-label="Contents">&#9776;</button>'
+                  '<div id="toc-resize" title="Drag to resize, double-click to reset"></div>')
+    else:
+        toggle = ('<button id="toc-toggle" aria-label="目次">&#9776;</button>'
+                  '<div id="toc-resize" title="ドラッグで幅を変更、ダブルクリックで既定に戻す"></div>')
 
     # 本文フォント（M PLUS Rounded 1c）。和文込みの可変幅フォントで
     # Google 側が unicode-range ごとに数百のサブセットに分割配信するため、
@@ -219,7 +253,7 @@ def main():
         s = rebuild_pagenav(s, os.path.basename(f), maps)
         s = s.replace("</head>", head_extra + "</head>", 1)
         s = s.replace("<body>", "<body>" + sidebar + toggle
-                      + '<div id="content">' + BANNER, 1)
+                      + '<div id="content">' + LANGBAR + BANNER, 1)
         s = s.replace("</body>", "</div></body>", 1)
         open(f, "w", encoding="utf-8").write(s)
         n += 1
