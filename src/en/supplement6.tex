@@ -1,1 +1,622 @@
-% TODO: translation of src/supplement6.tex
+%============================================================
+\chapter{The Supplier of the Information Structure: Settlement by Protocol}
+\label{ch:protocol}
+%============================================================
+
+\section{The premises imposed in this chapter}
+
+Chapter~\ref{ch:solo} imposed constraints on resources and Chapter~\ref{part:unmanned} took
+their limit. Both take the information structure $\mathcal{G}$ of Chapter~\ref{sec:info} as
+given. This chapter varies $\mathcal{G}$ itself and asks
+\textbf{how the set of feasible $\Phi$ changes when the supplier of $\mathcal{G}$ is
+replaced}.
+
+Two things should be said first.
+
+First, \textbf{this chapter is deduction, not evidence.} The validity of the conclusions
+depends on the validity of the premises.
+
+Second, \textbf{nothing here is new.} Every relation stated has a counterpart in the existing
+literature, and a correspondence table is given in Appendix~\ref{app:priorwork}. The purpose
+of the chapter is to show how the theory built in Part~\ref{part:theory} works under
+specific conditions.
+
+What is replaced is the $\mathcal{G}$ of Chapter~\ref{sec:info}; the question is who
+guarantees the measurability condition of Proposition~\ref{prop:implementable}.
+
+\begin{definition}[Protocol]
+\label{def:protocol}
+A set of rules published in advance, whose execution every participant can verify
+independently, is called a \emph{protocol} and written $\mathcal{P}$. The tuple of variables
+$\mathcal{P}$ holds is called its \emph{state}. State transitions are taken to be atomic:
+no part of a transition is applied on its own.
+\end{definition}
+
+The premises are as follows.
+
+\begin{enumerate}[label=(\arabic*)]
+\item Settlement $\pi$ is expressed as a state transition on $\mathcal{P}$
+\item The execution of $\mathcal{P}$ can be verified independently by every participant (Definition~\ref{def:protocol})
+\item Whether delivery $\delta$ is contained in the state of $\mathcal{P}$ depends on the object
+\end{enumerate}
+
+The implementation in wide use that satisfies premises (1) and (2) is settlement on a public
+distributed ledger, that is, a blockchain. Not everything called by that name satisfies the
+premises, however. Where verifiers are restricted, or where the state is held by a particular
+operator, (2) fails and the deductions of this chapter do not apply.
+
+Premises (1) and (2) are a relaxation. The $\mathcal{G}=\bigcap_i\mathcal{G}_i$ of
+Chapter~\ref{sec:info} is normally supplied by a third party outside the transacting
+parties, on whom verification and enforcement of $\pi$ depended. Premises (1) and (2) make
+that unnecessary.
+
+\textbf{Only (3) cannot be fixed as a premise}, and that is what forces this chapter's case
+split.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Theoretical quantities in this chapter}}\\
+\midrule
+$\mathcal{G}$ & Chapter~\ref{sec:info} & the object whose supplier is replaced \\
+The index $i$ of $\kappa_i$ & Eq.~\eqref{eq:kappa} & becomes an identifier on the protocol. \textbf{additivity is lost} \\
+$\dbar-\delta$ & Definition~\ref{def:breakage-def} & observable as protocol state in the ``inside'' partition \\
+$E$ & Eq.~\eqref{eq:cash} & appears as collateral \\
+Degrees of freedom (2), (3) & Section~\ref{sec:dof} & the sieve cuts along these two \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Theoretical quantities in this chapter: the symbols involved when the supplier of the information structure is replaced.}
+\label{tab:protocol-quantities}
+\end{center}
+
+\section{Translating the premises}
+
+\subsection{Three functions the third party performed}
+
+The role of the supplier of $\mathcal{G}$ in a contract divides into three.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Function & Content & Usual bearer \\
+\midrule
+(a) Recording & holding the state of $\kappa_i$ & banks, payment processors \\
+(b) Verification & judging whether the condition triggering $\pi$ has occurred & courts, auditors \\
+(c) Enforcement & transferring value when the condition holds & courts, banks \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Three functions a third party performs in a contract.}
+\label{tab:third-party-functions}
+\end{center}
+
+By premises (1) and (2), $\mathcal{P}$ can always bear (a). It can bear (b) so long as the
+condition can be judged from the state of $\mathcal{P}$, and (c) so long as what is
+transferred is the state of $\mathcal{P}$.
+
+\subsection{A case split by where delivery resides}
+
+Premise (3) produces two cases.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llXX@{}}
+\toprule
+Partition & Where $\delta$ resides & What enters $\mathcal{G}$ & Functions $\mathcal{P}$ can bear \\
+\midrule
+Inside & the state of $\mathcal{P}$ & both $\delta$ and $\pi$ & (a), (b), (c) \\
+Outside & outside $\mathcal{P}$ & only $\pi$ & (a), and (b), (c) concerning $\pi$ \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The partition by where delivery resides, and the functions the protocol can bear.}
+\label{tab:protocol-cases}
+\end{center}
+
+The difference between the partitions bears directly on degree of freedom (1) of
+Section~\ref{sec:dof}, timing, and fixes the sign of $\kappa_i$ in~\eqref{eq:kappa}.
+
+\begin{proposition}[Simultaneity]
+\label{prop:simultaneity}
+In the ``inside'' partition, for any $\Phi$ there is an implementation with $\kappa_i=0$.
+In the ``outside'' partition, $\kappa_i=0$ cannot be achieved for a $\Phi$ that involves
+$\delta$.
+\end{proposition}
+
+\begin{proof}
+In the ``inside'' partition both $\delta$ and $\pi$ are state transitions of $\mathcal{P}$.
+By the atomicity of Definition~\ref{def:protocol} the two can be composed as a single
+transition,
+and $D_i$ and $P_i$ then move together, so the $\kappa_i$ of~\eqref{eq:kappa} is identically
+$0$.
+
+In the ``outside'' partition $\delta$ is not a state of $\mathcal{P}$, so $\mathcal{P}$ has
+no time for $\delta$. $\kappa_i=0$ requires $\tau_i=0$, but $\tau_i$ is not determined on
+$\mathcal{G}$.
+\end{proof}
+
+That is, \textbf{in the ``inside'' partition degree of freedom (1) becomes a full design
+variable, while in the ``outside'' partition $\kappa\neq 0$ is forced}.
+Immediate exchange in the real world achieves simultaneity because the parties observe each
+other at the same moment; $\mathcal{P}$ has no such observation. This is why 1-1 (immediate
+exchange) disappears in the ``outside'' partition in Section~\ref{sec:protocol-filter}.
+
+\begin{remark}[The partition is a property of $\Phi$, not of the object]
+\label{rem:case-is-phi}
+For one and the same object the partition changes with what is taken to be delivery. A $\Phi$
+exchanging a protocol balance for another balance is inside; a $\Phi$ exchanging the same
+balance for currency outside the protocol is outside.
+
+That a record of ownership sits on the protocol does not make the partition inside. Where a
+non-fungible token is tied to a physical artwork or a membership, what moves is the record and
+the delivery is a handover in the real world. Because $\delta$ lies outside $\mathcal{P}$,
+the partition is outside. That the two cannot be identified shows up as the fact that a
+change of record-holder does not cause a handover. For the same token, a $\Phi$ whose
+delivery is only the exercise of a right on the protocol is inside.
+
+The question ``is that object inside or outside?'' therefore does not arise. What can be
+asked is ``is that $\Phi$ inside or outside?'' This has the same form as the conclusion of
+Section~\ref{sec:unit}: here too the unit of observation must be $\Phi$ rather than the
+object.
+\end{remark}
+
+\begin{remark}[Intermediation in the ``outside'' partition]
+\label{rem:oracle}
+To bring a condition concerning $\delta$ into $\mathcal{P}$ in the ``outside'' partition, some
+party must write an external fact into the state. What $\mathcal{P}$ can verify is only that
+a prescribed signature is attached; it does not verify that the value written is factual.
+That party therefore fails premise (2), and \textbf{the third party supposedly removed
+returns}.
+
+The writing party may be a single entity or a quorum of several, so removal is continuous
+rather than discrete. This chapter does not treat that continuum and handles only the two
+ends (Section~\ref{sec:protocol-limits}). A classification of implementations is in
+\cite{pasdar2023}.
+\end{remark}
+
+\subsection{The binding constraint switches}
+
+In Chapter~\ref{ch:solo}, which of the financial and capacity constraints binds first
+switches with the premises. The same happens here.
+
+Because premises (1) and (2) widen $\mathcal{G}$, the measurability condition of
+Proposition~\ref{prop:implementable} is looser in the ``inside'' partition than anywhere else
+in this text. \textbf{$\mathcal{G}$ therefore ceases to bind and something else does.}
+Section~\ref{sec:collateral} identifies what.
+
+\section{Identifiers diverge from parties}
+\label{sec:identifier}
+
+This section is a by-product, placed where Chapter~\ref{ch:solo} recorded the correspondence
+$A\to\kappa_S<0$ for the cloud.
+
+The $\kappa_i$ of~\eqref{eq:kappa} is defined per party $i$ and summed as $\sum_i\kappa_i$
+in~\eqref{eq:cash}. That summation presumes \textbf{that the index denotes a party uniquely}.
+
+What can be identified on a protocol is an identifier. $\mathcal{P}$ cannot rule out one
+party holding several identifiers, because generating an identifier costs nothing. This is a
+known problem \cite{douceur2002}.
+
+\begin{remark}[Loss of additivity]
+\label{rem:additivity}
+Writing $j$ for an identifier, $i$ for a party, and $j\mapsto\iota(j)$ for the
+correspondence, what is observed is $\kappa_j$ while what is needed is
+\begin{equation}
+\kappa_i = \sum_{j:\,\iota(j)=i} \kappa_j
+\label{eq:kappa-aggregation}
+\end{equation}
+Since $\iota$ is not observable, \eqref{eq:kappa-aggregation} cannot be evaluated.
+
+\textbf{This is a limit of the definitions of Chapter~\ref{sec:phi}, not a consequence of
+this chapter's premises.} It shows that a setting which fixes $N$ and ties the index to a
+party does not fit an environment where identifiers are freely created. It originates in the
+same place as the circulation of claims in Section~\ref{sec:token-limit}, namely the setting
+of the domain. The theory is not amended.
+\end{remark}
+
+Remark~\ref{rem:additivity} bears directly on family 7.
+
+\begin{proposition}[A $\Phi$ requiring identification of the beneficiary cannot be implemented]
+\label{prop:beneficiary}
+When $\iota$ is not observable, a $\pi$ conditioned on the beneficiary and the payer being
+different is not $\mathcal{G}$-measurable.
+\end{proposition}
+
+\begin{proof}
+The defining property of family 7 is that the party receiving $\delta$ differs from the party
+paying $\pi$.
+$\mathcal{P}$ identifies an identifier $j$ and $\iota(j)$ is not observable, so
+$\iota(j_1)\neq\iota(j_2)$ cannot be judged on $\mathcal{G}$. By
+Proposition~\ref{prop:implementable}, a $\pi$ depending on this condition cannot be written.
+\end{proof}
+
+Proposition~\ref{prop:beneficiary} does not depend on the partition: even when $\delta$ is a
+state of $\mathcal{P}$, the \emph{party} receiving it cannot be identified. This is why 7-1
+and 7-2 drop out in both partitions. 7-4 survives because it makes no explicit exchange and
+therefore needs no identification of the beneficiary.
+
+That mechanisms presuming parties to be distinct fail when identifiers can be created freely
+is treated in mechanism design as false-name-proofness \cite{yokoo2004}.
+Proposition~\ref{prop:beneficiary} is its manifestation at the level of contract form.
+
+\section{Sieving the types}
+\label{sec:protocol-filter}
+
+The 28 types of Part~\ref{part:catalog} are passed through the sieve of the two partitions of
+Table~\ref{tab:protocol-cases}.
+
+\textbf{The criterion differs from that of Chapter~\ref{ch:solo}.} There the cut was
+feasibility; here it is whether the protocol contributes. A type that receives no
+contribution in the ``outside'' partition does not disappear; enforcement simply returns to a
+third party. Below, a type ``receives a contribution'' when the condition governing $\pi$
+enters $\mathcal{G}$ and what is enforced is a state of $\mathcal{P}$. The judgment is made
+per $\Phi$, not per type (Remark~\ref{rem:case-is-phi}).
+
+% The judgment rows exist only in the two macros below. In PDF the table does not fit the
+% page height, so families 1--4 and 5--7 are split into two tables; HTML has no such
+% constraint and keeps them as one. To revise a judgment, edit only the macros.
+\newcommand{\protocolfilterrowsA}{%
+\multicolumn{5}{@{}l}{\textbf{Family 1: one-off exchange}}\\
+1-1 & immediate exchange & yes & --- & simultaneity is available only when $\delta$ and $\pi$ are the same state transition \\
+1-2 & one-off advance & yes & yes & $\pi$ comes first and does not refer to $\delta$ \\
+1-3 & one-off arrears & yes & --- & outside, completion of $\delta$ cannot be judged \\
+1-4 & instalments & yes & partly & outside, collection of $\pi$ works but default does not reach the underlying asset \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{Family 2: continuing access}}\\
+2-1 & flat access & yes & yes & $\pi=F$ does not refer to $\delta$ \\
+2-2 & usage & yes & --- & outside, metering $\delta$ needs the party of Remark~\ref{rem:oracle} \\
+2-3 & two-part tariff & yes & partly & outside, only the fixed part $F$ \\
+2-4 & prepaid & yes & yes & inside, the unused balance is itself the protocol state \\
+2-5 & options and warranties & yes & --- & outside, the exercise condition lies outside the protocol \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{Family 3: renting an asset over time}}\\
+3-1 & lease and rental & yes & --- & inside only where the asset itself is a protocol state \\
+3-2 & shared asset & conditionally & --- & the range in which utilization can be written as a state transition is narrow \\
+3-3 & transfer plus long collection & yes & --- & inside with collateral; outside it does not reach the underlying asset \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{Family 4: recovery through a complement}}\\
+4-1 & lock-in consumables & conditionally & --- & the family presumes the device lies outside the protocol, which fails inside \\
+4-2 & freemium & yes & yes & $\kappa>0$, but it is self-issued credit and asks no enforcement of the protocol \\
+4-3 & hardware subsidy plus finance & yes & --- & outside, the device lies outside the protocol \\
+}
+\newcommand{\protocolfilterrowsB}{%
+\multicolumn{5}{@{}l}{\textbf{Family 5: outcome- and state-contingent}}\\
+5-1 & success fee & conditionally & --- & only where the $y$ of $\pi=h(y)$ is a protocol quantity \\
+5-2 & revenue share & yes & --- & inside, the counterparty's flow is observable on the protocol \\
+5-3 & cost plus & --- & --- & actual costs lie outside the protocol either way \\
+5-4 & underwriting & yes & --- & inside, $\omega$ is confined to protocol events \\
+5-5 & IP licensing & yes & --- & inside, where use is observable on the protocol \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{Family 6: intermediation}}\\
+6-1 & transaction fee & yes & --- & inside, completed in combination with the simultaneity of 1-1 \\
+6-2 & escrow & yes & partly & outside, only one side is held; release needs the party of Remark~\ref{rem:oracle} \\
+6-3 & spread & yes & --- & inside, inventory becomes a protocol balance \\
+6-4 & charging for opportunity & conditionally & --- & only where contact can be defined as a protocol event \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{Family 7: separating beneficiary from payer}}\\
+7-1 & advertising & --- & --- & that beneficiary and payer differ cannot be verified (Section~\ref{sec:identifier}) \\
+7-2 & cross-subsidy & --- & --- & as above \\
+7-3 & public payment & --- & --- & the payer sets the price and design freedom sits in the institutional layer \\
+7-4 & donation and support & yes & yes & no explicit exchange, so no identification of the beneficiary is required \\
+}
+
+\ifdefined\HCode
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+No. & Type & Inside & Outside & Grounds \\
+\midrule
+\protocolfilterrowsA
+\midrule
+\protocolfilterrowsB
+\bottomrule
+\end{tabularx}
+\captionof{table}{Sieving the 28 types. ``yes'' marks those that receive a contribution.}
+\label{tab:protocol-filter-a}
+\end{center}
+\else
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+No. & Type & Inside & Outside & Grounds \\
+\midrule
+\protocolfilterrowsA
+\bottomrule
+\end{tabularx}
+\captionof{table}{Sieving the 28 types (families 1--4). ``yes'' marks those that receive a contribution.}
+\label{tab:protocol-filter-a}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}llccX@{}}
+\toprule
+No. & Type & Inside & Outside & Grounds \\
+\midrule
+\protocolfilterrowsB
+\bottomrule
+\end{tabularx}
+\captionof{table}{Sieving the 28 types (families 5--7). ``yes'' marks those that receive a contribution.}
+\label{tab:protocol-filter-b}
+\end{center}
+\fi
+
+Twenty types receive a contribution in the ``inside'' partition and five in the ``outside''
+partition. Where the sieve of Chapter~\ref{ch:solo} cut 28 types down to about ten, the
+``inside'' sieve barely cuts at all. \textbf{This chapter's premises are a relaxation, not a
+constraint.}
+
+That 1-1 disappears in the ``outside'' partition follows from
+Proposition~\ref{prop:simultaneity}: if $\delta$ lies outside the protocol, the form degrades
+into either an advance or arrears.
+
+\textbf{Receiving a contribution and being executable are, however, different things.}
+The advance forms (1-2, 2-4) pass in the table for the ``inside'' partition, but executing
+them requires collateral towards the counterparty and they are not open to a party without
+assets (Corollary~\ref{cor:growth-needs-capital}, Corollary~\ref{cor:exclusion}).
+Section~\ref{sec:collateral} treats this.
+
+\begin{remark}[The axis along which the sieve cuts]
+The five types surviving in the ``outside'' partition are 1-2, 2-1, 2-4, 4-2 and 7-4, and all
+they share is that $\pi$ is not measurable with respect to $\delta$. Of the six degrees of
+freedom of Section~\ref{sec:dof}, only (2) carries information for this sieve.
+
+\textbf{This is not a proposition.} Since the ``outside'' partition was defined as the case
+where $\delta$ does not enter $\mathcal{G}$, the impossibility of writing a
+$\delta$-measurable $\pi$ follows from the definition. The information lies not in the claim
+but in the fact that applying the sieve to 28 types individually turned out to be explained
+by a single degree of freedom.
+\end{remark}
+
+\begin{remark}[The direction in which the institutional layer acts]
+Types 2-4 (prepaid) and 6-2 (escrow) were the ones removed in Section~\ref{sec:bootstrap} by
+deposit obligations and licensing. In the ``inside'' partition they are implemented as
+protocol.
+
+\textbf{One and the same type both drops out and returns, depending on the direction in which
+the institutional layer acts.} This is an instance showing that the first form
+(entry requirement) of the three in Remark~\ref{rem:institution-modes} does not act in only
+one direction.
+\end{remark}
+
+\section{The collateral constraint}
+\label{sec:collateral}
+
+Section~\ref{sec:protocol-filter} showed that $\mathcal{G}$ ceases to bind. This section
+identifies what does.
+
+Consider a $\Phi$ in the ``inside'' partition with $\kappa_i>0$, that is, one in which the
+operator extends credit. To enforce on non-payment of $\pi$, what is enforced must be a state
+of $\mathcal{P}$. But $\mathcal{G}$ consists only of states of $\mathcal{P}$, so
+\textbf{neither the counterparty's ability to pay nor their past record of performance is in
+$\mathcal{G}$}.
+
+Credit can therefore be provided for only through states locked in advance, that is,
+collateral. Writing $B_i$ for the collateral one has locked for counterparty $i$ and $B_i'$
+for the collateral $i$ has locked for oneself, the $\kappa_i$ of~\eqref{eq:kappa} satisfies
+
+\begin{equation}
+\max\{\kappa_i,0\} \;\leq\; B_i',
+\qquad
+\max\{-\kappa_i,0\} \;\leq\; B_i
+\label{eq:protocol-collateral}
+\end{equation}
+
+Collateral is provided from one's own assets without duplication, so $\sum_i B_i\leq E$, and
+summing~\eqref{eq:protocol-collateral} over $i$ gives the following.
+
+\begin{proposition}[Collateral constraint]
+\label{prop:collateral}
+In the ``inside'' partition, the total credit that can be received does not exceed equity.
+\begin{equation}
+\sum_i \max\{-\kappa_i,0\} \;\leq\; E
+\label{eq:protocol-finance}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Summing the second inequality of~\eqref{eq:protocol-collateral} over all $i$ gives
+$\sum_i\max\{-\kappa_i,0\}\leq\sum_i B_i$. The same asset cannot be locked for several
+counterparties at once, so $\sum_i B_i\leq E$; combining the two gives the result.
+\end{proof}
+
+Compare~\eqref{eq:protocol-finance} with~\eqref{eq:solo-finance} of Chapter~\ref{ch:solo}.
+There, under $E\approx 0$, the requirement was
+$\sum\max\{-\kappa_i,0\}\geq\sum\max\{\kappa_i,0\}$: the credit drawn had to exceed the
+credit extended. Here the credit that can be drawn is itself bounded by $E$.
+
+\begin{corollary}[The substitution degenerates to one direction]
+\label{cor:one-way-substitution}
+In the ``inside'' partition, the substitution of Proposition~\ref{prop:substitution} becomes
+one-directional: capital substitutes for credit, but credit does not substitute for capital.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:collateral} the terms with $\kappa<0$ are bounded above by $E$.
+In~\eqref{eq:cash}, terms with $\kappa<0$ cannot raise funding beyond $E$. The reverse
+substitution --- $E$ substituting for $\kappa<0$ --- holds as in
+Proposition~\ref{prop:substitution}.
+\end{proof}
+
+Corollary~\ref{cor:one-way-substitution} is the third place in this text where
+Proposition~\ref{prop:substitution} appears.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lllX@{}}
+\toprule
+Place & $E$ & Credit & What binds there \\
+\midrule
+Chapter~\ref{ch:solo}, solo business & 0 & the only means of funding & the credit bootstrap problem \\
+Section~\ref{sec:retiree}, those with assets & positive & built from zero & capital buys the period in which credit is built \\
+This chapter, ``inside'' & the only means of funding & 0 & there is no period in which to build \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{The three places Proposition~\ref{prop:substitution} appears. The two ends line up.}
+\label{tab:substitution-three-points}
+\end{center}
+
+Section~\ref{sec:credit-formation} described the route by which credit forms through
+accumulated public performance. That route does not operate in the ``inside'' partition,
+because $\mathcal{P}$ identifies only identifiers (Section~\ref{sec:identifier}) and cannot
+attribute a past record of performance to a party.
+
+\begin{corollary}[Exclusion of parties without assets]
+\label{cor:exclusion}
+When $A=\mathrm{Inv}=0$ and $E=0$, the only feasible $\Phi$ are those with $\kappa_i=0$ for
+every $i$.
+\end{corollary}
+
+\begin{proof}
+Substituting $E=0$ into~\eqref{eq:protocol-finance} gives $\kappa_i\geq 0$ for every $i$.
+On the other hand, by Proposition~\ref{prop:substitution}, when $A=\mathrm{Inv}=E=0$ the
+requirement is $\sum_i\max\{-\kappa_i,0\}\geq\sum_i\max\{\kappa_i,0\}$, whose left-hand side
+is $0$, giving $\kappa_i\leq 0$.
+\end{proof}
+
+\begin{corollary}[Growth through advance payment requires capital]
+\label{cor:growth-needs-capital}
+In the ``inside'' partition, achieving $\CCC<0$ requires $E>0$.
+\end{corollary}
+
+\begin{proof}
+By~\eqref{eq:ccc}, $\CCC=W/r$ with $W=\sum_i\kappa_i+\mathrm{Inv}$. Substituting $E=0$ into
+Proposition~\ref{prop:collateral} gives $\kappa_i\geq 0$ for every $i$, which together with
+$\mathrm{Inv}\geq 0$ gives $W\geq 0$ and hence $\CCC\geq 0$.
+\end{proof}
+
+Chapter~\ref{ch:solo} showed a route by which a solo business without assets creates
+$\CCC<0$ through annual prepayment --- a state in which growth generates cash.
+\textbf{That route closes in the ``inside'' partition}, because receiving an advance requires
+collateral towards the counterparty and collateral is provided out of capital.
+
+That is, \textbf{what remains to a party without assets is confined to types with $\kappa$
+identically $0$}: 1-1 (immediate exchange), 2-2 (usage) and 6-1 (transaction fee), which
+Part~\ref{part:catalog} recorded as $\kappa\approx 0$, and their composites.
+In Chapter~\ref{ch:solo}, $E=0$ required $\kappa_C<0$; here it forces $\kappa=0$.
+Solutions (a), (b) and (c) of Section~\ref{sec:bootstrap} all presumed a shortage of credit;
+what is short here is capital.
+
+\begin{remark}[Correspondence with existing theory]
+\label{rem:collateral-priorwork}
+Nothing in this section is new. The structure by which net worth constrains funding through
+collateral capacity is in \cite{kiyotaki1997}, and the formulation in which collateral
+constraints govern a firm's financing and risk management jointly is in
+\cite{rampini2010,rampini2013}. Proposition~\ref{prop:substitution} itself has counterparts
+there too (Appendix~\ref{app:priorwork}).
+
+That the contractible space widens under premises (1) and (2) is treated in \cite{cong2019}.
+The point corresponding to Corollary~\ref{cor:exclusion} --- that a mechanism demanding
+collateral excludes parties without capital --- also has a literature \cite{oecd2024}.
+
+\textbf{The role of this section is to place these on one and the same inequality,
+that of~\eqref{eq:cash}.}
+\end{remark}
+
+\section{Observability}
+\label{sec:protocol-observability}
+
+Premise (2) has a secondary consequence. Because the state of $\mathcal{P}$ is verifiable by
+every participant, the following quantities are individually observable in the ``inside''
+partition.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Quantity & Measurement status in this text & Status in the ``inside'' partition \\
+\midrule
+$M(t)$ & requires per-firm data and is meaningless in aggregate & observable per identifier \\
+$\kappa_j$ & as above & as above \\
+$\dbar-\delta$ & only estimable from aggregates & directly observable as the unused balance \\
+$B$ & this text has no corresponding quantity & observable as locked state \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Quantities that become observable in the ``inside'' partition.}
+\label{tab:protocol-observability}
+\end{center}
+
+What is observable, however, is per identifier, and by Remark~\ref{rem:additivity} the
+per-party $\kappa_i$ cannot be recovered.
+\textbf{The obstacle to measurement changes from the absence of aggregation to the
+impossibility of it.} This differs from category (v) of Section~\ref{sec:obstacle-taxonomy}
+(Remark~\ref{rem:agg-impossible}) and is a new form relative to the taxonomy of
+Part~\ref{part:method}.
+
+\subsection{A population frame becomes available}
+\label{sec:protocol-frame}
+
+It is not only quantities that become observable.
+
+The conditioning on survival of Chapter~\ref{ch:method} arises because the objects observed
+are limited to paths that did not violate~\eqref{eq:constraint}. In the ``inside'' partition
+\textbf{the record of the protocol is itself the population}. Every $\Phi$ that operated
+remains, including those that stopped, so no conditioning occurs.
+
+Chapter~\ref{ch:platformfee} abandoned direct measurement of the unmanned operating period
+for want of a population frame. That reason disappears here.
+
+\subsection{What can and cannot be tested}
+\label{sec:protocol-testable}
+
+Being observable does not mean being testable. Three cases must be separated first.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Case & Content \\
+\midrule
+Quantities the protocol enforces & observing them is not a test; it is reading the rules \\
+Quantities that result from design & these are what can be tested \\
+Per-party quantities & cannot be recovered (Remark~\ref{rem:additivity}) \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Three cases among the quantities observable in the ``inside'' partition.}
+\label{tab:protocol-testability}
+\end{center}
+
+The collateral constraint of Proposition~\ref{prop:collateral} belongs to the first case.
+Since the protocol requires collateral, observing that collateral is posted does not test the
+proposition.
+\textbf{What can be tested is confined to quantities that appear as the result of an
+operator's choice.}
+
+\begin{remark}[The population differs]
+\label{rem:protocol-population}
+A distribution measured in the ``inside'' partition cannot be generalized to firms at large.
+In the sense of Chapter~\ref{ch:method} it is a different population.
+\textbf{What can be tested here is whether a deduction is correct, not whether that deduction
+applies to real solo businesses.}
+The propositions of Chapter~\ref{ch:solo} can be tested; nothing is said about that
+chapter's objects.
+\end{remark}
+
+Chapter~\ref{ch:protocol-emp} observes these quantities in practice.
+
+\section{Limits of this chapter}
+\label{sec:protocol-limits}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{This is deduction.} The conclusions depend on premises (1), (2) and (3).
+The tests of Section~\ref{sec:protocol-results} measure the implications of the deduction and
+do not verify the premises themselves.
+
+\item \textbf{A rule was needed to narrow what is judged.}
+Table~\ref{tab:family-assignment-order} takes $\Phi$ as given and cannot be applied directly
+to ledger identifiers. Section~\ref{sec:protocol-results} places the question ``is this a
+$\Phi$?'' before the assignment order (Remark~\ref{rem:is-it-phi}). That step is not part of
+the rule of Chapter~\ref{ch:catalog}.
+
+\item \textbf{Only the two ends are treated.} As Remark~\ref{rem:oracle} notes, the degree to
+which the third party is removed in the ``outside'' partition is continuous. This chapter
+treats only full removal and no removal, not the middle. Most existing arrangements are in
+the middle.
+
+\item \textbf{A limit of the definitions remains.} The unobservability of $\iota$ in
+Section~\ref{sec:identifier} originates in fixing $N$ in Chapter~\ref{sec:phi}. This chapter
+records it and does not extend the domain. It is the same place as the circulation of claims
+in Section~\ref{sec:token-limit}.
+
+\item \textbf{$\phi$ is not treated.} This chapter argues only about the feasibility of
+$\Phi$ and does not apply the three-way decomposition of surplus of
+Chapter~\ref{sec:surplus}. An argument of the same form as the remark in
+Chapter~\ref{part:unmanned} --- that the replicability of a protocol puts pressure on
+$\phi_{\rm prod}$ --- could hold, but judging it requires measured fees and is not attempted
+here.
+\end{enumerate}
+
+%============================================================
